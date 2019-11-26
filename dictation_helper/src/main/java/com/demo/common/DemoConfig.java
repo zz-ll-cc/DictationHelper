@@ -1,9 +1,8 @@
 package com.demo.common;
 
 import com.demo.book.BookController;
-import com.demo.common.model.Book;
-import com.demo.common.model.Version;
 import com.demo.index.IndexController;
+import com.demo.upload.UploadController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -69,6 +68,8 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
 //		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/book", BookController.class);
+
+		me.add("/upload", UploadController.class,"/upload");//上传控制器
 	}
 	
 	public void configEngine(Engine me) {

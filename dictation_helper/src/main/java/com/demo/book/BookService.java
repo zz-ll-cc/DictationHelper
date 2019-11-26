@@ -1,16 +1,15 @@
 package com.demo.book;
 
-import com.demo.common.model.Book;
-import com.demo.common.model.Version;
+import com.demo.common.model.TblBook;
 
 import java.util.List;
 
 public class BookService {
 
-    private Book dao = new Book().dao();
+    private TblBook dao = new TblBook().dao();
 
 
-    public List<Book> findAllBook(){
+    public List<TblBook> findAllBook(){
         return dao.findAll();
     }
 

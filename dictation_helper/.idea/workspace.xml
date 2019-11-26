@@ -11,6 +11,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -32,6 +33,7 @@
   </component>
   <component name="ProjectId" id="1U8rX0hM6nQYeOPvRTlD9SsPolr" />
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -51,7 +53,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application._JFinalDemoGenerator">
     <configuration name="DemoConfig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.demo.common.DemoConfig" />
       <module name="dictation_helper" />
@@ -65,8 +67,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="_JFinalDemoGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.demo.common.model._JFinalDemoGenerator" />
+      <module name="dictation_helper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.demo.common.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application._JFinalDemoGenerator" />
         <item itemvalue="Application.DemoConfig" />
       </list>
     </recent_temporary>
@@ -81,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574749098518</updated>
-      <workItem from="1574749099935" duration="2092000" />
+      <workItem from="1574749099935" duration="4358000" />
     </task>
     <servers />
   </component>

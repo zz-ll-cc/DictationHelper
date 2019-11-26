@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/utils/FileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/upload/hdImg_c79c35bda8baaac5db1b5a1911161146157300199771.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/dictation_helper.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,8 +55,11 @@
     </option>
   </component>
   <component name="ProjectId" id="1U8rX0hM6nQYeOPvRTlD9SsPolr" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -132,7 +128,8 @@
       <updated>1574749098518</updated>
       <workItem from="1574749099935" duration="4358000" />
       <workItem from="1574756211910" duration="67000" />
-      <workItem from="1574756296294" duration="2816000" />
+      <workItem from="1574756296294" duration="3219000" />
+      <workItem from="1574759522401" duration="807000" />
     </task>
     <servers />
   </component>
@@ -151,5 +148,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

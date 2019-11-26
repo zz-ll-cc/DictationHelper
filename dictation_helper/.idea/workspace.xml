@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="" />
+    <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/utils/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/dictation_helper.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -15,6 +42,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -32,8 +62,10 @@
     </option>
   </component>
   <component name="ProjectId" id="1U8rX0hM6nQYeOPvRTlD9SsPolr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -53,10 +85,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application._JFinalDemoGenerator">
+  <component name="RunManager" selected="Application.DemoConfig">
     <configuration name="DemoConfig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.demo.common.DemoConfig" />
-      <module name="dictation_helper" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.demo.common.*" />
@@ -82,8 +115,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application._JFinalDemoGenerator" />
         <item itemvalue="Application.DemoConfig" />
+        <item itemvalue="Application._JFinalDemoGenerator" />
       </list>
     </recent_temporary>
   </component>
@@ -98,10 +131,25 @@
       <option name="presentableId" value="Default" />
       <updated>1574749098518</updated>
       <workItem from="1574749099935" duration="4358000" />
+      <workItem from="1574756211910" duration="67000" />
+      <workItem from="1574756296294" duration="2816000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

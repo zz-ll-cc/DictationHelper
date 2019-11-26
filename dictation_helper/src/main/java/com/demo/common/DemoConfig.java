@@ -1,6 +1,8 @@
 package com.demo.common;
 
 import com.demo.book.BookController;
+import com.demo.common.model.TblBook;
+import com.demo.common.model.TblBookversion;
 import com.demo.index.IndexController;
 import com.demo.upload.UploadController;
 import com.jfinal.config.Constants;
@@ -89,8 +91,8 @@ public class DemoConfig extends JFinalConfig {
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		me.add(arp);
 		// 所有映射在 MappingKit 中自动化搞定
-		arp.addMapping("tbl_book","bid", Book.class);
-		arp.addMapping("tbl_bookversion","bvId", Version.class);
+		arp.addMapping("tbl_book","bid", TblBook.class);
+		arp.addMapping("tbl_bookversion","bvId", TblBookversion.class);
 
 
 

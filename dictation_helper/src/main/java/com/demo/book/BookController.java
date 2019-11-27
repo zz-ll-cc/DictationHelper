@@ -20,8 +20,4 @@ public class BookController extends Controller {
         String gid=getPara("gid");
         renderJson(bookService.findAllBooksByVesionAndGrade(Integer.parseInt(bvid),Integer.parseInt(gid)));
     }
-    public void updatebook(){
-        bookService.update(10000,"123");
-    }
-
 }

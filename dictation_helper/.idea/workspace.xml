@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/book/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/book/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBookversion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBookversion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblGrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/book/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/book/BookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/model/base/BaseTblUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/model/base/BaseTblUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/model/base/BaseTblWord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/model/base/BaseTblWord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +78,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Ideaworkspace/jfinal_demo_for_maven" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -131,7 +146,8 @@
       <workItem from="1574756296294" duration="3219000" />
       <workItem from="1574759522401" duration="807000" />
       <workItem from="1574814980890" duration="4317000" />
-      <workItem from="1574820268078" duration="2184000" />
+      <workItem from="1574820268078" duration="5630000" />
+      <workItem from="1574836997297" duration="1258000" />
     </task>
     <servers />
   </component>

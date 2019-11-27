@@ -57,4 +57,12 @@ public abstract class BaseTblWord<M extends BaseTblWord<M>> extends Model<M> imp
 		return getInt("type");
 	}
 
+	public void setWimgPath(java.lang.String wimgPath) {
+		set("wimgPath", wimgPath);
+	}
+	
+	public java.lang.String getWimgPath() {
+		return getStr("wimgPath");
+	}
+
 }

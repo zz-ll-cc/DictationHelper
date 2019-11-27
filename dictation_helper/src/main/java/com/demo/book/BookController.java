@@ -11,6 +11,7 @@ public class BookController extends Controller {
     public void findallbooks(){
         renderJson(bookService.findAllBooks());
     }
+
     public void findbooksbyversion(){
         int bvid=getParaToInt();
         renderJson(bookService.findAllBooksByVesion(bvid));

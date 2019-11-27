@@ -2,6 +2,7 @@ package com.demo.upload;
 
 
 import com.demo.book.BookService;
+import com.demo.word.WordService;
 import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
@@ -12,6 +13,9 @@ public class UploadController extends Controller {
 
     @Inject
     BookService bookService;
+
+    @Inject
+    WordService wordService;
 
     QiniuService qiniuService = new QiniuService();
 
@@ -49,7 +53,7 @@ public class UploadController extends Controller {
             String url = qiniuService.saveImage(file);
             System.out.println("success: imageUrl = "+url);
             int wid = getInt("wid");
-
+            wordService.update(wid,url);
             if(file.getFile().delete()){
                 System.out.println("已经删除本地文件,修改数据库成功");
             }

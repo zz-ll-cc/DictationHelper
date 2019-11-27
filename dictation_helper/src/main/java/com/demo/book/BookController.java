@@ -8,17 +8,37 @@ public class BookController extends Controller {
     @Inject
     private BookService bookService;
 
-    public void findallbooks(){
+    public void findall(){
         renderJson(bookService.findAllBooks());
     }
 
-    public void findbooksbyversion(){
+    public void findbyversion(){
         int bvid=getParaToInt();
         renderJson(bookService.findAllBooksByVesion(bvid));
     }
-    public void findbooksbyversionandgrade(){
+    public void findbygrade(){
+        int gid=getParaToInt();
+        renderJson(bookService.findAllBooksByVesion(gid));
+    }
+    public void findbyversionandgrade(){
         String bvid=getPara("bvid");
         String gid=getPara("gid");
-        renderJson(bookService.findAllBooksByVesionAndGrade(Integer.parseInt(bvid),Integer.parseInt(gid)));
+        int bv=Integer.parseInt(bvid);
+        int g=Integer.parseInt(gid);
+        System.out.println(bv);
+        System.out.println(g);
+        if (bv==1&&g==1){
+            renderJson(bookService.findAllBooks());
+        }
+        else if(bv==1){
+            System.out.println(bv+"   "+g);
+            renderJson(bookService.findAllBooksByGrade(g));
+        }
+        else if(g==1){
+            renderJson(bookService.findAllBooksByVesion(bv));
+        }
+        else {
+            renderJson(bookService.findAllBooksByVesionAndGrade(bv, g));
+        }
     }
 }

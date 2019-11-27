@@ -77,8 +77,8 @@ public class DemoConfig extends JFinalConfig {
 	}
 	
 	public void configEngine(Engine me) {
-		me.addSharedFunction("/common/_layout.html");
-		me.addSharedFunction("/common/_paginate.html");
+		me.setBaseTemplatePath("webapp");
+		me.setToClassPathSourceFactory();
 	}
 	
 	/**

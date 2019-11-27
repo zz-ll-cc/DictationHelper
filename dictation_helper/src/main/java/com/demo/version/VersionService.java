@@ -1,11 +1,12 @@
 package com.demo.version;
 
-import com.demo.common.model.Version;
+import com.demo.common.model.TblBook;
+import com.demo.common.model.TblBookversion;
 
 import java.util.List;
 
 public class VersionService {
-    private Version dao = new Version().dao();
+    private TblBookversion dao = new TblBookversion().dao();
 
 
     /**
@@ -13,7 +14,7 @@ public class VersionService {
      * @param bvId
      * @return
      */
-    public Version findOneById(int bvId){
+    public TblBookversion findOneById(int bvId){
         return dao.findById(bvId);
     }
 
@@ -21,7 +22,7 @@ public class VersionService {
      * 找到所有的版本信息
      * @return
      */
-    public List<Version> findAllVersion(){
+    public List<TblBookversion> findAllVersion(){
         return dao.findAll();
     }
 

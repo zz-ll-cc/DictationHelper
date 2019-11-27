@@ -3,8 +3,10 @@ package com.demo.common;
 import com.demo.book.BookController;
 import com.demo.common.model.TblBook;
 import com.demo.common.model.TblBookversion;
+import com.demo.common.model._MappingKit;
 import com.demo.index.IndexController;
 import com.demo.upload.UploadController;
+import com.demo.word.WordController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -67,10 +69,10 @@ public class DemoConfig extends JFinalConfig {
 	 * 配置路由
 	 */
 	public void configRoute(Routes me) {
-		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
+//		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
 //		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/book", BookController.class);
-
+		me.add("/word", WordController.class);
 		me.add("/upload", UploadController.class,"/upload");//上传控制器
 	}
 	
@@ -91,8 +93,8 @@ public class DemoConfig extends JFinalConfig {
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		me.add(arp);
 		// 所有映射在 MappingKit 中自动化搞定
-		arp.addMapping("tbl_book","bid", TblBook.class);
-		arp.addMapping("tbl_bookversion","bvId", TblBookversion.class);
+		_MappingKit.mapping(arp);
+		me.add(arp);
 
 
 

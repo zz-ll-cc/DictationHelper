@@ -8,9 +8,17 @@ public class BookController extends Controller {
     @Inject
     private BookService bookService;
 
-    public void index(){
-        renderJson(bookService.findAllBook().toString());
+    public void findallbooks(){
+        renderJson(bookService.findAllBooks());
     }
-
+    public void findbooksbyversion(){
+        int bvid=getParaToInt();
+        renderJson(bookService.findAllBooksByVesion(bvid));
+    }
+    public void findbooksbyversionandgrade(){
+        String bvid=getPara("bvid");
+        String gid=getPara("gid");
+        renderJson(bookService.findAllBooksByVesionAndGrade(Integer.parseInt(bvid),Integer.parseInt(gid)));
+    }
 
 }

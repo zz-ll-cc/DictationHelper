@@ -8,7 +8,7 @@ public class BookController extends Controller {
     @Inject
     private BookService bookService;
 
-    public void findall(){
+    public void all(){
         renderJson(bookService.findAllBooks());
     }
 

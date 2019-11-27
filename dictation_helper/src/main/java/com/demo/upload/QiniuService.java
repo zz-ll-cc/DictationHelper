@@ -54,23 +54,9 @@ public class QiniuService {
             if (!FileUtil.isFileAllowed(fileExt)) {
                 return null;
             }
-
             String fileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + fileExt;
 
-            //转字节数组
-            byte[] buffer = null;
-            FileInputStream fis = new FileInputStream(file.getFile());
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int n;
-            while((n = fis.read(b)) != -1){
-                bos.write(b,0,n);
-            }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
-
-            Response res = uploadManager.put(buffer, fileName, getUpToken());
+            Response res = uploadManager.put(file.getFile(), fileName, getUpToken());
             // 打印返回的信息
             if (res.isOK() && res.isJson()) {
                 // 返回这张存储照片的地址

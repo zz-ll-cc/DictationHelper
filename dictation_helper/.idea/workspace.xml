@@ -2,71 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log_2019-11-27.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/upload/uploadUserImage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/user/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/user/regist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/user/userhome.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/upload/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/upload/upload.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/jfinal_demo_for_maven.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/QiniuService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/QiniuService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/config/demo-config-dev.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/config/demo.pfx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/config/log4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/config/logging.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/config/undertow.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/cos-2019.8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/druid-1.0.29.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/fastjson-1.2.31.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/gson-2.6.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/happy-dns-java-0.1.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/javax.servlet-api-4.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/jboss-logging-3.4.0.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/jfinal-4.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/jfinal-undertow-1.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/jfinal_demo_for_maven-4.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/log4j-1.2.16.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/mysql-connector-java-5.1.44.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/okhttp-3.3.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/okio-1.8.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/qiniu-java-sdk-7.2.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/slf4j-api-1.7.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/slf4j-nop-1.7.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/undertow-core-2.0.25.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/undertow-servlet-2.0.25.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/xnio-api-3.3.8.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/lib/xnio-nio-3.3.8.Final.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/assets/css/manage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/assets/img/bg.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/assets/img/left2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/assets/img/right2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/assets/js/jquery-1.4.4.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/blog/_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/blog/add.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/blog/blog.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/blog/edit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/common/_layout.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/common/_paginate.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/index/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/upload/upload.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/upload/uploadBookImage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/upload/uploadFinish.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-release/jfinal_demo_for_maven/webapp/upload/uploadWordImage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +150,7 @@
       <workItem from="1574839800502" duration="2474000" />
       <workItem from="1574843201359" duration="1334000" />
       <workItem from="1574844564215" duration="2313000" />
-      <workItem from="1574900185321" duration="7333000" />
+      <workItem from="1574900185321" duration="7971000" />
     </task>
     <servers />
   </component>

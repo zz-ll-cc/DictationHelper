@@ -9,12 +9,12 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseTblGrade<M extends BaseTblGrade<M>> extends Model<M> implements IBean {
 
-	public void setGit(java.lang.Integer git) {
-		set("git", git);
+	public void setGid(java.lang.Integer gid) {
+		set("gid", gid);
 	}
 	
-	public java.lang.Integer getGit() {
-		return getInt("git");
+	public java.lang.Integer getGid() {
+		return getInt("gid");
 	}
 
 	public void setGname(java.lang.String gname) {

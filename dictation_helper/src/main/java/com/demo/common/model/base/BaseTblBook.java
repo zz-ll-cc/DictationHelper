@@ -49,4 +49,12 @@ public abstract class BaseTblBook<M extends BaseTblBook<M>> extends Model<M> imp
 		return getStr("bimgPath");
 	}
 
+	public void setBunitAccount(java.lang.Integer bunitAccount) {
+		set("bunitAccount", bunitAccount);
+	}
+	
+	public java.lang.Integer getBunitAccount() {
+		return getInt("bunitAccount");
+	}
+
 }

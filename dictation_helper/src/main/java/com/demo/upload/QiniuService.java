@@ -60,7 +60,7 @@ public class QiniuService {
             // 打印返回的信息
             if (res.isOK() && res.isJson()) {
                 // 返回这张存储照片的地址
-                return domain + File.separator+JSONObject.parseObject(res.bodyString()).get("key");
+                return domain + "/" +JSONObject.parseObject(res.bodyString()).get("key");
             } else {
                 System.out.println("七牛异常:" + res.bodyString());
                 return null;

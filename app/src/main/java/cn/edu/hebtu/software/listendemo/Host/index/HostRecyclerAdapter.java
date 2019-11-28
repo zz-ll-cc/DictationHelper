@@ -1,4 +1,4 @@
-package com.example.dictationprj.Host;
+package com.example.dictationprj.Host.index;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dictationprj.Book;
+import com.bumptech.glide.Glide;
 import com.example.dictationprj.BookDetail.BookDetailActivity;
+import com.example.dictationprj.Entity.Book;
 import com.example.dictationprj.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,15 +50,14 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     private void changeRes() {
-        Type type = new TypeToken<List<Integer>>() {
-        }.getType();
+        Type type = new TypeToken<List<Integer>>() {}.getType();
         collectRes = gson.fromJson(sp.getString("collectList", "[]"), type);
         bindId = sp.getInt("bind", -1);
         if (bindId != -1 && collectRes.size() == 0) {
             // 此时已经有绑定教材，但无收藏教材
             for (int i = 0; i < res.size(); i++) {
                 // 将绑定教材放入第一个位置
-                if (res.get(i).getId() == bindId) {
+                if (res.get(i).getBid() == bindId) {
                     Book book = res.get(i);
                     res.remove(i);
                     res.add(0, book);
@@ -69,7 +70,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
             for (int i = 0; i < collectRes.size(); i++) {
                 int id = collectRes.get(i);
                 for (int j = 0; j < res.size(); j++) {
-                    if (res.get(j).getId() == id) {
+                    if (res.get(j).getBid() == id) {
                         res.add(1, res.get(j));
                         res.remove(j + 1);
                         break;
@@ -78,7 +79,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
             }
             for (int i = 0; i < res.size(); i++) {
                 // 先将绑定教材放入第一个位置
-                if (res.get(i).getId() == bindId) {
+                if (res.get(i).getBid() == bindId) {
                     Book book = res.get(i);
                     res.add(0, book);
                     res.remove(i + 1);
@@ -91,7 +92,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
             for (int i = 0; i < collectRes.size(); i++) {
                 int id = collectRes.get(i);
                 for (int j = 0; j < res.size(); j++) {
-                    if (res.get(j).getId() == id) {
+                    if (res.get(j).getBid() == id) {
                         res.add(0, res.get(j));
                         res.remove(j + 1);
                         break;
@@ -115,12 +116,20 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         MyViewHolder viewHolder1 = (MyViewHolder) viewHolder;
         final Book book = res.get(i);
-        viewHolder1.tvName.setText(book.getName());
-        if (bindId == book.getId()) {
+        viewHolder1.tvName.setText(book.getBname());
+        if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
+            try {
+                URL  url = new URL(book.getBimgPath());
+                Glide.with(context).load(url).into(viewHolder1.ivCover);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (bindId == book.getBid()) {
             viewHolder1.ivCollect.setVisibility(View.GONE);
             viewHolder1.ivBind.setVisibility(View.VISIBLE);
             viewHolder1.ivBind.setImageDrawable(context.getResources().getDrawable(R.drawable.binded));
-        } else if (collectRes.contains(book.getId())) {
+        } else if (collectRes.contains(book.getBid())) {
             viewHolder1.ivBind.setVisibility(View.GONE);
             viewHolder1.ivCollect.setVisibility(View.VISIBLE);
             viewHolder1.ivCollect.setImageDrawable(context.getResources().getDrawable(R.drawable.collected));
@@ -147,17 +156,17 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                 // 如果是未收藏，点击可进行收藏
                 // 如果已经收藏，点击可进行取消收藏
                 // 1. 判断当前内容是否在收藏中
-                if (collectRes.contains(book.getId())) {
+                if (collectRes.contains(book.getBid())) {
                     // 此时已经在收藏夹
                     for (int i = 0; i < collectRes.size(); i++) {
-                        if (collectRes.get(i) == book.getId()) {
+                        if (collectRes.get(i) == book.getBid()) {
                             collectRes.remove(i);
                             break;
                         }
                     }
                 } else {
                     // 此时不在收藏夹
-                    collectRes.add(book.getId());
+                    collectRes.add(book.getBid());
                 }
                 // 2. 将新的数据放入SharedP
                 SharedPreferences.Editor editor = sp.edit();

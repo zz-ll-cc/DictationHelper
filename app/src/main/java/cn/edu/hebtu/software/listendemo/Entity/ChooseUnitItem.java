@@ -1,4 +1,5 @@
-package com.example.dictationprj;
+package com.example.dictationprj.Entity;
+
 
 public class ChooseUnitItem {
     private boolean isSelected;

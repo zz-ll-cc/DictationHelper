@@ -1,42 +1,72 @@
-package com.example.dictationprj;
+package com.example.dictationprj.Entity;
 
 import java.io.Serializable;
 
 public class Word implements Serializable {
-    private int id;
-    private String chinese;
-    private String english;
+    public static final int TYPE_KEYNODE = 1;
+    public static final int TYPE_UN_KEYNODE = 0;
+    private int unid;
+    private int bid;
+    private int wid;
+    private int type;
+    private String wimgPath;
+    private String wchinese;
+    private String wenglish;
 
-    public int getId() {
-        return id;
+    public int getUnid() {
+        return unid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUnid(int unid) {
+        this.unid = unid;
     }
 
-    public String getChinese() {
-        return chinese;
+    public int getBid() {
+        return bid;
     }
 
-    public void setChinese(String chinese) {
-        this.chinese = chinese;
+    public void setBid(int bid) {
+        this.bid = bid;
     }
 
-    public String getEnglish() {
-        return english;
+    public int getType() {
+        return type;
     }
 
-    public void setEnglish(String english) {
-        this.english = english;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "Word{" +
-                "id=" + id +
-                ", chinese='" + chinese + '\'' +
-                ", english='" + english + '\'' +
-                '}';
+    public String getWimgPath() {
+        return wimgPath;
     }
+
+    public void setWimgPath(String wimgPath) {
+        this.wimgPath = wimgPath;
+    }
+
+    public int getWid() {
+        return wid;
+    }
+
+    public void setWid(int wid) {
+        this.wid = wid;
+    }
+
+    public String getWchinese() {
+        return wchinese;
+    }
+
+    public void setWchinese(String wchinese) {
+        this.wchinese = wchinese;
+    }
+
+    public String getWenglish() {
+        return wenglish;
+    }
+
+    public void setWenglish(String wenglish) {
+        this.wenglish = wenglish;
+    }
+    
 }

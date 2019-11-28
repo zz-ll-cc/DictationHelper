@@ -1,16 +1,12 @@
 package com.demo.common;
 
 import com.demo.book.BookController;
-import com.demo.common.model.TblBook;
-import com.demo.common.model.TblBookversion;
 import com.demo.common.model._MappingKit;
 import com.demo.grade.GradeController;
-import com.demo.index.IndexController;
 import com.demo.unit.UnitController;
-import com.demo.unit.UnitService;
 import com.demo.upload.UploadController;
+import com.demo.user.UserController;
 import com.demo.version.VersionController;
-import com.demo.version.VersionService;
 import com.demo.word.WordController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -81,6 +77,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/version", VersionController.class);
 		me.add("/unit", UnitController.class);
 		me.add("/grade", GradeController.class);
+		me.add("/user", UserController.class);
 		me.add("/upload", UploadController.class,"/upload");//上传控制器
 	}
 	

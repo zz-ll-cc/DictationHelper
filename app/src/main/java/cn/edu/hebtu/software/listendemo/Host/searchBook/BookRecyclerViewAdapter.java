@@ -1,27 +1,27 @@
-package com.example.dictationprj.Host.searchBook;
+package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dictationprj.Entity.Book;
-import com.example.dictationprj.Host.bookDetail.BookDetailActivity;
-import com.example.dictationprj.R;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
+
+import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
@@ -61,6 +61,9 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, BookDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, books.get(i));
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });

@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
@@ -17,18 +19,19 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.listenResult.ListenResultActivity;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 public class ListenWordActivity extends AppCompatActivity {
 
     private ListenWordRecyclerViewAdapter listenWordRecyclerViewAdapter;
     private RecyclerView recyclerViewListenWord;
-    private List<Map<String,Object>>  listenWordlist;
+    private List<Word>  listenWordlist;
+    private List<Word> mineWordlist=new ArrayList<>();
     private int i=0;
     private PopupWindow popupWindow=null;
     private View popupView=null;
@@ -54,7 +57,7 @@ public class ListenWordActivity extends AppCompatActivity {
             }
         };
         recyclerViewListenWord.setLayoutManager(linearLayoutManager);
-        Button btnNext=findViewById(R.id.btn_next);
+        final Button btnNext=findViewById(R.id.btn_next);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +66,17 @@ public class ListenWordActivity extends AppCompatActivity {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
                     int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                    if(firstItemPosition<listenWordlist.size()-1){
-                        recyclerViewListenWord.scrollToPosition(firstItemPosition+1);
+                    int postion=firstItemPosition+1;
+                    if(firstItemPosition<listenWordlist.size()){
+                        EditText editText=findViewById(R.id.et_word);
+                        Word word=new Word();
+                        String str=editText.getText().toString();
+                        word.setWenglish(str);
+                        mineWordlist.add(word);
+                        recyclerViewListenWord.scrollToPosition(postion);
+                    }
+                    if(postion==listenWordlist.size()-1){
+                        btnNext.setText("交卷");
                     }
                     if(firstItemPosition==listenWordlist.size()-1){
                         showPopupView(v);
@@ -78,21 +90,17 @@ public class ListenWordActivity extends AppCompatActivity {
 
     private void initData() {
         Intent intent=getIntent();
-        String str=intent.getStringExtra("wordlist");
-        if(str!=null){
-            Type listType=new TypeToken< List<Map<String, Object>> >(){}.getType();
+        String str=intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
+        if(str!=null && !str.equals("")){
+            Type listType=new TypeToken< List<Word> >(){}.getType();
             listenWordlist=new Gson().fromJson(str,listType);
-        }else{
-            String[] words={"a","b","c","d","e","f"};
-            long[] wid={0,1,2,3,4,5};
-            listenWordlist=new ArrayList<>();
-            for(int i=0;i<words.length;++i){
-                Map<String,Object> map=new HashMap<>();
-                map.put("word",words[i]);
-                map.put("id",wid[i]);
-                listenWordlist.add(map);
-            }
         }
+        String str1=intent.getStringExtra(Constant.RECITE_CON_DICTATION);
+        if(str1!=null && !str1.equals("")){
+            Type listType=new TypeToken<List<Word>>(){}.getType();
+            listenWordlist=new Gson().fromJson(str1,listType);
+        }
+
     }
 
     private void showPopupView(View v) {
@@ -106,7 +114,11 @@ public class ListenWordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(ListenWordActivity.this,ListenResultActivity.class);
+                intent.putExtra("success",new Gson().toJson(listenWordlist));
+                intent.putExtra("mine",new Gson().toJson(mineWordlist));
                 startActivity(intent);
+                popupWindow.dismiss();
+                finish();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +127,7 @@ public class ListenWordActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
-        popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(v, Gravity.CENTER,0,20);
     }
 
     //  将物理像素装换成真实像素

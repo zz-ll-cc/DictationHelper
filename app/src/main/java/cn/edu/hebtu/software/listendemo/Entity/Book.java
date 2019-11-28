@@ -1,14 +1,33 @@
-package com.example.dictationprj.Entity;
+package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
 
 public class Book implements Serializable {
-
     private int bid;
     private int gid;
     private int bvid;
     private String bname;
     private String bimgPath;
+    private int bunitAccount;
+
+    public int getBunitAccount() {
+        return bunitAccount;
+    }
+
+    public void setBunitAccount(int bunitAccount) {
+        this.bunitAccount = bunitAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bid=" + bid +
+                ", gid=" + gid +
+                ", bvid=" + bvid +
+                ", bname='" + bname + '\'' +
+                ", bimgPath='" + bimgPath + '\'' +
+                '}';
+    }
 
     public int getGid() {
         return gid;

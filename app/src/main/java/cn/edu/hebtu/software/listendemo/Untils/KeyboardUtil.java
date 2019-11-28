@@ -24,12 +24,8 @@ public class KeyboardUtil {
     private static final int RIGHT_CODE = -12;//中文横线
     private EditText editText;
 
-
-
     public KeyboardUtil(KeyboardView keyboardView, EditText editText) {
-        //setInputType为InputType.TYPE_NULL   不然会弹出系统键盘
-        editText.setInputType(InputType.TYPE_NULL);
-
+        editText.setInputType(InputType.TYPE_NULL); //setInputType为InputType.TYPE_NULL   不然会弹出系统键盘
 
         k1 = new Keyboard(editText.getContext(), R.xml.letter);
         this.keyboardView = keyboardView;

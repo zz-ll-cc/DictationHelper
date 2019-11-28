@@ -1,8 +1,10 @@
-package com.example.dictationprj.BookDetail;
+package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,18 +17,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dictationprj.Book;
-import com.example.dictationprj.R;
-import com.example.dictationprj.Unit;
-import com.example.dictationprj.Word;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.Unit;
+import cn.edu.hebtu.software.listendemo.Entity.Word;
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class BookDetailActivity extends AppCompatActivity {
+    private int nowCount;
+    private int requestCount;
     private ImageView ivExit;
     private TextView tvName;
     private ImageView ivCollect;
@@ -43,15 +58,26 @@ public class BookDetailActivity extends AppCompatActivity {
     private Gson gson = new Gson();
     private boolean isBind = false;
     private boolean isCollected = false;
-    private List<Integer> colList ;
+    private List<Integer> colList;
+    private OkHttpClient client = new OkHttpClient();
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == requestCount){
+                initView();
+                setListener();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
 
-        initView();
+        findView();
         initData();
-        setListener();
+
     }
 
     private void setListener() {
@@ -63,15 +89,15 @@ public class BookDetailActivity extends AppCompatActivity {
         ivCollect.setOnClickListener(listener);
     }
 
-    private class BookDetailListener implements View.OnClickListener{
+    private class BookDetailListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.iv_book_detail_exit:
                     finish();
                     break;
                 case R.id.iv_book_detail_bind:
-                    if (isBind){
+                    if (isBind) {
                         // 显示一个Dialog
                         AlertDialog.Builder adBuilder = new AlertDialog.Builder(BookDetailActivity.this);
                         adBuilder.setTitle("确定解除绑定");
@@ -87,13 +113,13 @@ public class BookDetailActivity extends AppCompatActivity {
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.bind_no));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
                                 // 修改收藏列表
-                                for (int i=0;i<colList.size();i++){
-                                    if (colList.get(i) == book.getId()){
+                                for (int i = 0; i < colList.size(); i++) {
+                                    if (colList.get(i) == book.getBid()) {
                                         colList.remove(i);
                                         break;
                                     }
                                 }
-                                editor.putString("collectList",gson.toJson(colList));
+                                editor.putString("collectList", gson.toJson(colList));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "已解除绑定教材", Toast.LENGTH_SHORT).show();
                                 isBind = false;
@@ -108,8 +134,7 @@ public class BookDetailActivity extends AppCompatActivity {
                         });
 
                         adBuilder.create().show();
-                    }
-                    else{
+                    } else {
                         // 显示一个Dialog
                         AlertDialog.Builder adBuilder = new AlertDialog.Builder(BookDetailActivity.this);
                         adBuilder.setTitle("确定绑定");
@@ -120,14 +145,14 @@ public class BookDetailActivity extends AppCompatActivity {
                                 // 选中“确定”按钮，解除绑定
                                 // 更改SharedP中数据
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt("bind", book.getId());
+                                editor.putInt("bind", book.getBid());
 
                                 // 修改显示样式
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.binded));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
                                 // 修改收藏列表
-                                colList.add(book.getId());
-                                editor.putString("collectList",gson.toJson(colList));
+                                colList.add(book.getBid());
+                                editor.putString("collectList", gson.toJson(colList));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "成功绑定教材，默认收藏", Toast.LENGTH_SHORT).show();
                                 isBind = true;
@@ -145,30 +170,28 @@ public class BookDetailActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.iv_book_detail_collect:
-                    if (isCollected && isBind){
+                    if (isCollected && isBind) {
                         // 如果当前为已收藏教材，且为已绑定
-                        Log.e("eassa","else: bind:"+isBind+" coll:"+isCollected);
-                        Toast.makeText(BookDetailActivity.this,"教材已绑定，默认收藏，无需取消",Toast.LENGTH_SHORT).show();
-                    }else if (isCollected && !isBind){
+                        Toast.makeText(BookDetailActivity.this, "教材已绑定，默认收藏，无需取消", Toast.LENGTH_SHORT).show();
+                    } else if (isCollected && !isBind) {
                         // 当前为已收藏，未绑定
-                        Log.e("eassa","else: bind:"+isBind+" coll:"+isCollected);
                         SharedPreferences.Editor editor = sp.edit();
-                        for (int i=0;i<colList.size();i++){
-                            if (colList.get(i) == book.getId()){
+                        for (int i = 0; i < colList.size(); i++) {
+                            if (colList.get(i) == book.getBid()) {
                                 colList.remove(i);
                                 break;
                             }
                         }
-                        editor.putString("collectList",gson.toJson(colList));
+                        editor.putString("collectList", gson.toJson(colList));
                         editor.commit();
                         isCollected = false;
                         ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
-                    }else{
+                    } else {
                         // 当前为未收藏
-                        Log.e("eassa","else: bind:"+isBind+" coll:"+isCollected);
+                        Log.e("eassa", "else: bind:" + isBind + " coll:" + isCollected);
                         SharedPreferences.Editor editor = sp.edit();
-                        colList.add(book.getId());
-                        editor.putString("collectList",gson.toJson(colList));
+                        colList.add(book.getBid());
+                        editor.putString("collectList", gson.toJson(colList));
                         editor.commit();
                         isCollected = true;
                         ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
@@ -177,62 +200,59 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         }
     }
+
     private void initData() {
-        book = (Book) getIntent().getSerializableExtra("book");
-        tvName.setText(book.getName());
-        sp = getSharedPreferences("用户", MODE_PRIVATE);
+        book = (Book) getIntent().getSerializableExtra(Constant.HOST_CON_DETAIL_BOOK);
+        tvName.setText(book.getBname());
+        sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         Type type = new TypeToken<List<Integer>>() {
         }.getType();
-        colList = gson.fromJson(sp.getString("collectList", "[]"), type);
-        if (colList.contains(book.getId()))
+        colList = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
+        if (colList.contains(book.getBid()))
             isCollected = true;
-        int bindId = sp.getInt("bind", -1);
-        if (bindId == book.getId())
+        int bindId = sp.getInt(Constant.BIND_KEY, Constant.DEFAULT_BIND_ID);
+        if (bindId == book.getBid())
             isBind = true;
+        // 1. 根据单元数 创建这本书的单元List
+        for (int i = 0; i < book.getBunitAccount(); i++) {
+            Unit unit = new Unit();
+            unit.setUnid(10000 + i);
+            unit.setBid(book.getBid());
+            unit.setUnName("UNIT "+(i+1));
+            units.add(unit);
+        }
+        int i = 0;
+        for(final Unit unit:units){
+            // 根据单元，查单词
+            FormBody fb = new FormBody.Builder().add("bid",book.getBid()+"").add("unid",unit.getUnid()+"").build();
+            Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                }
 
-        List<Word> words1 = new ArrayList<>();
-        Word word1 = new Word();
-        word1.setId(1);
-        word1.setChinese("苹果");
-        word1.setEnglish("apple");
-        Word word2 = new Word();
-        word2.setId(2);
-        word2.setChinese("香蕉");
-        word2.setEnglish("banana");
-        words1.add(word1);
-        words1.add(word2);
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String jsonWords = response.body().string();
+                    Type type = new TypeToken<List<Word>>(){}.getType();
+                    List<Word> words = gson.fromJson(jsonWords,type);
+                    unit.setWords(words);
+                    Message message = new Message();
+                    message.what = nowCount++;
+                    handler.sendMessage(message);
+                }
+            });
 
-        List<Word> words2 = new ArrayList<>();
-        Word word3 = new Word();
-        word3.setId(3);
-        word3.setChinese("梨");
-        word3.setEnglish("pare");
-        Word word4 = new Word();
-        word4.setId(4);
-        word4.setChinese("水果");
-        word4.setEnglish("fruit");
-        words2.add(word3);
-        words2.add(word4);
+        }
+    }
 
-        Unit unit1 = new Unit();
-        unit1.setWords(words1);
-        unit1.setId(0);
-        unit1.setUnitName("Unit1");
-        unit1.setUnitTitle("Serialize");
-
-        Unit unit2 = new Unit();
-        unit2.setId(1);
-        unit2.setWords(words2);
-        unit2.setUnitName("Unit2");
-        unit2.setUnitTitle("THis");
-
-        units.add(unit1);
-        units.add(unit2);
+    private void initView() {
         adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation);
         rvBookDetail.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);   // 默认设置垂直布局
         rvBookDetail.setLayoutManager(layoutManager);
-
+        Glide.with(this).load(book.getBimgPath()).into(ivCover);
         if (isBind)
             ivBind.setImageDrawable(getResources().getDrawable(R.drawable.binded));
         else
@@ -240,13 +260,13 @@ public class BookDetailActivity extends AppCompatActivity {
 
         if (isCollected)
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
-        else if(!isCollected && isBind)
+        else if (!isCollected && isBind)
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
         else
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
     }
 
-    private void initView() {
+    private void findView() {
         ivExit = findViewById(R.id.iv_book_detail_exit);
         tvName = findViewById(R.id.tv_book_detail_book_name);
         ivCollect = findViewById(R.id.iv_book_detail_collect);
@@ -256,5 +276,7 @@ public class BookDetailActivity extends AppCompatActivity {
         rvBookDetail = findViewById(R.id.recv_book_detail);
         llRecite = findViewById(R.id.ll_book_detail_recite);
         llDictation = findViewById(R.id.ll_book_detail_dictation);
+
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.dictationprj.BookDetail;
+package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.dictationprj.R;
-import com.example.dictationprj.Word;
-
 import java.util.List;
+
+import cn.edu.hebtu.software.listendemo.Entity.Word;
+import cn.edu.hebtu.software.listendemo.R;
 
 public class WordRecyclerAdapter extends RecyclerView.Adapter {
     private List<Word> words;
@@ -34,8 +34,8 @@ public class WordRecyclerAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
-        myViewHolder.tvEnglish.setText(words.get(i).getEnglish());
-        myViewHolder.tvChinese.setText(words.get(i).getChinese());
+        myViewHolder.tvEnglish.setText(words.get(i).getWenglish());
+        myViewHolder.tvChinese.setText(words.get(i).getWchinese());
     }
 
     @Override

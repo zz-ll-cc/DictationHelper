@@ -1,4 +1,4 @@
-package com.example.dictationprj.Host.index;
+package cn.edu.hebtu.software.listendemo.Host.index;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dictationprj.BookDetail.BookDetailActivity;
-import com.example.dictationprj.Entity.Book;
-import com.example.dictationprj.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,6 +26,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.Word;
+import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 
 public class HostRecyclerAdapter extends RecyclerView.Adapter {
@@ -45,14 +49,15 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         this.res = res;
         this.context = context;
         this.orginalRes = res;
-        sp = context.getSharedPreferences("用户", Context.MODE_PRIVATE);
+        sp = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
         changeRes();
     }
 
     private void changeRes() {
-        Type type = new TypeToken<List<Integer>>() {}.getType();
-        collectRes = gson.fromJson(sp.getString("collectList", "[]"), type);
-        bindId = sp.getInt("bind", -1);
+        Type type = new TypeToken<List<Integer>>() {
+        }.getType();
+        collectRes = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
+        bindId = sp.getInt(Constant.BIND_KEY, Constant.DEFAULT_BIND_ID);
         if (bindId != -1 && collectRes.size() == 0) {
             // 此时已经有绑定教材，但无收藏教材
             for (int i = 0; i < res.size(); i++) {
@@ -117,14 +122,16 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder1 = (MyViewHolder) viewHolder;
         final Book book = res.get(i);
         viewHolder1.tvName.setText(book.getBname());
+        // TODO: 2019/11/28 设置图片
         if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
             try {
-                URL  url = new URL(book.getBimgPath());
+                URL url = new URL(book.getBimgPath());
                 Glide.with(context).load(url).into(viewHolder1.ivCover);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
         }
+
         if (bindId == book.getBid()) {
             viewHolder1.ivCollect.setVisibility(View.GONE);
             viewHolder1.ivBind.setVisibility(View.VISIBLE);
@@ -145,7 +152,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("book", res.get(i));
+                bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, res.get(i));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -170,7 +177,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                 }
                 // 2. 将新的数据放入SharedP
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("collectList", gson.toJson(collectRes));
+                editor.putString(Constant.COLLECT_KEY, gson.toJson(collectRes));
                 editor.commit();
                 // 3. 修改显示样式
                 changeRes();
@@ -190,7 +197,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                         // 选中“确定”按钮，解除绑定
                         // 更改SharedP中数据
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putInt("bind", -1);
+                        editor.putInt(Constant.BIND_KEY, -1);
                         editor.commit();
                         // 修改显示样式
                         changeRes();

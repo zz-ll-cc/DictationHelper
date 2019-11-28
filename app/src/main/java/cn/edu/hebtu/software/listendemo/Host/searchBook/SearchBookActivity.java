@@ -1,4 +1,4 @@
-package com.example.dictationprj.Host.searchBook;
+package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
 import android.os.Handler;
 import android.os.Message;
@@ -7,14 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.example.dictationprj.Entity.Book;
-import com.example.dictationprj.Entity.Grade;
-import com.example.dictationprj.Entity.Version;
-import com.example.dictationprj.R;
-import com.example.dictationprj.Untils.Constant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,6 +21,11 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.Grade;
+import cn.edu.hebtu.software.listendemo.Entity.Version;
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -37,7 +36,7 @@ import okhttp3.Response;
 
 public class SearchBookActivity extends AppCompatActivity {
 
-    private String gid=Constant.GRADE_ALL+"";
+    private String gid= Constant.GRADE_ALL+"";
     private String bvid=Constant.VERSION_ALL+"";
     private GradeRecyclerViewAdapter gradeRecyclerViewAdapter;
     private VersionRecyclerViewAdapter versionRecyclerViewAdapter;
@@ -46,7 +45,7 @@ public class SearchBookActivity extends AppCompatActivity {
     private RecyclerView recyclerViewVersion;
     private RecyclerView recyclerViewBook;
     private OkHttpClient client = new OkHttpClient();
-    private List<Grade>  gradeList;
+    private List<Grade> gradeList;
     private List<Version>  versionList;
     private List<Book>  bookList;
     private Gson gson = new Gson();

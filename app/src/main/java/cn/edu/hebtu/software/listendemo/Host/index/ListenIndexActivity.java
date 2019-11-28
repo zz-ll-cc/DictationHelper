@@ -148,7 +148,7 @@ public class ListenIndexActivity  extends AppCompatActivity {
 
     //创建Fragment对象 并放入map中的MyTabSpec对象
     private void setFragment() {
-        map.get(tabStrid[0]).setFragment(new IndexFragment());
+        map.get(tabStrid[0]).setFragment(new HostFragment());
         map.get(tabStrid[1]).setFragment(new RecordFragment());
         map.get(tabStrid[2]).setFragment(new MyInfoFragment());
     }

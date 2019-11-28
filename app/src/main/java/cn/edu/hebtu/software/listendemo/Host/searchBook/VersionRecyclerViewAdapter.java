@@ -1,7 +1,6 @@
-package com.example.dictationprj.Host.searchBook;
+package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.dictationprj.Entity.Version;
-import com.example.dictationprj.R;
-import com.example.dictationprj.Untils.Constant;
 import com.google.gson.Gson;
+
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import cn.edu.hebtu.software.listendemo.Entity.Version;
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 
 public class VersionRecyclerViewAdapter extends RecyclerView.Adapter {

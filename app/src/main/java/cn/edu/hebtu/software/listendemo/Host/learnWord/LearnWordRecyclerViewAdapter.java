@@ -1,30 +1,25 @@
 package cn.edu.hebtu.software.listendemo.Host.learnWord;
 
 import android.content.Context;
-import android.inputmethodservice.KeyboardView;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
-import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<Map<String,Object>> learnWords;
+    private List<Word> learnWords;
     private int itemId;
 
     public LearnWordRecyclerViewAdapter(Context context, List  learnWords, int itemId) {
@@ -45,10 +40,11 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
         //设置每一项所显示的内容
         final MyItemViewHolder itemViewHolder=(MyItemViewHolder) viewHolder;
 
-        itemViewHolder.tvWordChinese.setText( learnWords.get(i).get("word").toString());
-        itemViewHolder.tvWordEnglish.setText(learnWords.get(i).get("eword").toString());
+        itemViewHolder.tvWordChinese.setText( learnWords.get(i).getWchinese().toString());
+        itemViewHolder.tvWordEnglish.setText(learnWords.get(i).getWenglish().toString());
         itemViewHolder.tvSum.setText( learnWords.size()+"");
         itemViewHolder.tvCurrent.setText(i+1+"");
+        Glide.with(context).load(learnWords.get(i).getWimgPath()).into(itemViewHolder.ivWordImg);
     }
 
     @Override

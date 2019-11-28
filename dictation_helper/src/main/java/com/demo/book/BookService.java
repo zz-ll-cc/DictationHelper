@@ -15,6 +15,9 @@ public class BookService {
     public List<TblBook> findAllBooksByVesion(int bvid){
         return dao.find("select * from tbl_book where bvid = ?",bvid);
     }
+    public List<TblBook> findAllBooksByGrade(int gid){
+        return dao.find("select * from tbl_book where gid = ?",gid);
+    }
     public List<TblBook> findAllBooksByVesionAndGrade(int bvid,int gid){
         return dao.find("select * from tbl_book where bvid = ? and gid =?",bvid,gid);
     }

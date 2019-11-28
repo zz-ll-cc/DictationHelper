@@ -73,4 +73,12 @@ public abstract class BaseTblUser<M extends BaseTblUser<M>> extends Model<M> imp
 		return getInt("vip");
 	}
 
+	public void setIsAdmin(java.lang.Integer isAdmin) {
+		set("is_admin", isAdmin);
+	}
+	
+	public java.lang.Integer getIsAdmin() {
+		return getInt("is_admin");
+	}
+
 }

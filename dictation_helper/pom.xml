@@ -131,10 +131,11 @@
 
 	
 	</dependencies>
-	
+
 	<build>
-		
+		<finalName>jfinal-demo</finalName>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -148,60 +149,94 @@
 					<compilerArguments><verbose /></compilerArguments>
 				</configuration>
 			</plugin>
-			
+
 			<!--
-				jar 包中的配置文件优先级高于 config 目录下的 "同名文件"
-				因此，打包时需要排除掉 jar 包中来自 src/main/resources 目录的
-				配置文件，否则部署时 config 目录中的同名配置文件不会生效
-			 -->
+				当项目的 web 资源在 src/main/webapp 下时，需要使用 maven-resources-plugin
+				将 web 资源复制到 jar 包中去，注意打包的时候需要配置 engine：
+					me.setBaseTemplatePath("webapp");
+					me.setToClassPathSourceFactory();
+
+				如果 web 资源本身就放在 src/main/resources/webapp 之下，则不需要此插件
+			-->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<!-- **/* 前缀用法，可以匹配所有路径，例如：**/*.txt -->
-						<exclude>*.txt</exclude>
-						<exclude>*.xml</exclude>
-						<exclude>*.properties</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			
-			<!-- 
-				使用 mvn clean package 打包 
-				更多配置可参考官司方文档：http://maven.apache.org/plugins/maven-assembly-plugin/single-mojo.html
-	 		-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
+				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
+						<id>copy-webapp</id>
+						<phase>process-sources</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>copy-resources</goal>
 						</goals>
-						
 						<configuration>
-							<!-- 打包生成的文件名 -->
-							<finalName>${project.artifactId}</finalName>
-							<!-- jar 等压缩文件在被打包进入 zip、tar.gz 时是否压缩，设置为 false 可加快打包速度 -->
-							<recompressZippedFiles>false</recompressZippedFiles>
-							<!-- 打包生成的文件是否要追加 package.xml 中定义的 id 值 -->
-							<appendAssemblyId>true</appendAssemblyId>
-							<!-- 指向打包描述文件 package.xml -->
-							<descriptors>
-								<descriptor>package.xml</descriptor>
-							</descriptors>
-							<!-- 打包结果输出的基础目录 -->
-							<outputDirectory>${project.build.directory}/</outputDirectory>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>${basedir}/target/classes/webapp</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/webapp</directory>
+									<includes>
+										<!-- <include>**/*.xml</include> -->
+										<!-- <include>**/**</include> -->
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>jfinal-demo</finalName>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.demo.common.DemoConfig</mainClass>
+								</transformer>
+
+								<!--
+									下面的配置支持排除指定文件打包到 jar 之中，可以用于排除需要修改的配置文件以便于在外部的 config 目录下的
+									同名配置文件生效，建议使用 Prop.appendIfExists(xxx_pro.txt) 在外部放一个非同名配置来覆盖开发环境的配置
+									则可以不用使用下面的配置，文档参考:
+										http://maven.apache.org/plugins/maven-shade-plugin/examples/resource-transformers.html#DontIncludeResourceTransformer
+								-->
+								<transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+									<resources>
+										<!-- <resource>demo-config-dev.txt</resource> -->
+										<!-- <resource>.PDF</resource> -->
+										<!-- <resource>READ.md</resource> -->
+									</resources>
+								</transformer>
+							</transformers>
+
+							<!--
+								解决 fatjar 的 "java.lang.SecurityException: Invalid signature file digest
+								for Manifest main attributes" 问题
+							-->
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 	

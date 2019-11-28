@@ -1,6 +1,9 @@
 package com.demo.upload;
 
 
+import com.demo.book.BookService;
+import com.demo.word.WordService;
+import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
 
@@ -8,6 +11,11 @@ import java.io.IOException;
 
 public class UploadController extends Controller {
 
+    @Inject
+    BookService bookService;
+
+    @Inject
+    WordService wordService;
 
     QiniuService qiniuService = new QiniuService();
 
@@ -28,14 +36,15 @@ public class UploadController extends Controller {
         try {
             String url = qiniuService.saveImage(file);
             System.out.println("success: imageUrl = "+url);
-            String bid = get("bid");
+            int bid = getInt("bid");
+            bookService.update(bid,url);
             if(file.getFile().delete()){
-                System.out.println("已经删除本地文件");
+                System.out.println("已经删除本地文件,修改数据库成功");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        renderHtml("uploadFinish.html");
+        redirect("uploadFinish.html");
     }
 
     public void uploadWordImage(){
@@ -43,14 +52,15 @@ public class UploadController extends Controller {
         try {
             String url = qiniuService.saveImage(file);
             System.out.println("success: imageUrl = "+url);
-            String bid = get("bid");
+            int wid = getInt("wid");
+            wordService.update(wid,url);
             if(file.getFile().delete()){
-                System.out.println("已经删除本地文件");
+                System.out.println("已经删除本地文件,修改数据库成功");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        renderHtml("uploadFinish.html");
+        redirect("uploadFinish.html");
     }
 
 }

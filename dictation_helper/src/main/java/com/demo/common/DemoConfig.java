@@ -4,8 +4,13 @@ import com.demo.book.BookController;
 import com.demo.common.model.TblBook;
 import com.demo.common.model.TblBookversion;
 import com.demo.common.model._MappingKit;
+import com.demo.grade.GradeController;
 import com.demo.index.IndexController;
+import com.demo.unit.UnitController;
+import com.demo.unit.UnitService;
 import com.demo.upload.UploadController;
+import com.demo.version.VersionController;
+import com.demo.version.VersionService;
 import com.demo.word.WordController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -73,12 +78,15 @@ public class DemoConfig extends JFinalConfig {
 //		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/book", BookController.class);
 		me.add("/word", WordController.class);
+		me.add("/version", VersionController.class);
+		me.add("/unit", UnitController.class);
+		me.add("/grade", GradeController.class);
 		me.add("/upload", UploadController.class,"/upload");//上传控制器
 	}
 	
 	public void configEngine(Engine me) {
-		me.addSharedFunction("/common/_layout.html");
-		me.addSharedFunction("/common/_paginate.html");
+		me.setBaseTemplatePath("webapp");
+		me.setToClassPathSourceFactory();
 	}
 	
 	/**

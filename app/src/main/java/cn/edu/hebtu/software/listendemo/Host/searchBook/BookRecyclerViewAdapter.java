@@ -1,8 +1,10 @@
-package cn.edu.hebtu.software.listendemo.Host.searchBook;
+package com.example.dictationprj.Host.searchBook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.dictationprj.Entity.Book;
+import com.example.dictationprj.Host.bookDetail.BookDetailActivity;
+import com.example.dictationprj.R;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.R;
 
 public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<Map<String,Object>> books;
+    private List<Book> books;
     private int itemId;
 
     public BookRecyclerViewAdapter(Context context, List books, int itemId) {
@@ -38,15 +46,22 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         //设置每一项所显示的内容
+        final Book book = books.get(i);
         MyItemViewHolder itemViewHolder=(MyItemViewHolder) viewHolder;
-
-        itemViewHolder.tvBook.setText(books.get(i).get("bname").toString());
-
-        //设置每一项的点击事件监听器
+        itemViewHolder.tvBook.setText(book.getBname());
+        if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
+            try {
+                URL  url = new URL(book.getBimgPath());
+                Glide.with(context).load(url).into(((MyItemViewHolder) viewHolder).ivBook);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
         itemViewHolder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"点击第"+i+"条数据",Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(context, BookDetailActivity.class);
+                context.startActivity(intent);
             }
         });
 

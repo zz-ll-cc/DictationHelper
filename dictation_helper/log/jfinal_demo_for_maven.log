@@ -51,3 +51,9 @@ java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
+
+2019-11-28 10:35:14
+[WARN]-[Thread: XNIO-1 task-1]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /book/add
+
+2019-11-28 11:00:16
+[WARN]-[Thread: XNIO-1 task-1]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /924Cakeprj

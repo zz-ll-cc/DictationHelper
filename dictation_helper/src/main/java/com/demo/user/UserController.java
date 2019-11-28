@@ -10,7 +10,7 @@ public class UserController extends Controller {
     UserService userService;
 
     public void index(){
-        redirect("/user/userhome.html");
+        redirect("userhome.html");
     }
 
 

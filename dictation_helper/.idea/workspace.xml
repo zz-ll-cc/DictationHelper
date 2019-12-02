@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
     </list>
@@ -68,7 +69,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../备份10：35" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -151,7 +152,9 @@
       <workItem from="1574839800502" duration="2474000" />
       <workItem from="1574843201359" duration="1334000" />
       <workItem from="1574844564215" duration="2313000" />
-      <workItem from="1574900185321" duration="9984000" />
+      <workItem from="1574900185321" duration="11035000" />
+      <workItem from="1575017993273" duration="389000" />
+      <workItem from="1575193572131" duration="723000" />
     </task>
     <servers />
   </component>

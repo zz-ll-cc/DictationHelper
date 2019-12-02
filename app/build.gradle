@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "2cd22ca0e4a00"
-    appSecret "a5ffadf025c1168760169d0fd556b054"
+    appKey "2d511c13177c3"
+    appSecret "f31f4e02f08ff099ab9bb6d198083d33"
     SMSSDK {}
 }
 android {
@@ -42,4 +42,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
     //Gson
     implementation 'com.google.code.gson:gson:2.8.5'
+    //OkHttp框架
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

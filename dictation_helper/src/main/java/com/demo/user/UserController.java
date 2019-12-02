@@ -11,7 +11,6 @@ public class UserController extends Controller {
 
     @Inject
     UserService userService;
-
 //    public void index() {
 //        redirect("/user/userhome.html");
 //    }

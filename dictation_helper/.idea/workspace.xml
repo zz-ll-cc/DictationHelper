@@ -2,140 +2,121 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26ab6bfd-161f-4641-bd7e-1cfa8e77e4bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/entity/LoginInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/demo/entity/LoginInfo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/webapp/upload/uploadUserImage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/webapp/user/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/webapp/user/regist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/webapp/user/userhome.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/jfinal_demo_for_maven-4.7-shaded.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.gradle/5.1.1/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.gradle/5.1.1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Word.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/BookDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/BookDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/UnitRecyclerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/UnitRecyclerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/HostFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/HostFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/ListenIndexActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/ListenIndexActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/BookRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/BookRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/GradeRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/GradeRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/SearchBookActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/SearchBookActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/VersionRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/VersionRecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Record/index/RecordFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Record/index/RecordFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/BlurTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/BlurTransformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/KeyboardUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/KeyboardUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/activity_learn_word.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/activity_learn_word.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/fragment_unit_border.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/fragment_unit_border.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_recycler_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_recycler_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_grade_version_recycler_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_grade_version_recycler_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learn_word.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learn_word.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learnword_recycler_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learnword_recycler_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_result.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_result.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_word.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_word.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listenword_recycler_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listenword_recycler_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_search_book.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_search_book.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/content_keyboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/content_keyboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlearn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlearn.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlisten.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlisten.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_word_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_word_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host_recycler_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host_recycler_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_record.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_record.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/view_keyboard_preview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/view_keyboard_preview.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/styleable.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/styleable.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/xml/letter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/xml/letter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/cn/edu/hebtu/software/listendemo/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Book.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/ChooseUnitItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Grade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Unit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Version.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Entity/Word.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/BookDetailActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/UnitRecyclerAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/bookDetail/WordRecyclerAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/HostFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/HostRecyclerAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/IndexFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/index/ListenIndexActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LeanTextView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/learnWord/LearnWordRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenResult/ListenResultRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/BookRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/GradeRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/SearchBookActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Host/searchBook/VersionRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Login/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Mine/index/MyInfoFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Record/index/RecordFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/BlurTransformation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/Constant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/DIYKeyboardView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/cn/edu/hebtu/software/listendemo/Untils/KeyboardUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/activity_learn_word.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/bind_no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/binded.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/book.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/choose_no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/choosed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/clock_no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/clocked.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/collect_no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/collected.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/cuotiben.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/fragment_unit_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/img1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/img2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/left_exit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/qqdenglu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/shift.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/show_all_word.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/space.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/weixindenglu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/word.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_detail.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_book_recycler_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_grade_version_recycler_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learn_word.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_learnword_recycler_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_index.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_result.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listen_word.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_listenword_recycler_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_search_book.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/content_keyboard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlearn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/custom_dialog_finishlisten.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_book_detail_word_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_host_recycler_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_record.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/view_keyboard_preview.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/styleable.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/xml/letter.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/test/java/cn/edu/hebtu/software/listendemo/ExampleUnitTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.xml" beforeDir="false" afterPath="$PROJECT_DIR$/package.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/book/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/book/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/_JFinalDemoGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/_JFinalDemoGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblBookversion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblBookversion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblGrade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/TblWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBookversion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblBookversion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblGrade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/base/BaseTblWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/grade/GradeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/grade/GradeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/grade/GradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/grade/GradeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/index/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/index/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/unit/UnitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/unit/UnitController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/unit/UnitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/unit/UnitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/utils/FileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/version/VersionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/version/VersionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/version/VersionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/version/VersionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logging.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/css/manage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/css/manage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/blog/_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/blog/_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/blog/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/blog/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/blog/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/blog/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/blog/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/blog/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/_layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/_layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/_paginate.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/_paginate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/upload/uploadBookImage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/upload/uploadBookImage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/upload/uploadUserImage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/upload/uploadUserImage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/upload/uploadWordImage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/upload/uploadWordImage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user/userhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user/userhome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/book/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/book/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/book/BookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/model/_JFinalDemoGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/model/_JFinalDemoGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/unit/UnitController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/unit/UnitController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/upload/UploadController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/version/VersionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/version/VersionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/version/VersionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/version/VersionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/word/WordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/word/WordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logging.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/assets/css/manage.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/assets/css/manage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/blog/_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/blog/_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/blog/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/blog/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/blog/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/blog/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/blog/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/blog/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/common/_layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/common/_layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/common/_paginate.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/common/_paginate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/upload/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/upload/upload.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/upload/uploadBookImage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/upload/uploadBookImage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/webapp/upload/uploadWordImage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/upload/uploadWordImage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal-demo.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/jfinal-demo.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-jfinal-demo.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-jfinal-demo.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -189,8 +170,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="96" column="48" selection-start-line="96" selection-start-column="48" selection-end-line="96" selection-end-column="48" />
+            <state relative-caret-position="131">
+              <caret line="89" column="8" lean-forward="true" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -418,7 +399,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../备份10：35" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -501,12 +482,14 @@
       <workItem from="1574839800502" duration="2474000" />
       <workItem from="1574843201359" duration="1334000" />
       <workItem from="1574844564215" duration="2313000" />
-      <workItem from="1574900185321" duration="7971000" />
+      <workItem from="1574900185321" duration="11035000" />
+      <workItem from="1575017993273" duration="389000" />
+      <workItem from="1575193572131" duration="1961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4753000" />
+    <option name="totallyTimeSpent" value="5345000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -650,8 +633,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="96" column="48" selection-start-line="96" selection-start-column="48" selection-end-line="96" selection-end-column="48" />
+        <state relative-caret-position="131">
+          <caret line="89" column="8" lean-forward="true" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
         </state>
       </provider>
     </entry>

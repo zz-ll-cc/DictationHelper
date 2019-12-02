@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f0f0f0" />
+
+    <RelativeLayout
+        android:id="@+id/rl_fragment_book_detail_down"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_fragment_book_unit_border"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/fragment_unit_border">
+
+            <TextView
+                android:id="@+id/tv_fragment_book_detail_unit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="UNIT 1"
+                android:textColor="#000" />
+
+            <ImageView
+                android:id="@+id/iv_fragment_book_detail_choose"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/choose_no" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_fragment_book_detail_unit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="110dp"
+            android:gravity="center"
+            android:text="Play"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/iv_fragment_book_detail_clock"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@id/iv_fragment_book_detail_show_all_word"
+            android:src="@drawable/clock_no" />
+
+        <ImageView
+            android:id="@+id/iv_fragment_book_detail_show_all_word"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/show_all_word" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recv_fragment_book_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -18,15 +18,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
-import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BlurTransformation;
 import cn.edu.hebtu.software.listendemo.Untils.KeyboardUtil;
 
 public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<Map<String, Object>> listenWords;
+    private List<Word> listenWords;
     private int itemId;
 
     public ListenWordRecyclerViewAdapter(Context context, List listenWords, int itemId) {
@@ -47,9 +47,10 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         //设置每一项所显示的内容
         final MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
 
-        itemViewHolder.tvWordChinese.setText(listenWords.get(i).get("word").toString());
+        itemViewHolder.tvWordChinese.setText(listenWords.get(i).getWchinese().toString());
         itemViewHolder.tvSum.setText(listenWords.size() + "");
         itemViewHolder.tvCurrent.setText(i + 1 + "");
+        itemViewHolder.etWord.setText("");
         itemViewHolder.etWord.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -64,10 +65,10 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
                 return false;
             }
         });
-       Glide.with(context)
-                .load(R.drawable.word)
+        Glide.with(context)
+                .load(listenWords.get(i).getWimgPath())
                 .thumbnail(0.1f).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5,4)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 4)))
                 .into(itemViewHolder.ivWordImg);
     }
 

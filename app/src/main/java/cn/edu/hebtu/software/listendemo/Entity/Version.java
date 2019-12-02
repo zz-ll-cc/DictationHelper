@@ -1,4 +1,4 @@
-package com.example.dictationprj.Entity;
+package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
 

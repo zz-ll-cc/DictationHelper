@@ -18,19 +18,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Host.learnWord.LearnWordActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.MainActivity" />
-        <activity android:name=".Host.index.ListenIndexActivity" />
+        <activity android:name=".Host.index.ListenIndexActivity"/>
+        <activity android:name=".Login.RegistActivity"/>
         <activity android:name=".Host.searchBook.SearchBookActivity" />
         <activity android:name=".Host.listenResult.ListenResultActivity" />
-        <activity android:name=".Host.listenWord.ListenWordActivity"/>
-	<activity android:name=".BookDetail.BookDetailActivity"/>
+        <activity android:name=".Host.listenWord.ListenWordActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".Host.bookDetail.BookDetailActivity"/>
+        <activity android:name=".Host.learnWord.LearnWordActivity"/>
     </application>
 
 </manifest>

@@ -15,20 +15,24 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 public class LearnWordActivity extends AppCompatActivity {
 
     private LearnWordRecyclerViewAdapter learnWordRecyclerViewAdapter;
     private RecyclerView recyclerViewLearnWord;
-    private List<Map<String, Object>> learnWordlist;
+    private List<Word> learnWordlist;
     private int i = 0;
     private PopupWindow popupWindow = null;
     private View popupView = null;
@@ -54,7 +58,7 @@ public class LearnWordActivity extends AppCompatActivity {
             }
         };
         recyclerViewLearnWord.setLayoutManager(linearLayoutManager);
-        Button btnNext = findViewById(R.id.btn_next);
+        final Button btnNext = findViewById(R.id.btn_next);
         Button btnPrevious=findViewById(R.id.btn_previous);
         final RecyclerView.LayoutManager layoutManager = recyclerViewLearnWord.getLayoutManager();
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +68,14 @@ public class LearnWordActivity extends AppCompatActivity {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
                     int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    int postion=firstItemPosition+1;
                     if (firstItemPosition < learnWordlist.size() - 1) {
                         recyclerViewLearnWord.scrollToPosition(firstItemPosition + 1);
                     }
-                    if (firstItemPosition == learnWordlist.size()-1) {
+                    if(postion==learnWordlist.size()-1){
+                        btnNext.setText("去听写");
+                    }
+                    if(firstItemPosition==learnWordlist.size()-1){
                         showPopupView(v);
                     }
                 }
@@ -94,16 +102,11 @@ public class LearnWordActivity extends AppCompatActivity {
 
 
     private void initData() {
-        String[] cwords = {"a", "b", "c", "d", "e", "f"};
-        String[] ewords = {"a", "b", "c", "d", "e", "f"};
-        long[] wid = {0, 1, 2, 3, 4, 5};
-        learnWordlist = new ArrayList<>();
-        for (int i = 0; i < cwords.length; ++i) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("word", cwords[i]);
-            map.put("eword", ewords[i]);
-            map.put("id", wid[i]);
-            learnWordlist.add(map);
+        Intent intent=getIntent();
+        String str=intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
+        if(str!=null){
+            Type listType=new TypeToken< List<Word> >(){}.getType();
+            learnWordlist=new Gson().fromJson(str,listType);
         }
     }
 
@@ -119,8 +122,10 @@ public class LearnWordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Gson gson=new Gson();
                 Intent intent =new Intent(LearnWordActivity.this,ListenWordActivity.class);
-                intent.putExtra("wordlist",gson.toJson(learnWordlist));
+                intent.putExtra(Constant.RECITE_CON_DICTATION,gson.toJson(learnWordlist));
                 startActivity(intent);
+                popupWindow.dismiss();
+                finish();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,23 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.Version;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
+
 
 public class VersionRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<Map<String,Object>> visions;
+    private List<Version> visions;
     private int itemId;
+    private TextView tvAllVersion;
 
-    public VersionRecyclerViewAdapter(Context context, List visions, int itemId) {
+    public VersionRecyclerViewAdapter(Context context, List visions, int itemId,TextView tvAllVersion) {
         this.context = context;
         this.visions=visions;
         this.itemId = itemId;
+        this.tvAllVersion=tvAllVersion;
     }
 
     @NonNull
@@ -37,17 +45,35 @@ public class VersionRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         //设置每一项所显示的内容
-        MyItemViewHolder itemViewHolder=(MyItemViewHolder) viewHolder;
-        itemViewHolder.tvVersion.setText(visions.get(i).get("version").toString());
-
-        //设置每一项的点击事件监听器
-        itemViewHolder.root.setOnClickListener(new View.OnClickListener() {
+        final MyItemViewHolder itemViewHolder=(MyItemViewHolder) viewHolder;
+        itemViewHolder.tvVersion.setText(visions.get(i).getBvName());
+        if((i+"").equals(getmPosition())){
+            itemViewHolder.tvVersion.setTextColor(Color.RED);
+        }else {
+            itemViewHolder.tvVersion.setTextColor(Color.BLACK);
+        }
+        itemViewHolder.tvVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"点击第"+i+"条数据",Toast.LENGTH_LONG).show();
+                tvAllVersion.setTextColor(Color.BLACK);
+                HashMap<String,Object> map=new HashMap<>();
+                map.put("tag", Constant.VERSION);
+                map.put("m",visions.get(i).getBvId()+"");
+                map.put("position",i+"");
+                EventBus.getDefault().postSticky(new Gson().toJson(map));
             }
         });
-
+        tvAllVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvAllVersion.setTextColor(Color.RED);
+                HashMap<String,Object> map=new HashMap<>();
+                map.put("tag", Constant.VERSION);
+                map.put("m",Constant.VERSION_ALL+"");
+                map.put("position",-1+"");
+                EventBus.getDefault().postSticky(new Gson().toJson(map));
+            }
+        });
     }
 
     @Override
@@ -67,6 +93,16 @@ public class VersionRecyclerViewAdapter extends RecyclerView.Adapter {
             root=itemView.findViewById(R.id.ll_gv);
 
         }
+    }
+
+    private  String mPosition="-1";
+
+    public String getmPosition() {
+        return mPosition;
+    }
+
+    public void setmPosition(String mPosition) {
+        this.mPosition = mPosition;
     }
 
 

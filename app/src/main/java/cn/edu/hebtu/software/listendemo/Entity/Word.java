@@ -1,4 +1,4 @@
-package com.example.dictationprj.Entity;
+package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
 
@@ -12,6 +12,21 @@ public class Word implements Serializable {
     private String wimgPath;
     private String wchinese;
     private String wenglish;
+    private int isTrue;
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "unid=" + unid +
+                ", bid=" + bid +
+                ", wid=" + wid +
+                ", type=" + type +
+                ", wimgPath='" + wimgPath + '\'' +
+                ", wchinese='" + wchinese + '\'' +
+                ", wenglish='" + wenglish + '\'' +
+                ", isTrue=" + isTrue +
+                '}';
+    }
 
     public int getUnid() {
         return unid;
@@ -68,5 +83,13 @@ public class Word implements Serializable {
     public void setWenglish(String wenglish) {
         this.wenglish = wenglish;
     }
-    
+
+    public int getIsTrue() {
+        return isTrue;
+    }
+
+    public void setIsTrue(int isTrue) {
+        this.isTrue = isTrue;
+    }
+
 }

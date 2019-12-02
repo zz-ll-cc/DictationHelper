@@ -1,5 +1,4 @@
-package com.example.dictationprj.Entity;
-
+package cn.edu.hebtu.software.listendemo.Entity;
 
 public class ChooseUnitItem {
     private boolean isSelected;

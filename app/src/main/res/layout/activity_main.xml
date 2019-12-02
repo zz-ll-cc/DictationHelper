@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="注册" />
+                android:text="记住密码" />
 
             <TextView
                 android:id="@+id/tv_foget"

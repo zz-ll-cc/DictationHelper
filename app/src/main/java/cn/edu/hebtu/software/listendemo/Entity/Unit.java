@@ -1,5 +1,4 @@
-package com.example.dictationprj.Entity;
-
+package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,20 +12,16 @@ public class Unit implements Serializable {
     private String unName;
     private String unTitle;
 
-    public int getBid() {
-        return bid;
-    }
-
-    public void setBid(int bid) {
-        this.bid = bid;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "words=" + words +
+                ", unid=" + unid +
+                ", bid=" + bid +
+                ", type=" + type +
+                ", unName='" + unName + '\'' +
+                ", unTitle='" + unTitle + '\'' +
+                '}';
     }
 
     public List<Word> getWords() {
@@ -59,5 +54,21 @@ public class Unit implements Serializable {
 
     public void setUnTitle(String unTitle) {
         this.unTitle = unTitle;
+    }
+
+    public int getBid() {
+        return bid;
+    }
+
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

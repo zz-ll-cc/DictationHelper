@@ -14,6 +14,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -55,7 +56,7 @@ public class DemoConfig extends JFinalConfig {
 		loadConfig();
 		
 		me.setDevMode(p.getBoolean("devMode", false));
-		
+		me.setJsonFactory(new MixedJsonFactory());
 		/**
 		 * 支持 Controller、Interceptor、Validator 之中使用 @Inject 注入业务层，并且自动实现 AOP
 		 * 注入动作支持任意深度并自动处理循环注入

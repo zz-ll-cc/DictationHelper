@@ -1,10 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
 
+MobSDK {
+    appKey "2d511c13177c3"
+    appSecret "f31f4e02f08ff099ab9bb6d198083d33"
+    SMSSDK {}
+}
 android {
+
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.hbsd.rjxy.dictationt"
-        minSdkVersion 19
+        applicationId "cn.edu.hebtu.software.listendemo"
+        minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -13,23 +20,18 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs "libs"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'armeabi-v7a','x86_64'
-            universalApk true
+    sourceSets {
+        main {
+            jniLibs.srcDirs=['libs']
         }
     }
+
+
+
 
 }
 
@@ -40,5 +42,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //Recyclerview
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //高斯模糊库
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+    //Glide
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //OkHttp框架
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation files('libs/Msc.jar')
 }

@@ -25,6 +25,7 @@ import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.listenResult.ListenResultActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.ReadManager;
 
 public class ListenWordActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class ListenWordActivity extends AppCompatActivity {
     private int i=0;
     private PopupWindow popupWindow=null;
     private View popupView=null;
+    private ReadManager readManager = new ReadManager(ListenWordActivity.this,"");
+
 
 
     @Override
@@ -44,7 +47,12 @@ public class ListenWordActivity extends AppCompatActivity {
         setTitle("听写单词");
         initData();
         initView();
+
+
+
     }
+
+
 
     private void initView(){
         recyclerViewListenWord=findViewById(R.id.rv_listenword);
@@ -57,6 +65,7 @@ public class ListenWordActivity extends AppCompatActivity {
             }
         };
         recyclerViewListenWord.setLayoutManager(linearLayoutManager);
+        readManager.pronounce(listenWordlist.get(0).getWenglish());
         final Button btnNext=findViewById(R.id.btn_next);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +74,21 @@ public class ListenWordActivity extends AppCompatActivity {
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
-                    int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    final int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    //延迟播放
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                                readManager.pronounce(listenWordlist.get(firstItemPosition+1).getWenglish());
+                                Log.e("text","pronounce");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+
                     int postion=firstItemPosition+1;
                     if(firstItemPosition<listenWordlist.size()){
                         EditText editText=findViewById(R.id.et_word);

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="#e3e3e3"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:text="我的得分"
+                android:textSize="35dp"
+                android:gravity="center|right"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="80dp"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <cn.edu.hebtu.software.listendemo.Host.listenResult.LeanTextView
+                    android:id="@+id/lean"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#ff0000"
+                    android:text="0"
+                    android:textSize="50dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="正确答案："
+                android:textSize="20dp"
+                android:textColor="#000"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_success"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="我的答案："
+           android:textColor="#000"
+           android:textSize="20dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/rv_mine"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_returnHost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存并返回主页面"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"/>
+
+        <TextView
+            android:id="@+id/tv_returnBookDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="我不服气还要再来"
+            android:textColor="#000"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</LinearLayout>

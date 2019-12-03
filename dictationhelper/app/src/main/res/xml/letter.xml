@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="40dip"
+    android:keyWidth="8.33334444%p"
+    android:verticalGap="6dp">
+    <Row>
+        <Key android:codes="113" android:horizontalGap="2dp" android:keyLabel="q"/>
+        <Key android:codes="119" android:horizontalGap="6dp" android:keyLabel="w"/>
+        <Key android:codes="101" android:horizontalGap="6dp" android:keyLabel="e"/>
+        <Key android:codes="114" android:horizontalGap="6dp" android:keyLabel="r"/>
+        <Key android:codes="116" android:horizontalGap="6dp" android:keyLabel="t"/>
+        <Key android:codes="121" android:horizontalGap="6dp" android:keyLabel="y"/>
+        <Key android:codes="117" android:horizontalGap="6dp" android:keyLabel="u"/>
+        <Key android:codes="105" android:horizontalGap="6dp" android:keyLabel="i"/>
+        <Key android:codes="111" android:horizontalGap="6dp" android:keyLabel="o"/>
+        <Key android:codes="112" android:horizontalGap="6dp" android:keyLabel="p"/>
+    </Row>
+    <Row>
+        <Key android:codes="97" android:horizontalGap="2dp"  android:keyLabel="a"/>
+        <Key android:codes="115" android:horizontalGap="6dp" android:keyLabel="s"/>
+        <Key android:codes="100" android:horizontalGap="6dp" android:keyLabel="d"/>
+        <Key android:codes="102" android:horizontalGap="6dp" android:keyLabel="f"/>
+        <Key android:codes="103" android:horizontalGap="6dp" android:keyLabel="g"/>
+        <Key android:codes="104" android:horizontalGap="6dp" android:keyLabel="h"/>
+        <Key android:codes="106" android:horizontalGap="6dp" android:keyLabel="j"/>
+        <Key android:codes="107" android:horizontalGap="6dp" android:keyLabel="k"/>
+        <Key android:codes="108" android:horizontalGap="6dp" android:keyLabel="l"/>
+        <Key android:codes="122" android:horizontalGap="6dp" android:keyLabel="z"/>
+    </Row>
+    <Row>
+        <Key android:codes="120" android:keyLabel="x" android:horizontalGap="2dp"/>
+        <Key android:codes="33" android:keyLabel="c" android:horizontalGap="6dp" />
+        <Key android:codes="118" android:keyLabel="v" android:horizontalGap="6dp" />
+        <Key android:codes="98" android:keyLabel="b" android:horizontalGap="6dp" />
+        <Key android:codes="110" android:keyLabel="n" android:horizontalGap="6dp" />
+        <Key android:codes="109" android:keyLabel="m" android:horizontalGap="6dp"/>
+        <Key android:codes="-11" android:keyLabel="←" android:horizontalGap="6dp"/>
+        <Key android:codes="-12" android:horizontalGap="6dp" android:keyLabel="→" />
+        <Key android:codes="-3"  android:keyLabel="完成" android:horizontalGap="6dp" />
+        <Key android:codes="-5"  android:horizontalGap="6dp" android:keyLabel="删除" />
+    </Row>
+</Keyboard>

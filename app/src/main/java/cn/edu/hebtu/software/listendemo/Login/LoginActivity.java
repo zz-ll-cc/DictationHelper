@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -171,6 +173,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //初始化即创建语音配置对象
+//        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=5de5adc2");
 
         init();//初始化事件接收器
 

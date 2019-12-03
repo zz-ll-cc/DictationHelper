@@ -23,16 +23,20 @@ import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BlurTransformation;
 import cn.edu.hebtu.software.listendemo.Untils.KeyboardUtil;
+import cn.edu.hebtu.software.listendemo.Untils.ReadManager;
 
 public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Word> listenWords;
     private int itemId;
 
+
+
     public ListenWordRecyclerViewAdapter(Context context, List listenWords, int itemId) {
         this.context = context;
         this.listenWords = listenWords;
         this.itemId = itemId;
+
     }
 
     @NonNull
@@ -70,6 +74,8 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
                 .thumbnail(0.1f).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 4)))
                 .into(itemViewHolder.ivWordImg);
+
+
     }
 
     @Override

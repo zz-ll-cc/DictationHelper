@@ -81,4 +81,20 @@ public abstract class BaseTblUser<M extends BaseTblUser<M>> extends Model<M> imp
 		return getInt("is_admin");
 	}
 
+	public void setUsex(java.lang.String usex) {
+		set("usex", usex);
+	}
+	
+	public java.lang.String getUsex() {
+		return getStr("usex");
+	}
+
+	public void setUgrade(java.lang.Integer ugrade) {
+		set("ugrade", ugrade);
+	}
+	
+	public java.lang.Integer getUgrade() {
+		return getInt("ugrade");
+	}
+
 }

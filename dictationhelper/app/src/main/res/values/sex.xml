@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sex">
+        <item>保密</item>
+        <item>小帅哥</item>
+        <item>小可爱</item>
+    </string-array>
+
+
+</resources>

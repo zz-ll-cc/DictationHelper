@@ -1,6 +1,7 @@
 package com.demo.user;
 
 import com.demo.common.model.TblUser;
+import com.demo.utils.RandomUtil;
 import com.jfinal.plugin.activerecord.Record;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -41,11 +42,25 @@ public class UserService {
     }
 
     /**
+     *通过Uid查找用户
+     * @param uid
+     * @return
+     */
+    public TblUser findUserByUid(int uid){
+        List<TblUser> userList = dao.find("select * from tbl_user where uid=? ", uid);
+        if (userList.isEmpty()) {
+            return null;
+        } else {
+            return userList.get(0);
+        }
+    }
+    /**
      * 插入User
      * @param phone
      */
     public void  saveUser(String phone){
-        new TblUser().set("uphone", phone).save();
+        String name= RandomUtil.getStringRandom();
+        new TblUser().set("uphone", phone).set("uname",name).save();
     }
     /**
      * 修改头像
@@ -54,9 +69,8 @@ public class UserService {
      * @param url
      */
     public void updateUserImage(int id, String url) {
-        dao.findById(id).set("uheadPath", url).update();
+         dao.findById(id).set("uheadPath", url).update();
     }
-
     /**
      * 用户名密码注册
      *
@@ -101,8 +115,13 @@ public class UserService {
         return null;
     }
 
-    public boolean updateUser(TblUser user){
-        return user.update();
+    public TblUser updateUser(TblUser user){
+        String password=user.getUpassword();
+        String firstEncrypt = DigestUtils.md5Hex(password);
+        String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
+        user.set("upassword",secondEncrypt);
+        user.update();
+        return user;
     }
 
 }

@@ -2,15 +2,21 @@ package com.demo.user;
 
 import com.demo.common.model.TblUser;
 import com.demo.entity.LoginInfo;
+import com.demo.upload.QiniuService;
 import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.JsonKit;
+import com.jfinal.upload.UploadFile;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class UserController extends Controller {
 
     @Inject
     UserService userService;
+    QiniuService qiniuService=new QiniuService();
 //    public void index() {
 //        redirect("/user/userhome.html");
 //    }
@@ -31,9 +37,9 @@ public class UserController extends Controller {
      */
     public void login(){
 
-        String phone=getPara("json");
+        String phone=getPara("phone");
         int login_type = getInt("login_type");
-        System.out.println(phone);
+        //System.out.println(phone);
         System.out.println(":"+login_type);
         if(login_type==1) {
             this.loginByVC(phone);
@@ -90,11 +96,33 @@ public class UserController extends Controller {
      * @return
      */
     public void updateuser(){
-        //String json=HttpKit.readData(getRequest());
-        String json=get("json");
+        String json=HttpKit.readData(getRequest());
         System.out.println(json);
+        //String json=get("json");
+        //System.out.println(json);
         TblUser user= JsonKit.parse(json,TblUser.class);
-        userService.updateUser(user);
+        System.out.println(user);
+        renderJson(userService.updateUser(user));
+    }
+    /**
+     * 修改头像
+     */
+    public void uploadhead(){
+        UploadFile file = getFile();
+        int uid=getInt("uid");
+        System.out.println(uid);
+        try {
+            String url = qiniuService.saveImage(file);
+            System.out.println("success: imageUrl = "+url);
+            TblUser user=userService.findUserByUid(uid);
+            System.out.println("user"+user);
+            user.set("uheadPath",url);
+            file.getFile().delete();
+            userService.updateUser(user);
+            renderJson(userService.findUserByUid(uid));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

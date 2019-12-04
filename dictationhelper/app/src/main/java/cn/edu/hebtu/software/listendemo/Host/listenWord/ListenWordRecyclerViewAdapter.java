@@ -51,6 +51,7 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         //设置每一项所显示的内容
         final MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
 
+
         itemViewHolder.tvWordChinese.setText(listenWords.get(i).getWchinese().toString());
         itemViewHolder.tvSum.setText(listenWords.size() + "");
         itemViewHolder.tvCurrent.setText(i + 1 + "");
@@ -99,6 +100,7 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         public TextView tvSum;
         public KeyboardView keyboard;
 
+
         public MyItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvWordChinese = itemView.findViewById(R.id.tv_wordChinese);
@@ -108,6 +110,7 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
             tvCurrent = itemView.findViewById(R.id.tv_current);
             tvSum = itemView.findViewById(R.id.tv_sum);
             keyboard = (KeyboardView) itemView.findViewById(R.id.kv_keyboard);
+
         }
     }
 

@@ -35,6 +35,10 @@ public class SmoothScrollLayoutManager extends LinearLayoutManager {
 
     }
 
+    @Override
+    public void scrollToPosition(int position) {
+        super.scrollToPosition(position);
+    }
 
     @Override
     public void onAttachedToWindow(RecyclerView view) {

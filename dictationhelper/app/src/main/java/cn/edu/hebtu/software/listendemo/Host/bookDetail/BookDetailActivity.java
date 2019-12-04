@@ -245,6 +245,11 @@ public class BookDetailActivity extends AppCompatActivity {
             });
 
         }
+
+        //记录在本地这本书
+        sp.edit().putString(Constant.BOOK_JSON,gson.toJson(book)).commit();
+
+
     }
 
     private void initView() {

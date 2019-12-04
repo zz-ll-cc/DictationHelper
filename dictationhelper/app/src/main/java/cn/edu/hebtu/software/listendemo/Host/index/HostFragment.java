@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +27,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.Host.searchBook.SearchBookActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -37,6 +42,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
 
 public class HostFragment extends Fragment {
     private LinearLayout llFindBooks;
@@ -48,6 +54,9 @@ public class HostFragment extends Fragment {
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private View view;
     private static final int GET_BOOKS = 1;
+    @BindView(R.id.tv_continue)
+    TextView tvContinue;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -67,6 +76,7 @@ public class HostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_host, container, false);
         initData();
+        ButterKnife.bind(this,view);
         return view;
     }
 
@@ -76,6 +86,23 @@ public class HostFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchBookActivity.class);
                 startActivity(intent);
+            }
+        });
+        tvContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+                String bookJson = sp.getString(BOOK_JSON,"");
+                if("".equals(bookJson)){
+                    Toast.makeText(getContext(),"没有找到当前的学习记录",Toast.LENGTH_SHORT).show();
+                }else{
+                    Book book = gson.fromJson(bookJson,Book.class);
+                    Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK,book);
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }
             }
         });
     }
@@ -117,4 +144,6 @@ public class HostFragment extends Fragment {
         super.onResume();
         initView(view);
     }
+
+
 }

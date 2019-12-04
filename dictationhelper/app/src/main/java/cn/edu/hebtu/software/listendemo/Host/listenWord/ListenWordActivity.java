@@ -40,10 +40,6 @@ public class ListenWordActivity extends AppCompatActivity {
     private View popupView=null;
     private ReadManager readManager = new ReadManager(ListenWordActivity.this,"");
 
-    int recyclerState;
-    private int lastPage = 0;
-    private boolean isPaging = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +58,20 @@ public class ListenWordActivity extends AppCompatActivity {
         listenWordRecyclerViewAdapter=new ListenWordRecyclerViewAdapter(this,listenWordlist,R.layout.activity_listenword_recycler_item);
         recyclerViewListenWord.setAdapter(listenWordRecyclerViewAdapter);
 
-        SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(ListenWordActivity.this);
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(ListenWordActivity.this){
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
         recyclerViewListenWord.setLayoutManager(layoutManager);
 
         recyclerViewListenWord.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -117,7 +125,8 @@ public class ListenWordActivity extends AppCompatActivity {
 
                 Log.e("firstVisible",""+layoutManager.findFirstCompletelyVisibleItemPosition());
                 int positionToSave = layoutManager.findFirstVisibleItemPosition();
-                layoutManager.smoothScrollToPosition(recyclerViewListenWord,new RecyclerView.State(),positionToSave+1);
+//                layoutManager.smoothScrollToPosition(recyclerViewListenWord,new RecyclerView.State(),positionToSave+1);
+                layoutManager.scrollToPosition(positionToSave+1);
                 View view = recyclerViewListenWord.getChildAt(0);
                 EditText editText = view.findViewById(R.id.et_word);
                 mineWordlist.get(positionToSave).setWenglish(editText.getText().toString());

@@ -17,6 +17,7 @@ public class Constant {
     public static final String DEFAULT_KEEP_USER = "[]";        // 登陆用户信息默认值
     public static final String AUTO_LOGIN_KEY = "autoLogin";    // 存放自动登陆 key
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
+    public static final String BOOK_JSON = "";//最近读过的一本书
 
     // URL 链接部分
     public static final String URL_BOOKS_FIND_ALL = "http://47.94.171.160:8080/book/all";   // 获取全部书的信息

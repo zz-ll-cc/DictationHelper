@@ -28,6 +28,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.PictureFileUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -378,6 +379,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Glide.with(this)
                         .load(user.getUheadPath())
                         .into(ivHead);
+//                PictureFileUtils.deleteCacheDirFile(CompleteInformationActivity.this);
                 break;
 
             case "finishSubmit":

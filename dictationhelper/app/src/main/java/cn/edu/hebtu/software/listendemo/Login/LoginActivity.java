@@ -190,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         if (sp.getBoolean(Constant.AUTO_LOGIN_KEY, Constant.DEFAULT_LOGIN_KEY)) {
             // 此时不为第一次登陆或退出登录情况，自动登陆
+
             Intent intent = new Intent(this, ListenIndexActivity.class);
             startActivity(intent);
         } else {

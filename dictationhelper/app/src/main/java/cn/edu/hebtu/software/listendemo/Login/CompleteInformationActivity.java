@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -157,7 +159,12 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                     user.setUbirth(tvBirth.getText().toString());
                 }
                 if(!etPass.getText().toString().isEmpty()){
-                    user.setUpassword(etPass.getText().toString());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Base64.Encoder encoder = Base64.getEncoder();
+                        user.setUpassword(new String(encoder.encode(etPass.getText().toString().getBytes())));
+                    }else{
+                        user.setUpassword(etPass.getText().toString());
+                    }
                 }
                 if(!etUserName.getText().toString().equals(user.getUname()) && !etUserName.getText().toString().isEmpty()){
                     user.setUname(etUserName.getText().toString());
@@ -205,6 +212,8 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
 
     private void updateUser() {
         RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),gson.toJson(user));
+        Log.e("user",""+gson.toJson(user));
+
         Request request = new Request.Builder().url(URL_UPDATE_USER).post(body).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -328,7 +337,11 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
             @Override
             public void onFailure(Call call, IOException e) {
                 //TODO 网络连接超时
-                Log.e("onFailure","服务器繁忙");
+                EventInfo<String,String,User> eventInfo = new EventInfo();
+                Map<String ,String> map = new HashMap<>();
+                map.put("status","failUpload");
+                eventInfo.setContentMap(map);
+                EventBus.getDefault().post(eventInfo);
             }
 
             @Override
@@ -354,23 +367,30 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveMethod(EventInfo<String,String,User> eventInfo){
         Map<String,String> map = eventInfo.getContentMap();
-        if(map.get("status").equals("finishUpload")){
-            //上传头像成功的回调
 
-            user = gson.fromJson(eventInfo.getContentString(),User.class);
-            sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
+        switch (map.get("status")){
+            case "finishUpload":
+                Log.e("receiveMethod",""+eventInfo.getContentString());
+                user = gson.fromJson(eventInfo.getContentString(),User.class);
+                sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
 
-            tvSetHead.setText("上传成功");
-            Glide.with(this)
-                    .load(user.getUheadPath())
-                    .into(ivHead);
-        }else if(map.get("status").equals("finishSubmit")){
-            //提交成功的回调
-            sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
-            Intent intent = new Intent(CompleteInformationActivity.this,ListenIndexActivity.class);
-            startActivity(intent);
-            finish();
+                tvSetHead.setText("上传成功");
+                Glide.with(this)
+                        .load(user.getUheadPath())
+                        .into(ivHead);
+                break;
+
+            case "finishSubmit":
+                sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
+                Intent intent = new Intent(CompleteInformationActivity.this,ListenIndexActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            case "failUpload":
+                tvSetHead.setText("服务器繁忙");
         }
+
 
 
 

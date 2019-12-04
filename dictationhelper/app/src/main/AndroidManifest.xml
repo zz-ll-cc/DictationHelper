@@ -29,16 +29,17 @@
         <activity android:name=".Login.LoginActivity">
 
         </activity>
-        <activity android:name=".Host.index.ListenIndexActivity"/>
-        <activity android:name=".Login.RegistActivity"/>
-        <activity android:name=".Host.searchBook.SearchBookActivity" />
-        <activity android:name=".Host.listenResult.ListenResultActivity" />
+        <activity android:name=".Host.index.ListenIndexActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Login.RegistActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Host.searchBook.SearchBookActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Host.listenResult.ListenResultActivity" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Host.listenWord.ListenWordActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name=".Host.bookDetail.BookDetailActivity"/>
-        <activity android:name=".Host.learnWord.LearnWordActivity"/>
+        <activity android:name=".Host.bookDetail.BookDetailActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Host.learnWord.LearnWordActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <!--完善个人信息-->
         <activity android:name=".Login.CompleteInformationActivity"
             android:theme="@style/AppTheme.NoActionBar">

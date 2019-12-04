@@ -166,6 +166,11 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         List<Word> words = unit.getWords();
         WordRecyclerAdapter adapter = new WordRecyclerAdapter(words, context, R.layout.fragment_book_detail_word_item);
         myViewHolder.rvWords.setAdapter(adapter);
+        //解决冲突
+        myViewHolder.rvWords.setNestedScrollingEnabled(false);
+        myViewHolder.rvWords.setFocusableInTouchMode(false);
+        myViewHolder.rvWords.requestFocus();
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);   // 默认设置垂直布局
         myViewHolder.rvWords.setLayoutManager(layoutManager);
         if (canDownMap.get(unit.getUnid())) {

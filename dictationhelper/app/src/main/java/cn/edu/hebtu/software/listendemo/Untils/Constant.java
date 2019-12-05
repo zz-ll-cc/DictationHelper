@@ -14,7 +14,7 @@ public class Constant {
     public static final String COLLECT_KEY = "collectList";    // 收藏教材 key
     public static final String DEFAULT_COLLECT_LIST = "[]";     // 收藏教材 默认值
     public static final String USER_KEEP_KEY = "user";      // 存放登录用户信息 key
-    public static final String DEFAULT_KEEP_USER = "[]";        // 登陆用户信息默认值
+    public static final String DEFAULT_KEEP_USER = "{}";        // 登陆用户信息默认值
     public static final String AUTO_LOGIN_KEY = "autoLogin";    // 存放自动登陆 key
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
     public static final String BOOK_JSON = "";//最近读过的一本书
@@ -38,7 +38,7 @@ public class Constant {
 
     public static final String URL_HEAD_UPLOAD = "http://47.94.171.160:8080/user/uploadhead";//头像上传
     public static final String URL_UPDATE_USER = "http://47.94.171.160:8080/user/updateuser";//更新用户详细信息
-
+    public static final String URL_UPD_PWD = "http://47.94.171.160:8080/user/updatepwd";       // 修改密码
     // Intent 传递 ====  接收部分
     public static final String HOST_CON_DETAIL_BOOK = "book";   // 在Host -> BookDetail 时传递 book Entity
     public static final String DETAIL_CON_RECITE_OR_DICTATION = "chooseWords";  // 在Detail -> 听写/背诵 时传递 List<Word> (jsonStr) 使用
@@ -70,5 +70,11 @@ public class Constant {
     public static final int LOGIN_PASSWORD_WRONGPASS = 3;   //密码错误
 
 
+    // 个人中心显示
+    public static final String TV_IS_VIP_SHOW = "正在享受VIP服务";
+    public static final String TV_NOT_VIP_SHOW = "尚未开通VIP";
 
+    public static final int PWD_TYPE_SET = 0;   // 设置密码
+    public static final int PWD_TYPE_UPD_OLD = 1;   // 通过旧密码修改密码
+    public static final int PWD_TYPE_UPD_PHONE = 2; // 通过手机验证修改密码
 }

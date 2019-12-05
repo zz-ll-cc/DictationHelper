@@ -29,13 +29,14 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Word> listenWords;
     private int itemId;
+    private KeyboardView keyboard;
 
 
-
-    public ListenWordRecyclerViewAdapter(Context context, List listenWords, int itemId) {
+    public ListenWordRecyclerViewAdapter(Context context, List listenWords, int itemId,KeyboardView keyboard) {
         this.context = context;
         this.listenWords = listenWords;
         this.itemId = itemId;
+        this.keyboard=keyboard;
 
     }
 
@@ -56,20 +57,28 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         itemViewHolder.tvSum.setText(listenWords.size() + "");
         itemViewHolder.tvCurrent.setText(i + 1 + "");
         itemViewHolder.etWord.setText("");
-        itemViewHolder.etWord.setOnTouchListener(new View.OnTouchListener() {
+        //用来初始化我们的软键盘
+        int type = itemViewHolder.etWord.getInputType();
+        new KeyboardUtil(keyboard, itemViewHolder.etWord).showKeyboard();
+        //new KeyboardUtil(itemViewHolder.keyboard, itemViewHolder.etWord).showKeyboard();
+        //光标问题
+        itemViewHolder.etWord.setInputType(type);
+        itemViewHolder.etWord.setSelection(itemViewHolder.etWord.getText().toString().length());
+       /* itemViewHolder.etWord.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (itemViewHolder.etWord.hasFocus()) {
                     //用来初始化我们的软键盘
                     int type = itemViewHolder.etWord.getInputType();
-                    new KeyboardUtil(itemViewHolder.keyboard, itemViewHolder.etWord).showKeyboard();
+                    new KeyboardUtil(keyboard, itemViewHolder.etWord).showKeyboard();
+                    //new KeyboardUtil(itemViewHolder.keyboard, itemViewHolder.etWord).showKeyboard();
                     //光标问题
                     itemViewHolder.etWord.setInputType(type);
                     itemViewHolder.etWord.setSelection(itemViewHolder.etWord.getText().toString().length());
                 }
                 return false;
             }
-        });
+        });*/
         RequestOptions options = new RequestOptions();
         options.skipMemoryCache(false);
         options.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
@@ -98,7 +107,7 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         public EditText etWord;
         public TextView tvCurrent;
         public TextView tvSum;
-        public KeyboardView keyboard;
+       // public KeyboardView keyboard;
 
 
         public MyItemViewHolder(@NonNull View itemView) {
@@ -109,7 +118,7 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
             root = itemView.findViewById(R.id.ll_above);
             tvCurrent = itemView.findViewById(R.id.tv_current);
             tvSum = itemView.findViewById(R.id.tv_sum);
-            keyboard = (KeyboardView) itemView.findViewById(R.id.kv_keyboard);
+            //keyboard = (KeyboardView) itemView.findViewById(R.id.kv_keyboard);
 
         }
     }

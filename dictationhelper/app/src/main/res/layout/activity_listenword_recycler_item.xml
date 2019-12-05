@@ -41,10 +41,13 @@
                 android:id="@+id/et_word"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:cursorVisible="true" />
+                android:cursorVisible="true"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:clickable="false"/>
         </LinearLayout>
 
-        <android.inputmethodservice.KeyboardView
+      <!--  <android.inputmethodservice.KeyboardView
             android:id="@+id/kv_keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +60,7 @@
             android:paddingTop="1dp"
             android:shadowColor="#FFFFFF"
             android:shadowRadius="0.0"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -80,15 +80,15 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case UPLOAD_FORM:
-                    sp.edit().putString(Constant.USER_KEEP_KEY,msg.obj+"").commit();
-                    Toast.makeText(EditMsgActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                    sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj + "").commit();
+                    Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case UPLOAD_HEADER:
-                    user = gson.fromJson(msg.obj+"", User.class);
-                    sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
+                    user = gson.fromJson(msg.obj + "", User.class);
+                    sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
                     tvSetHeader.setText("上传成功");
                     RequestOptions ro = new RequestOptions().circleCrop();
                     Glide.with(getApplicationContext())
@@ -114,6 +114,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private static final int UPLOAD_HEADER = 200;
     private static final int UPLOAD_FORM = 400;
     private static final int UPLOAD_ERROR = 600;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,13 +162,13 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             day = 1;
         } else {
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.getUbirth());
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(user.getUbirth());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 day = ca.get(Calendar.DAY_OF_MONTH);
                 month = ca.get(Calendar.MONTH);
                 year = ca.get(Calendar.YEAR);
-                tvBirth.setText(year+"年"+(month+1)+"月"+day+"日");
+                tvBirth.setText(year + "年" + (month + 1) + "月" + day + "日");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -220,7 +221,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                             int position = 2016 - year;
                             spYear.setSelection(position);
                         }
-                        month = month1+1;
+                        month = month1 + 1;
                         day = dayOfMonth;
                         tvBirth.setText(date);
                     }
@@ -245,11 +246,23 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void updNewUserMsg(){
-        user.setUbirth(tvBirth.getText().toString());
+    private void updNewUserMsg() {
+        if(!tvBirth.getText().toString().isEmpty()){
+            try {
+                Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(date);
+                int day = ca.get(Calendar.DAY_OF_MONTH);
+                int month = ca.get(Calendar.MONTH);
+                int year = ca.get(Calendar.YEAR);
+                user.setUbirth(year+"-"+(month+1)+"-"+day);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         user.setUname(etName.getText().toString());
         user.setUgrade(spGrade.getSelectedItemPosition());
-        switch (spSex.getSelectedItemPosition()){
+        switch (spSex.getSelectedItemPosition()) {
             case 0:
                 user.setUsex("保密");
                 break;
@@ -260,10 +273,11 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 user.setUsex("女");
                 break;
         }
-        Log.e("usersssss",gson.toJson(user));
+        Log.e("usersssss", gson.toJson(user));
     }
+
     private void postForm() {
-        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),gson.toJson(user));
+        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), gson.toJson(user));
         Request request = new Request.Builder().url(Constant.URL_UPDATE_USER).post(body).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -389,14 +403,14 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void uploadImg(String path) {
-        Log.e("path",path);
+        Log.e("path", path);
         File file = new File(path);
         MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream; charset=utf-8");
         String[] args = path.split("/");
         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("uid", user.getUid() + "")
-                .addFormDataPart("file", ""+args[args.length-1], RequestBody.create(MutilPart_Form_Data, file));
+                .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
         RequestBody requestBody = requestBodyBuilder.build();
         Request request = new Request.Builder()
                 .url(Constant.URL_HEAD_UPLOAD)
@@ -415,7 +429,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call call, Response response) throws IOException {
                 Message message = new Message();
                 message.obj = response.body().string();
-                Log.e("changHead",message.obj.toString());
+                Log.e("changHead", message.obj.toString());
                 message.what = UPLOAD_HEADER;
                 handler.sendMessage(message);
             }

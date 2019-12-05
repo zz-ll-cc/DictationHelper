@@ -62,10 +62,6 @@ public class MyInfoFragment extends Fragment {
         initData();
         setData();
         setListener();
-        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        Log.e("MyInfoFragment",""+user.toString());
-
         return view;
     }
 
@@ -116,6 +112,7 @@ public class MyInfoFragment extends Fragment {
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("MyInfoFragment",""+user.toString());
     }
 
     private void findViews() {

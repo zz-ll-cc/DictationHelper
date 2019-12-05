@@ -53,7 +53,7 @@ public class EidtCenterActivity extends AppCompatActivity {
     private void initData() {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        Log.e("EidtCenterActivity",""+user.toString());
+        Log.e("EidtCenterActivity",""+user.toString()+"\n"+sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER));
         tvCacheSize.setText(getCacheSize());
         if (null == user.getUpassword() || user.getUpassword().equals("") || user.getUpassword().equals("null")) {
             tvPwdShow.setText("设置密码");
@@ -190,5 +190,6 @@ public class EidtCenterActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initData();
+        setListeners();
     }
 }

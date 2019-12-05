@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#fff"
+                android:inputType="textUri|textMultiLine"
                 android:hint="请设置8-16位密码，含字母、数字"
                 android:maxEms="16"
                 android:maxLines="1"
@@ -116,6 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#fff"
+                        android:inputType="textUri|textMultiLine"
                         android:focusedByDefault="true"
                         android:hint="注意区分大小写"
                         android:maxEms="16"
@@ -159,6 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#fff"
+                    android:inputType="textUri|textMultiLine"
                     android:hint="请设置8-16位，需含字母、数字"
                     android:maxEms="16"
                     android:maxLines="1"
@@ -284,6 +287,7 @@
                     android:maxEms="16"
                     android:maxLines="1"
                     android:minEms="8"
+                    android:inputType="textUri|textMultiLine"
                     android:textColor="#000" />
 
                 <ImageView

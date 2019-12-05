@@ -27,7 +27,7 @@ public class User implements Serializable {
                 ", upassword='" + upassword + '\'' +
                 ", ubirth='" + ubirth + '\'' +
                 ", vip=" + vip +
-                ", admain=" + is_admain +
+                ", is_admain=" + is_admain +
                 ", usex='" + usex + '\'' +
                 ", ugrade=" + ugrade +
                 '}';

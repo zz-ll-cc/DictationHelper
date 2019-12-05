@@ -36,9 +36,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +159,18 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Log.e("spinner内容",""+spinSex.getSelectedItemPosition());
                 //0保密，1男，2女
                 if(!tvBirth.getText().toString().isEmpty()){
-                    user.setUbirth(tvBirth.getText().toString());
+                    try {
+                        Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
+                        Calendar ca = Calendar.getInstance();
+                        ca.setTime(date);
+                        int day = ca.get(Calendar.DAY_OF_MONTH);
+                        int month = ca.get(Calendar.MONTH);
+                        int year = ca.get(Calendar.YEAR);
+                        user.setUbirth(year+"-"+(month+1)+"-"+day);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 if(!etPass.getText().toString().isEmpty()){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

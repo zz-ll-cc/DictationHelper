@@ -71,16 +71,27 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
             super.handleMessage(msg);
             switch (msg.what) {
                 case SET_PWD:
-                    Log.e("messagesss1",msg.obj.toString());
-                    sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj.toString()).commit();
-                    Toast.makeText(EditPwdActivity.this, "设置成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    try{
+                        JSONObject obj = new JSONObject(msg.obj.toString());
+                        if (obj.getInt("register_type") != 0 ) {
+                            // 更改成功
+                            User user2 = gson.fromJson(obj.getString("user"), User.class);
+                            sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user2)).commit();
+                            Toast.makeText(EditPwdActivity.this, "设置成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            tvSetError.setText("密码设置错误，请重新输入密码");
+                            etSetPwd.setText("");
+                            tvSetError.setVisibility(View.VISIBLE);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     break;
                 case UPD_OLD:
-                    Log.e("messagesss2",msg.obj.toString());
                     try {
                         JSONObject obj = new JSONObject(msg.obj.toString());
-                        if (obj.getBoolean("register_type")) {
+                        if (obj.getInt("register_type") != 0 ) {
                             Log.e("messagesss2",msg.obj.toString());
                             // 更改成功
                             User user2 = gson.fromJson(obj.getString("user"), User.class);
@@ -89,6 +100,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                             finish();
                         } else {
                             tvOldError.setText("密码输入错误");
+                            tvOldError.setVisibility(View.VISIBLE);
                             etOldPwd.setText("");
                         }
                     } catch (Exception e) {
@@ -96,11 +108,22 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                     }
                     break;
                 case UPD_PHONE:
-                    Log.e("messagesss3",msg.obj.toString());
-                    User user1 = gson.fromJson(msg.obj.toString(), User.class);
-                    sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user1)).commit();
-                    Toast.makeText(EditPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    try{
+                        JSONObject obj = new JSONObject(msg.obj.toString());
+                        if (obj.getInt("register_type") != 0 ) {
+                            // 更改成功
+                            User user2 = gson.fromJson(obj.getString("user"), User.class);
+                            sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user2)).commit();
+                            Toast.makeText(EditPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            tvNewErrorP.setText("密码设置错误，请重新输入密码");
+                            etNewPwdP.setText("");
+                            tvNewErrorP.setVisibility(View.VISIBLE);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
@@ -184,8 +207,9 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
     private void initData() {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("userss",gson.toJson(user));
         String uphone = user.getUphone();
-//        phoneNumber = uphone.substring(0, 3) + "XXXX" + uphone.substring(7, uphone.length());
+        phoneNumber = uphone.substring(0, 3) + "XXXX" + uphone.substring(7, uphone.length());
     }
 
     private void findViews() {

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +53,7 @@ public class EidtCenterActivity extends AppCompatActivity {
     private void initData() {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("EidtCenterActivity",""+user.toString());
         tvCacheSize.setText(getCacheSize());
         if (null == user.getUpassword() || user.getUpassword().equals("") || user.getUpassword().equals("null")) {
             tvPwdShow.setText("设置密码");

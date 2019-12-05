@@ -162,6 +162,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 if(!etPass.getText().toString().isEmpty()){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         Base64.Encoder encoder = Base64.getEncoder();
+                        Log.e("encode",""+new String(encoder.encode(etPass.getText().toString().getBytes())));
                         user.setUpassword(new String(encoder.encode(etPass.getText().toString().getBytes())));
                     }else{
                         user.setUpassword(etPass.getText().toString());
@@ -369,7 +370,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     public void receiveMethod(EventInfo<String,String,User> eventInfo){
         Map<String,String> map = eventInfo.getContentMap();
 
-        switch (map.get("status")){
+        switch (map.get("status").toString()){
             case "finishUpload":
                 Log.e("receiveMethod",""+eventInfo.getContentString());
                 user = gson.fromJson(eventInfo.getContentString(),User.class);
@@ -383,6 +384,9 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 break;
 
             case "finishSubmit":
+
+
+                Log.e("finishSubmit",""+sp.getString(Constant.USER_KEEP_KEY,""));
                 sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
                 Intent intent = new Intent(CompleteInformationActivity.this,ListenIndexActivity.class);
                 startActivity(intent);

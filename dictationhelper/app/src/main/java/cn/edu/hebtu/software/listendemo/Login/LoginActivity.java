@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -156,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //保存登录信息
                                 editor = sp.edit();
                                 editor.putString(Constant.USER_KEEP_KEY , jsonObject.getString("user"));
+                                Log.e("phone",""+gson.fromJson(jsonObject.getString("user"), User.class).getUphone());
                                 editor.putBoolean(Constant.AUTO_LOGIN_KEY , true);
                                 editor.commit();
                                 // 页面跳转

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import cn.edu.hebtu.software.listendemo.Mine.index.settings.EditMsgActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class MyInfoFragment extends Fragment {
@@ -59,6 +62,10 @@ public class MyInfoFragment extends Fragment {
         initData();
         setData();
         setListener();
+        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("MyInfoFragment",""+user.toString());
+
         return view;
     }
 
@@ -107,7 +114,7 @@ public class MyInfoFragment extends Fragment {
     }
 
     private void initData() {
-        sp = getContext().getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+        sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
     }
 

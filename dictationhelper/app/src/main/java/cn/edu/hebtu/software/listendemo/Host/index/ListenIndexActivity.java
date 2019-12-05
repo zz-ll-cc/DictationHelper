@@ -1,20 +1,26 @@
 package cn.edu.hebtu.software.listendemo.Host.index;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Mine.index.MyInfoFragment;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Record.index.RecordFragment;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 public class ListenIndexActivity  extends AppCompatActivity {
     //所需要的全部资源
@@ -80,6 +86,11 @@ public class ListenIndexActivity  extends AppCompatActivity {
         Intent intent=getIntent();
         initDtata(); //初始化MyTabSpec
         changeTab(tabStrid[0]);  //设置默认显示的TabSpec
+
+        Gson gson = new Gson();
+        SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("ListenIndexActivity",""+user.toString());
 
     }
 

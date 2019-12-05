@@ -134,6 +134,7 @@ public class ListenResultActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE);
         User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         OkHttpClient okHttpClient=new OkHttpClient();
+        Log.e("sendScore",""+user.toString());
         FormBody fb = new FormBody.Builder().add("sum",sum+"").add("error",error+"").add("score",score+"").add("date",simpleDateFormat.format(date)).add("uid",user.getUid()+"").build();
         Request request = new Request.Builder().url(Constant.URL_SAVE_RECORD).post(fb).build();
         Call call = okHttpClient.newCall(request);
@@ -143,6 +144,12 @@ public class ListenResultActivity extends AppCompatActivity {
 
             }
 
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonBooks = response.body().string();

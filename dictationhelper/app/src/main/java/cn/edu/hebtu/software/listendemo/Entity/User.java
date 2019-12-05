@@ -14,7 +14,7 @@ public class User implements Serializable {
     private int admain;
     private String usex;
     private int ugrade; //0保密,123456
-
+    public static final int isVip = 1;
 
     @Override
     public String toString() {

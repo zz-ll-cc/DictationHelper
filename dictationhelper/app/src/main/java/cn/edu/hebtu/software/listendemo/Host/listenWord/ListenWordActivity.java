@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.KeyboardView;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class ListenWordActivity extends AppCompatActivity {
     private PopupWindow popupWindow=null;
     private View popupView=null;
     private ReadManager readManager = new ReadManager(ListenWordActivity.this,"");
+    private KeyboardView keyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,9 @@ public class ListenWordActivity extends AppCompatActivity {
 
 
     private void initView(){
+        keyboard = (KeyboardView) findViewById(R.id.kv_keyboard);
         recyclerViewListenWord=findViewById(R.id.rv_listenword);
-        listenWordRecyclerViewAdapter=new ListenWordRecyclerViewAdapter(this,listenWordlist,R.layout.activity_listenword_recycler_item);
+        listenWordRecyclerViewAdapter=new ListenWordRecyclerViewAdapter(this,listenWordlist,R.layout.activity_listenword_recycler_item,keyboard);
         recyclerViewListenWord.setAdapter(listenWordRecyclerViewAdapter);
 
         SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(ListenWordActivity.this){
@@ -147,7 +150,7 @@ public class ListenWordActivity extends AppCompatActivity {
                     }.start();
                 }else if(positionToSave == listenWordlist.size()-1){
                     showPopupView(v);
-                    btnNext.setVisibility(View.INVISIBLE);
+                    //btnNext.setVisibility(View.INVISIBLE);
                 }else{
 //                    延迟播放
                         new Thread(){

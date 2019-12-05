@@ -79,17 +79,17 @@ public class KeyboardUtil {
                     }
                     break;
                 case Keyboard.KEYCODE_CANCEL://完成
-                    hideKeyboard();
+                    //hideKeyboard();
                     break;
                 case LEFT_CODE: //向左
-                    if (start > 0) {
+                   /* if (start > 0) {
                         editText.setSelection(start - 1);
-                    }
+                    }*/
                     break;
                 case RIGHT_CODE:// 向右
-                    if (start < editText.length()) {
+                  /*  if (start < editText.length()) {
                         editText.setSelection(start + 1);
-                    }
+                    }*/
                     break;
                 default:
                     String str = Character.toString((char) primaryCode);
@@ -116,10 +116,10 @@ public class KeyboardUtil {
 
     // 隐藏键盘
     public void hideKeyboard() {
-        int visibility = keyboardView.getVisibility();
-        if (visibility == View.VISIBLE || visibility == View.INVISIBLE) {
+        //int visibility = keyboardView.getVisibility();
+      //  if (visibility == View.VISIBLE || visibility == View.INVISIBLE) {
             keyboardView.setVisibility(View.GONE);
-        }
+        //}
     }
 
     private boolean isWord(String str) {

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -48,6 +50,7 @@ public class SearchBookActivity extends AppCompatActivity {
     private List<Grade> gradeList;
     private List<Version>  versionList;
     private List<Book>  bookList;
+    private ImageView ivExit;
     private Gson gson = new Gson();
     private Handler handler = new Handler(){
         @Override
@@ -102,6 +105,13 @@ public class SearchBookActivity extends AppCompatActivity {
 
     private void initGradeView(){
         tvAllGrade = findViewById(R.id.tv_search_book_all_grade);
+        ivExit = findViewById(R.id.iv_search_book_exit);
+        ivExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         recyclerViewGrade=findViewById(R.id.rv_grade);
         gradeRecyclerViewAdapter=new GradeRecyclerViewAdapter(this,gradeList,R.layout.activity_grade_version_recycler_item,tvAllGrade);
         recyclerViewGrade.setAdapter(gradeRecyclerViewAdapter);//设置适配器

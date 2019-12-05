@@ -29,7 +29,7 @@
     </Row>
     <Row>
         <Key android:codes="120" android:keyLabel="x" android:horizontalGap="2dp"/>
-        <Key android:codes="33" android:keyLabel="c" android:horizontalGap="6dp" />
+        <Key android:codes="99" android:keyLabel="c" android:horizontalGap="6dp" />
         <Key android:codes="118" android:keyLabel="v" android:horizontalGap="6dp" />
         <Key android:codes="98" android:keyLabel="b" android:horizontalGap="6dp" />
         <Key android:codes="110" android:keyLabel="n" android:horizontalGap="6dp" />

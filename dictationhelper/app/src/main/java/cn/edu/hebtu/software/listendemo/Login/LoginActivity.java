@@ -27,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -250,14 +249,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (etPhone.getText().toString().equals("") || etPassword.getText().toString().equals("")) {
                             tvWrongMsg.setText("请填入登陆信息！");
                         } else {// 2. 获取登陆内容
-                            byte[] bytes = new byte[1024];
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                bytes = Base64.getEncoder().encode(etPassword.getText().toString().getBytes());
-                            }
                             FormBody fb = new FormBody.Builder()
                                     .add("login_type","2")
                                     .add("phone", etPhone.getText().toString())
-                                    .add("password", new String(bytes))
+                                    .add("password", etPassword.getText().toString())
                                     .build();
                             Request request = new Request.Builder()
                                     .url(Constant.URL_LOGIN_VERIFY)
@@ -296,7 +291,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.tv_verify:
                     //获取验证码的点击事件
-                    hideInputMethod(getApplicationContext(),getCurrentFocus());
+                    hideInputMethod(getApplicationContext(),tvVerify);
                     if(!etPhone.getText().toString().trim().equals("") && checkTel(etPhone.getText().toString().trim())){
                         SMSSDK.getVerificationCode("+86", etPhone.getText().toString());//获取验证码
                     }else{

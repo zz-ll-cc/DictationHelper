@@ -38,8 +38,11 @@ import com.yuyh.library.imgsel.config.ISListConfig;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
@@ -79,7 +82,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             super.handleMessage(msg);
             switch (msg.what){
                 case UPLOAD_FORM:
-                    sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
+                    sp.edit().putString(Constant.USER_KEEP_KEY,msg.obj+"").commit();
                     Toast.makeText(EditMsgActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
                     finish();
                     break;
@@ -87,16 +90,19 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                     user = gson.fromJson(msg.obj+"", User.class);
                     sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
                     tvSetHeader.setText("上传成功");
-                    RequestOptions ro = new RequestOptions().centerCrop();
+                    RequestOptions ro = new RequestOptions().circleCrop();
                     Glide.with(getApplicationContext())
                             .load(user.getUheadPath())
                             .apply(ro)
                             .into(ivHeader);
+                    initData();
+                    setData();
                     break;
                 case UPLOAD_ERROR:
                     tvSetHeader.setText("服务器繁忙...");
                     break;
             }
+
         }
     };
     private int year = 2016;
@@ -128,7 +134,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setData() {
         etName.setText(user.getUname());
-        RequestOptions ro = new RequestOptions().centerCrop();
+        RequestOptions ro = new RequestOptions().circleCrop();
         if (null != user.getUheadPath() && !user.getUheadPath().equals(""))
             Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
         else {
@@ -149,19 +155,25 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
         spGrade.setSelection(user.getUgrade());
-        if (!user.getUbirth().equals("")) {
-            tvBirth.setText(user.getUbirth());
-            String[] s1 = user.getUbirth().split("年");
-            year = Integer.parseInt(s1[0]);
-            String[] s2 = s1[1].split("月");
-            month = Integer.parseInt(s2[0]);
-            String[] s3 = s2[1].split("日");
-            day = Integer.parseInt(s3[0]);
+        if (null == user.getUbirth() || user.getUbirth().equals("")) {
+            spYear.setSelection(0);
+            month = 0;
+            day = 1;
+        } else {
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.getUbirth());
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(date);
+                day = ca.get(Calendar.DAY_OF_MONTH);
+                month = ca.get(Calendar.MONTH);
+                year = ca.get(Calendar.YEAR);
+                tvBirth.setText(year+"年"+(month+1)+"月"+day+"日");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (year != (1 - spYear.getSelectedItemPosition())) {
                 spYear.setSelection(2016 - year);
             } else spYear.setSelection(0);
-        } else {
-            spYear.setSelection(0);
         }
     }
 
@@ -248,6 +260,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 user.setUsex("女");
                 break;
         }
+        Log.e("usersssss",gson.toJson(user));
     }
     private void postForm() {
         RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),gson.toJson(user));
@@ -361,13 +374,13 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
             String path = data.getStringExtra("result"); // 图片地址
-            RequestOptions ro = new RequestOptions().centerCrop();
+            RequestOptions ro = new RequestOptions().circleCrop();
             Glide.with(this).load(path).apply(ro).into(ivHeader);
             uploadImg(path);
         } else if (requestCode == REQUEAT_CODE) {
             if (data != null) {
                 ArrayList<String> mSelectPath = data.getStringArrayListExtra("result");
-                RequestOptions ro = new RequestOptions().centerCrop();
+                RequestOptions ro = new RequestOptions().circleCrop();
                 Glide.with(this).load(mSelectPath.get(0)).apply(ro).into(ivHeader);
                 uploadImg(mSelectPath.get(0));
 

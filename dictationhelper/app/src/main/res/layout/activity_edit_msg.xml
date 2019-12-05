@@ -140,21 +140,24 @@
 
             <TextView
                 android:id="@+id/tv_upd_my_msg_birth_set"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/spin_upd_my_msg_year"
-                android:layout_width="110dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="match_parent"
                 android:entries="@array/year"
                 android:spinnerMode="dropdown" />
 
             <TextView
                 android:id="@+id/tv_upd_my_msg_selectBirth"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="选择"

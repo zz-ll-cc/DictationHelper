@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,15 +71,17 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
             super.handleMessage(msg);
             switch (msg.what) {
                 case SET_PWD:
-                    User user = gson.fromJson(msg.obj.toString(), User.class);
-                    sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
+                    Log.e("messagesss1",msg.obj.toString());
+                    sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj.toString()).commit();
                     Toast.makeText(EditPwdActivity.this, "设置成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case UPD_OLD:
+                    Log.e("messagesss2",msg.obj.toString());
                     try {
                         JSONObject obj = new JSONObject(msg.obj.toString());
-                        if (obj.getBoolean("type")) {
+                        if (obj.getBoolean("register_type")) {
+                            Log.e("messagesss2",msg.obj.toString());
                             // 更改成功
                             User user2 = gson.fromJson(obj.getString("user"), User.class);
                             sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user2)).commit();
@@ -93,6 +96,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                     }
                     break;
                 case UPD_PHONE:
+                    Log.e("messagesss3",msg.obj.toString());
                     User user1 = gson.fromJson(msg.obj.toString(), User.class);
                     sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user1)).commit();
                     Toast.makeText(EditPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
@@ -181,7 +185,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         String uphone = user.getUphone();
-        phoneNumber = uphone.substring(0, 3) + "XXXX" + uphone.substring(7, uphone.length());
+//        phoneNumber = uphone.substring(0, 3) + "XXXX" + uphone.substring(7, uphone.length());
     }
 
     private void findViews() {

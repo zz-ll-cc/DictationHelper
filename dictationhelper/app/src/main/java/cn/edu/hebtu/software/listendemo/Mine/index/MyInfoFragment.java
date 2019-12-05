@@ -89,8 +89,8 @@ public class MyInfoFragment extends Fragment {
             rlNoLogin.setVisibility(View.VISIBLE);
             rlEditMyMsg.setVisibility(View.GONE);
         } else {
-            rlNoLogin.setVisibility(View.VISIBLE);
-            rlEditMyMsg.setVisibility(View.GONE);
+            rlNoLogin.setVisibility(View.GONE);
+            rlEditMyMsg.setVisibility(View.VISIBLE);
             tvName.setText(user.getUname());
             if (user.getVip() == User.isVip) {
                 tvVip.setText(Constant.TV_IS_VIP_SHOW);
@@ -101,7 +101,7 @@ public class MyInfoFragment extends Fragment {
                 ivVip.setImageDrawable(getResources().getDrawable(R.drawable.vip_no));
                 tvVip.setTextColor(Color.parseColor("#ff0000"));
             }
-            RequestOptions ro = new RequestOptions().centerCrop();
+            RequestOptions ro = new RequestOptions().error(R.drawable.head_user).circleCrop();
             Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
         }
     }

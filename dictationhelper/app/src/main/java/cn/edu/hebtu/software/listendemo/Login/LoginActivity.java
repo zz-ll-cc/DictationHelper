@@ -193,6 +193,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, ListenIndexActivity.class);
             startActivity(intent);
+            finish();
         } else {
             setListeners();
         }

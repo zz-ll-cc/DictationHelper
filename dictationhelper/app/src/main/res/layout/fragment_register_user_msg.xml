@@ -11,12 +11,12 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_login_regist_user_msg_exit"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/left_exit" />
+            android:src="@drawable/left_exit"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,12 +28,12 @@
 
         <TextView
             android:id="@+id/tv_skip"
-            android:layout_centerVertical="true"
-            android:textSize="20dp"
-            android:layout_alignParentRight="true"
-            android:text="跳过"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="跳过"
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <!--生日、头像、城市、昵称-->
@@ -52,12 +52,13 @@
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/head_user" />
+
         <TextView
             android:id="@+id/tv_sethead"
-            android:gravity="center"
-            android:text="点击上方设置头像"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="点击上方设置头像" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,12 +104,11 @@
                 android:textSize="16dp" />
 
             <Spinner
-                android:spinnerMode="dropdown"
-                android:entries="@array/grade"
                 android:id="@+id/spin_grade"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
+                android:layout_height="match_parent"
+                android:entries="@array/grade"
+                android:spinnerMode="dropdown" />
 
 
         </LinearLayout>
@@ -118,7 +118,6 @@
             android:layout_height="1dp"
             android:layout_marginLeft="50dp"
             android:background="#000" />
-
 
 
         <LinearLayout
@@ -135,20 +134,22 @@
                 android:textSize="16dp" />
 
             <Spinner
-                android:spinnerMode="dropdown"
-                android:entries="@array/sex"
                 android:id="@+id/spin_sex"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:entries="@array/sex"
+                android:spinnerMode="dropdown">
 
 
             </Spinner>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="50dp"
             android:background="#000" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -162,26 +163,23 @@
                 android:gravity="center"
                 android:text="密码："
                 android:textSize="16dp" />
+
             <ImageView
                 android:id="@+id/iv_login_show_pwd"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/eye_close" />
+
             <EditText
-                android:inputType="textPassword"
                 android:id="@+id/et_regist_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#fff"
                 android:hint="(选填)"
+                android:inputType="textPassword"
                 android:maxEms="8"
                 android:maxLines="1"
                 android:textSize="16dp" />
-
-
-
-
-
 
 
         </LinearLayout>
@@ -191,6 +189,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="50dp"
             android:background="#000" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -203,32 +202,35 @@
                 android:gravity="center"
                 android:text="出生日期："
                 android:textSize="16dp" />
+
             <TextView
                 android:id="@+id/tv_birth"
-                android:textSize="16dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="match_parent" />
+                android:textSize="16dp" />
 
             <Spinner
-                android:spinnerMode="dropdown"
-                android:entries="@array/year"
                 android:id="@+id/spin_year"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"/>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:entries="@array/year"
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:id="@+id/tv_selectBirth"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="选择"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
-
 
 
         <TextView
@@ -237,8 +239,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="请输入您的昵称"
-            android:visibility="gone"
-            android:textColor="#FA0126" />
+            android:textColor="#FA0126"
+            android:visibility="gone" />
     </LinearLayout>
 
     <Button

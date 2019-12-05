@@ -50,7 +50,7 @@ public class ListenResultActivity extends AppCompatActivity {
     private int error=0;
     private  double score;
     public Date date;
-    public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+    public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +67,7 @@ public class ListenResultActivity extends AppCompatActivity {
         tvReturnHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent=new Intent(ListenResultActivity.this, ListenIndexActivity.class);
                 startActivity(intent);
             }
@@ -102,6 +103,7 @@ public class ListenResultActivity extends AppCompatActivity {
                     word.put("TYPE", w.getType());
                     word.put("ISTRUE", w.getIsTrue());
                     date = new Date(System.currentTimeMillis());
+                    Log.e("date",""+date.toString());
                     word.put("ADDTIME", simpleDateFormat.format(date));
                     long row = database.insert("TBL_WRONGWORD", null, word);
                     Log.e("插入错词的行号", row + "");
@@ -112,7 +114,7 @@ public class ListenResultActivity extends AppCompatActivity {
         }
         score=(sum-error)*(1.0)/sum * 100;
         //传递测试数据
-        //sendScore();
+        sendScore();
         final LeanTextView mText = findViewById(R.id.lean);
         mText.setText(Html.fromHtml("<u>"+(int)score+"</u>"));
         mText.setmDegrees(20);
@@ -133,7 +135,7 @@ public class ListenResultActivity extends AppCompatActivity {
         User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         OkHttpClient okHttpClient=new OkHttpClient();
         FormBody fb = new FormBody.Builder().add("sum",sum+"").add("error",error+"").add("score",score+"").add("date",simpleDateFormat.format(date)).add("uid",user.getUid()+"").build();
-        Request request = new Request.Builder().url(Constant.URL_BOOKS_FIND_ALL).build();
+        Request request = new Request.Builder().url(Constant.URL_SAVE_RECORD).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -144,6 +146,7 @@ public class ListenResultActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonBooks = response.body().string();
+                Log.e("response",""+jsonBooks);
                /* Message message = new Message();
                 message.what = GET_BOOKS;
                 Type type = new TypeToken<List<Book>>() {

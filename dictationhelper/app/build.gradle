@@ -75,6 +75,12 @@ dependencies {
     //datePicker
     implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
 
+
+    //
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45'
+
+
     implementation 'com.yuyh.imgsel:library:2.0.6'
+
     implementation files('libs/Msc.jar')
 }

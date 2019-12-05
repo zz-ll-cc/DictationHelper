@@ -1,14 +1,19 @@
 package cn.edu.hebtu.software.listendemo.Host.learnWord;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -23,12 +28,14 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private List<Word> learnWords;
     private int itemId;
     private ReadManager readManager;
+    private SQLiteDatabase database;
 
-    public LearnWordRecyclerViewAdapter(Context context, List  learnWords, int itemId) {
+    public LearnWordRecyclerViewAdapter(Context context, List  learnWords, int itemId,SQLiteDatabase database) {
         this.context = context;
         this. learnWords= learnWords;
         this.itemId = itemId;
         readManager = new ReadManager(context,"");
+        this.database=database;
     }
 
     @NonNull
@@ -54,6 +61,31 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
             }
         });
         Glide.with(context).load(learnWords.get(i).getWimgPath()).into(itemViewHolder.ivWordImg);
+        final Word w=learnWords.get(i);
+        //添加生词
+        itemViewHolder.ivAddNewWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num=0;
+                Cursor cursor =database .query("TBL_NEWWORD", null, "WENGLISH=?", new String[]{w.getWenglish()}, null, null, null);
+                if(cursor.getCount()==0){
+                    ContentValues word = new ContentValues();
+                    word.put("WENGLISH",w.getWenglish());
+                    word.put("WCHINESE",w.getWchinese());
+                    word.put("WIMGPATH",w.getWimgPath());
+                    word.put("UNID",w.getUnid());
+                    word.put("BID",w.getBid());
+                    word.put("TYPE",w.getType());
+                    word.put("ISTRUE",w.getIsTrue());
+                    long row = database.insert("TBL_NEWWORD", null, word);
+                    Log.e("插入生词的行号", row + "");
+                    Toast.makeText(context,"添加成功",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(context,"已添加不要重复添加",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -74,6 +106,7 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
         public TextView tvCurrent;
         public TextView tvSum;
         public ImageView ivTrumpet;
+        public ImageView ivAddNewWord;
         public MyItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvWordChinese=itemView.findViewById(R.id.tv_wordChinese);
@@ -83,6 +116,7 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
             tvCurrent=itemView.findViewById(R.id.tv_current);
             tvSum=itemView.findViewById(R.id.tv_sum);
             ivTrumpet = itemView.findViewById(R.id.iv_trumpet);
+            ivAddNewWord=itemView.findViewById(R.id.iv_addNewWord);
         }
     }
 

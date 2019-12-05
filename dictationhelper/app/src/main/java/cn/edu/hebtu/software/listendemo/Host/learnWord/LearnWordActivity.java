@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Host.learnWord;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,18 +25,22 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
+import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
 
 public class LearnWordActivity extends AppCompatActivity {
 
     private LearnWordRecyclerViewAdapter learnWordRecyclerViewAdapter;
     private RecyclerView recyclerViewLearnWord;
     private List<Word> learnWordlist;
+    private List<WrongWord> errorWordlist;
     private int i = 0;
     private PopupWindow popupWindow = null;
     private View popupView = null;
+    private SQLiteDatabase database;
 
 
     @Override
@@ -43,13 +48,15 @@ public class LearnWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_word);
         setTitle("学习单词");
+        NewWordDBHelper newWordDBHelper =new NewWordDBHelper(this,"tbl_newWord.db",1);
+        database = newWordDBHelper.getWritableDatabase();
         initData();
         initView();
     }
 
     private void initView() {
         recyclerViewLearnWord= findViewById(R.id.rv_learnword);
-        learnWordRecyclerViewAdapter = new LearnWordRecyclerViewAdapter(this, learnWordlist, R.layout.activity_learnword_recycler_item);
+        learnWordRecyclerViewAdapter = new LearnWordRecyclerViewAdapter(this, learnWordlist, R.layout.activity_learnword_recycler_item,database);
         recyclerViewLearnWord.setAdapter(learnWordRecyclerViewAdapter);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
             @Override
@@ -107,6 +114,30 @@ public class LearnWordActivity extends AppCompatActivity {
         if(str!=null){
             Type listType=new TypeToken< List<Word> >(){}.getType();
             learnWordlist=new Gson().fromJson(str,listType);
+        }
+        String str1=intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_LEARN);
+        if(str1!=null){
+            Type listType=new TypeToken< List<Word> >(){}.getType();
+            learnWordlist=new Gson().fromJson(str1,listType);
+            str1=null;
+        }
+        String str2=intent.getStringExtra(Constant.WRONGWORD_CON_LEARNWORD_LEARN);
+        if(str2!=null){
+            Type listType=new TypeToken< List<WrongWord> >(){}.getType();
+            errorWordlist=new Gson().fromJson(str2,listType);
+            learnWordlist=new ArrayList<>();
+            for(WrongWord w:errorWordlist){
+                Word word=new Word();
+                word.setWenglish(w.getWenglish());
+                word.setWchinese(w.getWchinese());
+                word.setWimgPath(w.getWimgPath());
+                word.setBid(w.getBid());
+                word.setIsTrue(w.getIsTrue());
+                word.setType(w.getType());
+                word.setUnid(w.getUnid());
+                learnWordlist.add(word);
+            }
+            str2=null;
         }
     }
 

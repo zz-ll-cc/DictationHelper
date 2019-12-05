@@ -124,4 +124,10 @@ public class UserService {
         return user;
     }
 
+
+    public void deleteUser(TblUser user){
+        user.delete();
+    }
+
+
 }

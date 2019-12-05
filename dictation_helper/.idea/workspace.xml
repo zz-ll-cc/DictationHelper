@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/res/mipmap-xhdpi/dic_launcher.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/res/mipmap-xhdpi/dic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictationhelper/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictationhelper/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Host/listenWord/ListenWordActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -147,7 +147,7 @@ public class ListenWordActivity extends AppCompatActivity {
                     }.start();
                 }else if(positionToSave == listenWordlist.size()-1){
                     showPopupView(v);
-                    btnNext.setVisibility(View.INVISIBLE);
+
                 }else{
 //                    延迟播放
                         new Thread(){

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
+import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
 import cn.edu.hebtu.software.listendemo.Host.listenResult.ListenResultActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -34,8 +35,9 @@ public class ListenWordActivity extends AppCompatActivity {
 
     private ListenWordRecyclerViewAdapter listenWordRecyclerViewAdapter;
     private RecyclerView recyclerViewListenWord;
-    private List<Word>  listenWordlist;
+    private List<Word>  listenWordlist=new ArrayList<>();
     private List<Word> mineWordlist=new ArrayList<>();
+    private List<WrongWord>  errorWordlist;
     private int i=0;
     private PopupWindow popupWindow=null;
     private View popupView=null;
@@ -74,9 +76,7 @@ public class ListenWordActivity extends AppCompatActivity {
             }
         };
 //        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
         recyclerViewListenWord.setLayoutManager(layoutManager);
-
         recyclerViewListenWord.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -86,7 +86,6 @@ public class ListenWordActivity extends AppCompatActivity {
                 SCROLL_STATE_IDLE = 0 静止没有滚动
                 SCROLL_STATE_DRAGGING = 1  用户正在拖拽
                 SCROLL_STATE_SETTLING = 2 自动滚动
-
                  */
 
 //                if(newState == 0){
@@ -125,13 +124,13 @@ public class ListenWordActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Log.e("firstVisible",""+layoutManager.findFirstCompletelyVisibleItemPosition());
                 int positionToSave = layoutManager.findFirstVisibleItemPosition();
 //                layoutManager.smoothScrollToPosition(recyclerViewListenWord,new RecyclerView.State(),positionToSave+1);
+                Log.e("positionToSave",positionToSave+"");
                 layoutManager.scrollToPosition(positionToSave+1);
                 View view = recyclerViewListenWord.getChildAt(0);
-                EditText editText = view.findViewById(R.id.et_word);
+                EditText editText = findViewById(R.id.et_word);
                 mineWordlist.get(positionToSave).setWenglish(editText.getText().toString());
                 Log.e("word",""+editText.getText().toString());
                 if(positionToSave == listenWordlist.size()-2){
@@ -150,9 +149,8 @@ public class ListenWordActivity extends AppCompatActivity {
                     }.start();
                 }else if(positionToSave == listenWordlist.size()-1){
                     showPopupView(v);
-
                 }else{
-//                    延迟播放
+                    //延迟播放
                         new Thread(){
                             @Override
                             public void run() {
@@ -204,7 +202,7 @@ public class ListenWordActivity extends AppCompatActivity {
 //                }
             }
         });
-        readManager.pronounce(listenWordlist.get(0).getWenglish());
+//        readManager.pronounce(listenWordlist.get(0).getWenglish());
 
     }
 
@@ -213,19 +211,47 @@ public class ListenWordActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String str=intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
         if(str!=null && !str.equals("")){
+            Log.e("tt",str);
             Type listType=new TypeToken< List<Word> >(){}.getType();
             listenWordlist=new Gson().fromJson(str,listType);
         }
         String str1=intent.getStringExtra(Constant.RECITE_CON_DICTATION);
         if(str1!=null && !str1.equals("")){
             Type listType=new TypeToken<List<Word>>(){}.getType();
+            Log.e("tt",str1);
             listenWordlist=new Gson().fromJson(str1,listType);
         }
-        for(Word word : listenWordlist){
-            Word w = new Word();
-            mineWordlist.add(w);
+        String str2=intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_DICTATION);
+        if(str2!=null){
+            Type listType=new TypeToken< List<Word> >(){}.getType();
+            listenWordlist=new Gson().fromJson(str2,listType);
+            str1=null;
         }
 
+        String str3=intent.getStringExtra(Constant.WRONGWORD_CON_LEARNWORD_DICTATION);
+        if(str3!=null){
+            Type listType=new TypeToken< List<WrongWord> >(){}.getType();
+            errorWordlist=new Gson().fromJson(str3,listType);
+            listenWordlist=new ArrayList<>();
+            for(WrongWord w:errorWordlist){
+                Word word=new Word();
+                word.setWenglish(w.getWenglish());
+                word.setWchinese(w.getWchinese());
+                word.setWimgPath(w.getWimgPath());
+                word.setBid(w.getBid());
+                word.setIsTrue(w.getIsTrue());
+                word.setType(w.getType());
+                word.setUnid(w.getUnid());
+                listenWordlist.add(word);
+            }
+            str2=null;
+        }
+        if(listenWordlist.size()>0){
+            for(Word word : listenWordlist){
+                Word w = new Word();
+                mineWordlist.add(w);
+            }
+        }
     }
 
     private void showPopupView(View v) {

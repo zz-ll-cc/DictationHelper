@@ -101,7 +101,7 @@ public class WrongWordActivity extends AppCompatActivity {
                 word.setBid(bid);
                 word.setType(type);
                 word.setIsTrue(isTrue);
-                SimpleDateFormat formatter = new SimpleDateFormat( "yyyy年MM月dd日 HH:mm:ss");
+                SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
                 Date date = null;
                 try {
                     date = formatter.parse(addTime);

@@ -2,27 +2,38 @@ package cn.edu.hebtu.software.listendemo.Record.index;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.edu.hebtu.software.listendemo.Entity.EventInfo;
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.SmoothScrollLayoutManager;
@@ -41,9 +52,17 @@ public class RecordFragment extends Fragment {
     private LinearLayout llwrong;
     @BindView(R.id.rv_statistics)
     RecyclerView rvStatistics;
+    private ImageView imageView;
     //传过来图片的url
     private List<String> urlList;
     private StatisticAdapter adapter;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg) {
+            Bitmap bitmap = (Bitmap)msg.obj;
+            imageView.setImageBitmap(bitmap);//将图片的流转换成图片
+        }
+    };
 
     @Override
     public void onDestroy() {
@@ -67,31 +86,34 @@ public class RecordFragment extends Fragment {
     private View view;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_record,container,false);
+        imageView=view.findViewById(R.id.iv);
         ButterKnife.bind(this,view);
-
         SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE);
-
-
+        User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         OkHttpClient okHttpClient=new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("uid","").build();
-        Request request = new Request.Builder().url(Constant.URL_BOOKS_FIND_ALL).build();
+        FormBody fb = new FormBody.Builder().add("uid",user.getUid()+"").build();
+        Request request = new Request.Builder().url(Constant.URL_GET_RECORD).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Log.e("tt","请求失败");
+                e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String jsonBooks = response.body().string();
-               /* Message message = new Message();
-                message.what = GET_BOOKS;
-                Type type = new TypeToken<List<Book>>() {
-                }.getType();
-                res = gson.fromJson(jsonBooks, type);
-                handler.sendMessage(message);*/
-            }
+                 Log.e("response","请求成功");
+                 Log.e("re",request.body()+"");
+                //InputStream inputStream = response.body().byteStream();//得到图片的流
+                //Log.e("inputStream",inputStream+"");
+                //File file=new File();
+                //Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                //Log.e("bitmap",bitmap+"");
+                //Message msg = new Message();
+               // msg.obj = bitmap;
+                //handler.sendMessage(msg);
+        }
         });
 
         return view;

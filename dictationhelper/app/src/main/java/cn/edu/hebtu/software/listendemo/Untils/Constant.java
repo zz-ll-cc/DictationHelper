@@ -33,7 +33,10 @@ public class Constant {
     public static final String URL_USER_LOGIN = "http://47.94.171.160:8080/user/loginByPP";      // 登陆验证
     public static final String URL_CAN_REGISTER = "";       // 发送手机号是否已被注册请求
     public static final String URL_LOGIN_VERIFY = "http://47.94.171.160:8080/user/login"; //手机验证码登录
-    public static final String URL_SAVE_RECORD = "http://47.94.171.160:8080/record/save";//保存听写记录
+    public static final String URL_SAVE_RECORD = "http://47.94.171.160:8080/record/save";//保存听写记录http:
+    public static final String URL_GET_RECORD = "http://47.94.171.160:8080/chart/getChart";//保存听写记录http://47.94.171.160:8080/chart/getChart?uid=10020
+
+
 
 
     public static final String URL_HEAD_UPLOAD = "http://47.94.171.160:8080/user/uploadhead";//头像上传

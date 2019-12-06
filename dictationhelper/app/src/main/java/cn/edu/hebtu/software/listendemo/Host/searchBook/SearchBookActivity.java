@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -105,6 +106,7 @@ public class SearchBookActivity extends AppCompatActivity {
 
     private void initGradeView(){
         tvAllGrade = findViewById(R.id.tv_search_book_all_grade);
+        tvAllGrade.setTextColor(Color.RED);
         ivExit = findViewById(R.id.iv_search_book_exit);
         ivExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +123,7 @@ public class SearchBookActivity extends AppCompatActivity {
 
     private void initVersionView(){
         tvAllVersion = findViewById(R.id.tv_search_book_all_version);
+        tvAllVersion.setTextColor(Color.RED);
         recyclerViewVersion=findViewById(R.id.rv_version);
         versionRecyclerViewAdapter=new VersionRecyclerViewAdapter(this,versionList,R.layout.activity_grade_version_recycler_item,tvAllVersion);
         recyclerViewVersion.setAdapter(versionRecyclerViewAdapter);

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" afterDir="false" />
-    </list>
+    <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +70,7 @@
       <updated>1575505491154</updated>
       <workItem from="1575505492612" duration="2988000" />
       <workItem from="1575550385583" duration="1500000" />
+      <workItem from="1575597754221" duration="602000" />
     </task>
     <servers />
   </component>

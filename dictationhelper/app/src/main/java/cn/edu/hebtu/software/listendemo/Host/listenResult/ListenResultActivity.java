@@ -114,7 +114,9 @@ public class ListenResultActivity extends AppCompatActivity {
         //传递测试数据
         sendScore();
         final LeanTextView mText = findViewById(R.id.lean);
-        mText.setText(Html.fromHtml("<u>"+(int)score+"</u>"));
+        score = (sum-error)/(sum*1.0);
+        mText.setText(Html.fromHtml("<u>"+Math.round(score*100)+"</u>"));
+        Log.e("sum",""+sum+"erro:"+error);
         mText.setmDegrees(20);
         listenResultSuccessRecyclerViewAdapter=new ListenResultRecyclerViewAdapter(this,successList,R.layout.activity_grade_version_recycler_item);
         listenResultMineRecyclerViewAdapter=new ListenResultRecyclerViewAdapter(this,mineList,R.layout.activity_grade_version_recycler_item);

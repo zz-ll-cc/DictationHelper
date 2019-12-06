@@ -202,7 +202,7 @@ public class ListenWordActivity extends AppCompatActivity {
 //                }
             }
         });
-//        readManager.pronounce(listenWordlist.get(0).getWenglish());
+        readManager.pronounce(listenWordlist.get(0).getWenglish());
 
     }
 

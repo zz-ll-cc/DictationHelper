@@ -160,7 +160,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 //0保密，1男，2女
                 if(!tvBirth.getText().toString().isEmpty()){
                     try {
-                        Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
+                        Date date = new SimpleDateFormat("yyyy年MM月dd").parse(tvBirth.getText().toString());
                         Calendar ca = Calendar.getInstance();
                         ca.setTime(date);
                         int day = ca.get(Calendar.DAY_OF_MONTH);

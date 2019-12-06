@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -252,10 +253,18 @@ public class LoginActivity extends AppCompatActivity {
                         if (etPhone.getText().toString().equals("") || etPassword.getText().toString().equals("")) {
                             tvWrongMsg.setText("请填入登陆信息！");
                         } else {// 2. 获取登陆内容
+
+                            String pass = "";
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                byte[] bytes = Base64.getEncoder().encode(etPassword.getText().toString().getBytes());
+                                pass = new String(bytes);
+                            }else{
+                                pass = etPassword.getText().toString();
+                            }
                             FormBody fb = new FormBody.Builder()
                                     .add("login_type","2")
                                     .add("phone", etPhone.getText().toString())
-                                    .add("password", etPassword.getText().toString())
+                                    .add("password", pass)
                                     .build();
                             Request request = new Request.Builder()
                                     .url(Constant.URL_LOGIN_VERIFY)

@@ -59,8 +59,9 @@ public class RecordFragment extends Fragment {
 
     private Handler handler = new Handler(){
         public void handleMessage(Message msg) {
-            Bitmap bitmap = (Bitmap)msg.obj;
-            imageView.setImageBitmap(bitmap);//将图片的流转换成图片
+//            Bitmap bitmap = (Bitmap)msg.obj;
+//            Bitmap bitmap = BitmapFactory.decodeStream()
+//            imageView.setImageBitmap(bitmap);//将图片的流转换成图片
         }
     };
 
@@ -104,7 +105,8 @@ public class RecordFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                  Log.e("response","请求成功");
-                 Log.e("re",request.body()+"");
+                 Log.e("re",response.body().string()+"");
+
                 //InputStream inputStream = response.body().byteStream();//得到图片的流
                 //Log.e("inputStream",inputStream+"");
                 //File file=new File();

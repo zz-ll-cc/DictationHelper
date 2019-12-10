@@ -1,6 +1,5 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 
@@ -142,8 +140,15 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 if (chooseWords.isEmpty()) {
                     Toast.makeText(context, "请选择默写单元", Toast.LENGTH_SHORT).show();
                 } else {
+                    // 只传递重点单词到背诵
+                    List<Word> dicWord = new ArrayList<>();
+                    for (Word word : chooseWords) {
+                        if (word.getType() == Word.TYPE_KEYNODE)
+                            dicWord.add(word);
+                    }
+
                     Intent intent = new Intent(context, ListenWordActivity.class);
-                    intent.putExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION, new Gson().toJson(chooseWords));
+                    intent.putExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION, new Gson().toJson(dicWord));
                     context.startActivity(intent);
                 }
             }

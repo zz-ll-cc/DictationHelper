@@ -10,9 +10,10 @@ public class Constant {
     // SharedPreferences 部分
     public static final String SP_NAME = "用户";      // SharedPreferences 名称
     public static final String BIND_KEY = "bind";   // 绑定教材 key
+    public static final String DEFAULT_BING_MAP = "{}"; // 默认绑定的map
     public static final int DEFAULT_BIND_ID = -1;   // 绑定教材 默认值
     public static final String COLLECT_KEY = "collectList";    // 收藏教材 key
-    public static final String DEFAULT_COLLECT_LIST = "[]";     // 收藏教材 默认值
+    public static final String DEFAULT_COLLECT_LIST = "{}";     // 收藏教材 默认值
     public static final String USER_KEEP_KEY = "user";      // 存放登录用户信息 key
     public static final String DEFAULT_KEEP_USER = "{}";        // 登陆用户信息默认值
     public static final String AUTO_LOGIN_KEY = "autoLogin";    // 存放自动登陆 key

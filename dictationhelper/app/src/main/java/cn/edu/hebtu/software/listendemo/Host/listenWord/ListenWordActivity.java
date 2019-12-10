@@ -35,7 +35,7 @@ public class ListenWordActivity extends AppCompatActivity {
 
     private ListenWordRecyclerViewAdapter listenWordRecyclerViewAdapter;
     private RecyclerView recyclerViewListenWord;
-    private List<Word>  listenWordlist=new ArrayList<>();
+    private List<Word>  listenWordlist = new ArrayList<>();
     private List<Word> mineWordlist=new ArrayList<>();
     private List<WrongWord>  errorWordlist;
     private int i=0;
@@ -246,7 +246,7 @@ public class ListenWordActivity extends AppCompatActivity {
             }
             str2=null;
         }
-        if(listenWordlist.size()>0){
+        if(listenWordlist != null && !listenWordlist.isEmpty()){
             for(Word word : listenWordlist){
                 Word w = new Word();
                 mineWordlist.add(w);

@@ -26,8 +26,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.R;
@@ -38,26 +40,36 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
     private int layout_item_id;
     private List<Book> res = null;
     private List<Book> orginalRes = null;
+    private Map<Integer,List<Integer>> colMap;
     private Context context;
     private int bindId;
-    private List<Integer> collectRes = new ArrayList<>();
+    private List<Integer> collectRes = null;
     private SharedPreferences sp;
     private Gson gson = new Gson();
-
+    private User user;
     public HostRecyclerAdapter(int layout_item_id, List<Book> res, Context context) {
         this.layout_item_id = layout_item_id;
         this.res = res;
         this.context = context;
         this.orginalRes = res;
         sp = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         changeRes();
     }
 
     private void changeRes() {
-        Type type = new TypeToken<List<Integer>>() {
-        }.getType();
-        collectRes = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
-        bindId = sp.getInt(Constant.BIND_KEY, Constant.DEFAULT_BIND_ID);
+        Type type = new TypeToken<Map<Integer,List<Integer>>>() {}.getType();
+        colMap = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
+        if (colMap.containsKey(user.getUid()))
+            collectRes = colMap.get(user.getUid());
+        else
+            collectRes = new ArrayList<>();
+        Type type1 = new TypeToken<Map<Integer,Integer>>(){}.getType();
+        Map<Integer,Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY,Constant.DEFAULT_BING_MAP),type1);
+        if (bindMap.containsKey(user.getUid()))
+            bindId = bindMap.get(user.getUid());
+        else
+            bindId = Constant.DEFAULT_BIND_ID;
         if (bindId != -1 && collectRes.size() == 0) {
             // 此时已经有绑定教材，但无收藏教材
             for (int i = 0; i < res.size(); i++) {
@@ -177,7 +189,8 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                 }
                 // 2. 将新的数据放入SharedP
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString(Constant.COLLECT_KEY, gson.toJson(collectRes));
+                colMap.put(user.getUid(),collectRes);
+                editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                 editor.commit();
                 // 3. 修改显示样式
                 changeRes();
@@ -196,8 +209,13 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                     public void onClick(DialogInterface dialog, int which) {
                         // 选中“确定”按钮，解除绑定
                         // 更改SharedP中数据
+                        Type type = new TypeToken<Map<Integer, Integer>>() {
+                        }.getType();
+                        Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
+                        bindMap.put(user.getUid(),Constant.DEFAULT_BIND_ID);
+
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putInt(Constant.BIND_KEY, -1);
+                        editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
                         editor.commit();
                         // 修改显示样式
                         changeRes();

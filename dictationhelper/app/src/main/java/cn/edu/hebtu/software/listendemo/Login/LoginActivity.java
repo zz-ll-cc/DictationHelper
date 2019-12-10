@@ -36,6 +36,7 @@ import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -303,9 +304,11 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.tv_verify:
                     //获取验证码的点击事件
+                    CountTimer timer = new CountTimer(tvVerify);
                     hideInputMethod(getApplicationContext(),tvVerify);
                     if(!etPhone.getText().toString().trim().equals("") && checkTel(etPhone.getText().toString().trim())){
                         SMSSDK.getVerificationCode("+86", etPhone.getText().toString());//获取验证码
+                        timer.start();
                     }else{
                         tvWrongMsg.setText("请填入正确的手机号！");
                     }

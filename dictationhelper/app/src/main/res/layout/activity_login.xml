@@ -68,8 +68,8 @@
                 android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:id="@+id/tv_verify"
-                android:text="获取"
-                android:layout_width="60dp"
+                android:text="获取验证码"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </RelativeLayout>
 

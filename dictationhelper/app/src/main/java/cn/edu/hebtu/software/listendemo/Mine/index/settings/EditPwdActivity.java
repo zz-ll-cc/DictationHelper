@@ -1,13 +1,17 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,14 +21,27 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.CheckPwdFormatUtil;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.utils.SMSLog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -32,9 +49,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Untils.CheckPwdFormatUtil.checkPwdRight;
+
 public class EditPwdActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
-    // TODO: 2019/12/5 验证码
     private int type;   // 当前状态位，设置密码/通过旧密码修改密码/通过手机验证修改密码
     private User user;
     private SharedPreferences sp;
@@ -102,6 +120,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                             tvOldError.setText("密码输入错误");
                             tvOldError.setVisibility(View.VISIBLE);
                             etOldPwd.setText("");
+                            etNewPwdO.setText("");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -131,12 +150,14 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
     private static final int SET_PWD = 100;
     private static final int UPD_OLD = 200;
     private static final int UPD_PHONE = 300;
-
+    public EventHandler eh; //事件接收器
+    private boolean codeRight = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pwd);
-
+        EventBus.getDefault().register(this);
+        init();//初始化事件接收器
         findViews();
         initData();
         initView();
@@ -145,7 +166,6 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setOnFocusListener() {
-        etCode.setOnFocusChangeListener(this);
         etNewPwdP.setOnFocusChangeListener(this);
         etSetPwd.setOnFocusChangeListener(this);
         etOldPwd.setOnFocusChangeListener(this);
@@ -207,7 +227,6 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
     private void initData() {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        Log.e("userss",gson.toJson(user));
         String uphone = user.getUphone();
         phoneNumber = uphone.substring(0, 3) + "XXXX" + uphone.substring(7, uphone.length());
     }
@@ -247,7 +266,14 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.tv_upd_my_pwd_get_code:
                 // TODO: 2019/12/5 获取验证码
-
+                hideInputMethod(getApplicationContext(),btnGetCode);
+                if(!user.getUphone().equals("") && checkTel(user.getUphone())){
+                    SMSSDK.getVerificationCode("+86", user.getUphone());//获取验证码
+                }else{
+                    tvCodeError.setText("请填入正确的手机号！");
+                }
+                CountTimer timer = new CountTimer(btnGetCode);
+                timer.start();
                 break;
             case R.id.btn_upd_my_save_password:
                 switch (type) {
@@ -322,34 +348,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                         break;
                     case Constant.PWD_TYPE_UPD_PHONE:
                         if (checkInputRight()) {
-                            String pwd = "";
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                Base64.Encoder encoder = Base64.getEncoder();
-                                pwd = new String (encoder.encode(etNewPwdP.getText().toString().getBytes()));
-                            }else{
-                                pwd = etNewPwdP.getText().toString();
-                            }
-                            FormBody fb = new FormBody.Builder().add("type", Constant.PWD_TYPE_UPD_PHONE + "")
-                                    .add("uid", user.getUid() + "")
-                                    .add("upassword", pwd).build();
-                            Request request = new Request.Builder()
-                                    .url(Constant.URL_UPD_PWD)
-                                    .post(fb).build();
-                            Call call = client.newCall(request);
-                            call.enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-
-                                }
-
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    Message message = new Message();
-                                    message.what = UPD_PHONE;
-                                    message.obj = response.body().string();
-                                    handler.sendMessage(message);
-                                }
-                            });
+                            SMSSDK.submitVerificationCode("+86", user.getUphone(), etCode.getText().toString());
                         }
                         break;
                 }
@@ -405,49 +404,30 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                 }
             case Constant.PWD_TYPE_UPD_PHONE:
                 String pwd = etNewPwdP.getText().toString();
-                if (checkCodeRight() && checkPwdRight(pwd))
+                Map<String,Boolean> typeMap = new HashMap<>();
+                if (checkPwdRight(pwd)){
+                    typeMap.put("pwd",true);
+                    EventBus.getDefault().post(typeMap);
                     return true;
-                else if (checkCodeRight() && !checkPwdRight(pwd)) {
-                    tvCodeError.setVisibility(View.GONE);
-                    tvNewErrorP.setVisibility(View.VISIBLE);
-                    return false;
-                } else if (checkCodeRight() && checkPwdRight(pwd)) {
-                    tvCodeError.setVisibility(View.VISIBLE);
-                    tvNewErrorP.setVisibility(View.GONE);
-                    return false;
-                } else {
-                    tvNewErrorP.setVisibility(View.VISIBLE);
-                    tvCodeError.setVisibility(View.VISIBLE);
+                }
+                else{
+                    typeMap.put("pwd",false);
+                    EventBus.getDefault().post(typeMap);
                     return false;
                 }
         }
         return false;
     }
 
-    // 检查输入的 password 是否符合输入格式
-    private boolean checkPwdRight(String pwd) {
-        if (pwd.length() >= 8 && pwd.length() <= 16) {
-            boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
-            boolean isLetter = false;//定义一个boolean值，用来表示是否包含字母
-            boolean flag = true;
-            for (int i = 0; i < pwd.length(); i++) { //循环遍历字符串
-                // Log.e("tt",Character.isDigit(str.charAt(i))+""+Character.isLetter(str.charAt(i)));
-                if (Character.isDigit(pwd.charAt(i))) { //用char包装类中的判断数字的方法判断每一个字符
-                    isDigit = true;
-                } else if (Character.isLetter(pwd.charAt(i))) { //用char包装类中的判断字母的方法判断每一个字符
-                    isLetter = true;
-                } else {
-                    flag = false;
-                }
-            }
-            return flag;
-        } else return false;
-    }
-
-    // todo 检验输入验证码是否正确
-    private boolean checkCodeRight() {
-
-        return false;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getTypes(Map<String,Boolean> typeMap){
+        if (typeMap.get("pwd")){
+            tvCodeError.setVisibility(View.VISIBLE);
+            tvNewErrorP.setVisibility(View.GONE);
+        }else{
+            tvNewErrorP.setVisibility(View.VISIBLE);
+            tvCodeError.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -474,13 +454,6 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                         tvNewErrorO.setVisibility(View.VISIBLE);
                 }
                 break;
-            case R.id.et_upd_my_input_code:
-                if (hasFocus) tvCodeError.setVisibility(View.INVISIBLE);
-                else {
-                    if (!checkCodeRight())
-                        tvCodeError.setVisibility(View.VISIBLE);
-                }
-                break;
             case R.id.et_upd_my_password_phone:
                 if (hasFocus) tvNewErrorP.setVisibility(View.INVISIBLE);
                 else {
@@ -490,4 +463,98 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+    private void init() {
+        eh = new EventHandler() {
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) { //回调完成
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码成功
+                        if (checkInputRight()) {
+                            String pwd = "";
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                Base64.Encoder encoder = Base64.getEncoder();
+                                pwd = new String (encoder.encode(etNewPwdP.getText().toString().getBytes()));
+                            }else{
+                                pwd = etNewPwdP.getText().toString();
+                            }
+                            FormBody fb = new FormBody.Builder().add("type", Constant.PWD_TYPE_UPD_PHONE + "")
+                                    .add("uid", user.getUid() + "")
+                                    .add("upassword", pwd).build();
+                            Request request = new Request.Builder()
+                                    .url(Constant.URL_UPD_PWD)
+                                    .post(fb).build();
+                            Call call = client.newCall(request);
+                            call.enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    Message message = new Message();
+                                    message.what = UPD_PHONE;
+                                    message.obj = response.body().string();
+                                    handler.sendMessage(message);
+                                }
+                            });
+                        }
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) { //获取验证码成功
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //发送之后
+                                tvCodeError.setText("验证码已发送！");
+                                tvCodeError.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) { //返回支持发送验证码的国家列表
+
+                    }else{
+                        Log.e("验证码验证失败","错误的验证码");
+                        tvCodeError.setText("验证码错误！");
+                        tvCodeError.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    int status = 0;
+                    try {
+                        ((Throwable) data).printStackTrace();
+                        Throwable throwable = (Throwable) data;
+                        JSONObject object = new JSONObject(throwable.getMessage());
+                        String des = object.optString("detail");
+                        status = object.optInt("status");
+                        if (!TextUtils.isEmpty(des)) {
+                            return;
+                        }
+                    } catch (Exception e) {
+                        SMSLog.getInstance().w(e);
+                    }
+                }
+            }
+        };
+        SMSSDK.registerEventHandler(eh); //注册短信回调
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        SMSSDK.unregisterEventHandler(eh);
+    }
+    public static Boolean hideInputMethod(Context context, View v) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            return imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+        return false;
+    }
+    public boolean checkTel(String tel) {
+        Pattern p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
+        Matcher matcher = p.matcher(tel);
+        return matcher.matches();
+    }
+
 }

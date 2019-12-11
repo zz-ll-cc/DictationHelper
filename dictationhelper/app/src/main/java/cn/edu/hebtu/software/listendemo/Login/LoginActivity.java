@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister = null;
     private TextView tvSLA = null;
     private TextView tvVerify = null;
-    private TextView tv_login_forget = null;
     private TextView tv_login_password = null;
 
 
@@ -313,12 +312,6 @@ public class LoginActivity extends AppCompatActivity {
                         tvWrongMsg.setText("请填入正确的手机号！");
                     }
                     break;
-                case R.id.tv_login_forget:
-                    //忘记密码的点击
-
-
-                    break;
-
                 case R.id.tv_login_password:
                     /**
                      * 判断是否WAY_OF_LOGIN为LOGIN_BY_VERIFY
@@ -369,7 +362,6 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = findViewById(R.id.tv_login_regist_user);
         tvSLA = findViewById(R.id.tv_login_read_sla);
         tvVerify = findViewById(R.id.tv_verify);
-        tv_login_forget = findViewById(R.id.tv_login_forget);
         tv_login_password = findViewById(R.id.tv_login_password);
     }
 

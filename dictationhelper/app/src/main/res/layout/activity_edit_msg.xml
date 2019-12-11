@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff"
         android:orientation="horizontal">
 
@@ -25,15 +25,15 @@
             android:layout_centerInParent="true"
             android:text="编辑个人资料"
             android:textColor="#000"
-            android:textSize="25dp" />
+            android:textSize="18dp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical">
 
         <ImageView
@@ -157,7 +157,7 @@
             <TextView
                 android:id="@+id/tv_upd_my_msg_selectBirth"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="选择"

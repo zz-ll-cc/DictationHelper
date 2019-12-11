@@ -126,6 +126,12 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(layout_item_id, viewGroup, false);
+        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+        int width = (widthPixels - 20) / 3 - 20;
+        int height = width * 8 / 5 ;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width,height);
+        layoutParams.setMargins(5,5,5,5);
+        view.setLayoutParams(layoutParams);
         return new MyViewHolder(view);
     }
 
@@ -134,7 +140,6 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder1 = (MyViewHolder) viewHolder;
         final Book book = res.get(i);
         viewHolder1.tvName.setText(book.getBname());
-        // TODO: 2019/11/28 设置图片
         if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
             try {
                 URL url = new URL(book.getBimgPath());

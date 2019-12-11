@@ -80,7 +80,8 @@
                 android:layout_height="match_parent"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:spanCount="3"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

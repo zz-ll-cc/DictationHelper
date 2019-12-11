@@ -39,7 +39,12 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(context).inflate(itemId,viewGroup,false);
-
+        int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+        int width = (widthPixels - 20) / 3 - 20;
+        int height = width * 8 / 5 ;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width,height);
+        layoutParams.setMargins(5,5,5,5);
+        view.setLayoutParams(layoutParams);
         return new MyItemViewHolder(view);
     }
 

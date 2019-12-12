@@ -34,9 +34,11 @@
         <Key android:codes="98" android:keyLabel="b" android:horizontalGap="6dp" />
         <Key android:codes="110" android:keyLabel="n" android:horizontalGap="6dp" />
         <Key android:codes="109" android:keyLabel="m" android:horizontalGap="6dp"/>
-        <Key android:codes="-11" android:keyLabel="←" android:horizontalGap="6dp"/>
-        <Key android:codes="-12" android:horizontalGap="6dp" android:keyLabel="→" />
+    <!--    <Key android:codes="-11" android:keyLabel="←" android:horizontalGap="6dp"/>-->
+      <!--  <Key android:codes="-12" android:horizontalGap="6dp" android:keyLabel="→" />-->
+        <Key android:codes="-13" android:keyLabel="/" android:horizontalGap="6dp"/>
+        <Key android:codes="-14" android:horizontalGap="6dp" android:keyIcon="@drawable/kongge" />
         <Key android:codes="-3"  android:keyLabel="完成" android:horizontalGap="6dp" />
-        <Key android:codes="-5"  android:horizontalGap="6dp" android:keyLabel="删除" />
+        <Key android:codes="-5"  android:horizontalGap="6dp" android:keyIcon="@drawable/del" />
     </Row>
 </Keyboard>

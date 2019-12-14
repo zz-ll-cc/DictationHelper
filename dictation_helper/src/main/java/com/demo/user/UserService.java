@@ -2,9 +2,10 @@ package com.demo.user;
 
 import com.demo.common.model.TblUser;
 import com.demo.utils.RandomUtil;
-import com.jfinal.plugin.activerecord.Record;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.List;
 
 public class UserService {
@@ -102,11 +103,13 @@ public class UserService {
      * @return
      */
     public TblUser loginByPP(String phone, String password) {
-        String firstEncrypt = DigestUtils.md5Hex(password);
+        byte[] b = Base64.getDecoder().decode(password.getBytes());
+        String upassword = new String(b);
+        String firstEncrypt = DigestUtils.md5Hex(upassword);
         String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
         List<TblUser> userList = dao.find("select * from tbl_user where uphone = ? and upassword = ? ", phone, secondEncrypt);
         if (userList.isEmpty()) {
-
+            return null;
         } else {
             if (userList.size() == 1) {
                 return userList.get(0);
@@ -114,14 +117,32 @@ public class UserService {
         }
         return null;
     }
-
-    public TblUser updateUser(TblUser user){
-        String password=user.getUpassword();
-        String firstEncrypt = DigestUtils.md5Hex(password);
-        String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
-        user.set("upassword",secondEncrypt);
+    public TblUser updateHead(TblUser user){
         user.update();
         return user;
     }
 
+    public TblUser updateUser(TblUser user) {
+        String upassword = user.getUpassword();
+        if (upassword != null) {
+            byte[] b = Base64.getDecoder().decode(upassword.getBytes());
+            String password = new String(b);
+            String firstEncrypt = DigestUtils.md5Hex(password);
+            String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
+            user.set("upassword", secondEncrypt);
+        }
+        user.update();
+        return user;
+    }
+    public TblUser updatePwd(TblUser user,String upassword) {
+        if (upassword != null) {
+            byte[] b = Base64.getDecoder().decode(upassword.getBytes());
+            String password = new String(b);
+            String firstEncrypt = DigestUtils.md5Hex(password);
+            String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
+            user.set("upassword", secondEncrypt);
+        }
+        user.update();
+        return user;
+    }
 }

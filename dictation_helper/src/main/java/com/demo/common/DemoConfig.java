@@ -1,8 +1,13 @@
 package com.demo.common;
 
 import com.demo.book.BookController;
+import com.demo.chart.ChartController;
 import com.demo.common.model._MappingKit;
+import com.demo.dayrecord.DayRecordController;
+import com.demo.dayrecord.DayRecordService;
 import com.demo.grade.GradeController;
+import com.demo.record.RecordController;
+import com.demo.record.RecordService;
 import com.demo.unit.UnitController;
 import com.demo.upload.UploadController;
 import com.demo.user.UserController;
@@ -79,6 +84,9 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/unit", UnitController.class);
 		me.add("/grade", GradeController.class);
 		me.add("/user", UserController.class);
+		me.add("/record", RecordController.class);
+		me.add("/chart", ChartController.class);
+		me.add("/dayrecord", DayRecordController.class);
 		me.add("/upload", UploadController.class,"/upload");//上传控制器
 	}
 	

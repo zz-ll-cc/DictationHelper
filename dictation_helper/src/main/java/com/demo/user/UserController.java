@@ -118,11 +118,45 @@ public class UserController extends Controller {
             System.out.println("user"+user);
             user.set("uheadPath",url);
             file.getFile().delete();
-            userService.updateUser(user);
+            //userService.updateUser(user);
+            userService.updateHead(user);
             renderJson(userService.findUserByUid(uid));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 更新密码
+     */
+    public void updatepwd(){
+        TblUser tblUser=new TblUser();
+        LoginInfo loginInfo=new LoginInfo();
+        int type=getInt("type");
+        if (type==1){
+            String passwordOld=get("upasswordOld");
+            String passwordNew=get("upasswordNew");
+            int uid=getInt("uid");
+            TblUser user=userService.findUserByUid(uid);
+            String phone=user.getUphone();
+            user=userService.loginByPP(phone,passwordOld);
+            System.out.println(user);
+            if (user!=null){
+                tblUser=userService.updatePwd(user,passwordNew);
+                loginInfo.setRegister_type(1);
+                loginInfo.setUser(tblUser);
+            }else {
+                loginInfo.setRegister_type(0);
+            }
+        }else {
+            String password=get("upassword");
+            int uid=getInt("uid");
+            TblUser user=userService.findUserByUid(uid);
+            tblUser=userService.updatePwd(user,password);
+            loginInfo.setRegister_type(1);
+            loginInfo.setUser(tblUser);
+        }
+        renderJson(loginInfo);
     }
 
 }

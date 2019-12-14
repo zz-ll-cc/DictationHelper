@@ -38,8 +38,11 @@ import com.yuyh.library.imgsel.config.ISListConfig;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
@@ -77,26 +80,29 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case UPLOAD_FORM:
-                    sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
-                    Toast.makeText(EditMsgActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                    sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj + "").commit();
+                    Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case UPLOAD_HEADER:
-                    user = gson.fromJson(msg.obj+"", User.class);
-                    sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
+                    user = gson.fromJson(msg.obj + "", User.class);
+                    sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
                     tvSetHeader.setText("上传成功");
-                    RequestOptions ro = new RequestOptions().centerCrop();
+                    RequestOptions ro = new RequestOptions().circleCrop();
                     Glide.with(getApplicationContext())
                             .load(user.getUheadPath())
                             .apply(ro)
                             .into(ivHeader);
+                    initData();
+                    setData();
                     break;
                 case UPLOAD_ERROR:
                     tvSetHeader.setText("服务器繁忙...");
                     break;
             }
+
         }
     };
     private int year = 2016;
@@ -108,6 +114,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private static final int UPLOAD_HEADER = 200;
     private static final int UPLOAD_FORM = 400;
     private static final int UPLOAD_ERROR = 600;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +135,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setData() {
         etName.setText(user.getUname());
-        RequestOptions ro = new RequestOptions().centerCrop();
+        RequestOptions ro = new RequestOptions().circleCrop();
         if (null != user.getUheadPath() && !user.getUheadPath().equals(""))
             Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
         else {
@@ -149,19 +156,25 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
         spGrade.setSelection(user.getUgrade());
-        if (!user.getUbirth().equals("")) {
-            tvBirth.setText(user.getUbirth());
-            String[] s1 = user.getUbirth().split("年");
-            year = Integer.parseInt(s1[0]);
-            String[] s2 = s1[1].split("月");
-            month = Integer.parseInt(s2[0]);
-            String[] s3 = s2[1].split("日");
-            day = Integer.parseInt(s3[0]);
+        if (null == user.getUbirth() || user.getUbirth().equals("")) {
+            spYear.setSelection(0);
+            month = 0;
+            day = 1;
+        } else {
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(user.getUbirth());
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(date);
+                day = ca.get(Calendar.DAY_OF_MONTH);
+                month = ca.get(Calendar.MONTH);
+                year = ca.get(Calendar.YEAR);
+                tvBirth.setText(year + "年" + (month + 1) + "月" + day + "日");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (year != (1 - spYear.getSelectedItemPosition())) {
                 spYear.setSelection(2016 - year);
             } else spYear.setSelection(0);
-        } else {
-            spYear.setSelection(0);
         }
     }
 
@@ -208,7 +221,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                             int position = 2016 - year;
                             spYear.setSelection(position);
                         }
-                        month = month1+1;
+                        month = month1 + 1;
                         day = dayOfMonth;
                         tvBirth.setText(date);
                     }
@@ -233,11 +246,23 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void updNewUserMsg(){
-        user.setUbirth(tvBirth.getText().toString());
+    private void updNewUserMsg() {
+        if(!tvBirth.getText().toString().isEmpty()){
+            try {
+                Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(date);
+                int day = ca.get(Calendar.DAY_OF_MONTH);
+                int month = ca.get(Calendar.MONTH);
+                int year = ca.get(Calendar.YEAR);
+                user.setUbirth(year+"-"+(month+1)+"-"+day);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         user.setUname(etName.getText().toString());
         user.setUgrade(spGrade.getSelectedItemPosition());
-        switch (spSex.getSelectedItemPosition()){
+        switch (spSex.getSelectedItemPosition()) {
             case 0:
                 user.setUsex("保密");
                 break;
@@ -248,9 +273,11 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 user.setUsex("女");
                 break;
         }
+        Log.e("usersssss", gson.toJson(user));
     }
+
     private void postForm() {
-        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),gson.toJson(user));
+        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), gson.toJson(user));
         Request request = new Request.Builder().url(Constant.URL_UPDATE_USER).post(body).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -361,13 +388,13 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
             String path = data.getStringExtra("result"); // 图片地址
-            RequestOptions ro = new RequestOptions().centerCrop();
+            RequestOptions ro = new RequestOptions().circleCrop();
             Glide.with(this).load(path).apply(ro).into(ivHeader);
             uploadImg(path);
         } else if (requestCode == REQUEAT_CODE) {
             if (data != null) {
                 ArrayList<String> mSelectPath = data.getStringArrayListExtra("result");
-                RequestOptions ro = new RequestOptions().centerCrop();
+                RequestOptions ro = new RequestOptions().circleCrop();
                 Glide.with(this).load(mSelectPath.get(0)).apply(ro).into(ivHeader);
                 uploadImg(mSelectPath.get(0));
 
@@ -376,14 +403,14 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void uploadImg(String path) {
-        Log.e("path",path);
+        Log.e("path", path);
         File file = new File(path);
         MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream; charset=utf-8");
         String[] args = path.split("/");
         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("uid", user.getUid() + "")
-                .addFormDataPart("file", ""+args[args.length-1], RequestBody.create(MutilPart_Form_Data, file));
+                .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
         RequestBody requestBody = requestBodyBuilder.build();
         Request request = new Request.Builder()
                 .url(Constant.URL_HEAD_UPLOAD)
@@ -402,7 +429,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call call, Response response) throws IOException {
                 Message message = new Message();
                 message.obj = response.body().string();
-                Log.e("changHead",message.obj.toString());
+                Log.e("changHead", message.obj.toString());
                 message.what = UPLOAD_HEADER;
                 handler.sendMessage(message);
             }

@@ -23,20 +23,20 @@
             android:layout_centerInParent="true"
             android:text="人教版三年级"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="17dp" />
 
         <ImageView
             android:id="@+id/iv_book_detail_collect"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/collect_no" />
 
         <ImageView
             android:id="@+id/iv_book_detail_bind"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/iv_book_detail_collect"

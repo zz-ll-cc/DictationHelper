@@ -145,4 +145,11 @@ public class UserService {
         user.update();
         return user;
     }
+
+
+    public void deleteUser(TblUser user){
+        user.delete();
+    }
+
+
 }

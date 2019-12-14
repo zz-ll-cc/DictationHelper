@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -42,17 +43,25 @@ public class NewWordActivity extends AppCompatActivity {
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(NewWordActivity.this, LearnWordActivity.class);
-                intent.putExtra(Constant.NEWWORD_CON_LEARNWORD_LEARN,new Gson().toJson(wordkList));
-                startActivity(intent);
+                if (null == wordkList || wordkList.isEmpty()) {
+                    Toast.makeText(NewWordActivity.this, "快去学习然后添加生词吧！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(NewWordActivity.this, LearnWordActivity.class);
+                    intent.putExtra(Constant.NEWWORD_CON_LEARNWORD_LEARN, new Gson().toJson(wordkList));
+                    startActivity(intent);
+                }
             }
         });
         btnListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(NewWordActivity.this, ListenWordActivity.class);
-                intent.putExtra(Constant.NEWWORD_CON_LEARNWORD_DICTATION,new Gson().toJson(wordkList));
-                startActivity(intent);
+                if (null == wordkList || wordkList.isEmpty()) {
+                    Toast.makeText(NewWordActivity.this, "快去学习然后添加生词吧！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(NewWordActivity.this, ListenWordActivity.class);
+                    intent.putExtra(Constant.NEWWORD_CON_LEARNWORD_DICTATION, new Gson().toJson(wordkList));
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -76,19 +85,19 @@ public class NewWordActivity extends AppCompatActivity {
         if (!file.exists()) {
             file.mkdirs();//创建路径
         }
-        NewWordDBHelper newWordDBHelper =new NewWordDBHelper(this,"tbl_newWord.db",1);
+        NewWordDBHelper newWordDBHelper = new NewWordDBHelper(this, "tbl_newWord.db", 1);
         SQLiteDatabase database = newWordDBHelper.getWritableDatabase();
-        Cursor cursor =database .query("TBL_NEWWORD", null, null, null, null, null, null);
+        Cursor cursor = database.query("TBL_NEWWORD", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
-             wordkList = new ArrayList<>();
+            wordkList = new ArrayList<>();
             do {
                 String wenglish = cursor.getString(cursor.getColumnIndex("WENGLISH"));
                 String wchinese = cursor.getString(cursor.getColumnIndex("WCHINESE"));
-                String wimgPath= cursor.getString(cursor.getColumnIndex("WIMGPATH"));
+                String wimgPath = cursor.getString(cursor.getColumnIndex("WIMGPATH"));
                 int unid = cursor.getInt(cursor.getColumnIndex("UNID"));
                 int bid = cursor.getInt(cursor.getColumnIndex("BID"));
-                int type= cursor.getInt(cursor.getColumnIndex("TYPE"));
-                int isTrue= cursor.getInt(cursor.getColumnIndex("ISTRUE"));
+                int type = cursor.getInt(cursor.getColumnIndex("TYPE"));
+                int isTrue = cursor.getInt(cursor.getColumnIndex("ISTRUE"));
                 Word word = new Word();
                 word.setWenglish(wenglish);
                 word.setWchinese(wchinese);

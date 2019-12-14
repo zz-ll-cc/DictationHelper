@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +53,7 @@ public class EidtCenterActivity extends AppCompatActivity {
     private void initData() {
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("EidtCenterActivity", "" + user.toString() + "\n" + sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER));
         tvCacheSize.setText(getCacheSize());
         if (null == user.getUpassword() || user.getUpassword().equals("") || user.getUpassword().equals("null")) {
             tvPwdShow.setText("设置密码");
@@ -97,12 +99,11 @@ public class EidtCenterActivity extends AppCompatActivity {
                     break;
                 case R.id.btn_safe_exit:
                     AlertDialog.Builder adBuilder1 = new AlertDialog.Builder(EidtCenterActivity.this);
-                    adBuilder1.setMessage("退出后将清空所有数据");
+                    adBuilder1.setMessage("退出后请重新登陆");
                     adBuilder1.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(EidtCenterActivity.this, LoginActivity.class);
-                            cleanCache();
                             cleanSp();
                             startActivity(intent);
                             Toast.makeText(getApplication(), "退出成功", Toast.LENGTH_SHORT).show();
@@ -180,7 +181,7 @@ public class EidtCenterActivity extends AppCompatActivity {
     private void cleanSp() {
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
+        editor.putBoolean(Constant.AUTO_LOGIN_KEY, false);
         editor.commit();
     }
 
@@ -188,5 +189,6 @@ public class EidtCenterActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initData();
+        setListeners();
     }
 }

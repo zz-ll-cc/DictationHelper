@@ -27,13 +27,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -70,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister = null;
     private TextView tvSLA = null;
     private TextView tvVerify = null;
-    private TextView tv_login_forget = null;
     private TextView tv_login_password = null;
 
 
@@ -156,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //保存登录信息
                                 editor = sp.edit();
                                 editor.putString(Constant.USER_KEEP_KEY , jsonObject.getString("user"));
+                                Log.e("phone",""+gson.fromJson(jsonObject.getString("user"), User.class).getUphone());
                                 editor.putBoolean(Constant.AUTO_LOGIN_KEY , true);
                                 editor.commit();
                                 // 页面跳转
@@ -193,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, ListenIndexActivity.class);
             startActivity(intent);
+            finish();
         } else {
             setListeners();
         }
@@ -249,10 +253,18 @@ public class LoginActivity extends AppCompatActivity {
                         if (etPhone.getText().toString().equals("") || etPassword.getText().toString().equals("")) {
                             tvWrongMsg.setText("请填入登陆信息！");
                         } else {// 2. 获取登陆内容
+
+                            String pass = "";
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                byte[] bytes = Base64.getEncoder().encode(etPassword.getText().toString().getBytes());
+                                pass = new String(bytes);
+                            }else{
+                                pass = etPassword.getText().toString();
+                            }
                             FormBody fb = new FormBody.Builder()
                                     .add("login_type","2")
                                     .add("phone", etPhone.getText().toString())
-                                    .add("password", etPassword.getText().toString())
+                                    .add("password", pass)
                                     .build();
                             Request request = new Request.Builder()
                                     .url(Constant.URL_LOGIN_VERIFY)
@@ -291,19 +303,15 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.tv_verify:
                     //获取验证码的点击事件
+                    CountTimer timer = new CountTimer(tvVerify);
                     hideInputMethod(getApplicationContext(),tvVerify);
                     if(!etPhone.getText().toString().trim().equals("") && checkTel(etPhone.getText().toString().trim())){
                         SMSSDK.getVerificationCode("+86", etPhone.getText().toString());//获取验证码
+                        timer.start();
                     }else{
                         tvWrongMsg.setText("请填入正确的手机号！");
                     }
                     break;
-                case R.id.tv_login_forget:
-                    //忘记密码的点击
-
-
-                    break;
-
                 case R.id.tv_login_password:
                     /**
                      * 判断是否WAY_OF_LOGIN为LOGIN_BY_VERIFY
@@ -354,7 +362,6 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = findViewById(R.id.tv_login_regist_user);
         tvSLA = findViewById(R.id.tv_login_read_sla);
         tvVerify = findViewById(R.id.tv_verify);
-        tv_login_forget = findViewById(R.id.tv_login_forget);
         tv_login_password = findViewById(R.id.tv_login_password);
     }
 

@@ -36,9 +36,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,11 +159,23 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Log.e("spinner内容",""+spinSex.getSelectedItemPosition());
                 //0保密，1男，2女
                 if(!tvBirth.getText().toString().isEmpty()){
-                    user.setUbirth(tvBirth.getText().toString());
+                    try {
+                        Date date = new SimpleDateFormat("yyyy年MM月dd").parse(tvBirth.getText().toString());
+                        Calendar ca = Calendar.getInstance();
+                        ca.setTime(date);
+                        int day = ca.get(Calendar.DAY_OF_MONTH);
+                        int month = ca.get(Calendar.MONTH);
+                        int year = ca.get(Calendar.YEAR);
+                        user.setUbirth(year+"-"+(month+1)+"-"+day);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 if(!etPass.getText().toString().isEmpty()){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         Base64.Encoder encoder = Base64.getEncoder();
+                        Log.e("encode",""+new String(encoder.encode(etPass.getText().toString().getBytes())));
                         user.setUpassword(new String(encoder.encode(etPass.getText().toString().getBytes())));
                     }else{
                         user.setUpassword(etPass.getText().toString());
@@ -369,7 +383,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     public void receiveMethod(EventInfo<String,String,User> eventInfo){
         Map<String,String> map = eventInfo.getContentMap();
 
-        switch (map.get("status")){
+        switch (map.get("status").toString()){
             case "finishUpload":
                 Log.e("receiveMethod",""+eventInfo.getContentString());
                 user = gson.fromJson(eventInfo.getContentString(),User.class);
@@ -383,6 +397,9 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 break;
 
             case "finishSubmit":
+
+
+                Log.e("finishSubmit",""+sp.getString(Constant.USER_KEEP_KEY,""));
                 sp.edit().putString(Constant.USER_KEEP_KEY,gson.toJson(user)).commit();
                 Intent intent = new Intent(CompleteInformationActivity.this,ListenIndexActivity.class);
                 startActivity(intent);

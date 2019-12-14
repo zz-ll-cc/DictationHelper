@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,9 +25,11 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
+import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -59,17 +60,20 @@ public class BookDetailActivity extends AppCompatActivity {
     private boolean isBind = false;
     private boolean isCollected = false;
     private List<Integer> colList;
+    private Map<Integer,List<Integer>> colMap;
+    private User user;
     private OkHttpClient client = new OkHttpClient();
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == requestCount){
+            if (msg.what == requestCount) {
                 initView();
                 setListener();
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +81,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         findView();
         initData();
-
     }
 
     private void setListener() {
@@ -107,8 +110,13 @@ public class BookDetailActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // 选中“确定”按钮，解除绑定
                                 // 更改SharedP中数据
+                                Type type = new TypeToken<Map<Integer, Integer>>() {
+                                }.getType();
+                                Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
+                                bindMap.put(user.getUid(),Constant.DEFAULT_BIND_ID);
+
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt("bind", -1);
+                                editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
                                 // 修改显示样式
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.bind_no));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
@@ -119,7 +127,8 @@ public class BookDetailActivity extends AppCompatActivity {
                                         break;
                                     }
                                 }
-                                editor.putString("collectList", gson.toJson(colList));
+                                colMap.put(user.getUid(),colList);
+                                editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "已解除绑定教材", Toast.LENGTH_SHORT).show();
                                 isBind = false;
@@ -142,17 +151,23 @@ public class BookDetailActivity extends AppCompatActivity {
                         adBuilder.setPositiveButton("确认绑定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // 选中“确定”按钮，解除绑定
+                                // 选中“确定”按钮，选择绑定
                                 // 更改SharedP中数据
+                                Type type = new TypeToken<Map<Integer, Integer>>() {
+                                }.getType();
+                                Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
+                                bindMap.put(user.getUid(),book.getBid());
+
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt("bind", book.getBid());
+                                editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
 
                                 // 修改显示样式
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.binded));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
                                 // 修改收藏列表
                                 colList.add(book.getBid());
-                                editor.putString("collectList", gson.toJson(colList));
+                                colMap.put(user.getUid(),colList);
+                                editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "成功绑定教材，默认收藏", Toast.LENGTH_SHORT).show();
                                 isBind = true;
@@ -182,16 +197,17 @@ public class BookDetailActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        editor.putString("collectList", gson.toJson(colList));
+                        colMap.put(user.getUid(),colList);
+                        editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                         editor.commit();
                         isCollected = false;
                         ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
                     } else {
                         // 当前为未收藏
-                        Log.e("eassa", "else: bind:" + isBind + " coll:" + isCollected);
                         SharedPreferences.Editor editor = sp.edit();
                         colList.add(book.getBid());
-                        editor.putString("collectList", gson.toJson(colList));
+                        colMap.put(user.getUid(),colList);
+                        editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                         editor.commit();
                         isCollected = true;
                         ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
@@ -205,12 +221,22 @@ public class BookDetailActivity extends AppCompatActivity {
         book = (Book) getIntent().getSerializableExtra(Constant.HOST_CON_DETAIL_BOOK);
         tvName.setText(book.getBname());
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        Type type = new TypeToken<List<Integer>>() {
-        }.getType();
-        colList = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
+        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Type type = new TypeToken<Map<Integer,List<Integer>>>() {}.getType();
+        colMap = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
+        if (colMap.containsKey(user.getUid()))
+            colList = colMap.get(user.getUid());
+        else
+            colList = new ArrayList<>();
         if (colList.contains(book.getBid()))
             isCollected = true;
-        int bindId = sp.getInt(Constant.BIND_KEY, Constant.DEFAULT_BIND_ID);
+        Type type1 = new TypeToken<Map<Integer,Integer>>(){}.getType();
+        Map<Integer,Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY,Constant.DEFAULT_BING_MAP),type1);
+        int bindId = -1;
+        if (bindMap.containsKey(user.getUid()))
+            bindId = bindMap.get(user.getUid());
+        else
+            bindId = Constant.DEFAULT_BIND_ID;
         if (bindId == book.getBid())
             isBind = true;
         // 1. 根据单元数 创建这本书的单元List
@@ -218,13 +244,13 @@ public class BookDetailActivity extends AppCompatActivity {
             Unit unit = new Unit();
             unit.setUnid(10000 + i);
             unit.setBid(book.getBid());
-            unit.setUnName("UNIT "+(i+1));
+            unit.setUnName("UNIT " + (i + 1));
             units.add(unit);
         }
         int i = 0;
-        for(final Unit unit:units){
+        for (final Unit unit : units) {
             // 根据单元，查单词
-            FormBody fb = new FormBody.Builder().add("bid",book.getBid()+"").add("unid",unit.getUnid()+"").build();
+            FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("unid", unit.getUnid() + "").build();
             Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
@@ -235,8 +261,9 @@ public class BookDetailActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String jsonWords = response.body().string();
-                    Type type = new TypeToken<List<Word>>(){}.getType();
-                    List<Word> words = gson.fromJson(jsonWords,type);
+                    Type type = new TypeToken<List<Word>>() {
+                    }.getType();
+                    List<Word> words = gson.fromJson(jsonWords, type);
                     unit.setWords(words);
                     Message message = new Message();
                     message.what = nowCount++;
@@ -247,7 +274,7 @@ public class BookDetailActivity extends AppCompatActivity {
         }
 
         //记录在本地这本书
-        sp.edit().putString(Constant.BOOK_JSON,gson.toJson(book)).commit();
+        sp.edit().putString(Constant.BOOK_JSON, gson.toJson(book)).commit();
 
 
     }

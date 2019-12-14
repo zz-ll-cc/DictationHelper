@@ -10,9 +10,10 @@ public class Constant {
     // SharedPreferences 部分
     public static final String SP_NAME = "用户";      // SharedPreferences 名称
     public static final String BIND_KEY = "bind";   // 绑定教材 key
+    public static final String DEFAULT_BING_MAP = "{}"; // 默认绑定的map
     public static final int DEFAULT_BIND_ID = -1;   // 绑定教材 默认值
     public static final String COLLECT_KEY = "collectList";    // 收藏教材 key
-    public static final String DEFAULT_COLLECT_LIST = "[]";     // 收藏教材 默认值
+    public static final String DEFAULT_COLLECT_LIST = "{}";     // 收藏教材 默认值
     public static final String USER_KEEP_KEY = "user";      // 存放登录用户信息 key
     public static final String DEFAULT_KEEP_USER = "{}";        // 登陆用户信息默认值
     public static final String AUTO_LOGIN_KEY = "autoLogin";    // 存放自动登陆 key
@@ -33,6 +34,11 @@ public class Constant {
     public static final String URL_USER_LOGIN = "http://47.94.171.160:8080/user/loginByPP";      // 登陆验证
     public static final String URL_CAN_REGISTER = "";       // 发送手机号是否已被注册请求
     public static final String URL_LOGIN_VERIFY = "http://47.94.171.160:8080/user/login"; //手机验证码登录
+    public static final String URL_SAVE_RECORD = "http://47.94.171.160:8080/record/save";//保存听写记录http:
+    public static final String URL_GET_RECORD = "http://47.94.171.160:8080/chart/getChart";//保存听写记录http://47.94.171.160:8080/chart/getChart?uid=10020
+
+
+
 
     public static final String URL_HEAD_UPLOAD = "http://47.94.171.160:8080/user/uploadhead";//头像上传
     public static final String URL_UPDATE_USER = "http://47.94.171.160:8080/user/updateuser";//更新用户详细信息

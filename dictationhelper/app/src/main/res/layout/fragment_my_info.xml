@@ -30,7 +30,7 @@
             android:maxLines="1"
             android:text="是玉啊."
             android:textColor="#000"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -75,7 +75,7 @@
             android:maxLines="1"
             android:text="请注册或登录"
             android:textColor="#000"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -125,7 +125,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="货币"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -167,7 +167,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="积分"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -209,7 +209,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="勋章"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
@@ -217,7 +217,7 @@
     <RelativeLayout
         android:id="@+id/rl_fragment_my_enter_vip"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="#fff">
 
@@ -228,7 +228,7 @@
             android:gravity="center_vertical"
             android:text="VIP会员"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_fragment_my_vip"
@@ -243,7 +243,7 @@
     <RelativeLayout
         android:id="@+id/rl_fragment_my_enter_medalwall"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="#fff">
 
@@ -254,7 +254,7 @@
             android:gravity="center_vertical"
             android:text="勋章墙"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -268,7 +268,7 @@
     <RelativeLayout
         android:id="@+id/rl_fragment_my_enter_integral"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -278,7 +278,7 @@
             android:gravity="center_vertical"
             android:text="积分兑换"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -292,7 +292,7 @@
     <RelativeLayout
         android:id="@+id/rl_fragment_my_enter_buy_record"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -302,7 +302,7 @@
             android:gravity="center_vertical"
             android:text="购买记录"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -316,7 +316,7 @@
     <RelativeLayout
         android:id="@+id/rl_fragment_my_enter_setting"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:background="#fff">
 
@@ -327,7 +327,7 @@
             android:gravity="center_vertical"
             android:text="设置"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"

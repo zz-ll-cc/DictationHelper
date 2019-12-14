@@ -22,6 +22,9 @@ public class KeyboardUtil {
 
     private static final int LEFT_CODE = -11;//中文横线
     private static final int RIGHT_CODE = -12;//中文横线
+
+    private static final int KONG_CODE = -14;//空格
+    private static final int LINE_CODE = -13;//斜线/
     private EditText editText;
 
     public KeyboardUtil(KeyboardView keyboardView, EditText editText) {
@@ -90,6 +93,12 @@ public class KeyboardUtil {
                   /*  if (start < editText.length()) {
                         editText.setSelection(start + 1);
                     }*/
+                    break;
+                case KONG_CODE:
+                    editable.insert(start," ");
+                    break;
+                case LINE_CODE:
+                    editable.insert(start, "/");
                     break;
                 default:
                     String str = Character.toString((char) primaryCode);

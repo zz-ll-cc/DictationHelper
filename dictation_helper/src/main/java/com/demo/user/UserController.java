@@ -3,6 +3,7 @@ package com.demo.user;
 import com.demo.common.model.TblUser;
 import com.demo.entity.LoginInfo;
 import com.demo.upload.QiniuService;
+import com.google.gson.Gson;
 import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HttpKit;
@@ -17,6 +18,7 @@ public class UserController extends Controller {
     @Inject
     UserService userService;
     QiniuService qiniuService=new QiniuService();
+
 //    public void index() {
 //        redirect("/user/userhome.html");
 //    }
@@ -157,6 +159,17 @@ public class UserController extends Controller {
             loginInfo.setUser(tblUser);
         }
         renderJson(loginInfo);
+
+
+    /**
+     * 删除数据库用户
+     */
+    public void deleteUser(){
+        String json = HttpKit.readData(getRequest());
+        TblUser user = JsonKit.parse(json,TblUser.class);
+        user.delete();
+
+        renderJson("success");
     }
 
 }

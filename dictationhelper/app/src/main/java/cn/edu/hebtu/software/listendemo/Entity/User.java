@@ -11,7 +11,7 @@ public class User implements Serializable {
     private String upassword;
     private String ubirth;
     private int vip;
-    private int admain;
+    private int is_admain;
     private String usex;
     private int ugrade; //0保密,123456
     public static final int isVip = 1;
@@ -27,7 +27,7 @@ public class User implements Serializable {
                 ", upassword='" + upassword + '\'' +
                 ", ubirth='" + ubirth + '\'' +
                 ", vip=" + vip +
-                ", admain=" + admain +
+                ", is_admain=" + is_admain +
                 ", usex='" + usex + '\'' +
                 ", ugrade=" + ugrade +
                 '}';
@@ -97,12 +97,12 @@ public class User implements Serializable {
         this.vip = vip;
     }
 
-    public int getAdmain() {
-        return admain;
+    public int getIs_admain() {
+        return is_admain;
     }
 
-    public void setAdmain(int admain) {
-        this.admain = admain;
+    public void setIs_admain(int is_admain) {
+        this.is_admain = is_admain;
     }
 
     public String getUsex() {

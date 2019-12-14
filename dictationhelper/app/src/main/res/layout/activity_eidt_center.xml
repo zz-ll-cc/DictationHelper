@@ -6,14 +6,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_edit_center_exit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:src="@drawable/left_exit" />
 
@@ -23,13 +23,13 @@
             android:layout_centerInParent="true"
             android:text="设置"
             android:textColor="#000"
-            android:textSize="25dp" />
+            android:textSize="18dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_edit_center_manage_msg"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:background="#fff">
 
@@ -40,7 +40,7 @@
             android:gravity="center_vertical"
             android:text="系统消息"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -54,7 +54,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_change_my_msg"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -64,7 +64,7 @@
             android:gravity="center_vertical"
             android:text="编辑资料"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -78,7 +78,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_change_my_pwd"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -89,7 +89,7 @@
             android:gravity="center_vertical"
             android:text="修改密码"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -103,7 +103,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_share"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -113,7 +113,7 @@
             android:gravity="center_vertical"
             android:text="推荐给好友"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -127,7 +127,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_back_suggest"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -137,7 +137,7 @@
             android:gravity="center_vertical"
             android:text="意见反馈"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -158,7 +158,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_clean_cache"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="#fff">
 
@@ -169,7 +169,7 @@
             android:gravity="center"
             android:text="清空缓存"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_size_cache"
@@ -179,13 +179,13 @@
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="20k"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_edit_center_about_us"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -195,7 +195,7 @@
             android:gravity="center_vertical"
             android:text="关于我们"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -209,7 +209,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_secret"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -219,7 +219,7 @@
             android:gravity="center_vertical"
             android:text="隐私协议"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -233,7 +233,7 @@
     <RelativeLayout
         android:id="@+id/rl_edit_center_check_update"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -243,14 +243,14 @@
             android:gravity="center_vertical"
             android:text="检测更新"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_edit_center_user_deal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#fff">
 
         <TextView
@@ -260,7 +260,7 @@
             android:gravity="center_vertical"
             android:text="用户协议"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:layout_width="20dp"
@@ -274,12 +274,12 @@
     <Button
         android:id="@+id/btn_safe_exit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/exit_button_border"
         android:text="安全退出登录"
         android:textColor="#fff"
-        android:textSize="20dp" />
+        android:textSize="16dp" />
 </LinearLayout>

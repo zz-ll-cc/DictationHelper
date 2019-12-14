@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import cn.edu.hebtu.software.listendemo.Mine.index.settings.EditMsgActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class MyInfoFragment extends Fragment {
@@ -89,8 +92,8 @@ public class MyInfoFragment extends Fragment {
             rlNoLogin.setVisibility(View.VISIBLE);
             rlEditMyMsg.setVisibility(View.GONE);
         } else {
-            rlNoLogin.setVisibility(View.VISIBLE);
-            rlEditMyMsg.setVisibility(View.GONE);
+            rlNoLogin.setVisibility(View.GONE);
+            rlEditMyMsg.setVisibility(View.VISIBLE);
             tvName.setText(user.getUname());
             if (user.getVip() == User.isVip) {
                 tvVip.setText(Constant.TV_IS_VIP_SHOW);
@@ -101,14 +104,15 @@ public class MyInfoFragment extends Fragment {
                 ivVip.setImageDrawable(getResources().getDrawable(R.drawable.vip_no));
                 tvVip.setTextColor(Color.parseColor("#ff0000"));
             }
-            RequestOptions ro = new RequestOptions().centerCrop();
+            RequestOptions ro = new RequestOptions().error(R.drawable.head_user).circleCrop();
             Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
         }
     }
 
     private void initData() {
-        sp = getContext().getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+        sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("MyInfoFragment",""+user.toString());
     }
 
     private void findViews() {

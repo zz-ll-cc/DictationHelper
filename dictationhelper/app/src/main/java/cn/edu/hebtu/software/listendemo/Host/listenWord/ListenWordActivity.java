@@ -1,17 +1,23 @@
 package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -43,6 +49,7 @@ public class ListenWordActivity extends AppCompatActivity {
     private View popupView=null;
     private ReadManager readManager = new ReadManager(ListenWordActivity.this,"");
     private KeyboardView keyboard;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +155,10 @@ public class ListenWordActivity extends AppCompatActivity {
                         }
                     }.start();
                 }else if(positionToSave == listenWordlist.size()-1){
-                    showPopupView(v);
+                    //showPopupView(v);
+                    CustomDialogListenWord dialog=new CustomDialogListenWord(listenWordlist,mineWordlist);
+                    dialog.setCancelable(false);
+                    dialog.show(getSupportFragmentManager(),"listen");
                 }else{
                     //延迟播放
                         new Thread(){
@@ -259,8 +269,8 @@ public class ListenWordActivity extends AppCompatActivity {
         popupWindow=new PopupWindow(popupView, dip2px(this,300) , dip2px(this,200), true);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setTouchable(true);
-        Button btnOk=popupView.findViewById(R.id.btn_OK);
-        Button btnCancel=popupView.findViewById(R.id.btn_cancle);
+        Button btnOk=popupView.findViewById(R.id.btn_OK_listen);
+        Button btnCancel=popupView.findViewById(R.id.btn_cancle_listen);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

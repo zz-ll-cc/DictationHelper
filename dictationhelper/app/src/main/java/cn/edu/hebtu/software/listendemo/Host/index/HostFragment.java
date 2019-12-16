@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Host.index;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,13 +15,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
+import com.youth.banner.loader.ImageLoader;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -56,6 +64,11 @@ public class HostFragment extends Fragment {
     private static final int GET_BOOKS = 1;
     @BindView(R.id.tv_continue)
     TextView tvContinue;
+    private Banner banner;
+
+    private List<String> mTitleList = new ArrayList<>();
+    private List<Integer> mImgList = new ArrayList<>();
+
 
     private Handler handler = new Handler() {
         @Override
@@ -77,6 +90,9 @@ public class HostFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_host, container, false);
         initData();
         ButterKnife.bind(this,view);
+        banner = view.findViewById(R.id.play_banner);
+        // 设置轮播图
+        BannerSet();
         return view;
     }
 
@@ -143,6 +159,54 @@ public class HostFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initView(view);
+    }
+
+    private void BannerSet() {
+        mImgList.clear();
+        mImgList.add(R.drawable.banner1);
+        mImgList.add(R.drawable.banner2);
+        mTitleList.clear();
+        for (int i = 0; i < mImgList.size(); i++) {
+            mTitleList.add("第" + i + "张图片");
+        }
+
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE); // 显示圆形指示器和标题（水平显示
+        //设置图片加载器
+        banner.setImageLoader(new MyLoader());
+        //设置图片集合
+        banner.setImages(mImgList);
+        //设置banner动画效果
+        banner.setBannerAnimation(Transformer.DepthPage);
+        //设置标题集合（当banner样式有显示title时）
+        banner.setBannerTitles(mTitleList);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(true);
+        //设置轮播时间
+        banner.setDelayTime(1500);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+        // setOnBannerClickListener  1.4.9 以后就废弃了 。  setOnBannerListener 是1.4.9以后使用。
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Log.e("tt","第" + position + "张轮播图点击了！");
+                //Toast.makeText(this,"",Toast.LENGTH_LONG).show();
+                //UIUtils.showToast("第" + position + "张轮播图点击了！");
+            }
+        });
+
+
+    }
+
+    // 图片加载器
+    public class MyLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context).load(path).into(imageView);
+        }
+
     }
 
 

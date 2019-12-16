@@ -6,13 +6,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
         <TextView
             android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="连续学习"/>
+            android:text="连续学习"
+            android:textColor="#000" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
@@ -49,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,8 +61,9 @@
             android:orientation="horizontal"
             android:gravity="center">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="120dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/cuotiben"/>
             <TextView
                 android:layout_marginLeft="20dp"
@@ -71,19 +74,22 @@
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="top|center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/ll_wrong"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_width="70dp"
+                android:layout_height="120dp"
                 android:src="@drawable/cuotiben"/>
             <TextView
+                android:paddingTop="8dp"
                 android:layout_marginLeft="20dp"
                 android:textSize="35dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="错词本"/>

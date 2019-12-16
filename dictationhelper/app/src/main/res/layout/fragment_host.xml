@@ -11,7 +11,9 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:gravity="center"
-        android:text="通知：购买会员5/月" />
+        android:text="通知：购买会员5/月"
+        android:textColor="#000"
+        android:layout_marginBottom="10dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,12 +25,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:background="#f0f0f0"
                 android:scaleType="matrix"
-                android:src="@drawable/img1" />
+                android:src="@drawable/img1" />-->
+            <com.youth.banner.Banner xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:id="@+id/play_banner"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+            </com.youth.banner.Banner>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +55,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="查找教材" />
+                        android:text="查找教材"
+                        android:textColor="#000"/>
                 </LinearLayout>
 
                 <TextView
@@ -65,7 +76,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="继续学习" />
+                        android:text="继续学习"
+                        android:textColor="#000"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -1,8 +1,10 @@
 package cn.edu.hebtu.software.listendemo.Host.learnWord;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,11 +14,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.luck.picture.lib.dialog.CustomDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -48,15 +52,15 @@ public class LearnWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_word);
         setTitle("学习单词");
-        NewWordDBHelper newWordDBHelper =new NewWordDBHelper(this,"tbl_newWord.db",1);
+        NewWordDBHelper newWordDBHelper = new NewWordDBHelper(this, "tbl_newWord.db", 1);
         database = newWordDBHelper.getWritableDatabase();
         initData();
         initView();
     }
 
     private void initView() {
-        recyclerViewLearnWord= findViewById(R.id.rv_learnword);
-        learnWordRecyclerViewAdapter = new LearnWordRecyclerViewAdapter(this, learnWordlist, R.layout.activity_learnword_recycler_item,database);
+        recyclerViewLearnWord = findViewById(R.id.rv_learnword);
+        learnWordRecyclerViewAdapter = new LearnWordRecyclerViewAdapter(this, learnWordlist, R.layout.activity_learnword_recycler_item, database);
         recyclerViewLearnWord.setAdapter(learnWordRecyclerViewAdapter);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
             @Override
@@ -66,7 +70,7 @@ public class LearnWordActivity extends AppCompatActivity {
         };
         recyclerViewLearnWord.setLayoutManager(linearLayoutManager);
         final Button btnNext = findViewById(R.id.btn_next);
-        Button btnPrevious=findViewById(R.id.btn_previous);
+        Button btnPrevious = findViewById(R.id.btn_previous);
         final RecyclerView.LayoutManager layoutManager = recyclerViewLearnWord.getLayoutManager();
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,15 +79,19 @@ public class LearnWordActivity extends AppCompatActivity {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
                     int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                    int postion=firstItemPosition+1;
+                    int postion = firstItemPosition + 1;
                     if (firstItemPosition < learnWordlist.size() - 1) {
                         recyclerViewLearnWord.scrollToPosition(firstItemPosition + 1);
                     }
-                    if(postion==learnWordlist.size()-1){
+                    if (postion == learnWordlist.size() - 1) {
                         btnNext.setText("去听写");
                     }
-                    if(firstItemPosition==learnWordlist.size()-1){
-                        showPopupView(v);
+                    if (firstItemPosition == learnWordlist.size() - 1) {
+                        //创建并显示自定义的dialog
+                        CustomDialogLearnWord dialog=new CustomDialogLearnWord(learnWordlist);
+                        dialog.setCancelable(false);
+                        dialog.show(getSupportFragmentManager(),"learn");
+                        //showPopupView(v);
                     }
                 }
             }
@@ -95,11 +103,11 @@ public class LearnWordActivity extends AppCompatActivity {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
                     int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                    Log.e("firstItemPosition",firstItemPosition+"");
-                    if (firstItemPosition >0) {
+                    Log.e("firstItemPosition", firstItemPosition + "");
+                    if (firstItemPosition > 0) {
                         recyclerViewLearnWord.scrollToPosition(firstItemPosition - 1);
-                    }else{
-                        Toast.makeText(LearnWordActivity.this,"已经是第一个了",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(LearnWordActivity.this, "已经是第一个了", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -109,25 +117,28 @@ public class LearnWordActivity extends AppCompatActivity {
 
 
     private void initData() {
-        Intent intent=getIntent();
-        String str=intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
-        if(str!=null){
-            Type listType=new TypeToken< List<Word> >(){}.getType();
-            learnWordlist=new Gson().fromJson(str,listType);
+        Intent intent = getIntent();
+        String str = intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
+        if (str != null) {
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+            learnWordlist = new Gson().fromJson(str, listType);
         }
-        String str1=intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_LEARN);
-        if(str1!=null){
-            Type listType=new TypeToken< List<Word> >(){}.getType();
-            learnWordlist=new Gson().fromJson(str1,listType);
-            str1=null;
+        String str1 = intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_LEARN);
+        if (str1 != null) {
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+            learnWordlist = new Gson().fromJson(str1, listType);
+            str1 = null;
         }
-        String str2=intent.getStringExtra(Constant.WRONGWORD_CON_LEARNWORD_LEARN);
-        if(str2!=null){
-            Type listType=new TypeToken< List<WrongWord> >(){}.getType();
-            errorWordlist=new Gson().fromJson(str2,listType);
-            learnWordlist=new ArrayList<>();
-            for(WrongWord w:errorWordlist){
-                Word word=new Word();
+        String str2 = intent.getStringExtra(Constant.WRONGWORD_CON_LEARNWORD_LEARN);
+        if (str2 != null) {
+            Type listType = new TypeToken<List<WrongWord>>() {
+            }.getType();
+            errorWordlist = new Gson().fromJson(str2, listType);
+            learnWordlist = new ArrayList<>();
+            for (WrongWord w : errorWordlist) {
+                Word word = new Word();
                 word.setWenglish(w.getWenglish());
                 word.setWchinese(w.getWchinese());
                 word.setWimgPath(w.getWimgPath());
@@ -137,23 +148,27 @@ public class LearnWordActivity extends AppCompatActivity {
                 word.setUnid(w.getUnid());
                 learnWordlist.add(word);
             }
-            str2=null;
+            str2 = null;
         }
     }
 
     private void showPopupView(View v) {
         popupView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_finishlearn, null);
         popupWindow = new PopupWindow(popupView, dip2px(this, 300), dip2px(this, 200), true);
+        //设置PopupWindow显示内容视图
+        //popupWindow.setContentView(popupView);
+        //设置PopupWindow是否能响应外部点击事件
         popupWindow.setOutsideTouchable(false);
+        //设置PopupWindow是否能响内部点击事件
         popupWindow.setTouchable(true);
-        Button btnOk = popupView.findViewById(R.id.btn_OK);
-        Button btnCancel = popupView.findViewById(R.id.btn_cancle);
+        Button btnOk = popupView.findViewById(R.id.btn_ok_learn);
+        Button btnCancel = popupView.findViewById(R.id.btn_cancel_learn);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson=new Gson();
-                Intent intent =new Intent(LearnWordActivity.this,ListenWordActivity.class);
-                intent.putExtra(Constant.RECITE_CON_DICTATION,gson.toJson(learnWordlist));
+                Gson gson = new Gson();
+                Intent intent = new Intent(LearnWordActivity.this, ListenWordActivity.class);
+                intent.putExtra(Constant.RECITE_CON_DICTATION, gson.toJson(learnWordlist));
                 startActivity(intent);
                 popupWindow.dismiss();
                 finish();

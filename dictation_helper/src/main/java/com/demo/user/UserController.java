@@ -131,36 +131,36 @@ public class UserController extends Controller {
     /**
      * 更新密码
      */
-    public void updatepwd(){
-        TblUser tblUser=new TblUser();
-        LoginInfo loginInfo=new LoginInfo();
-        int type=getInt("type");
-        if (type==1){
-            String passwordOld=get("upasswordOld");
-            String passwordNew=get("upasswordNew");
-            int uid=getInt("uid");
-            TblUser user=userService.findUserByUid(uid);
-            String phone=user.getUphone();
-            user=userService.loginByPP(phone,passwordOld);
+    public void updatepwd() {
+        TblUser tblUser = new TblUser();
+        LoginInfo loginInfo = new LoginInfo();
+        int type = getInt("type");
+        if (type == 1) {
+            String passwordOld = get("upasswordOld");
+            String passwordNew = get("upasswordNew");
+            int uid = getInt("uid");
+            TblUser user = userService.findUserByUid(uid);
+            String phone = user.getUphone();
+            user = userService.loginByPP(phone, passwordOld);
             System.out.println(user);
-            if (user!=null){
-                tblUser=userService.updatePwd(user,passwordNew);
+            if (user != null) {
+                tblUser = userService.updatePwd(user, passwordNew);
                 loginInfo.setRegister_type(1);
                 loginInfo.setUser(tblUser);
-            }else {
+            } else {
                 loginInfo.setRegister_type(0);
             }
-        }else {
-            String password=get("upassword");
-            int uid=getInt("uid");
-            TblUser user=userService.findUserByUid(uid);
-            tblUser=userService.updatePwd(user,password);
+        } else {
+            String password = get("upassword");
+            int uid = getInt("uid");
+            TblUser user = userService.findUserByUid(uid);
+            tblUser = userService.updatePwd(user, password);
             loginInfo.setRegister_type(1);
             loginInfo.setUser(tblUser);
         }
         renderJson(loginInfo);
 
-
+    }
     /**
      * 删除数据库用户
      */

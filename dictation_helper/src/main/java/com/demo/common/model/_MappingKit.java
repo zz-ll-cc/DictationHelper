@@ -16,6 +16,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 	
 	public static void mapping(ActiveRecordPlugin arp) {
+		arp.addMapping("tbl_back", "baid", TblBack.class);
 		arp.addMapping("tbl_book", "bid", TblBook.class);
 		arp.addMapping("tbl_bookversion", "bvId", TblBookversion.class);
 		arp.addMapping("tbl_day_record", "drid", TblDayRecord.class);

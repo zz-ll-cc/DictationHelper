@@ -58,4 +58,16 @@ public class DayRecordService {
         }
         return null;
     }
+    public List<TblDayRecord> findDayRecordDataByUid(int uid){
+        List<TblDayRecord> dayRecords=this.findDayRecordByUid(uid);
+        if (dayRecords.size()>5){
+            List<TblDayRecord> records=new ArrayList<>();
+            for (int i=5;i>0;i--){
+                records.add(dayRecords.get(dayRecords.size()-i));
+            }
+            return records;
+        }else {
+            return dayRecords;
+        }
+    }
 }

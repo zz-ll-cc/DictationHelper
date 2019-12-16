@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,13 +37,19 @@ public class WrongWordActivity extends AppCompatActivity {
     private WrongWordRecyclerViewAdapter wrongWordRecyclerViewAdapter;
     private RecyclerView recyclerViewNewOrWrong;
     private List<WrongWord> wordkList;
-
+    private ImageView ivExit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_neworwrongword);
         initData();
         initView();
         tvNewTiltle.setText("错词本");
+        ivExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +79,7 @@ public class WrongWordActivity extends AppCompatActivity {
     private void initView() {
         tvNewTiltle = findViewById(R.id.tv_neworwrong);
         btnStudy = findViewById(R.id.btn_study);
+        ivExit = findViewById(R.id.iv_record_now_exit);
         btnListen = findViewById(R.id.btn_listen);
         recyclerViewNewOrWrong = findViewById(R.id.rc_neworwrong);
         wrongWordRecyclerViewAdapter = new WrongWordRecyclerViewAdapter(this, wordkList, R.layout.activity_record_neworwrongword_item);

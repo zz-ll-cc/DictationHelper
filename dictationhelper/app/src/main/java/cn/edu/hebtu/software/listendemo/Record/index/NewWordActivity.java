@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +34,19 @@ public class NewWordActivity extends AppCompatActivity {
     private NewWordRecyclerViewAdapter newWordRecyclerViewAdapter;
     private RecyclerView recyclerViewNewOrWrong;
     private List<Word> wordkList;
-
+    private ImageView ivExit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_neworwrongword);
         initData();
         initView();
         tvNewTiltle.setText("生词本");
+        ivExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +77,7 @@ public class NewWordActivity extends AppCompatActivity {
         tvNewTiltle = findViewById(R.id.tv_neworwrong);
         btnStudy = findViewById(R.id.btn_study);
         btnListen = findViewById(R.id.btn_listen);
+        ivExit = findViewById(R.id.iv_record_now_exit);
         recyclerViewNewOrWrong = findViewById(R.id.rc_neworwrong);
         newWordRecyclerViewAdapter = new NewWordRecyclerViewAdapter(this, wordkList, R.layout.activity_record_neworwrongword_item);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

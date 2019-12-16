@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -82,28 +82,6 @@
             android:background="#000" />
 
         <LinearLayout
-            android:id="@+id/ll_edit_my_msg_sex"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="性别："
-                android:textSize="16dp" />
-
-            <Spinner
-                android:spinnerMode="dropdown"
-                android:entries="@array/sex"
-                android:id="@+id/sp_upd_my_msg_sex"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -124,6 +102,28 @@
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_edit_my_msg_sex"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="性别："
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/sp_upd_my_msg_sex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/sex"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,24 +141,24 @@
             <TextView
                 android:id="@+id/tv_upd_my_msg_birth_set"
                 android:layout_width="0dp"
-                android:layout_weight="5"
                 android:layout_height="match_parent"
+                android:layout_weight="5"
                 android:gravity="center"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/spin_upd_my_msg_year"
                 android:layout_width="0dp"
-                android:layout_weight="4"
                 android:layout_height="match_parent"
+                android:layout_weight="4"
                 android:entries="@array/year"
                 android:spinnerMode="dropdown" />
 
             <TextView
                 android:id="@+id/tv_upd_my_msg_selectBirth"
                 android:layout_width="0dp"
-                android:layout_weight="1.5"
                 android:layout_height="match_parent"
+                android:layout_weight="1.5"
                 android:gravity="center"
                 android:text="选择"
                 android:textColor="#000"

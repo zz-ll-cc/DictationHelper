@@ -292,11 +292,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     break;
-                case R.id.tv_login_regist_user:
-                    // 跳转至注册界面
-                    Intent intent = new Intent(LoginActivity.this,RegistActivity.class);
-                    startActivity(intent);
-                    break;
                 case R.id.tv_login_forget_pwd:
                     break;
                 case R.id.tv_login_read_sla:

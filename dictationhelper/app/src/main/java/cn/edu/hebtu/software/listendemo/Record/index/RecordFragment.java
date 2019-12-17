@@ -107,7 +107,7 @@ public class RecordFragment extends Fragment {
                         accrencyFiveView.SetInfo(strX, // X轴刻度
                                 new String[]{"0", "20", "40", "60", "80", "100"}, // Y轴刻度
                                 strData, // 数据
-                                "正确率折线图", "百分比");
+                                "", "百分比");
                         llaccurrencyChart.setBackground(null);
                         llaccurrencyChart.removeAllViews();
                         llaccurrencyChart.addView(accrencyFiveView);
@@ -407,7 +407,7 @@ public class RecordFragment extends Fragment {
             wordFiveView.SetInfo(strDate, // X轴刻度
                     strY, // Y轴刻度
                     strSum, // 数据
-                    "单词折线图", "个/天");
+                    "", "个/天");
             llwordChart.addView(wordFiveView);
         }
     }

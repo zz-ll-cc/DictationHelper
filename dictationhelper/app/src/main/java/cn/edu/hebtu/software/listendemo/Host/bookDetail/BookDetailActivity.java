@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,27 +19,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.EventInfo;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
 
 public class BookDetailActivity extends AppCompatActivity {
     private int nowCount;
@@ -63,6 +76,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private Map<Integer,List<Integer>> colMap;
     private User user;
     private OkHttpClient client = new OkHttpClient();
+    private NumberProgressBar pbLearn;
+    private NumberProgressBar pbListen;
+
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -78,9 +95,11 @@ public class BookDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
+        EventBus.getDefault().register(this);
 
         findView();
         initData();
+        StatusBarUtil.statusBarLightMode(this);
     }
 
     private void setListener() {
@@ -220,6 +239,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private void initData() {
         book = (Book) getIntent().getSerializableExtra(Constant.HOST_CON_DETAIL_BOOK);
         tvName.setText(book.getBname());
+        tvName.setSelected(true);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         Type type = new TypeToken<Map<Integer,List<Integer>>>() {}.getType();
@@ -296,6 +316,12 @@ public class BookDetailActivity extends AppCompatActivity {
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
         else
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
+        pbLearn.setMax(100);
+        pbLearn.setProgress(0);
+        pbListen.setMax(100);
+        pbListen.setProgress(24);
+        askForAccount();
+
     }
 
     private void findView() {
@@ -308,7 +334,49 @@ public class BookDetailActivity extends AppCompatActivity {
         rvBookDetail = findViewById(R.id.recv_book_detail);
         llRecite = findViewById(R.id.ll_book_detail_recite);
         llDictation = findViewById(R.id.ll_book_detail_dictation);
-
+        pbLearn = findViewById(R.id.pb_learn);
+        pbListen = findViewById(R.id.pb_listen);
     }
 
+    private void askForAccount(){
+        FormBody body = new FormBody.Builder().add("bid",book.getBid()+"").build();
+        Request request = new Request.Builder().url(URL_GET_ACCOUNT).post(body).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                EventInfo<String,String,Object> eventInfo = new EventInfo<>();
+                Map<String,String> map = new HashMap<>();
+                map.put("count",response.body().string());
+                eventInfo.setContentString("receiveCount");
+                eventInfo.setContentMap(map);
+                EventBus.getDefault().post(eventInfo);
+            }
+        });
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiver(EventInfo eventInfo){
+        if("receiveCount".equals(eventInfo.getContentString())){
+            String count = (String) eventInfo.getContentMap().get("count");
+            int accout = Integer.parseInt(count);
+            //数据库查询计算比例
+            Log.e("sada",""+accout);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public void getListenProgress(){
+
+    }
 }

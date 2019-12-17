@@ -37,6 +37,7 @@ import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -200,6 +201,8 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             setListeners();
         }
+
+        StatusBarUtil.transparencyBar(this);
     }
 
     private void setListeners(){
@@ -291,11 +294,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                    break;
-                case R.id.tv_login_regist_user:
-                    // 跳转至注册界面
-                    Intent intent = new Intent(LoginActivity.this,RegistActivity.class);
-                    startActivity(intent);
                     break;
                 case R.id.tv_login_forget_pwd:
                     break;

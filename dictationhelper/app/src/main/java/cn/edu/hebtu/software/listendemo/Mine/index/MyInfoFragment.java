@@ -27,6 +27,7 @@ import cn.edu.hebtu.software.listendemo.Mine.index.settings.EditMsgActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -62,6 +63,7 @@ public class MyInfoFragment extends Fragment {
         initData();
         setData();
         setListener();
+
         return view;
     }
 
@@ -140,5 +142,25 @@ public class MyInfoFragment extends Fragment {
         super.onResume();
         initData();
         setData();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.yellow);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.yellow);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
     }
 }

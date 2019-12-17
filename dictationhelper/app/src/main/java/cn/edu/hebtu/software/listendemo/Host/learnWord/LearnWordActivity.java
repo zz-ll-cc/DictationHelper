@@ -34,6 +34,7 @@ import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class LearnWordActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class LearnWordActivity extends AppCompatActivity {
     private RecyclerView recyclerViewLearnWord;
     private List<Word> learnWordlist;
     private List<WrongWord> errorWordlist;
-    private int i = 0;
+    private int i = 1;
     private PopupWindow popupWindow = null;
     private View popupView = null;
     private SQLiteDatabase database;
@@ -56,6 +57,7 @@ public class LearnWordActivity extends AppCompatActivity {
         database = newWordDBHelper.getWritableDatabase();
         initData();
         initView();
+        StatusBarUtil.statusBarLightMode(this);
     }
 
     private void initView() {
@@ -75,6 +77,14 @@ public class LearnWordActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(i != learnWordlist.size()){
+                    i += 1;
+                }
+                if(i == 2){
+                    btnPrevious.setBackground(getResources().getDrawable(R.drawable.btn_selector));
+                    btnPrevious.setTextColor(getResources().getColor(R.color.black));
+                }
+
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
@@ -96,9 +106,20 @@ public class LearnWordActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnPrevious.setBackground(getResources().getDrawable(R.drawable.btn_invalid));
+        btnPrevious.setTextColor(getResources().getColor(R.color.bar_grey));
+
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(i != 1){
+                    i -= 1;
+                }
+                if(i == 1){
+                    btnPrevious.setBackground(getResources().getDrawable(R.drawable.btn_invalid));
+                    btnPrevious.setTextColor(getResources().getColor(R.color.bar_grey));
+                }
                 if (layoutManager instanceof LinearLayoutManager) {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置

@@ -29,6 +29,7 @@ import cn.edu.hebtu.software.listendemo.Entity.Grade;
 import cn.edu.hebtu.software.listendemo.Entity.Version;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -82,6 +83,7 @@ public class SearchBookActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         initData();
         initBook(gid,bvid);
+        StatusBarUtil.statusBarLightMode(this);
     }
     // 实现消息处理方法
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.hebtu.software.listendemo">
-
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITEAL_STORAGE" />
@@ -32,15 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Host.index.ListenIndexActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
-        <activity
-            android:name=".Login.RegistActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Host.searchBook.SearchBookActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -62,18 +54,13 @@
         <activity
             android:name=".Login.CompleteInformationActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
-
         </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <!--  听写记录-->
         <activity android:name=".Record.index.NewWordActivity" />
         <activity android:name=".Record.index.WrongWordActivity" />
-
-
         <activity android:name=".Mine.index.settings.EditPwdActivity" />
         <activity android:name=".Mine.index.settings.EditMsgActivity" />
         <activity android:name=".Mine.index.settings.FeedbackActivity" />

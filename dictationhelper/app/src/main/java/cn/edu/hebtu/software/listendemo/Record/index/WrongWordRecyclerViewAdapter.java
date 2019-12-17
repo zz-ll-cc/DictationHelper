@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
+
 import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
@@ -22,7 +25,7 @@ public class WrongWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<WrongWord> words;
     private int itemId;
-
+    private ViewBinderHelper helper = new ViewBinderHelper();
     public WrongWordRecyclerViewAdapter(Context context, List words, int itemId) {
         this.context = context;
         this.itemId = itemId;
@@ -39,6 +42,7 @@ public class WrongWordRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
+        helper.bind(itemViewHolder.srlAll,words.get(i).getWchinese());
         itemViewHolder.tvEnglish.setText(words.get(i).getWenglish());
         itemViewHolder.tvChinese.setText(words.get(i).getWchinese());
         //删除单词
@@ -53,7 +57,7 @@ public class WrongWordRecyclerViewAdapter extends RecyclerView.Adapter {
                 notifyDataSetChanged();
             }
         });
-
+        helper.setOpenOnlyOne(true);
     }
 
     @Override
@@ -68,13 +72,13 @@ public class WrongWordRecyclerViewAdapter extends RecyclerView.Adapter {
         public TextView tvEnglish;
         public TextView tvChinese;
         public ImageView ivDelete;
-
+        public SwipeRevealLayout srlAll;
         public MyItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvEnglish = itemView.findViewById(R.id.tv_neworwrongenglish);
             tvChinese = itemView.findViewById(R.id.tv_neworwrongchinese);
             ivDelete = itemView.findViewById(R.id.iv_neworwrongimg);
-
+            srlAll = itemView.findViewById(R.id.srl_word);
         }
     }
 

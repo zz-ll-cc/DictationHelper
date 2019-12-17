@@ -23,12 +23,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.hbsd.rjxy.dictationhelper.MainActivity;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.tools.PictureFileUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,6 +51,7 @@ import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -131,7 +130,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
 
 
 
-
+        StatusBarUtil.statusBarLightMode(this);
 
 
 
@@ -269,7 +268,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Log.e("Path:",""+localMedia.getCutPath());
             }
             uploadFile();
-
         }
     }
 

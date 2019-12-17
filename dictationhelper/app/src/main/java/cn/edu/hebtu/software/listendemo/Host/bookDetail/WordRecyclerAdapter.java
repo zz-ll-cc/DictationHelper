@@ -36,6 +36,11 @@ public class WordRecyclerAdapter extends RecyclerView.Adapter {
         MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
         myViewHolder.tvEnglish.setText(words.get(i).getWenglish());
         myViewHolder.tvChinese.setText(words.get(i).getWchinese());
+        if(words.get(i).getType() == 1){
+            myViewHolder.tvEnglish.setTextColor(context.getResources().getColor(R.color.unit));
+        }else{
+            myViewHolder.tvEnglish.setTextColor(context.getResources().getColor(R.color.black));
+        }
     }
 
     @Override

@@ -2,7 +2,9 @@ package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
@@ -156,7 +161,7 @@ public class ListenWordActivity extends AppCompatActivity {
                     }.start();
                 }else if(positionToSave == listenWordlist.size()-1){
                     //showPopupView(v);
-                    CustomDialogListenWord dialog=new CustomDialogListenWord(listenWordlist,mineWordlist);
+                    CustomDialogListenWord dialog=new CustomDialogListenWord(listenWordlist,mineWordlist,ListenWordActivity.this);
                     dialog.setCancelable(false);
                     dialog.show(getSupportFragmentManager(),"listen");
                 }else{
@@ -270,7 +275,7 @@ public class ListenWordActivity extends AppCompatActivity {
         popupWindow.setOutsideTouchable(false);
         popupWindow.setTouchable(true);
         Button btnOk=popupView.findViewById(R.id.btn_OK_listen);
-        Button btnCancel=popupView.findViewById(R.id.btn_cancle_listen);
+        Button btnCancel=popupView.findViewById(R.id.btn_cancel_listen);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,5 +302,29 @@ public class ListenWordActivity extends AppCompatActivity {
         return (int) (dpValue * scale + 0.5f);
     }
 
+    private void showExitDialog(){
+        // 点击取消绑定
+        // 显示一个Dialog
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
+        adBuilder.setTitle("确定退出");
+        adBuilder.setMessage("退出将不会记录本次听写");
+        adBuilder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 选中“确定”按钮，解除绑定
+                // 更改SharedP中数据
+                finish();
+                // 修改显示样式
+            }
+        });
+        adBuilder.setNegativeButton("我手滑了", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 选中“取消”按钮，取消界面
+
+            }
+        });
+        adBuilder.create().show();
+    }
 }
 

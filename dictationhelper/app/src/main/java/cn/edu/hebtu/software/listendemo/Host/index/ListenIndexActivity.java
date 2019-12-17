@@ -128,7 +128,7 @@ public class ListenIndexActivity extends AppCompatActivity {
         //将之前显示的Fragment隐藏掉
         if (curFragment != null) {
             transaction.remove(curFragment);
-            //transaction.hide(curFragment);
+//            transaction.hide(curFragment);
         }
         //如果当前Fragment没有被添加过，则添加到Activity的帧布局中
         if (!fragment.isAdded()) {

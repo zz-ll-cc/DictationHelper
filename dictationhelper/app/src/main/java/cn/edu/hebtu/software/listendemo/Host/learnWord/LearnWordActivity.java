@@ -88,9 +88,10 @@ public class LearnWordActivity extends AppCompatActivity {
                     }
                     if (firstItemPosition == learnWordlist.size() - 1) {
                         //创建并显示自定义的dialog
-                        CustomDialogLearnWord dialog=new CustomDialogLearnWord(learnWordlist);
+                        CustomDialogLearnWord dialog=new CustomDialogLearnWord(learnWordlist,LearnWordActivity.this);
                         dialog.setCancelable(false);
                         dialog.show(getSupportFragmentManager(),"learn");
+
                         //showPopupView(v);
                     }
                 }
@@ -170,8 +171,8 @@ public class LearnWordActivity extends AppCompatActivity {
                 Intent intent = new Intent(LearnWordActivity.this, ListenWordActivity.class);
                 intent.putExtra(Constant.RECITE_CON_DICTATION, gson.toJson(learnWordlist));
                 startActivity(intent);
-                popupWindow.dismiss();
                 finish();
+                popupWindow.dismiss();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {

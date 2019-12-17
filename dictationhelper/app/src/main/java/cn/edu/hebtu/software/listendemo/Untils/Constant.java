@@ -1,5 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Untils;
 
+import android.graphics.Point;
+
 public class Constant {
     // 筛选书籍部分
     public static final int VERSION_ALL = 1;    // 查询书籍时，版本号 选择查询全部

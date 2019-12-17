@@ -2,6 +2,8 @@ package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +44,8 @@ import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,6 +56,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
+import static com.mob.MobSDK.getContext;
 
 public class BookDetailActivity extends AppCompatActivity {
     private int nowCount;
@@ -78,6 +83,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private OkHttpClient client = new OkHttpClient();
     private NumberProgressBar pbLearn;
     private NumberProgressBar pbListen;
+    private SQLiteDatabase sqLiteDatabase;
 
 
     private Handler handler = new Handler() {
@@ -319,8 +325,9 @@ public class BookDetailActivity extends AppCompatActivity {
         pbLearn.setMax(100);
         pbLearn.setProgress(0);
         pbListen.setMax(100);
-        pbListen.setProgress(24);
+        pbListen.setProgress(0);
         askForAccount();
+
 
     }
 
@@ -365,7 +372,10 @@ public class BookDetailActivity extends AppCompatActivity {
             String count = (String) eventInfo.getContentMap().get("count");
             int accout = Integer.parseInt(count);
             //数据库查询计算比例
-            Log.e("sada",""+accout);
+            int correct = getListenProgress();
+            double result = correct*1.0/accout*100;
+            Log.e("1,2",""+result);
+            pbListen.setProgress((int) Math.round(result));
         }
     }
 
@@ -376,7 +386,17 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
 
-    public void getListenProgress(){
-
+    public int getListenProgress(){
+        CorrectWordDBHelper currectWordDBHelper =new CorrectWordDBHelper(this,"tbl_correctWord.db",1);
+        sqLiteDatabase = currectWordDBHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.query("TBL_CURRECTWORD", null,"BID=?" , new String[]{book.getBid()+""}, null, null, null);
+        int correct = 0;
+        if(cursor.moveToFirst()){
+            do{
+                correct += 1;
+            }while(cursor.moveToNext());
+        }
+        Log.e("正确的",""+correct);
+        return correct;
     }
 }

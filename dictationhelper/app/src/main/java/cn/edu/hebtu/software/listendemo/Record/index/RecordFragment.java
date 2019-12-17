@@ -41,6 +41,7 @@ import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CustomScrollBar;
 import okhttp3.Call;
@@ -140,7 +141,27 @@ public class RecordFragment extends Fragment {
         tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
         getWordFive();
         getAccurencyFiveRecord();
+
+
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
     }
 
     private void setListener() {
@@ -213,6 +234,7 @@ public class RecordFragment extends Fragment {
         showResources.clear();
         initData();
         showAdapter.notifyDataSetChanged();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     private void initData() {

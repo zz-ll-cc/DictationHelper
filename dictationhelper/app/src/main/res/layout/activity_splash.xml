@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8C459">
 
     <ImageView
-        android:src="@drawable/splashimage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:src="@drawable/splashimage" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="25dp"
+        android:alpha="0.7"
+        android:background="@drawable/message_oval_orange"
+        android:text="跳过"
+        android:textColor="@color/white" />
+</FrameLayout>

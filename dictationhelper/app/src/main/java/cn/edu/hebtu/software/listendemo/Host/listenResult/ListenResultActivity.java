@@ -28,7 +28,8 @@ import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
-import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
+import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,20 +48,27 @@ public class ListenResultActivity extends AppCompatActivity {
     private TextView tvReturnHost;
     private  TextView tvReturnBookDetail;
     private SQLiteDatabase database;
+    private SQLiteDatabase currectdatabase;
+    private SQLiteDatabase currectsumdatabase;
     private  int sum;
     private int error=0;
+    private int correct=0;
     private  double score;
     public Date date;
     public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
+    public SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listen_result);
         WrongWordDBHelper wrongWordDBHelper =new WrongWordDBHelper(this,"tbl_wrongWord.db",1);
         database =wrongWordDBHelper.getWritableDatabase();
+        CorrectWordDBHelper currectWordDBHelper =new CorrectWordDBHelper(this,"tbl_correctWord.db",1);
+        currectdatabase =currectWordDBHelper.getWritableDatabase();
+        CorrectSumDBHelper correctSumDBHelper =new CorrectSumDBHelper(this,"tbl_correctSumWord.db",1);
+        currectsumdatabase =correctSumDBHelper.getWritableDatabase();
         initData();
         initView();
-        StatusBarUtil.statusBarLightMode(this);
     }
 
     private void initView(){
@@ -91,10 +99,49 @@ public class ListenResultActivity extends AppCompatActivity {
             successList.get(i).setIsTrue(Constant.SPELL_TRUE);
             if(mineList.get(i).getWenglish().equals(successList.get(i).getWenglish())){
                 mineList.get(i).setIsTrue(Constant.SPELL_TRUE);
+                Word w1=successList.get(i);
+                Cursor cursor1 =currectdatabase.query("TBL_CURRECTWORD", null, "WENGLISH=?", new String[]{w1.getWenglish()}, null, null, null);
+                Log.e("currectnum",cursor1.getCount()+"");
+                if(cursor1.getCount()==0) {
+                    //添加错词
+                    ContentValues word = new ContentValues();
+                    word.put("WENGLISH", w1.getWenglish());
+                    word.put("WCHINESE", w1.getWchinese());
+                    word.put("WIMGPATH", w1.getWimgPath());
+                    word.put("UNID", w1.getUnid());
+                    word.put("BID", w1.getBid());
+                    word.put("TYPE", w1.getType());
+                    word.put("ISTRUE", w1.getIsTrue());
+                    word.put("ADDTIME", simpleDateFormat1.format(date));
+                    long row = currectdatabase.insert("TBL_CURRECTWORD", null, word);
+                    Log.e("插入正确词的行号", row + "");
+                    correct++;
+                }
+                Cursor cursor2 =currectsumdatabase.query("TBL_CURRECTSUM", null, "ADDTIME=?",new String[]{simpleDateFormat1.format(date)}, null, null, null);
+                Log.e("currectsumnum",cursor1.getCount()+"");
+                if(cursor2.getCount()==0) {
+                    //添加错词
+                    ContentValues word = new ContentValues();
+                    word.put("SUM", correct);
+                    word.put("ADDTIME", simpleDateFormat1.format(date));
+                    long row = currectsumdatabase.insert("TBL_CURRECTSUM", null, word);
+                    Log.e("插入正确词总数的行号", row + "");
+                    correct++;
+                }
+                if(cursor2.getCount()==1){
+                    if(cursor2.moveToFirst()){
+                        int sum=cursor2.getInt(cursor2.getColumnIndex("SUM"));
+                        ContentValues word = new ContentValues();
+                        word.put("SUM", correct+sum);
+                        word.put("ADDTIME", simpleDateFormat1.format(date));
+                        currectsumdatabase.update("TBL_CURRECTSUM",word,"ADDTIME=?",new String[]{simpleDateFormat1.format(date)});
+                    }while(cursor2.moveToNext());
+                }
+
             }else{
                 Word w=successList.get(i);
                 Cursor cursor =database .query("TBL_WRONGWORD", null, "WENGLISH=?", new String[]{w.getWenglish()}, null, null, null);
-                Log.e("num",cursor.getCount()+"");
+                Log.e("errornum",cursor.getCount()+"");
                 if(cursor.getCount()==0) {
                     //添加错词
                     ContentValues word = new ContentValues();

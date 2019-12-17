@@ -82,4 +82,16 @@ public class Constant {
     public static final int PWD_TYPE_SET = 0;   // 设置密码
     public static final int PWD_TYPE_UPD_OLD = 1;   // 通过旧密码修改密码
     public static final int PWD_TYPE_UPD_PHONE = 2; // 通过手机验证修改密码
+
+  public static Point point;//获取屏幕的大小
+
+    //学习记录
+    public static final String URL_GETRECORD_TOLINECHART_FIVE="http://47.94.171.160:8080/dayrecord/getdata";
+    public static final String URL_GETRECORD_TOLINECHART_MONTH="http://47.94.171.160:8080/dayrecord/getdata";
+    public static final int WORD_FIVE=1;
+    public static final int WORD_MONTH=2;
+    public static final int ACCURENCY_FIVE=3;
+    public static final int ACCURENCY_MONTH=4;
+
+
 }

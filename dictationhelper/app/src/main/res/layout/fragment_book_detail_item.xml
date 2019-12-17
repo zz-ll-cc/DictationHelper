@@ -18,16 +18,20 @@
         <RelativeLayout
             android:id="@+id/rl_fragment_book_unit_border"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/fragment_unit_border">
+            android:layout_height="match_parent">
+            <!--android:background="@drawable/fragment_unit_border">-->
 
             <TextView
+
                 android:id="@+id/tv_fragment_book_detail_unit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
                 android:gravity="center"
+                android:textSize="18dp"
                 android:text="UNIT 1"
-                android:textColor="#000" />
+                android:textColor="@color/unit" />
 
             <ImageView
                 android:id="@+id/iv_fragment_book_detail_choose"
@@ -44,11 +48,12 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="110dp"
             android:gravity="center"
-            android:text="Play"
-            android:textColor="#000"
+            android:text="·············································"
+            android:textColor="#6E6E6E"
             android:textSize="20dp" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/iv_fragment_book_detail_clock"
             android:layout_width="30dp"
             android:layout_height="30dp"

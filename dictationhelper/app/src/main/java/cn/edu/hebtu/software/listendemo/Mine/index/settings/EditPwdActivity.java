@@ -39,6 +39,7 @@ import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.CheckPwdFormatUtil;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -163,6 +164,8 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
         initView();
         setOnFocusListener();
         setOnClickListeners();
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.white);
     }
 
     private void setOnFocusListener() {

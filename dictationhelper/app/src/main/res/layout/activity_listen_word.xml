@@ -21,8 +21,12 @@
             android:keyTextColor="#333333"
             android:paddingTop="1dp"
             android:shadowColor="#FFFFFF"
+            android:layout_marginBottom="10dp"
             android:shadowRadius="0.0" />
         <Button
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_selector"
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +44,7 @@
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/rv_listenword"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

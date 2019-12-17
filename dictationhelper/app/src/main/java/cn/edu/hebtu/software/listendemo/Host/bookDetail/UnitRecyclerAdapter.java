@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import cn.edu.hebtu.software.listendemo.Entity.ChooseUnitItem;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
@@ -43,6 +44,12 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     private LinearLayout llRecite;
     private LinearLayout llDictation;
 
+    private int[] colors = {R.color.back1,R.color.back2,R.color.back3,R.color.back4,R.color.back5,R.color.back6};
+    private int[] colorUsed;
+    private int randStart;
+
+
+
     public UnitRecyclerAdapter(Context context, int layout_item_id, List<Unit> unitList,
                                CheckBox cbChooseAll, LinearLayout llRecite, LinearLayout llDictation) {
         this.cbChooseAll = cbChooseAll;
@@ -63,6 +70,8 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
             chooseUnitItem.setUnit(unit);
             chooseUnitItemMap.put(unit.getUnid(), chooseUnitItem);
         }
+        Random random = new Random();
+        this.randStart = random.nextInt(6);
 
     }
 
@@ -167,7 +176,10 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         final MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
         final Unit unit = unitList.get(i);
         myViewHolder.tvUnit.setText(unit.getUnName());
-        myViewHolder.tvUnitName.setText(unit.getUnTitle());
+        /*
+        TODO    取消的单元名称的获取
+         */
+//        myViewHolder.tvUnitName.setText(unit.getUnTitle());
         List<Word> words = unit.getWords();
         WordRecyclerAdapter adapter = new WordRecyclerAdapter(words, context, R.layout.fragment_book_detail_word_item);
         myViewHolder.rvWords.setAdapter(adapter);
@@ -219,6 +231,9 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 if (canDownMap.get(unit.getUnid())) {
                     myViewHolder.ivShowAll.setEnabled(false);
                     canDownMap.put(unit.getUnid(), false);
+                    /*
+                        TODO:   在这里显示和隐藏
+                     */
 //                    ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(
 //                            myViewHolder.ivShowAll, "rotationX", 180.0f, 360.0f
 //                    );
@@ -238,6 +253,20 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 notifyDataSetChanged();
             }
         });
+        if(!canDownMap.get(unit.getUnid())){
+            myViewHolder.tvUnitName.setVisibility(View.INVISIBLE);
+            myViewHolder.rlDetailDown.setBackgroundColor(context.getResources().getColor(R.color.white));
+        }else{
+            myViewHolder.tvUnitName.setVisibility(View.VISIBLE);
+            //设置颜色
+            if((randStart + i) >= colors.length){
+                myViewHolder.rlDetailDown.setBackgroundColor(context.getResources().getColor(colors[randStart+i-colors.length]));
+                myViewHolder.rvWords.setBackgroundColor(context.getResources().getColor(colors[randStart+i-colors.length]));
+            }else{
+                myViewHolder.rlDetailDown.setBackgroundColor(context.getResources().getColor(colors[randStart+i]));
+                myViewHolder.rvWords.setBackgroundColor(context.getResources().getColor(colors[randStart+i]));
+            }
+        }
         myViewHolder.ivShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,6 +294,11 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 notifyDataSetChanged();
             }
         });
+
+
+
+
+
     }
 
     @Override
@@ -284,6 +318,8 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         public ImageView ivClock;
         public ImageView ivShowAll;
         public RecyclerView rvWords;
+        public int randColor;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -295,6 +331,15 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
             ivClock = itemView.findViewById(R.id.iv_fragment_book_detail_clock);
             ivShowAll = itemView.findViewById(R.id.iv_fragment_book_detail_show_all_word);
             rvWords = itemView.findViewById(R.id.recv_fragment_book_detail);
+
+        }
+
+        public int getRandColor() {
+            return randColor;
+        }
+
+        public void setRandColor(int randColor) {
+            this.randColor = randColor;
         }
     }
 }

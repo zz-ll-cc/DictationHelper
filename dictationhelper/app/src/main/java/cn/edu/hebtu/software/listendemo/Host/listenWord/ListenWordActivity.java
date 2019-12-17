@@ -41,6 +41,7 @@ import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.ReadManager;
 import cn.edu.hebtu.software.listendemo.Untils.SmoothScrollLayoutManager;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class ListenWordActivity extends AppCompatActivity {
 
@@ -63,6 +64,8 @@ public class ListenWordActivity extends AppCompatActivity {
         setTitle("听写单词");
         initData();
         initView();
+
+        StatusBarUtil.statusBarLightMode(this);
 
 
     }

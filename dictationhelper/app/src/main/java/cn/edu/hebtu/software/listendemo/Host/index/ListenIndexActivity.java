@@ -3,6 +3,7 @@ package cn.edu.hebtu.software.listendemo.Host.index;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import cn.edu.hebtu.software.listendemo.Mine.index.MyInfoFragment;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Record.index.RecordFragment;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class ListenIndexActivity extends AppCompatActivity {
     //所需要的全部资源
@@ -93,6 +96,15 @@ public class ListenIndexActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         Log.e("ListenIndexActivity", "" + user.toString());
+
+
+//        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
+//            //透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
+        StatusBarUtil.statusBarLightMode(this);
 
     }
 

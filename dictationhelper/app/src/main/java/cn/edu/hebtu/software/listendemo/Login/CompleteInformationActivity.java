@@ -51,6 +51,7 @@ import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -129,7 +130,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
 
 
 
-
+        StatusBarUtil.statusBarLightMode(this);
 
 
 
@@ -232,7 +233,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
                 //TODO 网络连接超时
             }
 
@@ -268,7 +268,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Log.e("Path:",""+localMedia.getCutPath());
             }
             uploadFile();
-
         }
     }
 

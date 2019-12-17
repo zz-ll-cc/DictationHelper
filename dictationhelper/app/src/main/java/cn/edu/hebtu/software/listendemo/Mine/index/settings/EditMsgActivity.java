@@ -47,6 +47,7 @@ import java.util.Date;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -124,6 +125,8 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         initData();
         setData();
         setListener();
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.white);
     }
 
     private void setListener() {

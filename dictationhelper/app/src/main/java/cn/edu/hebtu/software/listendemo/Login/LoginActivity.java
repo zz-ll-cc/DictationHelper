@@ -37,6 +37,7 @@ import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CountTimer;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
@@ -200,6 +201,8 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             setListeners();
         }
+
+        StatusBarUtil.transparencyBar(this);
     }
 
     private void setListeners(){

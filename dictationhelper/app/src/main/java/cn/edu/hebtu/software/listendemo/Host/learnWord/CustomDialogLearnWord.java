@@ -1,6 +1,9 @@
 package cn.edu.hebtu.software.listendemo.Host.learnWord;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,13 +29,14 @@ import cn.edu.hebtu.software.listendemo.Untils.Constant;
 //自定义的Dialog需要继承DialogFragment
 public class CustomDialogLearnWord extends DialogFragment {
     private List<Word> learnWordlist;
-
+    private Activity context;
     public CustomDialogLearnWord() {
     }
 
     @SuppressLint("ValidFragment")
-    public CustomDialogLearnWord(List<Word> learnWordlist) {
+    public CustomDialogLearnWord(List<Word> learnWordlist, Activity context) {
         this.learnWordlist = learnWordlist;
+        this.context = context;
     }
 
     //重写方法onCreateView
@@ -68,6 +72,7 @@ public class CustomDialogLearnWord extends DialogFragment {
                     Intent intent = new Intent(getActivity(), ListenWordActivity.class);
                     intent.putExtra(Constant.RECITE_CON_DICTATION, gson.toJson(learnWordlist));
                     startActivity(intent);
+                    context.finish();
                     break;
                 case R.id.btn_cancel_learn:
                     //让当前Dialog消失

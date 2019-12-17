@@ -16,7 +16,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <!--白色主题样式，，注意每一项都不能少-->
     <style name="picture.white.style" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->

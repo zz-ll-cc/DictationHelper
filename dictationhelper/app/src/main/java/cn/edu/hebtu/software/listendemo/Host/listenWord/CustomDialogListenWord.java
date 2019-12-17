@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,14 +29,15 @@ import cn.edu.hebtu.software.listendemo.Untils.Constant;
 public class CustomDialogListenWord extends DialogFragment {
     private List<Word> listenWordlist;
     private List<Word> mineWordlist;
-
+    private Activity activity;
     public CustomDialogListenWord() {
     }
 
     @SuppressLint("ValidFragment")
-    public CustomDialogListenWord(List<Word> listenWordlist, List<Word> mineWordlist) {
+    public CustomDialogListenWord(List<Word> listenWordlist, List<Word> mineWordlist ,Activity activity) {
        this.listenWordlist=listenWordlist;
        this.mineWordlist=mineWordlist;
+       this.activity = activity;
     }
 
     //重写方法onCreateView
@@ -45,7 +47,7 @@ public class CustomDialogListenWord extends DialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //根据布局文件通过布局填充器创建view
-        View view = inflater.inflate(R.layout.custom_dialog_finishlearn, null);
+        View view = inflater.inflate(R.layout.custom_dialog_finishlisten, null);
        /* //动态设置自定义Dialog的显示内容的宽和高
         WindowManager m = getActivity().getWindowManager();
         Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
@@ -57,8 +59,8 @@ public class CustomDialogListenWord extends DialogFragment {
         Log.e("tt1",p.height+":"+p.width);*/
 
         //获取布局文件的控件
-        TextView btnOK = view.findViewById(R.id.btn_ok_learn);
-        TextView btnCancel = view.findViewById(R.id.btn_cancel_learn);
+        TextView btnOK = view.findViewById(R.id.btn_OK_listen);
+        TextView btnCancel = view.findViewById(R.id.btn_cancel_listen);
 
         //给按钮添加自定义的监听器
         CustomDialogListener listener = new CustomDialogListener();
@@ -74,13 +76,14 @@ public class CustomDialogListenWord extends DialogFragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_ok_learn:
+                case R.id.btn_OK_listen:
                     Intent intent =new Intent(getActivity(), ListenResultActivity.class);
                     intent.putExtra("success",new Gson().toJson(listenWordlist));
                     intent.putExtra("mine",new Gson().toJson(mineWordlist));
                     startActivity(intent);
+                    activity.finish();
                     break;
-                case R.id.btn_cancel_learn:
+                case R.id.btn_cancel_listen:
                     //让当前Dialog消失
                     getDialog().dismiss();
                     break;

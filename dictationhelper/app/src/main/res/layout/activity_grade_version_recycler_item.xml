@@ -10,5 +10,6 @@
         android:layout_height="50dp"
         android:text="一年级上册"
         android:textSize="18dp"
+        android:gravity="center"
         android:layout_marginRight="20dp"/>
 </LinearLayout>

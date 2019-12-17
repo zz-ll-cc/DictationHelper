@@ -70,7 +70,7 @@
                 android:id="@+id/et_edit_my_msg_username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#fff"
+                android:background="#FAFAFA"
                 android:hint=""
                 android:maxEms="8"
                 android:maxLines="1"

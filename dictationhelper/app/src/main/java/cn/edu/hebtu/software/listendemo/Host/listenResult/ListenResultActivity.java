@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -39,15 +39,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ListenResultActivity extends AppCompatActivity {
-    private ListenResultRecyclerViewAdapter listenResultSuccessRecyclerViewAdapter;
-    private ListenResultRecyclerViewAdapter listenResultMineRecyclerViewAdapter;
-    private RecyclerView recyclerViewListenSuccess;
-    private RecyclerView recyclerViewListenMine;
-    private List<Word>  successList;
-    private List<Word>  mineList;
+    private ListenResultRecyclerViewAdapter adapter;
+    private RecyclerView rvResult;
     private TextView tvReturnHost;
-    private  TextView tvReturnBookDetail;
+    private TextView tvReturnBookDetail;
+    private List<Word> successList;
+    private List<Word> mineList;
     private SQLiteDatabase database;
+
     private SQLiteDatabase currectdatabase;
     private SQLiteDatabase currectsumdatabase;
     private  int sum;
@@ -71,33 +70,17 @@ public class ListenResultActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView(){
+    private void initView() {
+        rvResult = findViewById(R.id.rv_result);
+        tvReturnHost = findViewById(R.id.tv_returnHost);
+        tvReturnBookDetail = findViewById(R.id.tv_returnBookDetail);
         //返回到主页
-        tvReturnHost=findViewById(R.id.tv_returnHost);
-        tvReturnHost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent=new Intent(ListenResultActivity.this, ListenIndexActivity.class);
-                startActivity(intent);
-            }
-        });
-        //再听写一次
-        tvReturnBookDetail=findViewById(R.id.tv_returnBookDetail);
-        tvReturnBookDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        recyclerViewListenSuccess=findViewById(R.id.rv_success);
-        recyclerViewListenMine=findViewById(R.id.rv_mine);
-        sum=successList.size();
+        sum = successList.size();
         date = new Date(System.currentTimeMillis());
-        Log.e("date",""+date.toString());
-        for(int i=0;i<successList.size();i++){
+        Log.e("date", "" + date.toString());
+        for (int i = 0; i < successList.size(); i++) {
             successList.get(i).setIsTrue(Constant.SPELL_TRUE);
-            if(mineList.get(i).getWenglish().equals(successList.get(i).getWenglish())){
+            if (mineList.get(i).getWenglish().equals(successList.get(i).getWenglish())) {
                 mineList.get(i).setIsTrue(Constant.SPELL_TRUE);
                 Word w1=successList.get(i);
                 Cursor cursor1 =currectdatabase.query("TBL_CURRECTWORD", null, "WENGLISH=?", new String[]{w1.getWenglish()}, null, null, null);
@@ -163,27 +146,37 @@ public class ListenResultActivity extends AppCompatActivity {
         //传递测试数据
         sendScore();
         final LeanTextView mText = findViewById(R.id.lean);
-        score = (sum-error)/(sum*1.0);
-        mText.setText(Html.fromHtml("<u>"+Math.round(score*100)+"</u>"));
-        Log.e("sum",""+sum+"erro:"+error);
+        score = (sum - error) / (sum * 1.0);
+        mText.setText(Html.fromHtml("<u>" + Math.round(score * 100) + "</u>"));
+        Log.e("sum", "" + sum + "erro:" + error);
         mText.setmDegrees(20);
-        listenResultSuccessRecyclerViewAdapter=new ListenResultRecyclerViewAdapter(this,successList,R.layout.activity_grade_version_recycler_item);
-        listenResultMineRecyclerViewAdapter=new ListenResultRecyclerViewAdapter(this,mineList,R.layout.activity_grade_version_recycler_item);
-
         //设置适配器
-        recyclerViewListenSuccess.setAdapter(listenResultSuccessRecyclerViewAdapter);
-        recyclerViewListenMine.setAdapter(listenResultMineRecyclerViewAdapter);
+        adapter = new ListenResultRecyclerViewAdapter(this, successList, mineList, R.layout.activity_listen_result_word_item);
         //必须调用，设置布局管理器
-        recyclerViewListenSuccess.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerViewListenMine.setLayoutManager(new GridLayoutManager(this, 2));
-
-
+        rvResult.setAdapter(adapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rvResult.setLayoutManager(layoutManager);
+        tvReturnHost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListenResultActivity.this, ListenIndexActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        tvReturnBookDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
     private void sendScore() {
-        SharedPreferences sp = getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE);
-        User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
-        OkHttpClient okHttpClient=new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("sum",sum+"").add("error",error+"").add("right",sum-error+"").add("time",simpleDateFormat.format(date)).add("uid",user.getUid()+"").build();
+        SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("sum", sum + "").add("error", error + "").add("right", sum - error + "").add("time", simpleDateFormat.format(date)).add("uid", user.getUid() + "").build();
         Request request = new Request.Builder().url(Constant.URL_SAVE_RECORD).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -201,21 +194,23 @@ public class ListenResultActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonBooks = response.body().string();
-                Log.e("response",""+jsonBooks);
+                Log.e("response", "" + jsonBooks);
             }
         });
     }
 
     private void initData() {
-        Intent intent=getIntent();
-        String str=intent.getStringExtra("success");
-        String str1=intent.getStringExtra("mine");
-        Type listType=new TypeToken< List<Word> >(){}.getType();
-        if(str!=null && !str.equals("")){
-            successList=new Gson().fromJson(str,listType);
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("success");
+        String str1 = intent.getStringExtra("mine");
+        Type listType = new TypeToken<List<Word>>() {
+        }.getType();
+        if (str != null && !str.equals("")) {
+            successList = new Gson().fromJson(str, listType);
         }
-        if(str1!=null && !str1.equals("")){
-            mineList=new Gson().fromJson(str1,listType);
+        if (str1 != null && !str1.equals("")) {
+            mineList = new Gson().fromJson(str1, listType);
         }
     }
+
 }

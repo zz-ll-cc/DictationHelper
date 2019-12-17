@@ -3,6 +3,8 @@ package cn.edu.hebtu.software.listendemo.Mine.index;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,17 +39,17 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class MyInfoFragment extends Fragment {
-    private View view;
+    private SmartRefreshLayout smart;
     private RelativeLayout rlEditMyMsg;
+    private View view;
     private ImageView ivHeader;
     private TextView tvName;
     private SharedPreferences sp;
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private User user;
     private RecyclerView rvShow;
-    private List<Map<String, Object>> showRes = new ArrayList<>();
     private MyShowAdapter adapter;
-
+    private static final int FINISH_REFRESH = 100;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,16 +64,27 @@ public class MyInfoFragment extends Fragment {
 
     private void setListener() {
         MyInfoListener listener = new MyInfoListener();
-        rlEditMyMsg.setOnClickListener(listener);
+        tvName.setOnClickListener(listener);
+        ivHeader.setOnClickListener(listener);
+        smart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                smart.finishRefresh(1500);
+            }
+        });
     }
 
     private class MyInfoListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.rl_fragment_my_edit_header:
+                case R.id.tv_fragment_my_nickname:
                     Intent intent1 = new Intent(getContext(), EditMsgActivity.class);
                     startActivity(intent1);
+                    break;
+                case R.id.iv_fragment_my_header:
+                    Intent intent2 = new Intent(getContext(), EditMsgActivity.class);
+                    startActivity(intent2);
                     break;
             }
         }
@@ -79,14 +95,13 @@ public class MyInfoFragment extends Fragment {
         tvName.setText(user.getUname());
         RequestOptions ro = new RequestOptions().error(R.drawable.head_user).circleCrop();
         Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
-        adapter = new MyShowAdapter(R.layout.fragment_my_recycler_item, showRes, getContext());
         rvShow.setAdapter(adapter);
     }
 
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        showRes.clear();
+        List<Map<String, Object>> showRes = new ArrayList<>();
         Map<String, Object> mapIntegral = new HashMap<>();
         mapIntegral.put("imgBg", R.drawable.my_integral_border);
         mapIntegral.put("img", R.drawable.integral);
@@ -115,6 +130,7 @@ public class MyInfoFragment extends Fragment {
         showRes.add(mapMessage);
         showRes.add(mapShop);
         showRes.add(mapSetting);
+        adapter = new MyShowAdapter(R.layout.fragment_my_recycler_item, showRes, getContext());
     }
 
     private void findViews() {
@@ -122,6 +138,9 @@ public class MyInfoFragment extends Fragment {
         ivHeader = view.findViewById(R.id.iv_fragment_my_header);
         tvName = view.findViewById(R.id.tv_fragment_my_nickname);
         rvShow = view.findViewById(R.id.rcv_my_show);
+        smart = view.findViewById(R.id.smart);
+        smart.setEnableLoadMore(false);
+        smart.setEnableRefresh(true);
     }
 
     @Override
@@ -129,25 +148,26 @@ public class MyInfoFragment extends Fragment {
         super.onResume();
         initData();
         setData();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.yellow);
+        setListener();
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.yellow);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 }

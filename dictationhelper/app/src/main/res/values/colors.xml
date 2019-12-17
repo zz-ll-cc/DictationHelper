@@ -10,7 +10,7 @@
     <color name="red">#ff0000</color>
     <color name="yellow">#FDD835</color>
     <color name="unit">#F43193</color>
-
+    <color name="bar_result">#FBE9FF</color>
     <color name="back1">#FCFAD5</color>
     <color name="back2">#DCFCD5</color>
     <color name="back3">#D5FCE7</color>

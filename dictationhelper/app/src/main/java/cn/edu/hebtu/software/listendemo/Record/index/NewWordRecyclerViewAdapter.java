@@ -2,7 +2,7 @@ package cn.edu.hebtu.software.listendemo.Record.index;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,14 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
@@ -29,10 +29,17 @@ public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private List<Word> words;
     private int itemId;
     private ViewBinderHelper helper = new ViewBinderHelper();
-    public NewWordRecyclerViewAdapter(Context context, List words, int itemId) {
+    private ImageView ivEmpty;
+    private RelativeLayout rlEmpty;
+    private LinearLayout llHave;
+
+    public NewWordRecyclerViewAdapter(Context context, List words, int itemId,ImageView ivEmpty,RelativeLayout rlEmpty,LinearLayout llHave) {
         this.context = context;
         this.itemId = itemId;
         this.words = words;
+        this.rlEmpty = rlEmpty;
+        this.ivEmpty = ivEmpty;
+        this.llHave = llHave;
     }
 
     @NonNull
@@ -41,10 +48,11 @@ public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
         View view = LayoutInflater.from(context).inflate(itemId, viewGroup, false);
         return new MyItemViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
-        helper.bind(itemViewHolder.srlAll,words.get(i).getWchinese());
+        helper.bind(itemViewHolder.srlAll, words.get(i).getWchinese());
         itemViewHolder.tvEnglish.setText(words.get(i).getWenglish());
         itemViewHolder.tvChinese.setText(words.get(i).getWchinese());
         //删除单词
@@ -56,6 +64,15 @@ public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
                 int row2 = database.delete("TBL_NEWWORD", "WENGLISH=?", new String[]{words.get(i).getWenglish()});
                 Log.e("删除了", words.get(i).getWenglish() + "即" + row2 + "条数据");
                 words.remove(i);
+                if (words.isEmpty()){
+                    rlEmpty.setVisibility(View.VISIBLE);
+                    ivEmpty.setImageResource(R.drawable.empty_new);
+                    rlEmpty.setBackgroundColor(Color.parseColor("#C6DBDE"));
+                    llHave.setVisibility(View.GONE);
+                }else{
+                    rlEmpty.setVisibility(View.GONE);
+                    llHave.setVisibility(View.VISIBLE);
+                }
                 notifyDataSetChanged();
             }
         });

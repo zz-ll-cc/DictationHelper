@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -60,6 +62,7 @@ public class ListenResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listen_result);
+        StatusBarUtil.setStatusBarColor(this,R.color.bar_result);
         WrongWordDBHelper wrongWordDBHelper =new WrongWordDBHelper(this,"tbl_wrongWord.db",1);
         database =wrongWordDBHelper.getWritableDatabase();
         CorrectWordDBHelper currectWordDBHelper =new CorrectWordDBHelper(this,"tbl_correctWord.db",1);
@@ -68,6 +71,12 @@ public class ListenResultActivity extends AppCompatActivity {
         currectsumdatabase =correctSumDBHelper.getWritableDatabase();
         initData();
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        StatusBarUtil.setStatusBarColor(this,R.color.bar_grey);
     }
 
     private void initView() {

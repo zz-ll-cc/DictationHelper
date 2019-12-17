@@ -26,54 +26,70 @@
             android:layout_gravity="center"
             android:textColor="#000"
             android:textSize="18dp" />
-        <!--<ImageView-->
-        <!--android:id="@+id/iv_record_now_edit"-->
-        <!--android:layout_width="25dp"-->
-        <!--android:layout_height="25dp"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:src="@drawable/edit_word"-->
-        <!--android:layout_marginRight="10dp"/>-->
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#E7E7E7"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_neworwrong"
+    <RelativeLayout
+        android:id="@+id/rl_empty_record"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
+        android:layout_weight="11"
+        android:background="#FFFFFF">
 
-    </android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/empty_wrong" />
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_have_record"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_weight="1">
+        android:layout_weight="11"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_study"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="重新学习"
-            android:background="@drawable/now_button_border"
-            android:textSize="16dp" />
 
-        <Button
-            android:id="@+id/btn_listen"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/now_button_border"
-            android:text="开始听写"
-            android:textSize="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#E7E7E7" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_neworwrong"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_study"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/now_button_border"
+                android:text="重新学习"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/btn_listen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/now_button_border"
+                android:text="开始听写"
+                android:textSize="16dp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

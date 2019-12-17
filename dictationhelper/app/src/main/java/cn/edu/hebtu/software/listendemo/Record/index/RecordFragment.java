@@ -39,7 +39,6 @@ import cn.edu.hebtu.software.listendemo.Untils.ChartView;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
-import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CustomScrollBar;
 import okhttp3.Call;
@@ -112,7 +111,6 @@ public class RecordFragment extends Fragment {
                         llaccurrencyChart.setBackground(null);
                         llaccurrencyChart.removeAllViews();
                         llaccurrencyChart.addView(accrencyFiveView);
-                        tvPrecisionFive.setTextColor(getResources().getColor(R.color.colorAccent));
                         llacurrencyseach.setVisibility(View.VISIBLE);
                         /*tvPrecisionFive.setClickable(true);
                         tvPrecisionMonth.setClickable(true);*/
@@ -155,10 +153,10 @@ public class RecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 llwordChart.removeAllViews();
-                tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
-                tvWordFive.setBackground(null);
-                tvWordMonth.setTextColor(Color.BLACK);
-                tvWordMonth.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvWordFive.setTextColor(getResources().getColor(R.color.black));
+                tvWordFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_left));
+                tvWordMonth.setTextColor(getResources().getColor(R.color.gray));
+                tvWordMonth.setBackground(null);
                 getWordFive();
             }
         });
@@ -167,10 +165,10 @@ public class RecordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 llwordChart.removeAllViews();
-                tvWordMonth.setTextColor(getResources().getColor(R.color.colorAccent));
-                tvWordMonth.setBackground(null);
-                tvWordFive.setTextColor(Color.BLACK);
-                tvWordFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvWordMonth.setTextColor(getResources().getColor(R.color.black));
+                tvWordMonth.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvWordFive.setTextColor(getResources().getColor(R.color.gray));
+                tvWordFive.setBackground(null);
                //getWordMonth();
 
             }
@@ -179,10 +177,10 @@ public class RecordFragment extends Fragment {
         tvPrecisionFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvPrecisionFive.setTextColor(getResources().getColor(R.color.colorAccent));
-                tvPrecisionFive.setBackground(null);
-                tvPrecisionMonth.setTextColor(Color.BLACK);
-                tvPrecisionMonth.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvPrecisionFive.setTextColor(getResources().getColor(R.color.black));
+                tvPrecisionFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_left));
+                tvPrecisionMonth.setTextColor(getResources().getColor(R.color.gray));
+                tvPrecisionMonth.setBackground(null);
                 getAccurencyFiveRecord();
             }
         });
@@ -190,10 +188,10 @@ public class RecordFragment extends Fragment {
         tvPrecisionMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvPrecisionMonth.setTextColor(getResources().getColor(R.color.colorAccent));
-                tvPrecisionMonth.setBackground(null);
-                tvPrecisionFive.setTextColor(Color.BLACK);
-                tvPrecisionFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvPrecisionMonth.setTextColor(getResources().getColor(R.color.black));
+                tvPrecisionMonth.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
+                tvPrecisionFive.setTextColor(getResources().getColor(R.color.gray));
+                tvPrecisionFive.setBackground(null);
                 llaccurrencyChart.removeAllViews();
             }
         });
@@ -221,25 +219,6 @@ public class RecordFragment extends Fragment {
         showResources.clear();
         initData();
         showAdapter.notifyDataSetChanged();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
     }
 
     private void initData() {
@@ -382,7 +361,6 @@ public class RecordFragment extends Fragment {
                     "单词折线图", "个/天");
             llwordChart.setBackground(null);
             llwordChart.addView(wordFiveView);
-            tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
             llwordsearch.setVisibility(View.VISIBLE);
           /*  tvWordFive.setClickable(true);
             tvWordMonth.setClickable(true);*/

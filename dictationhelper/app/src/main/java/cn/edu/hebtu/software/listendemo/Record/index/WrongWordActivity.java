@@ -3,6 +3,7 @@ package cn.edu.hebtu.software.listendemo.Record.index;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +34,15 @@ import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 
 public class WrongWordActivity extends AppCompatActivity {
+    private RelativeLayout rlNewEmpty;
+    private ImageView ivEmpty;
+    private LinearLayout llHave;
     private TextView tvNewTiltle;
     private Button btnStudy;
     private Button btnListen;
     private WrongWordRecyclerViewAdapter wrongWordRecyclerViewAdapter;
     private RecyclerView recyclerViewNewOrWrong;
-    private List<WrongWord> wordkList;
+    private List<WrongWord> wordkList = new ArrayList<>();
     private ImageView ivExit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +87,22 @@ public class WrongWordActivity extends AppCompatActivity {
         btnStudy = findViewById(R.id.btn_study);
         ivExit = findViewById(R.id.iv_record_now_exit);
         btnListen = findViewById(R.id.btn_listen);
+        rlNewEmpty = findViewById(R.id.rl_empty_record);
+        ivEmpty = findViewById(R.id.iv_empty);
+        llHave = findViewById(R.id.ll_have_record);
         recyclerViewNewOrWrong = findViewById(R.id.rc_neworwrong);
-        wrongWordRecyclerViewAdapter = new WrongWordRecyclerViewAdapter(this, wordkList, R.layout.activity_record_neworwrongword_item);
+
+        if (wordkList.isEmpty()){
+            rlNewEmpty.setVisibility(View.VISIBLE);
+            ivEmpty.setImageResource(R.drawable.empty_wrong);
+            rlNewEmpty.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            llHave.setVisibility(View.GONE);
+        }else{
+            rlNewEmpty.setVisibility(View.GONE);
+            llHave.setVisibility(View.VISIBLE);
+        }
+
+        wrongWordRecyclerViewAdapter = new WrongWordRecyclerViewAdapter(this, wordkList, R.layout.activity_record_neworwrongword_item,ivEmpty,rlNewEmpty,llHave);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewNewOrWrong.setLayoutManager(layoutManager);
         recyclerViewNewOrWrong.setAdapter(wrongWordRecyclerViewAdapter);

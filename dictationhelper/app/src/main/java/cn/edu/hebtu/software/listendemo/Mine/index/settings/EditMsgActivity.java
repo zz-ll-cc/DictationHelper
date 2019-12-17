@@ -126,7 +126,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         setData();
         setListener();
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.white);
+        StatusBarUtil.setStatusBarColor(this, R.color.white);
     }
 
     private void setListener() {
@@ -144,19 +144,23 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         else {
             Glide.with(this).load(getResources().getDrawable(R.drawable.head_user)).apply(ro).into(ivHeader);
         }
-        switch (user.getUsex()) {
-            case "保密":
-                spSex.setSelection(0);
-                break;
-            case "男":
-                spSex.setSelection(1);
-                break;
-            case "女":
-                spSex.setSelection(2);
-                break;
-            default:
-                spSex.setSelection(0);
-                break;
+        if (null != user.getUsex()) {
+            switch (user.getUsex()) {
+                case "保密":
+                    spSex.setSelection(0);
+                    break;
+                case "男":
+                    spSex.setSelection(1);
+                    break;
+                case "女":
+                    spSex.setSelection(2);
+                    break;
+                default:
+                    spSex.setSelection(0);
+                    break;
+            }
+        } else {
+            spSex.setSelection(0);
         }
         spGrade.setSelection(user.getUgrade());
         if (null == user.getUbirth() || user.getUbirth().equals("")) {
@@ -250,7 +254,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void updNewUserMsg() {
-        if(!tvBirth.getText().toString().isEmpty()){
+        if (!tvBirth.getText().toString().isEmpty()) {
             try {
                 Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
                 Calendar ca = Calendar.getInstance();
@@ -258,7 +262,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 int day = ca.get(Calendar.DAY_OF_MONTH);
                 int month = ca.get(Calendar.MONTH);
                 int year = ca.get(Calendar.YEAR);
-                user.setUbirth(year+"-"+(month+1)+"-"+day);
+                user.setUbirth(year + "-" + (month + 1) + "-" + day);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

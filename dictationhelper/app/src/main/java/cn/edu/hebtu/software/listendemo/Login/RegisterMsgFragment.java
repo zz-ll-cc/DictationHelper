@@ -62,7 +62,6 @@ public class RegisterMsgFragment extends Fragment {
         }
     };
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register_user_msg, container, false);

@@ -17,6 +17,9 @@ public class WordService {
     public List<TblWord> findAllWordsByBookAndUnit(int bid,int unid){
         return dao.find("select * from tbl_word where bid = ? and unid = ?",bid,unid);
     }
+    public int getSum(int bid){
+        return this.findAllWordsByBook(bid).size();
+    }
     public void update(int wid,String url){
         word.findById(wid).set("wimgPath",url).update();
     }

@@ -24,5 +24,4 @@ public class BookService {
     public void update(int bid,String url){
        book.findById(bid).set("bimgPath",url).update();
     }
-
 }

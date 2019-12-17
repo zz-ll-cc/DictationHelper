@@ -2,26 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/back/BackController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/demo/back/BackService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/jfinal_demo_for_maven.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/common/model/_MappingKit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/utils/ChartUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/utils/ChartUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/DemoConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/common/model/_MappingKit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/common/model/_MappingKit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/dayrecord/DayRecordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/dayrecord/DayRecordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/dayrecord/DayRecordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/dayrecord/DayRecordService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/user/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/utils/ChartUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/utils/ChartUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal-demo.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/jfinal-demo.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jfinal_demo_for_maven-4.7-shaded.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/jfinal_demo_for_maven-4.7-shaded.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-jfinal-demo.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-jfinal-demo.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/word/WordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/word/WordController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/demo/word/WordService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Login/CompleteInformationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Login/CompleteInformationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Login/RegisterMsgFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictationhelper/app/src/main/java/cn/edu/hebtu/software/listendemo/Login/RegisterMsgFragment.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,22 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="61" selection-start-line="61" selection-end-line="62" />
+            <state relative-caret-position="-175">
+              <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -59,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/record/RecordController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="34" />
+            <state relative-caret-position="218">
+              <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,63 +45,88 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/4.7/jfinal-4.7-sources.jar!/com/jfinal/core/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="52" column="9" selection-start-line="41" selection-start-column="7" selection-end-line="52" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/upload/upload.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/upload/uploadBookImage.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="84" column="46" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/common/_JFinalDemoGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="29" selection-start-column="29" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/back/BackService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+            <state relative-caret-position="198">
+              <caret line="1398" column="16" selection-start-line="1398" selection-start-column="16" selection-end-line="1398" selection-end-column="16" />
               <folding>
-                <element signature="e#177#178#0" expanded="true" />
-                <element signature="e#211#212#0" expanded="true" />
+                <element signature="e#41130#41131#0" expanded="true" />
+                <element signature="e#41163#41164#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/record/RecordService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+              <folding>
+                <element signature="e#280#281#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="9" column="23" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/back/BackController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+            <state relative-caret-position="261">
+              <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/utils/RandomUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#599#600#0" expanded="true" />
+                <element signature="e#657#658#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="423">
+              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -139,6 +140,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getDate</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -146,7 +152,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/demo/dayrecoerd/DayRecordService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/demo/user/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/demo/record/RecordController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/demo/utils/ChartUtil.java" />
@@ -154,6 +159,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/demo/back/BackService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/demo/back/BackController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java" />
       </list>
     </option>
   </component>
@@ -195,7 +204,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,7 +275,27 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
+              <item name="dayrecord" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dictation_helper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dictation_helper" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="record" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dictation_helper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dictation_helper" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
+              <item name="word" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dictation_helper" type="b2602c69:ProjectViewProjectNode" />
@@ -294,7 +323,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -364,16 +393,22 @@
       <workItem from="1575550385583" duration="1500000" />
       <workItem from="1575597754221" duration="602000" />
       <workItem from="1576476396800" duration="5941000" />
+      <workItem from="1576483327954" duration="802000" />
+      <workItem from="1576494003812" duration="18000" />
+      <workItem from="1576494105404" duration="623000" />
+      <workItem from="1576502649985" duration="12000" />
+      <workItem from="1576565738091" duration="4169000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13434000" />
+    <option name="totallyTimeSpent" value="19058000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16621985" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24061662" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -448,17 +483,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/record/RecordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding>
-            <element signature="e#280#281#0" expanded="true" />
-            <element signature="e#315#316#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -469,13 +493,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/chart/ChartService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -490,31 +508,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecoerd/DayRecordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecoerd/DayRecordService.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/grade/GradeController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="22" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -532,6 +530,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/4.7/jfinal-4.7-sources.jar!/com/jfinal/upload/UploadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1075">
+          <caret line="52" column="9" selection-start-line="41" selection-start-column="7" selection-end-line="52" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/upload/upload.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -545,40 +557,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/upload/UploadController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="52" column="9" selection-start-line="41" selection-start-column="7" selection-end-line="52" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/4.7/jfinal-4.7-sources.jar!/com/jfinal/upload/UploadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="61" selection-start-line="61" selection-end-line="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/back/BackService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
+        <state relative-caret-position="175">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
           <folding>
             <element signature="e#177#178#0" expanded="true" />
@@ -587,30 +568,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/back/BackController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="84" column="46" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
+        <state relative-caret-position="525">
+          <caret line="28" column="62" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/utils/RandomUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/book/BookService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/word/WordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+          <folding>
+            <element signature="e#599#600#0" expanded="true" />
+            <element signature="e#657#658#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/4.7/jfinal-4.7-sources.jar!/com/jfinal/core/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="1398" column="16" selection-start-line="1398" selection-start-column="16" selection-end-line="1398" selection-end-column="16" />
+          <folding>
+            <element signature="e#41130#41131#0" expanded="true" />
+            <element signature="e#41163#41164#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/record/RecordController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="34" />
+        <state relative-caret-position="218">
+          <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/back/BackController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/record/RecordService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+        <state relative-caret-position="187">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+          <folding>
+            <element signature="e#280#281#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/dayrecord/DayRecordController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="9" column="23" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/demo/common/DemoConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
         </state>
       </provider>
     </entry>

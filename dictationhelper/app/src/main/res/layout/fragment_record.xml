@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:background="@color/backgray"
     android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -61,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/llwordchartsearch">
 
             <TextView
                 android:id="@+id/tv_word_record_five"
@@ -91,13 +89,27 @@
             android:layout_height="250dp"
             android:orientation="vertical"
             android:id="@+id/ll_wordchart">
-<!--
+           <!-- <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/ll_wordchartimg"
+                android:visibility="gone">
             <ImageView
-                android:id="@+id/iv_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/iv_wordchartimg"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/wordchartimg"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="快去学习单词吧!"/>
+            </LinearLayout>-->
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_statistics_word"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />-->
@@ -129,7 +141,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/llaccrencychartsearch">
 
             <TextView
                 android:id="@+id/tv_precision_record_five"
@@ -159,7 +172,25 @@
             android:layout_height="250dp"
             android:id="@+id/ll_accurencychart"
             android:orientation="vertical">
-
+         <!--   <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/ll_accrencychartimg"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/iv_accrencychartimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/wordchartimg"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="快去听写单词吧!"/>
+            </LinearLayout>-->
             <!--<ImageView
                 android:id="@+id/iv_precision"
                 android:layout_width="wrap_content"

@@ -1,6 +1,5 @@
 package cn.edu.hebtu.software.listendemo.Record.index;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,9 +38,7 @@ import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.ChartView;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
-import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
-import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CustomScrollBar;
 import okhttp3.Call;
@@ -71,6 +68,8 @@ public class RecordFragment extends Fragment {
     private RecordShowAdapter showAdapter;
     private LinearLayout llwordChart;
     private LinearLayout llaccurrencyChart;
+    private LinearLayout llwordsearch;
+    private LinearLayout llacurrencyseach;
     private List<Map<String, Object>> recordList = new ArrayList<>();
     private SQLiteDatabase currectsumdatabase;
     private  ChartView wordFiveView;
@@ -88,7 +87,9 @@ public class RecordFragment extends Fragment {
                     List datalist = new ArrayList();
                     for (int i = 0; i < recordList.size(); i++) {
                         String xstr = recordList.get(i).get("date").toString();
-                        String accStr = recordList.get(i).get("acc").toString();
+                        double accStr= Double.parseDouble(recordList.get(i).get("acc").toString());
+                        String accStr1 = (int)accStr+"";
+                        Log.e("acc",accStr1);
                         try {
                             Date date = new Date(simpleDateFormatt.parse(xstr).toString());
                             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
@@ -97,22 +98,28 @@ public class RecordFragment extends Fragment {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        datalist.add(accStr);
+                        datalist.add(accStr1);
                     }
                     String[] strX = (String[]) xlist.toArray(new String[xlist.size()]);
                     String[] strData = (String[]) datalist.toArray(new String[datalist.size()]);
+                    Log.e("acc",strX.length+"");
                     if(strX.length!=0 && strData.length!=0){
                         accrencyFiveView.SetInfo(strX, // X轴刻度
                                 new String[]{"0", "20", "40", "60", "80", "100"}, // Y轴刻度
                                 strData, // 数据
                                 "正确率折线图", "百分比");
-                        TextView textView=new TextView(getContext());
-                        textView.setText("11");
-                        //llaccurrencyChart.addView(textView);
+                        llaccurrencyChart.setBackground(null);
                         llaccurrencyChart.removeAllViews();
-                         //llaccurrencyChart.removeView(myView);
-                         llaccurrencyChart.addView(accrencyFiveView);
-                        //llaccurrencyChart.addView(myView,2);
+                        llaccurrencyChart.addView(accrencyFiveView);
+                        tvPrecisionFive.setTextColor(getResources().getColor(R.color.colorAccent));
+                        llacurrencyseach.setVisibility(View.VISIBLE);
+                        /*tvPrecisionFive.setClickable(true);
+                        tvPrecisionMonth.setClickable(true);*/
+                    }else{
+                      llaccurrencyChart.setBackground(getResources().getDrawable(R.drawable.accrencyimg));
+                      llacurrencyseach.setVisibility(View.GONE);
+                     /* tvPrecisionFive.setClickable(false);
+                      tvPrecisionMonth.setClickable(false);*/
                     }
                     break;
             }
@@ -136,32 +143,10 @@ public class RecordFragment extends Fragment {
         accrencyMonthView = new ChartView(getContext());
         wordFiveView = new ChartView(getContext());
         wordMonthView = new ChartView(getContext());
-        tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
         setListener();
-        tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
         getWordFive();
         getAccurencyFiveRecord();
-
-
         return view;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
     }
 
     private void setListener() {
@@ -185,7 +170,7 @@ public class RecordFragment extends Fragment {
                 tvWordMonth.setBackground(null);
                 tvWordFive.setTextColor(Color.BLACK);
                 tvWordFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
-                getWordMonth();
+               //getWordMonth();
 
             }
         });
@@ -208,12 +193,13 @@ public class RecordFragment extends Fragment {
                 tvPrecisionMonth.setBackground(null);
                 tvPrecisionFive.setTextColor(Color.BLACK);
                 tvPrecisionFive.setBackground(getResources().getDrawable(R.drawable.choose_record_img_border_right));
-
+                llaccurrencyChart.removeAllViews();
             }
         });
 
 
     }
+
     private void initAdapter() {
 //        adapter = new StatisticAdapter(R.layout.fragment_statistics_detail, urlList, getContext());
         showAdapter = new RecordShowAdapter(getContext(), R.layout.fragment_record_recycler_item, showResources);
@@ -234,7 +220,6 @@ public class RecordFragment extends Fragment {
         showResources.clear();
         initData();
         showAdapter.notifyDataSetChanged();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     private void initData() {
@@ -286,6 +271,8 @@ public class RecordFragment extends Fragment {
         csb = view.findViewById(R.id.csb_record);
         llaccurrencyChart = view.findViewById(R.id.ll_accurencychart);
         llwordChart = view.findViewById(R.id.ll_wordchart);
+        llacurrencyseach=view.findViewById(R.id.llaccrencychartsearch);
+        llwordsearch=view.findViewById(R.id.llwordchartsearch);
     }
 
     private void getAccurencyFiveRecord() {
@@ -373,7 +360,17 @@ public class RecordFragment extends Fragment {
                     strY, // Y轴刻度
                     strSum, // 数据
                     "单词折线图", "个/天");
+            llwordChart.setBackground(null);
             llwordChart.addView(wordFiveView);
+            tvWordFive.setTextColor(getResources().getColor(R.color.colorAccent));
+            llwordsearch.setVisibility(View.VISIBLE);
+          /*  tvWordFive.setClickable(true);
+            tvWordMonth.setClickable(true);*/
+        }else{
+            llwordChart.setBackground(getResources().getDrawable(R.drawable.wordchartimg));
+            llwordsearch.setVisibility(View.GONE);
+         /*   tvWordFive.setClickable(false);
+            tvWordMonth.setClickable(false);*/
         }
     }
 

@@ -77,4 +77,6 @@ dependencies {
     //添加Banner轮播
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+    //状态栏
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

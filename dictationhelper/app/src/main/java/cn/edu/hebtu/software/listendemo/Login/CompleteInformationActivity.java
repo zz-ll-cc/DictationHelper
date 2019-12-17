@@ -233,7 +233,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
                 //TODO 网络连接超时
             }
 

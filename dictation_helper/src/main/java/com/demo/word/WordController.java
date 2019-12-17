@@ -43,4 +43,8 @@ public class WordController extends Controller {
         Collections.shuffle(words);
         renderJson(words);
     }
+    public void getsumbybid(){
+        int bid=getInt("bid");
+        renderJson(wordService.getSum(bid));
+    }
 }

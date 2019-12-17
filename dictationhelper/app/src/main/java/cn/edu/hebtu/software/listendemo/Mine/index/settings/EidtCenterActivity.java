@@ -21,6 +21,7 @@ import cn.edu.hebtu.software.listendemo.Login.LoginActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.DataCleanManager;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class EidtCenterActivity extends AppCompatActivity {
     private User user;
@@ -48,6 +49,8 @@ public class EidtCenterActivity extends AppCompatActivity {
         findViews();
         initData();
         setListeners();
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.white);
     }
 
     private void initData() {

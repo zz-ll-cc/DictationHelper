@@ -28,6 +28,7 @@ import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,6 +60,7 @@ public class ListenResultActivity extends AppCompatActivity {
         database =wrongWordDBHelper.getWritableDatabase();
         initData();
         initView();
+        StatusBarUtil.statusBarLightMode(this);
     }
 
     private void initView(){

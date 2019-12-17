@@ -34,6 +34,7 @@ import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class LearnWordActivity extends AppCompatActivity {
 
@@ -56,6 +57,7 @@ public class LearnWordActivity extends AppCompatActivity {
         database = newWordDBHelper.getWritableDatabase();
         initData();
         initView();
+        StatusBarUtil.statusBarLightMode(this);
     }
 
     private void initView() {

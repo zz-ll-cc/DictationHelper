@@ -36,6 +36,7 @@ public class Constant {
     public static final String URL_LOGIN_VERIFY = "http://47.94.171.160:8080/user/login"; //手机验证码登录
     public static final String URL_SAVE_RECORD = "http://47.94.171.160:8080/record/save";//保存听写记录http:
     public static final String URL_GET_RECORD = "http://47.94.171.160:8080/chart/getChart";//保存听写记录http://47.94.171.160:8080/chart/getChart?uid=10020
+    public static final String URL_GET_ACCOUNT = "http://47.94.171.160:8080/word/getsumbybid";//根据bid获取这本书的单词总数
 
 
 

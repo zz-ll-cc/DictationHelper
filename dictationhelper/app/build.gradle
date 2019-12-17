@@ -79,4 +79,6 @@ dependencies {
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     //状态栏
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //进度
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
 }

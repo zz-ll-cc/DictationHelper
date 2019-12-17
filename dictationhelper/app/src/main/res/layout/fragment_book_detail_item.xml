@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/iv_fragment_book_detail_choose"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/choose_no" />
@@ -73,6 +73,8 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:id="@+id/recv_fragment_book_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

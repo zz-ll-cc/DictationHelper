@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundbug"
+    android:background="@drawable/bg_peach"
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
 
@@ -10,7 +10,6 @@
         android:id="@+id/iv_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:src="@drawable/logolucency" />
 
     <LinearLayout
@@ -23,6 +22,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:alpha="0.8"
             android:id="@+id/et_login_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -42,6 +42,7 @@
 
             <!--后期可以在这里加一个倒计时-->
             <EditText
+                android:alpha="0.7"
                 android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -208,7 +209,7 @@
             android:layout_marginLeft="60dp"
             android:gravity="center"
             android:text="登陆后即代表阅读并同意"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15dp" />
 
         <TextView
@@ -217,7 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="服务协议"
-            android:textColor="#ffffffff"
+            android:textColor="#000"
             android:textSize="14dp"
             android:textStyle="bold" />
     </LinearLayout>

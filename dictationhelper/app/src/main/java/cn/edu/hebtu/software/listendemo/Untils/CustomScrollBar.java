@@ -33,7 +33,7 @@ public class CustomScrollBar extends SurfaceView implements
     private int speed = 1; // 滚动速度
     private String text = "";// 文本内容
     private float textSize = 15f; // 字号
-    private int textColor = Color.BLACK; // 文字颜色
+    private int textColor = getResources().getColor(R.color.anjin); // 文字颜色
     private int times = Integer.MAX_VALUE; // 滚动次数
 
     private int viewWidth = 0;// 控件的长度

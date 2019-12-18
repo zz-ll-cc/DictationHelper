@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class NewWordActivity extends AppCompatActivity {
     private RelativeLayout rlNewEmpty;
@@ -77,6 +79,9 @@ public class NewWordActivity extends AppCompatActivity {
                 }
             }
         });
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+
     }
 
     private void initView() {
@@ -137,5 +142,7 @@ public class NewWordActivity extends AppCompatActivity {
             Log.e("生词本大小", wordkList.size() + "");
         }
     }
+
+
 
 }

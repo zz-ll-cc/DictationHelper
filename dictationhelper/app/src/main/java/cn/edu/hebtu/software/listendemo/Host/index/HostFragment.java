@@ -159,14 +159,14 @@ public class HostFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         initView(view);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
     private void BannerSet() {

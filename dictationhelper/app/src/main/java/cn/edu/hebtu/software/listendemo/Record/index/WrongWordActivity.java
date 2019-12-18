@@ -31,6 +31,7 @@ import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
 
 public class WrongWordActivity extends AppCompatActivity {
@@ -80,6 +81,8 @@ public class WrongWordActivity extends AppCompatActivity {
                 }
             }
         });
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
     }
 
     private void initView() {

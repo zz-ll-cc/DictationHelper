@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // 页面跳转
                                 Intent intent = new Intent(LoginActivity.this, ListenIndexActivity.class);
                                 startActivity(intent);
+                                finish();
                                 break;
 
                             case LOGIN_PASSWORD_UNREGIST:

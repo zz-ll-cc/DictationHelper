@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Host.index;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class ListenIndexActivity extends AppCompatActivity {
     //所需要的全部资源
+    public static Activity activity;
     private class MyTabSpec {
         private ImageView imageView = null;
         private int normalImage;
@@ -88,6 +90,7 @@ public class ListenIndexActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listen_index);
+        activity = this;
         Intent intent = getIntent();
         initDtata(); //初始化MyTabSpec
         changeTab(tabStrid[0]);  //设置默认显示的TabSpec

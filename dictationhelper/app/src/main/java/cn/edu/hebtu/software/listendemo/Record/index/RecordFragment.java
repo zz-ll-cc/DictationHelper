@@ -204,7 +204,12 @@ public class RecordFragment extends Fragment {
 //        adapter = new StatisticAdapter(R.layout.fragment_statistics_detail, urlList, getContext());
         showAdapter = new RecordShowAdapter(getContext(), R.layout.fragment_record_recycler_item, showResources);
         rvShow.setAdapter(showAdapter);
-        csb.setText("已连续学习5天");
+        User user = new Gson().fromJson(getActivity().getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE).getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
+        if (user.getUphone().equals("15833143601")){
+            csb.setText("已连续学习1天");
+        }else {
+            csb.setText("已连续学习5天");
+        }
     }
 
     private void initRecycler() {

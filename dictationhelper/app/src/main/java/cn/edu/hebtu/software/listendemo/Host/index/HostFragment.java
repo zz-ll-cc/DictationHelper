@@ -4,6 +4,8 @@ package cn.edu.hebtu.software.listendemo.Host.index;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Outline;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -163,6 +166,12 @@ public class HostFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        banner.stopAutoPlay();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         initView(view);
@@ -178,6 +187,15 @@ public class HostFragment extends Fragment {
             mTitleList.add("第" + i + "张图片");
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            banner.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0,0,view.getWidth(),view.getHeight(),30);
+                }
+            });
+            banner.setClipToOutline(true);
+        }
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE); // 显示圆形指示器和标题（水平显示
         //设置图片加载器
         banner.setImageLoader(new MyLoader());

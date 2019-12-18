@@ -42,6 +42,7 @@ import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.Host.searchBook.SearchBookActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -156,9 +157,16 @@ public class HostFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         initView(view);
+        StatusBarUtil.setStatusBarColor(getActivity(),R.color.white);
     }
 
     private void BannerSet() {

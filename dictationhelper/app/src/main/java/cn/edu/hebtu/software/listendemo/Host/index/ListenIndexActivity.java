@@ -106,7 +106,9 @@ public class ListenIndexActivity extends AppCompatActivity {
 //        }
         StatusBarUtil.statusBarLightMode(this);
 
+
     }
+
 
     //设置TabHost点击事件
     public void onClicked(View view) {

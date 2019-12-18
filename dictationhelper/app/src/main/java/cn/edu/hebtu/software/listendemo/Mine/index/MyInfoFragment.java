@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.FalsifyHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -159,15 +160,5 @@ public class MyInfoFragment extends Fragment {
         StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
-    }
 }

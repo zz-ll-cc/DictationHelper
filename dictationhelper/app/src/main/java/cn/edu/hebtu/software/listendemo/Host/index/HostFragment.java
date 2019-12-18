@@ -184,7 +184,12 @@ public class HostFragment extends Fragment {
         mImgList.add(R.drawable.banner2);
         mTitleList.clear();
         for (int i = 0; i < mImgList.size(); i++) {
-            mTitleList.add("第" + i + "张图片");
+//            mTitleList.add("第" + i + "张图片");
+            if(i == 0){
+                mTitleList.add("好好学习");
+            }else if(i == 1){
+                mTitleList.add("天天向上");
+            }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

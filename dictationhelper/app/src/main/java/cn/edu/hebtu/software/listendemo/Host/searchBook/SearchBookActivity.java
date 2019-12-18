@@ -75,6 +75,23 @@ public class SearchBookActivity extends AppCompatActivity {
     private TextView tvAllGrade;
     private TextView tvAllVersion;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +101,7 @@ public class SearchBookActivity extends AppCompatActivity {
         initData();
         initBook(gid,bvid);
         StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
     }
     // 实现消息处理方法
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)

@@ -26,7 +26,8 @@
         <activity android:name=".Login.LoginActivity">
 
         </activity>
-        <activity android:name=".Login.Splash">
+        <activity android:name=".Login.Splash"
+            android:theme="@style/AppTheme.Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

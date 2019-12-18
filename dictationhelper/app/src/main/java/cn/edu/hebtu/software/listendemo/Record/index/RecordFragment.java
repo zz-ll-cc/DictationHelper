@@ -134,11 +134,11 @@ public class RecordFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_record, null, false);
         SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Constant.point = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(Constant.point);//获取屏幕分辨率
         initView(view);
         initData();
         initAdapter();
-        Constant.point = new Point();
-        getActivity().getWindowManager().getDefaultDisplay().getSize(Constant.point);//获取屏幕分辨率
         accrencyFiveView = new ChartView(getContext());
         accrencyMonthView = new ChartView(getContext());
         wordFiveView = new ChartView(getContext());
@@ -276,10 +276,15 @@ public class RecordFragment extends Fragment {
         tvPrecisionMonth = view.findViewById(R.id.tv_precision_record_month);
         //imageView = view.findViewById(R.id.iv_word);
         csb = view.findViewById(R.id.csb_record);
+
         llaccurrencyChart = view.findViewById(R.id.ll_accurencychart);
         llwordChart = view.findViewById(R.id.ll_wordchart);
         llacurrencyseach=view.findViewById(R.id.llaccrencychartsearch);
         llwordsearch=view.findViewById(R.id.llwordchartsearch);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,Constant.point.y/3+50);
+        llaccurrencyChart.setLayoutParams(params);
+        llwordChart.setLayoutParams(params);
     }
 
     private void getAccurencyFiveRecord() {

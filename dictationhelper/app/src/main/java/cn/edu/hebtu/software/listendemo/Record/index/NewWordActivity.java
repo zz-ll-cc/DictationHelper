@@ -29,6 +29,7 @@ import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
 public class NewWordActivity extends AppCompatActivity {
     private RelativeLayout rlNewEmpty;
@@ -44,6 +45,7 @@ public class NewWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_neworwrongword);
+        StatusBarUtil.statusBarLightMode(this);
         initData();
         initView();
         tvNewTiltle.setText("生词本");

@@ -75,17 +75,17 @@ public class ChartView extends View {
         Paint linepaint = new Paint();
         linepaint.setStyle(Paint.Style.STROKE);
         linepaint.setAntiAlias(true);//去锯齿
-        linepaint.setColor(Color.YELLOW);//颜色
+        linepaint.setColor(getResources().getColor(R.color.orange));//颜色
         linepaint.setTextSize(20);
-        linepaint.setStrokeWidth(5);
+        linepaint.setStrokeWidth(10);
 
         //折线拐点
         Paint linepoint = new Paint();
         linepoint.setStyle(Paint.Style.FILL_AND_STROKE);
         linepoint.setAntiAlias(true);//去锯齿
-        linepoint.setColor(Color.RED);//颜色
+        linepoint.setColor(getResources().getColor(R.color.orange));//颜色
         linepoint.setTextSize(60);
-        linepoint.setStrokeWidth(5);
+        linepoint.setStrokeWidth(25);
 
         //设置Y轴
         canvas.drawLine(XPoint, YPoint - YLength, XPoint, YPoint, xyPaint);   //轴线

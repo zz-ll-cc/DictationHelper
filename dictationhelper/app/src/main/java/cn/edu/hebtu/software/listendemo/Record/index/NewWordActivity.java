@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -79,6 +80,9 @@ public class NewWordActivity extends AppCompatActivity {
                 }
             }
         });
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+
     }
 
     private void initView() {
@@ -139,5 +143,7 @@ public class NewWordActivity extends AppCompatActivity {
             Log.e("生词本大小", wordkList.size() + "");
         }
     }
+
+
 
 }

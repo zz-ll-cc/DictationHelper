@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,11 +29,13 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Book> books;
     private int itemId;
+    private Activity activity;
 
-    public BookRecyclerViewAdapter(Context context, List books, int itemId) {
+    public BookRecyclerViewAdapter(Context context, List books, int itemId,Activity activity) {
         this.context = context;
         this.books =books;
         this.itemId = itemId;
+        this.activity = activity;
     }
 
     @NonNull
@@ -70,6 +73,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter {
                 bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, books.get(i));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
+                activity.finish();
             }
         });
 

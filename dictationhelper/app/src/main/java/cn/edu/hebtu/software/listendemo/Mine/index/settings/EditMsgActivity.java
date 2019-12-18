@@ -256,7 +256,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private void updNewUserMsg() {
         if (!tvBirth.getText().toString().isEmpty()) {
             try {
-                Date date = new SimpleDateFormat("yyyy年MM月dd").parse(user.getUbirth());
+                Date date = new SimpleDateFormat("yyyy年MM月dd日").parse(tvBirth.getText().toString());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 int day = ca.get(Calendar.DAY_OF_MONTH);

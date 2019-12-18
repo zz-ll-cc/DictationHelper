@@ -76,6 +76,7 @@ public class CustomDialogLearnWord extends DialogFragment {
                     break;
                 case R.id.btn_cancel_learn:
                     //让当前Dialog消失
+                    context.finish();
                     getDialog().dismiss();
                     break;
             }

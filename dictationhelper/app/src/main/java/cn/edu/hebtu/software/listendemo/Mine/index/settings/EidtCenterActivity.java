@@ -108,6 +108,7 @@ public class EidtCenterActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(EidtCenterActivity.this, LoginActivity.class);
                             cleanSp();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             Toast.makeText(getApplication(), "退出成功", Toast.LENGTH_SHORT).show();
                             finish();

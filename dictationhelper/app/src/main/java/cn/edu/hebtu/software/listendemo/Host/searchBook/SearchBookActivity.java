@@ -153,7 +153,7 @@ public class SearchBookActivity extends AppCompatActivity {
 
     private void initBookView(){
         recyclerViewBook=findViewById(R.id.rv_book);
-        bookRecyclerViewAdapter=new BookRecyclerViewAdapter(this,bookList,R.layout.activity_book_recycler_item);
+        bookRecyclerViewAdapter=new BookRecyclerViewAdapter(this,bookList,R.layout.activity_book_recycler_item,SearchBookActivity.this);
         recyclerViewBook.setAdapter(bookRecyclerViewAdapter);
         recyclerViewBook.setLayoutManager(new GridLayoutManager(this, 3));
     }

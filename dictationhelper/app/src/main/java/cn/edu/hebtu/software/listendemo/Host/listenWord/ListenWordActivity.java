@@ -329,5 +329,31 @@ public class ListenWordActivity extends AppCompatActivity {
         });
         adBuilder.create().show();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
+            adBuilder.setTitle("是否退出本次听写");
+            adBuilder.setMessage("退出后本次听写将不做记录");
+            adBuilder.setPositiveButton("确认退出", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // 选中“确定”按钮，解除绑定
+                    // 更改SharedP中数据
+                    finish();
+                }
+            });
+            adBuilder.setNegativeButton("我手滑了", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // 选中“取消”按钮，取消界面
+
+                }
+            });
+            adBuilder.create().show();
+        }
+        return false;
+    }
 }
 

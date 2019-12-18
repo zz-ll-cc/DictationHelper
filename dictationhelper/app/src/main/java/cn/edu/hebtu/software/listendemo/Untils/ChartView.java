@@ -15,7 +15,7 @@ public class ChartView extends View {
     public int XScale = 55;     //X的刻度长度
     public int YScale = 40;     //Y的刻度长度
     public int XLength = Constant.point.x - 150;        //X轴的长度
-    public int YLength = Constant.point.y / 2 - 450;        //Y轴的长度
+    public int YLength = Constant.point.y / 2 - 700;        //Y轴的长度
     public String[] XLabel;    //X的刻度
     public String[] YLabel;    //Y的刻度
     public String[] Data;      //数据
@@ -117,8 +117,8 @@ public class ChartView extends View {
                 e.printStackTrace();
             }
         }
-        canvas.drawLine(XPoint + XLength, YPoint, XPoint + XLength - 6, YPoint - 3, linepaint);    //箭头
-        canvas.drawLine(XPoint + XLength, YPoint, XPoint + XLength - 6, YPoint + 3, linepaint);
+        canvas.drawLine(XPoint + XLength, YPoint, XPoint + XLength - 6, YPoint - 3, xyPaint);    //箭头
+        canvas.drawLine(XPoint + XLength, YPoint, XPoint + XLength - 6, YPoint + 3, xyPaint);
         //设置标题位置
         canvas.drawText(Title, XLength / 2 - 100, 80, titlePaint);
     }

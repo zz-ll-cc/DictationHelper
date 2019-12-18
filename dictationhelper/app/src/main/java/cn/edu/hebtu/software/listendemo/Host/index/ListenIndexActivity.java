@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +31,14 @@ import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 public class ListenIndexActivity extends AppCompatActivity {
     //所需要的全部资源
     private class MyTabSpec {
-        private TextView textView = null;
+        private ImageView imageView = null;
         private int normalImage;
         private int selectImage;
         private Fragment fragment = null;
 
         //set get方法
-        public TextView getTextView() {
-            return textView;
+        public ImageView getImageView() {
+            return imageView;
         }
 
         public int getNormalImage() {
@@ -52,8 +53,8 @@ public class ListenIndexActivity extends AppCompatActivity {
             return fragment;
         }
 
-        public void setTextView(TextView textView) {
-            this.textView = textView;
+        public void setImageView(ImageView imageView) {
+            this.imageView = imageView;
         }
 
         public void setNormalImage(int normalImage) {
@@ -71,9 +72,9 @@ public class ListenIndexActivity extends AppCompatActivity {
         //图片以及文字选中未选中状态的改变
         private void setSelect(boolean b) {
             if (b) {
-                textView.setTextColor(getResources().getColor(R.color.colorAccent));
+                imageView.setImageResource(selectImage);
             } else {
-                textView.setTextColor(Color.parseColor("#000000"));
+                imageView.setImageResource(normalImage);
             }
         }
     }
@@ -83,7 +84,6 @@ public class ListenIndexActivity extends AppCompatActivity {
     private String[] tabStrid = {"首页", "学习记录", "我的"};
     //用于记录当前正在显示的Fragment
     private Fragment curFragment = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,13 +182,18 @@ public class ListenIndexActivity extends AppCompatActivity {
 
     //将ImageView和TextView放入map的MyTabSpec对象
     private void findView() {
-        TextView tv1 = findViewById(R.id.tv_index);
-        TextView tv2 = findViewById(R.id.tv_record);
-        TextView tv3 = findViewById(R.id.tv_me);
-        map.get(tabStrid[0]).setTextView(tv1);
-        map.get(tabStrid[1]).setTextView(tv2);
-        map.get(tabStrid[2]).setTextView(tv3);
-
+        ImageView tv1 = findViewById(R.id.iv_index);
+        ImageView tv2 = findViewById(R.id.iv_record);
+        ImageView tv3 = findViewById(R.id.iv_me);
+        map.get(tabStrid[0]).setImageView(tv1);
+        map.get(tabStrid[0]).setNormalImage(R.drawable.host_close);
+        map.get(tabStrid[0]).setSelectImage(R.drawable.host_open);
+        map.get(tabStrid[1]).setImageView(tv2);
+        map.get(tabStrid[1]).setNormalImage(R.drawable.record_close);
+        map.get(tabStrid[1]).setSelectImage(R.drawable.record_open);
+        map.get(tabStrid[2]).setImageView(tv3);
+        map.get(tabStrid[2]).setNormalImage(R.drawable.my_close);
+        map.get(tabStrid[2]).setSelectImage(R.drawable.my_open);
     }
 
     private long mExitTime;

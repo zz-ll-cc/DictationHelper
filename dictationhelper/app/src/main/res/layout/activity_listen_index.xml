@@ -9,65 +9,57 @@
     <LinearLayout
         android:id="@+id/tab_widget"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_index"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="onClicked"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_index"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="首页" />
+            <ImageView
+                android:id="@+id/iv_index"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/host_open"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/ll_record"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="onClicked"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/tv_record"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="学习记录" />
+            <ImageView
+                android:id="@+id/iv_record"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/record_open"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_me"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="onClicked"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_me"
+            <ImageView
+                android:id="@+id/iv_me"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="我的" />
+                android:layout_height="match_parent"
+                android:src="@drawable/my_open"/>
         </LinearLayout>
 
 

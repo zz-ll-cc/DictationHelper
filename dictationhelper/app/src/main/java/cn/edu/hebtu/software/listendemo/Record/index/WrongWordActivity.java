@@ -82,8 +82,6 @@ public class WrongWordActivity extends AppCompatActivity {
                 }
             }
         });
-        StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
     }
 
     private void initView() {

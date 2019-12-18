@@ -40,7 +40,7 @@ public class ChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);//重写onDraw方法
 
-        canvas.drawColor(Color.WHITE);//设置背景颜色
+        canvas.drawColor(getResources().getColor(R.color.backgray));//设置背景颜色
 
         //标题
         Paint titlePaint=new Paint();
@@ -61,7 +61,7 @@ public class ChartView extends View {
         dwPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         dwPaint.setAntiAlias(true);//去锯齿
         dwPaint.setColor(Color.BLACK);//颜色
-        dwPaint.setTextSize(40);
+        dwPaint.setTextSize(35);
         dwPaint.setStrokeWidth(2);
 
         //文字
@@ -75,17 +75,17 @@ public class ChartView extends View {
         Paint linepaint = new Paint();
         linepaint.setStyle(Paint.Style.STROKE);
         linepaint.setAntiAlias(true);//去锯齿
-        linepaint.setColor(getResources().getColor(R.color.orange));//颜色
+        linepaint.setColor(Color.YELLOW);//颜色
         linepaint.setTextSize(20);
-        linepaint.setStrokeWidth(10);
+        linepaint.setStrokeWidth(5);
 
         //折线拐点
         Paint linepoint = new Paint();
         linepoint.setStyle(Paint.Style.FILL_AND_STROKE);
         linepoint.setAntiAlias(true);//去锯齿
-        linepoint.setColor(getResources().getColor(R.color.orange));//颜色
+        linepoint.setColor(Color.RED);//颜色
         linepoint.setTextSize(60);
-        linepoint.setStrokeWidth(25);
+        linepoint.setStrokeWidth(5);
 
         //设置Y轴
         canvas.drawLine(XPoint, YPoint - YLength, XPoint, YPoint, xyPaint);   //轴线

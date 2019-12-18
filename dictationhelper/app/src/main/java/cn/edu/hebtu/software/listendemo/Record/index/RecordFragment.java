@@ -371,7 +371,7 @@ public class RecordFragment extends Fragment {
             wordFiveView.SetInfo(strDate, // X轴刻度
                     strY, // Y轴刻度
                     strSum, // 数据
-                    "单词折线图", "个/天");
+                    "", "个/天");
             llwordChart.setBackground(null);
             llwordChart.addView(wordFiveView);
             llwordsearch.setVisibility(View.VISIBLE);

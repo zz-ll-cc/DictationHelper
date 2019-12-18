@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.inputmethodservice.KeyboardView;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import java.util.List;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BlurTransformation;
+import cn.edu.hebtu.software.listendemo.Untils.DIYKeyboardView;
 import cn.edu.hebtu.software.listendemo.Untils.KeyboardUtil;
 import cn.edu.hebtu.software.listendemo.Untils.ReadManager;
 
@@ -61,6 +63,9 @@ public class ListenWordRecyclerViewAdapter extends RecyclerView.Adapter {
         //用来初始化我们的软键盘
         int type = itemViewHolder.etWord.getInputType();
         new KeyboardUtil(keyboard, itemViewHolder.etWord).showKeyboard();
+        //new DIYKeyboardView(context,null).draw(new Canvas());
+
+
         //new KeyboardUtil(itemViewHolder.keyboard, itemViewHolder.etWord).showKeyboard();
         //光标问题
         itemViewHolder.etWord.setInputType(type);

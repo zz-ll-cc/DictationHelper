@@ -39,6 +39,6 @@
         <Key android:codes="-13" android:keyLabel="/" android:horizontalGap="6dp"/>
         <Key android:codes="-14" android:horizontalGap="6dp" android:keyIcon="@drawable/kongge" />
         <Key android:codes="-3"  android:keyLabel="完成" android:horizontalGap="6dp" />
-        <Key android:codes="-5"  android:horizontalGap="6dp" android:keyIcon="@drawable/del" />
+        <Key android:codes="-5"  android:horizontalGap="6dp" android:keyLabel="⬅" />
     </Row>
 </Keyboard>

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.util.AttributeSet;
@@ -27,19 +28,20 @@ public class DIYKeyboardView extends KeyboardView {
         List<Keyboard.Key> keys = keyboard.getKeys();
         if (keys != null && keys.size() > 0) {
             Paint paint = new Paint();
+            paint.setColor(getResources().getColor(R.color.colorAccent));
             paint.setTextAlign(Paint.Align.CENTER);
             Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
             paint.setTypeface(font);
             paint.setAntiAlias(true);
             for (Keyboard.Key key : keys) {
                 if (key.codes[0] == -3) {
-                    /*Drawable dr = getContext().getResources().getDrawable(R.drawable.keyboard_blue);
+                    Drawable dr = getContext().getResources().getDrawable(R.drawable.banner1);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                    dr.draw(canvas);*/
+                    dr.draw(canvas);
                 } else {
-                  /*  Drawable dr = getContext().getResources().getDrawable(R.drawable.keyboard_white);
+                    Drawable dr = getContext().getResources().getDrawable(R.drawable.banner2);
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                    dr.draw(canvas);*/
+                    dr.draw(canvas);
                 }
                 if (key.label != null) {
                     if (key.codes[0] == -4 ||

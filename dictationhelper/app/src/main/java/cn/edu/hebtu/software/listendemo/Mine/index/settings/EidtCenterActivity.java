@@ -109,11 +109,12 @@ public class EidtCenterActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(EidtCenterActivity.this, LoginActivity.class);
                             cleanSp();
+ 	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                            /* intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-                            ListenIndexActivity.activity.finish();
+                           // ListenIndexActivity.activity.finish();
                             startActivity(intent);
                             Toast.makeText(getApplication(), "退出成功", Toast.LENGTH_SHORT).show();
-                            finish();
+                            //finish();
                         }
                     });
                     adBuilder1.setNegativeButton("取消", new DialogInterface.OnClickListener() {

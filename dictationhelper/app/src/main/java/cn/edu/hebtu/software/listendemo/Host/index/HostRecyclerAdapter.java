@@ -44,15 +44,15 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
     private Context context;
     private int bindId;
     private List<Integer> collectRes = null;
-    private SharedPreferences sp;
+    private SharedPreferences sp ;
     private Gson gson = new Gson();
     private User user;
-    public HostRecyclerAdapter(int layout_item_id, List<Book> res, Context context) {
+    public HostRecyclerAdapter(int layout_item_id, List<Book> res, Context context,SharedPreferences sp) {
         this.layout_item_id = layout_item_id;
         this.res = res;
         this.context = context;
         this.orginalRes = res;
-        sp = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
+        this.sp = sp;
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         changeRes();
     }

@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -57,14 +58,20 @@ import static android.content.Context.MODE_PRIVATE;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
 
 public class HostFragment extends Fragment {
+    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
+    private float x1 = 0;
+    private float x2 = 0;
+    private float y1 = 0;
+    private float y2 = 0;
     private LinearLayout llFindBooks;
     private LinearLayout llContinueStudy;
     private List<Book> res = new ArrayList<>();
     private HostRecyclerAdapter adapter = null;
     private RecyclerView recyclerView = null;
-    private SharedPreferences sp = null;
+    private SharedPreferences sp =ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);;
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private View view;
+    private LinearLayout llOut;
     private static final int GET_BOOKS = 1;
     @BindView(R.id.tv_continue)
     TextView tvContinue;
@@ -93,6 +100,7 @@ public class HostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_host, container, false);
         initData();
+        initView(view);
         ButterKnife.bind(this,view);
         banner = view.findViewById(R.id.play_banner);
         // 设置轮播图
@@ -111,7 +119,6 @@ public class HostFragment extends Fragment {
         tvContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
                 String bookJson = sp.getString(BOOK_JSON,"");
                 if("".equals(bookJson)){
                     Toast.makeText(getContext(),"没有找到当前的学习记录",Toast.LENGTH_SHORT).show();
@@ -125,14 +132,41 @@ public class HostFragment extends Fragment {
                 }
             }
         });
+//        llOut.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                //继承了Activity的onTouchEvent方法，直接监听点击事件
+//                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    //当手指按下的时候
+//                    x1 = event.getX();
+//                    y1 = event.getY();
+//                }
+//                if(event.getAction() == MotionEvent.ACTION_UP) {
+//                    //当手指离开的时候
+//                    x2 = event.getX();
+//                    y2 = event.getY();
+//                    if(y1 - y2 > 50) {
+//                        Toast.makeText(getContext(), "向上滑", Toast.LENGTH_SHORT).show();
+//                    } else if(y2 - y1 > 50) {
+//                        Toast.makeText(getContext(), "向下滑", Toast.LENGTH_SHORT).show();
+//                    } else if(x1 - x2 > 50) {
+//                        Toast.makeText(getContext(), "向左滑", Toast.LENGTH_SHORT).show();
+//                    } else if(x2 - x1 > 50) {
+//                        Toast.makeText(getContext(), "向右滑", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recv_fragment_host);
-        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext());
+        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext(),sp);
         recyclerView.setAdapter(adapter);
         llContinueStudy = view.findViewById(R.id.ll_fragment_host_continueStudy);
         llFindBooks = view.findViewById(R.id.ll_fragment_host_findBooks);
+        llOut = view.findViewById(R.id.ll_fragment_host_out);
     }
 
     private void initData() {
@@ -239,6 +273,5 @@ public class HostFragment extends Fragment {
         }
 
     }
-
 
 }

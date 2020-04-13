@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/DayRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/DayRecordService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/DayRecordServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/DayRecordMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/impl/BackServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/impl/BackServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Grade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Unit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Word.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/GradeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/UnitService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/WordService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/GradeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/UnitServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/WordServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/user/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/GradeMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/UnitMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/WordMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -129,7 +136,8 @@
       <workItem from="1585138499653" duration="5626000" />
       <workItem from="1586246792224" duration="1222000" />
       <workItem from="1586332041814" duration="2429000" />
-      <workItem from="1586748117748" duration="9364000" />
+      <workItem from="1586748117748" duration="9614000" />
+      <workItem from="1586769034716" duration="2632000" />
     </task>
     <servers />
   </component>

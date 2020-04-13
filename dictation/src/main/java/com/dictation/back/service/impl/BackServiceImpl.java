@@ -28,7 +28,7 @@ public class BackServiceImpl implements BackService {
 
     @Override
     public List<Back> findAll() {
-        return backMapper.selectAll();
+        return backMapper.findAll();
     }
 
 

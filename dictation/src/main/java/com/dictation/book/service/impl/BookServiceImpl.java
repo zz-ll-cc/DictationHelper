@@ -26,8 +26,9 @@ public class BookServiceImpl implements BookService {
         return bookMapper.findAll();
     }
 
+
     @Override
-    public List<Book> findAllByPageing(int pageNum, int pageSize) {
+    public List<Book> findAllByPaging(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         return bookMapper.findAll();
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dictation.mapper.DayRecordMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="drid">
+        insert into tbl_day_record(error,uid,right,sum,date,acc) values (#{error},#{uid},#{right},#{sum},#{date},#{acc})
+    </insert>
+
+    <delete id="delete">
+        delete from tbl_day_record where drid = #{drid}
+    </delete>
+
+    <update id="update">
+        update tbl_day_record set error = #{error} , uid = #{uid} , right = #{right} , sum = #{sum} , date = #{date} , acc = #{acc} where drid = #{drid}
+    </update>
+
+    <select id="findById" resultType="com.dictation.record.entity.DayRecord">
+        select * from tbl_day_record where drid = #{drid}
+    </select>
+
+    <select id="findByUidAndDate" resultType="com.dictation.record.entity.DayRecord">
+        select * from tbl_day_record where uid = #{uid} and date = #{date}
+    </select>
+
+    <select id="findByUid" resultType="com.dictation.record.entity.DayRecord">
+        select * from tbl_day_record where uid = #{uid}
+    </select>
+
+
+
+</mapper>

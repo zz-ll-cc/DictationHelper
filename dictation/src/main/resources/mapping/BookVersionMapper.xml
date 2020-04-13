@@ -24,8 +24,4 @@
         update tbl_bookversion set bvName = #{bvName} , bvType = #{bvType} , bvPubTime = #{bvPubTime} where bvId = #{bvId}
     </update>
 
-
-
-
-
 </mapper>

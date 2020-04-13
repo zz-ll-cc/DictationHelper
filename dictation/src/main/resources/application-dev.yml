@@ -1,0 +1,36 @@
+server:
+  servlet:
+    context-path: /
+  port: 8080
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    username: lichen
+    password: Lichen!0524
+    url: jdbc:mysql://zin4ever.top/dictation_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.rjxy.mybatis41.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#showSql
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BackMapper{
 
-    public List<Back> selectAll();
+    public List<Back> findAll();
 
     public int insert(Back back);
 

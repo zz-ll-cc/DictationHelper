@@ -48,7 +48,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dictation" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RunDashboard">
@@ -120,7 +120,7 @@
       <workItem from="1585138499653" duration="5626000" />
       <workItem from="1586246792224" duration="1222000" />
       <workItem from="1586332041814" duration="2429000" />
-      <workItem from="1586748117748" duration="1421000" />
+      <workItem from="1586748117748" duration="5624000" />
     </task>
     <servers />
   </component>

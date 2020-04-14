@@ -21,8 +21,8 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.rjxy.mybatis41.entity
+  mapper-locations: classpath*:mapping/*Mapper.xml
+  type-aliases-package: com.dictation
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #showSql

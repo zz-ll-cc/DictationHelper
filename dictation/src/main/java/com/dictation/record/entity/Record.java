@@ -3,38 +3,39 @@ package com.dictation.record.entity;
 import java.util.Date;
 
 /**
- * @ClassName DayRecord
+ * @ClassName Record
  * @Description
  * @Author zlc
- * @Date 2020-04-13 15:02
+ * @Date 2020-04-14 13:09
  */
-public class DayRecord {
-    private int drid;
+public class Record {
+
+    private int rid;
     private int error;
-    private int uid;
     private int right;
-    private int sum;
     private Date date;
+    private int uid;
+    private int sum;
     private double acc;
 
-    public DayRecord(int error, int uid, int right, int sum, Date date, double acc) {
+    public Record(int error, int right, Date date, int uid, int sum, double acc) {
         this.error = error;
-        this.uid = uid;
         this.right = right;
-        this.sum = sum;
         this.date = date;
+        this.uid = uid;
+        this.sum = sum;
         this.acc = acc;
     }
 
-    public DayRecord() {
+    public Record(){
     }
 
-    public int getDrid() {
-        return drid;
+    public int getRid() {
+        return rid;
     }
 
-    public void setDrid(int drid) {
-        this.drid = drid;
+    public void setRid(int rid) {
+        this.rid = rid;
     }
 
     public int getError() {
@@ -45,14 +46,6 @@ public class DayRecord {
         this.error = error;
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     public int getRight() {
         return right;
     }
@@ -61,20 +54,28 @@ public class DayRecord {
         this.right = right;
     }
 
-    public int getSum() {
-        return sum;
-    }
-
-    public void setSum(int sum) {
-        this.sum = sum;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
     }
 
     public double getAcc() {
@@ -87,13 +88,13 @@ public class DayRecord {
 
     @Override
     public String toString() {
-        return "DayRecord{" +
-                "drid=" + drid +
+        return "Record{" +
+                "rid=" + rid +
                 ", error=" + error +
-                ", uid=" + uid +
                 ", right=" + right +
-                ", sum=" + sum +
                 ", date=" + date +
+                ", uid=" + uid +
+                ", sum=" + sum +
                 ", acc=" + acc +
                 '}';
     }

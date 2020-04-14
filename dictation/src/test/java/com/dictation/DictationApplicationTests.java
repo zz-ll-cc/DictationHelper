@@ -26,7 +26,7 @@ class DictationApplicationTests {
 
     @Test
     void contextLoads() {
-
+        System.out.println(backService.findAll());
 
     }
 

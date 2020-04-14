@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/BookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/controller/DayRecordController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/controller/RecordController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/Record.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/RecordService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/RecordServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/RecordMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/DayRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/DayRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/application-pro.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/application-pro.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/GradeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/GradeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/BookVersionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/GradeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/UnitController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/WordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookVersionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookVersionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookVersionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookVersionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -167,5 +169,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/main/java/com/demo/upload/QiniuService.java</url>
+          <line>25</line>
+          <properties field="accessKey" class="com.demo.upload.QiniuService" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

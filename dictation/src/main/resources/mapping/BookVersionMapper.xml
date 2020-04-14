@@ -8,9 +8,10 @@
         select * from tbl_bookversion where bvId = #{bvId} limit 1
     </select>
 
-    <select id="findAllByPaging" resultType="com.dictation.book.entity.BookVersion">
+    <select id="findAll" resultType="com.dictation.book.entity.BookVersion">
         select * from tbl_bookversion
     </select>
+
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="bvId">
         insert into tbl_bookversion(bvName,bvType,bvPubTime) values(#{bvName},#{bvType},#{bvPubTime})

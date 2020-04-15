@@ -268,7 +268,6 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_upd_my_pwd_get_code:
-                // TODO: 2019/12/5 获取验证码
                 hideInputMethod(getApplicationContext(),btnGetCode);
                 if(!user.getUphone().equals("") && checkTel(user.getUphone())){
                     SMSSDK.getVerificationCode("+86", user.getUphone());//获取验证码

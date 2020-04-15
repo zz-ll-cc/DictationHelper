@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dictation.mapper.UserMapper">
+    <!-- 查询是否存在用户 -->
+    <select id="checkPhone" resultType="com.dictation.user.entity.User">
+        select uid from tbl_user where uphone = #{phone}
+    </select>
+    <!-- 根据phone找到对应的user对象-->
+    <select id="findUserByPhone" resultType="com.dictation.user.entity.User">
+        select uid,uname,ucity,uheadPath,uphone,upassword,ubirth,vip,is_admin,usex,ugrade
+        from tbl_user where uphone = #{phone}
+    </select>
+    <select id="findUserByUid" resultType="com.dictation.user.entity.User">
+        select uid,uname,ucity,uheadPath,uphone,upassword,ubirth,vip,is_admin,usex,ugrade
+        from tbl_user where uid = #{uid}
+    </select>
+
+    <select id="findPhoneByUid">
+        select uphone
+        from tbl_user where uid = #{uid}
+    </select>
+    <!-- 新增user -->
+    <insert id="saveUser" keyProperty="uid" useGeneratedKeys="true">
+        insert into tbl_user(uname,uphone)
+        values (#{user.uname},#{user.uphone})
+    </insert>
+    <update id="updateUserImage">
+        update tbl_user
+        set uheadPath = #{url}
+        where uid = #{uid}
+    </update>
+
+    <select id="loginByPP" resultType="com.dictation.user.entity.User">
+        select uid,uname,ucity,uheadPath,uphone,upassword,ubirth,vip,is_admin,usex,ugrade
+        from tbl_user where uphone = #{phone}
+    </select>
+    
+    <update id="updateUser">
+        update tbl_user set
+            <if test="!user.uname.equals('') and user.uname!=null">uname=#{user.uname},</if>
+            <if test="user.ugrade >= 0">ugrade=#{user.ugrade},</if>
+            <if test="user.ubirth!=null">ubirth=#{user.ubirth},</if>
+            uid = #{user.uid}
+        where uid = #{user.uid}
+    </update>
+
+    <update id="updatePwd">
+        update tbl_user
+        set upassword = #{upassword}
+        where uid = #{uid}
+    </update>
+    
+    <delete id="deleteUser">
+        delete from tbl_user
+        where uid = #{uid}
+    </delete>
+</mapper>

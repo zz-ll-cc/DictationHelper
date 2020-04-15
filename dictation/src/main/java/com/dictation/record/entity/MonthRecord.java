@@ -3,37 +3,38 @@ package com.dictation.record.entity;
 import java.util.Date;
 
 /**
- * @ClassName Record
+ * @ClassName MonthRecord
  * @Description
- * @Author zlc
- * @Date 2020-04-14 13:09
+ * @Author liuzhe
+ * @Date 2020-04-14 21:46
  */
-public class Record {
-
-    private int rid;
+public class MonthRecord {
+    private int mrid;
     private int error;
-    private int rright;
-    private Date date;
     private int uid;
+    private int mright;
     private int sum;
+    private String date;
     private double acc;
 
-    public Record(int error, int rright, Date date, int uid, int sum, double acc) {
+    public MonthRecord( int error, int uid, int mright, int sum, String date, double acc) {
+        this.mrid = mrid;
         this.error = error;
-        this.rright = rright;
-        this.date = date;
         this.uid = uid;
+        this.mright = mright;
         this.sum = sum;
+        this.date = date;
         this.acc = acc;
     }
-    public Record(){}
 
-    public int getRid() {
-        return rid;
+    public MonthRecord() { }
+
+    public int getMrid() {
+        return mrid;
     }
 
-    public void setRid(int rid) {
-        this.rid = rid;
+    public void setMrid(int mrid) {
+        this.mrid = mrid;
     }
 
     public int getError() {
@@ -44,22 +45,6 @@ public class Record {
         this.error = error;
     }
 
-    public int getRright() {
-        return rright;
-    }
-
-    public void setRright(int rright) {
-        this.rright = rright;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public int getUid() {
         return uid;
     }
@@ -68,12 +53,28 @@ public class Record {
         this.uid = uid;
     }
 
+    public int getMright() {
+        return mright;
+    }
+
+    public void setMright(int mright) {
+        this.mright = mright;
+    }
+
     public int getSum() {
         return sum;
     }
 
     public void setSum(int sum) {
         this.sum = sum;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public double getAcc() {
@@ -86,13 +87,13 @@ public class Record {
 
     @Override
     public String toString() {
-        return "Record{" +
-                "rid=" + rid +
+        return "MonthRecord{" +
+                "mrid=" + mrid +
                 ", error=" + error +
-                ", rright=" + rright +
-                ", date=" + date +
                 ", uid=" + uid +
+                ", mright=" + mright +
                 ", sum=" + sum +
+                ", date='" + date + '\'' +
                 ", acc=" + acc +
                 '}';
     }

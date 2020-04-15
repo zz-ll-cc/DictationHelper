@@ -12,22 +12,22 @@ public class DayRecord {
     private int drid;
     private int error;
     private int uid;
-    private int right;
+    private int dright;
     private int sum;
     private Date date;
     private double acc;
 
-    public DayRecord(int error, int uid, int right, int sum, Date date, double acc) {
+    public DayRecord(int error, int uid, int dright, int sum, Date date, double acc) {
+        this.drid = drid;
         this.error = error;
         this.uid = uid;
-        this.right = right;
+        this.dright = dright;
         this.sum = sum;
         this.date = date;
         this.acc = acc;
     }
 
-    public DayRecord() {
-    }
+    public DayRecord(){}
 
     public int getDrid() {
         return drid;
@@ -53,12 +53,12 @@ public class DayRecord {
         this.uid = uid;
     }
 
-    public int getRight() {
-        return right;
+    public int getDright() {
+        return dright;
     }
 
-    public void setRight(int right) {
-        this.right = right;
+    public void setDright(int dright) {
+        this.dright = dright;
     }
 
     public int getSum() {
@@ -91,7 +91,7 @@ public class DayRecord {
                 "drid=" + drid +
                 ", error=" + error +
                 ", uid=" + uid +
-                ", right=" + right +
+                ", dright=" + dright +
                 ", sum=" + sum +
                 ", date=" + date +
                 ", acc=" + acc +

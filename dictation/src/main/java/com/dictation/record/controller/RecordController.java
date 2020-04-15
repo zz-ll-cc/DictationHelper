@@ -28,18 +28,35 @@ public class RecordController {
     @Autowired
     DayRecordService dayRecordService;
 
+    @Autowired
+    MonthRecordService monthRecordService;
+
 
     @RequestMapping("/save")
-    public Record save(@RequestParam("error") int error , @RequestParam("right") int right , @RequestParam("sum") int sum ,
-                       @RequestParam("time") Date date , @RequestParam("uid") int uid){
+    public void save(@RequestParam("error") int error , @RequestParam("right") int right , @RequestParam("sum") int sum ,
+                       @RequestParam("time") String datestr1 , @RequestParam("uid") int uid){
         double acc=(double) right/sum*100;
-        Record record=new Record(error,right,date,uid,sum,acc);
-        DayRecord dayRecord=new DayRecord(error,uid,right,sum,date,acc);
-        dayRecordService.saveOne(dayRecord);
-        return recordService.save(record);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat2= new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date1=simpleDateFormat1.parse(datestr1);
+            Record record=new Record(error,right,date1,uid,sum,acc);
+            //保存记录
+            recordService.save(record);
+            String datestr2= datestr1.split(" ")[0]; // yyyy-MM-dd
+            Date date2=simpleDateFormat2.parse(datestr2);
+            DayRecord dayRecord=new DayRecord(error,uid,right,sum,date2,acc);
+            //保存天记录
+            dayRecordService.saveOne(dayRecord);
+            String datestr3= datestr1.split("-")[0]+"-"+datestr1.split("-")[1]; // yyyy-MM-dd
+            MonthRecord monthRecord=new MonthRecord(error,uid,right,sum,datestr3,acc);
+            //保存月记录
+            monthRecordService.saveOne(monthRecord);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-
-
+  }
 
 }

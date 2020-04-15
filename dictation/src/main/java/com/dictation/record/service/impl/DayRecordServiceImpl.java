@@ -28,13 +28,13 @@ public class DayRecordServiceImpl implements DayRecordService {
         DayRecord oldRecord = null;
         if((oldRecord = dayRecordMapper.findByUidAndDate(dayRecord.getUid(),dayRecord.getDate())) != null){
             oldRecord.setSum(dayRecord.getSum() + oldRecord.getSum());
-            oldRecord.setRight(dayRecord.getRight() + oldRecord.getRight());
+            oldRecord.setDright(dayRecord.getDright() + oldRecord.getDright());
             oldRecord.setError(dayRecord.getError() + oldRecord.getError());
-            oldRecord.setAcc(dayRecord.getRight()*1.0/dayRecord.getSum()*100);
+            oldRecord.setAcc(dayRecord.getDright()*1.0/dayRecord.getSum()*100);
             dayRecordMapper.update(oldRecord);
             return oldRecord;
         }
-        dayRecord.setAcc(dayRecord.getRight()*1.0/dayRecord.getSum()*100);
+        dayRecord.setAcc(dayRecord.getDright()*1.0/dayRecord.getSum()*100);
         dayRecordMapper.insert(dayRecord);
         return dayRecord;
     }

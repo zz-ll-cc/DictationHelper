@@ -1,8 +1,10 @@
 package com.dictation.record.controller;
 
 import com.dictation.record.entity.DayRecord;
+import com.dictation.record.entity.MonthRecord;
 import com.dictation.record.entity.Record;
 import com.dictation.record.service.DayRecordService;
+import com.dictation.record.service.MonthRecordService;
 import com.dictation.record.service.RecordService;
 import org.jfree.data.time.Day;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -57,6 +61,7 @@ public class RecordController {
         }
     }
 
-  }
+
+
 
 }

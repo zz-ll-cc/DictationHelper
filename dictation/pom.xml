@@ -33,6 +33,18 @@
             <version>2.1.2</version>
         </dependency>
 
+
+        <!-- jsp -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -87,6 +99,19 @@
             <version>1.2.3</version>
         </dependency>
 
+        <!--七牛云上传sdk-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.31</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.7</version>
+        </dependency>
+
+
 
     </dependencies>
 
@@ -97,6 +122,18 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/webapp/WEB-INF/jsp</directory>
+                <!--如果使用springboot自带的tomcat启动，则使用如下配置jsp路径-->
+                <targetPath>META-INF/resources</targetPath>
+                <!--如果使用maven启动本地tomcat启动，则使用如下配置-->
+                <!--<targetPath>/WEB-INF/jsp</targetPath>-->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>

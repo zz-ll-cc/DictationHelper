@@ -11,6 +11,7 @@ public interface WordMapper {
     public int insert(Word word);
     public int delete(Word word);
     public int update(Word word);
+    public int updatePic(@Param("wid") int wid ,@Param("wimgPath") String url);
     public Word findById(@Param("wid") int wid);
     public List<Word> findAll();
     public List<Word> findByBid(@Param("bid") int bid);

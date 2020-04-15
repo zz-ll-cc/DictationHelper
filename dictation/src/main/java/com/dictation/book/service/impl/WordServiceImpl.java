@@ -38,6 +38,11 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
+    public boolean updatePic(int wid, String url) {
+        return wordMapper.updatePic(wid,url) == 1;
+    }
+
+    @Override
     public Word findById(int id) {
         return wordMapper.findById(id);
     }

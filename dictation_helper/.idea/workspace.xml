@@ -2,21 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/BookVersionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/GradeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/UnitController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/WordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookVersionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookVersionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookVersionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookVersionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/full_jpg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/controller/BackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/upload/controller/UploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/util/FileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/util/QiniuUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/webapp/WEB-INF/jsp/upload.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/webapp/WEB-INF/jsp/uploadBookImage.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/webapp/WEB-INF/jsp/uploadFinish.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/webapp/WEB-INF/jsp/uploadUserImage.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dictation/src/main/webapp/WEB-INF/jsp/uploadWordImage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/WordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/WordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/WordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/WordServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/WordMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/WordMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,7 +63,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dictation" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RunDashboard">
@@ -137,6 +137,7 @@
       <workItem from="1586332041814" duration="2429000" />
       <workItem from="1586748117748" duration="9614000" />
       <workItem from="1586769034716" duration="2632000" />
+      <workItem from="1586935659944" duration="4938000" />
     </task>
     <servers />
   </component>

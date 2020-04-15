@@ -20,6 +20,12 @@
         where wid = #{wid}
     </update>
 
+    <update id="updatePic">
+        update tbl_word
+        set wimgPath = #{wimgPath}
+        where wid = #{wid}
+    </update>
+
     <select id="findById" resultType="com.dictation.book.entity.Word">
         select * from tbl_word where wid = #{wid}
     </select>

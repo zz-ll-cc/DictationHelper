@@ -29,7 +29,7 @@ public class QiniuUtil {
     String secretKey = "pWk_nnowhVKlz3YVTGH4XAVcjtXprOYHQdFnts6_";
     String bucket = "zin";
     //    七牛默认域名
-    String domain = "http://zin4ever.top";
+    String domain = "http://cdn.zin4ever.top";
 
 
     // 密钥配置

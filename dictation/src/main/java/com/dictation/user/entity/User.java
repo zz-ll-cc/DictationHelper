@@ -1,5 +1,7 @@
 package com.dictation.user.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -15,6 +17,7 @@ public class User {
     private String uphone;
     private String uheadPath;
     private String upassword;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ubirth;
     private int vip;
     private int is_admin;

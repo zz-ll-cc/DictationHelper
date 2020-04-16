@@ -24,7 +24,10 @@ public class UserServiceImpl implements UserService {
     static final String SALT = "haohaoxuexi";
 
     public boolean checkUser(String phone){
-        return this.userMapper.checkPhone(phone)==null?false:true;
+        User user = this.userMapper.checkPhone(phone);
+        if (user == null){
+            return false;
+        }else return true;
     }
 
     @Override
@@ -84,6 +87,7 @@ public class UserServiceImpl implements UserService {
             user.setUpassword(secondEncrypt);
         }
         this.userMapper.updateUser(user);
+        user = this.userMapper.findUserByUid(user.getUid());
         return user;
     }
 

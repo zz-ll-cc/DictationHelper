@@ -23,11 +23,11 @@ public interface UserMapper {
     // 修改头像，根据传入的 uid ，修改对应图像位置 === 传入数据库
     public void updateUserImage(@Param("uid") int id, @Param("url") String url);
     // 根据手机号和密码
-    public User loginByPP(@Param("phone")String phone, @Param("password")String password);
+    public User loginByPP(@Param("phone") String phone, @Param("password") String password);
     // 修改用户信息
     public void updateUser(User user);
     // 修改密码
-    public void updatePwd(@Param("uid")int uid,@Param("password") String password);
+    public void updatePwd(@Param("uid") int uid, @Param("password") String password);
     // 删除用户
     public void deleteUser(int uid);
 }

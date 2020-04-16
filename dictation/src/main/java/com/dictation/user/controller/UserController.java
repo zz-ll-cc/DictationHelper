@@ -3,7 +3,6 @@ package com.dictation.user.controller;
 import com.dictation.user.entity.LoginInfo;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,7 +86,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updateuser")
-    public User updateUser(@RequestBody User user){
+    public User updateUser(User user){
         return this.userService.updateUser(user);
     }
 

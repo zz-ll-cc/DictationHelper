@@ -3,6 +3,8 @@ package com.dictation.user.controller;
 import com.dictation.user.entity.LoginInfo;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
+import com.dictation.util.FileUtil;
+import com.dictation.util.QiniuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @ClassName: UserController
@@ -22,7 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private QiniuUtil qiniuUtil;
     @RequestMapping("/login")
     public LoginInfo login(@RequestParam(value = "login_type",required = true)int login_type,
                         @RequestParam(value = "phone",required = true,defaultValue = "")String phone,
@@ -91,13 +98,24 @@ public class UserController {
     }
 
     /**
-     * todo: 修改头像
+     * 修改头像
      */
     @RequestMapping("/uploadhead")
-    public User uploadhead(@RequestParam(value="file",required=false) MultipartFile pic,
-                           @RequestParam(value = "uid",required = false)int uid){
-        // todo:1. 将头像上传至服务器
-        String url = "";
+    public User uploadhead(@RequestParam(value = "file",required = false) MultipartFile file,
+                           @RequestParam(value = "uid",required = false) int uid){
+        // 1. 获取图片
+        File f = null;
+        InputStream ins = null;
+        String url = null;
+        try {
+            ins = file.getInputStream();
+            f = new File(file.getOriginalFilename());
+            FileUtil.inputStreamToFile(ins,f);
+            url = qiniuUtil.saveImage(f,file.getOriginalFilename());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // 2. 修改头像地址
         this.userService.updateUserImage(uid,url);
         // 3. 获取user对象

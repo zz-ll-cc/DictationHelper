@@ -5,7 +5,7 @@
 <mapper namespace="com.dictation.mapper.UserMapper">
     <!-- 查询是否存在用户 -->
     <select id="checkPhone" resultType="com.dictation.user.entity.User">
-        select uid from tbl_user where uphone = #{phone}
+        select uid,uphone from tbl_user where uphone = #{phone}
     </select>
     <!-- 根据phone找到对应的user对象-->
     <select id="findUserByPhone" resultType="com.dictation.user.entity.User">

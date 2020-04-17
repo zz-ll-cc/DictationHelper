@@ -52,7 +52,7 @@ public class UploadController {
         FileUtil.inputStreamToFile(ins,f);
         String url = qiniuUtil.saveImage(f,file.getOriginalFilename());
         System.out.println("success: imageUrl = "+url);
-        if(bookService.updateUrl(bid,url) == null) System.out.println("更新失败");
+        if(!bookService.updateUrl(bid,url)) System.out.println("更新失败");
         f.delete();
 
         return "uploadFinish";

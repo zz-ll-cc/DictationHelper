@@ -2,15 +2,12 @@ package com.dictation.mapper;
 
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dictation.back.entity.Back;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
-
-public interface BackMapper{
-
-    public List<Back> findAll();
-
-    public int insert(Back back);
+@Repository
+public interface BackMapper extends BaseMapper<Back> {
 
 }

@@ -1,5 +1,8 @@
 package com.dictation.book.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.book.entity.Book;
 import com.dictation.book.service.BookService;
 import com.dictation.mapper.BookMapper;
@@ -23,51 +26,56 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAll() {
-        return bookMapper.findAll();
+        return bookMapper.selectList(null);
     }
 
 
     @Override
     public List<Book> findAllByPaging(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        return bookMapper.findAll();
+        Page<Book> page = new Page<>(pageNum,pageSize);
+        return bookMapper.selectPage(page,null).getRecords();
     }
 
     @Override
     public List<Book> findAllByVesion(int bvid) {
-        return bookMapper.findAllByVesion(bvid);
+        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
+        bookQueryWrapper.eq("version_id",bvid);
+        return bookMapper.selectList(bookQueryWrapper);
     }
 
     @Override
     public List<Book> findAllByGrade(int gid) {
-        return bookMapper.findAllByGrade(gid);
+        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
+        bookQueryWrapper.eq("grade_id",gid);
+        return bookMapper.selectList(bookQueryWrapper);
     }
 
     @Override
     public List<Book> findAllByVesionAndGrade(int bvid, int gid) {
-        return bookMapper.findAllByVesionAndGrade(bvid,gid);
+        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
+        bookQueryWrapper.eq("grade_id",gid).eq("version_id",bvid);
+        return bookMapper.selectList(bookQueryWrapper);
     }
 
     @Override
-    public Book updateUrl(int bid, String url) {
-        Book book = bookMapper.findById(bid);
-        if(book != null) {
-            book.setBimgPath(url);
-            bookMapper.update(book);
-            return book;
-        }
-        return null;
+    public boolean updateUrl(int bid, String url) {
+        Book book = bookMapper.selectById(bid);
+        book.setBookCover(url);
+        return bookMapper.updateById(book) == 1 ;
     }
 
     @Override
-    public Book saveOne(Book book) {
-        bookMapper.insert(book);
-        return book;
+    public boolean saveOne(Book book) {
+        return bookMapper.insert(book) == 1 ;
     }
 
     @Override
     public boolean delete(Book book) {
-        return bookMapper.delete(book) == 1;
+        return bookMapper.deleteById(book.getId()) == 1;
     }
 
+    @Override
+    public boolean delete(Integer id) {
+        return bookMapper.deleteById(id) == 1;
+    }
 }

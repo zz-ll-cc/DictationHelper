@@ -6,16 +6,17 @@ import java.util.List;
 
 public interface WordService {
 
-    public Word save(Word word);
-    public boolean delete(Word word);
-    public boolean update(Word word);
-    public boolean updatePic(int wid , String url);
-    public Word findById(int id);
-    public List<Word> findAllByPaging(int pageNum,int pageSize);
-    public List<Word> findAll();
-    public List<Word> findAllByBid(int bid);
-    public List<Word> findAllByBidAndUnid(int bid,int unid);
-    public int findBookWordsTotal(int bid);
+    boolean save(Word word);
+    boolean delete(Word word);
+    boolean delete(Integer id);
+    boolean update(Word word);
+    boolean updatePic(int wid , String url);
+    Word findById(int id);
+    List<Word> findAllByPaging(int pageNum,int pageSize);
+    List<Word> findAll();
+    List<Word> findAllByBid(int bid);
+    List<Word> findAllByBidAndUnid(int bid,int unid);
+    int findBookWordsTotal(int bid);
 
 
 }

@@ -7,10 +7,18 @@ import java.util.List;
 
 public interface BackService {
 
-    public Back saveOne(Back back);
+    Back saveOne(Back back);
+
+    boolean deleteById(Integer id);
+
+    boolean delete(Back back);
+
+    boolean updateOne(Back back);
+
+    Back findById(Integer id);
 
 
-    public List<Back> findAll();
+    List<Back> findAll();
 
 
 }

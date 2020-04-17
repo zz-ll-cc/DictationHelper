@@ -1,47 +1,43 @@
 package com.dictation.book.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.Version;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.jnlp.IntegrationService;
+import java.util.Date;
+
 /**
  * @ClassName Grade
  * @Description
  * @Author zlc
  * @Date 2020-04-13 17:11
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "tbl_grade")
 public class Grade {
 
-    private int gid;
-    private String gname;
-    private int gtype;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    public int getGid() {
-        return gid;
-    }
+    private String gradeName;
 
-    public void setGid(int gid) {
-        this.gid = gid;
-    }
+    private Integer gradeType;
 
-    public String getGname() {
-        return gname;
-    }
+    @Version
+    private Integer version;
 
-    public void setGname(String gname) {
-        this.gname = gname;
-    }
+    @TableLogic
+    private Integer deleted;
 
-    public int getGtype() {
-        return gtype;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public void setGtype(int gtype) {
-        this.gtype = gtype;
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    @Override
-    public String toString() {
-        return "Grade{" +
-                "gid=" + gid +
-                ", gname='" + gname + '\'' +
-                ", gtype=" + gtype +
-                '}';
-    }
 }

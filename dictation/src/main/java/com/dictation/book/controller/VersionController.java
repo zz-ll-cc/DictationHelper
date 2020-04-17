@@ -1,7 +1,7 @@
 package com.dictation.book.controller;
 
-import com.dictation.book.entity.BookVersion;
-import com.dictation.book.service.BookVersionService;
+import com.dictation.book.entity.Version;
+import com.dictation.book.service.VersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +16,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/version")
-public class BookVersionController {
+public class VersionController {
 
     @Autowired
-    BookVersionService bookVersionService;
+    VersionService versionService;
 
     @RequestMapping("/all")
-    public List<BookVersion> all(){
-        return bookVersionService.findAll();
+    public List<Version> all(){
+        return versionService.findAll();
     }
 
 

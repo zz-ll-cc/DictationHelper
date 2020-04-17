@@ -27,8 +27,31 @@ public class BackServiceImpl implements BackService {
     }
 
     @Override
+    public boolean deleteById(Integer id) {
+        if(backMapper.deleteById(id) == 1) return true;
+        return false;
+    }
+
+    @Override
+    public boolean delete(Back back) {
+        if(backMapper.deleteById(back.getId()) == 1) return true;
+        return false;
+    }
+
+    @Override
+    public boolean updateOne(Back back) {
+        if(backMapper.updateById(back) == 1) return true;
+        return false;
+    }
+
+    @Override
+    public Back findById(Integer id) {
+        return backMapper.selectById(id);
+    }
+
+    @Override
     public List<Back> findAll() {
-        return backMapper.findAll();
+        return backMapper.selectList(null);
     }
 
 

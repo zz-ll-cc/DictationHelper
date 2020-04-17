@@ -4,33 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dictation.mapper.RecordMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="rid">
-        insert into tbl_record(error,uid,right,sum,date,acc) values (#{error},#{uid},#{right},#{sum},#{date},#{acc})
-    </insert>
+<!--    <insert id="insert" useGeneratedKeys="true" keyProperty="rid">-->
+<!--        insert into tbl_record(error,uid,right,sum,date,acc) values (#{error},#{uid},#{right},#{sum},#{date},#{acc})-->
+<!--    </insert>-->
 
-    <delete id="delete">
-        delete from tbl_record where rid = #{rid}
-    </delete>
+<!--    <delete id="delete">-->
+<!--        delete from tbl_record where rid = #{rid}-->
+<!--    </delete>-->
 
-    <update id="update">
-        update tbl_record set error = #{error} , uid = #{uid} , right = #{right} , sum = #{sum} , date = #{date} , acc = #{acc} where rid = #{rid}
-    </update>
+<!--    <update id="update">-->
+<!--        update tbl_record set error = #{error} , uid = #{uid} , right = #{right} , sum = #{sum} , date = #{date} , acc = #{acc} where rid = #{rid}-->
+<!--    </update>-->
 
-    <select id="findAll" resultType="com.dictation.record.entity.Record">
-        select * from tbl_record
-    </select>
+<!--    <select id="findAll" resultType="com.dictation.record.entity.Record">-->
+<!--        select * from tbl_record-->
+<!--    </select>-->
 
-    <select id="findById" resultType="com.dictation.record.entity.Record">
-        select * from tbl_record where rid = #{rid}
-    </select>
+<!--    <select id="findById" resultType="com.dictation.record.entity.Record">-->
+<!--        select * from tbl_record where rid = #{rid}-->
+<!--    </select>-->
 
-    <select id="findByUidAndDate" resultType="com.dictation.record.entity.Record">
-        select * from tbl_record where uid = #{uid} and date = #{date}
-    </select>
+<!--    <select id="findByUidAndDate" resultType="com.dictation.record.entity.Record">-->
+<!--        select * from tbl_record where uid = #{uid} and date = #{date}-->
+<!--    </select>-->
 
-    <select id="findByUid" resultType="com.dictation.record.entity.Record">
-        select * from tbl_record where uid = #{uid}
-    </select>
+<!--    <select id="findByUid" resultType="com.dictation.record.entity.Record">-->
+<!--        select * from tbl_record where uid = #{uid}-->
+<!--    </select>-->
 
 
 

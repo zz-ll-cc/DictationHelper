@@ -2,27 +2,27 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dictation.mapper.BookVersionMapper">
+<mapper namespace="com.dictation.mapper.VersionMapper">
 
-    <select id="findbyId" resultType="com.dictation.book.entity.BookVersion">
-        select * from tbl_bookversion where bvId = #{bvId} limit 1
-    </select>
+<!--    <select id="findbyId" resultType="com.dictation.book.entity.Version">-->
+<!--        select * from tbl_bookversion where bvId = #{bvId} limit 1-->
+<!--    </select>-->
 
-    <select id="findAll" resultType="com.dictation.book.entity.BookVersion">
-        select * from tbl_bookversion
-    </select>
+<!--    <select id="findAll" resultType="com.dictation.book.entity.Version">-->
+<!--        select * from tbl_bookversion-->
+<!--    </select>-->
 
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="bvId">
-        insert into tbl_bookversion(bvName,bvType,bvPubTime) values(#{bvName},#{bvType},#{bvPubTime})
-    </insert>
+<!--    <insert id="insert" useGeneratedKeys="true" keyProperty="bvId">-->
+<!--        insert into tbl_bookversion(bvName,bvType,bvPubTime) values(#{bvName},#{bvType},#{bvPubTime})-->
+<!--    </insert>-->
 
-    <delete id="delete">
-        delete from tbl_bookversion where bvId = #{bvId}
-    </delete>
+<!--    <delete id="delete">-->
+<!--        delete from tbl_bookversion where bvId = #{bvId}-->
+<!--    </delete>-->
 
-    <update id="update">
-        update tbl_bookversion set bvName = #{bvName} , bvType = #{bvType} , bvPubTime = #{bvPubTime} where bvId = #{bvId}
-    </update>
+<!--    <update id="update">-->
+<!--        update tbl_bookversion set bvName = #{bvName} , bvType = #{bvType} , bvPubTime = #{bvPubTime} where bvId = #{bvId}-->
+<!--    </update>-->
 
 </mapper>

@@ -1,77 +1,47 @@
 package com.dictation.book.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.jnlp.IntegrationService;
+import java.util.Date;
+
 /**
  * @ClassName Book
  * @Description
  * @Author zlc
  * @Date 2020-04-13 11:30
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "tbl_book")
 public class Book {
 
-    private int bid;
-    private int bvid;
-    private String bname;
-    private int gid;
-    private String bimgPath;
-    private int bunitAccount;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    public int getBid() {
-        return bid;
-    }
+    private Integer versionId;
 
-    public void setBid(int bid) {
-        this.bid = bid;
-    }
+    private String bookName;
 
-    public int getBvid() {
-        return bvid;
-    }
+    private Integer gradeId;
 
-    public void setBvid(int bvid) {
-        this.bvid = bvid;
-    }
+    private String bookCover;
 
-    public String getBname() {
-        return bname;
-    }
+    private Integer unitNum;
 
-    public void setBname(String bname) {
-        this.bname = bname;
-    }
+    @Version
+    private Integer version;
 
-    public int getGid() {
-        return gid;
-    }
+    @TableLogic
+    private Integer deleted;
 
-    public void setGid(int gid) {
-        this.gid = gid;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public String getBimgPath() {
-        return bimgPath;
-    }
-
-    public void setBimgPath(String bimgPath) {
-        this.bimgPath = bimgPath;
-    }
-
-    public int getBunitAccount() {
-        return bunitAccount;
-    }
-
-    public void setBunitAccount(int bunitAccount) {
-        this.bunitAccount = bunitAccount;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bid=" + bid +
-                ", bvid=" + bvid +
-                ", bname='" + bname + '\'' +
-                ", gid=" + gid +
-                ", bimgPath='" + bimgPath + '\'' +
-                ", bunitAccount=" + bunitAccount +
-                '}';
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 }

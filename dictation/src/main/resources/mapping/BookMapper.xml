@@ -4,44 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dictation.mapper.BookMapper">
 
-    <select id="findById" resultType="com.dictation.book.entity.Book">
-        select * from tbl_book where bid = #{bid} limit 1
-    </select>
+<!--    <select id="findById" resultType="com.dictation.book.entity.Book">-->
+<!--        select * from tbl_book where bid = #{bid} limit 1-->
+<!--    </select>-->
 
-    <select id="findAll" resultType="com.dictation.book.entity.Book">
-        select * from tbl_book
-    </select>
+<!--    <select id="findAll" resultType="com.dictation.book.entity.Book">-->
+<!--        select * from tbl_book-->
+<!--    </select>-->
 
-    <select id="findAllByVesion" resultType="com.dictation.book.entity.Book">
-        select * from tbl_book where bvid = #{bvid}
-    </select>
+<!--    <select id="findAllByVesion" resultType="com.dictation.book.entity.Book">-->
+<!--        select * from tbl_book where bvid = #{bvid}-->
+<!--    </select>-->
 
-    <select id="findAllByGrade" resultType="com.dictation.book.entity.Book">
-        select * from tbl_book where gid = #{gid}
-    </select>
+<!--    <select id="findAllByGrade" resultType="com.dictation.book.entity.Book">-->
+<!--        select * from tbl_book where gid = #{gid}-->
+<!--    </select>-->
 
-    <select id="findAllByVesionAndGrade" resultType="com.dictation.book.entity.Book">
-        select * from tbl_book where gid = #{gid} and bvid = #{bvid}
-    </select>
+<!--    <select id="findAllByVesionAndGrade" resultType="com.dictation.book.entity.Book">-->
+<!--        select * from tbl_book where gid = #{gid} and bvid = #{bvid}-->
+<!--    </select>-->
 
-    <delete id="deleteById">
-        delete from tbl_book where bid = #{bid}
-    </delete>
+<!--    <delete id="deleteById">-->
+<!--        delete from tbl_book where bid = #{bid}-->
+<!--    </delete>-->
 
-    <delete id="delete">
-        delete from tbl_book where bid = #{bid}
-    </delete>
+<!--    <delete id="delete">-->
+<!--        delete from tbl_book where bid = #{bid}-->
+<!--    </delete>-->
 
 
-    <update id="update">
-        update tbl_book
-        set bvid = #{bvid} , bname = #{bname} , gid = #{gid} , bimgPath = #{bimgPath} , bunitAccount = #{bunitAccount}
-        where bid = #{bid}
-    </update>
+<!--    <update id="update">-->
+<!--        update tbl_book-->
+<!--        set bvid = #{bvid} , bname = #{bname} , gid = #{gid} , bimgPath = #{bimgPath} , bunitAccount = #{bunitAccount}-->
+<!--        where bid = #{bid}-->
+<!--    </update>-->
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="bid">
-        insert into tbl_book(bvid,bname,gid,bimgPath,bunitAccount) values(#{bvid},#{bname},#{gid},#{bimgPath},#{bunitAccount})
-    </insert>
+<!--    <insert id="insert" useGeneratedKeys="true" keyProperty="bid">-->
+<!--        insert into tbl_book(bvid,bname,gid,bimgPath,bunitAccount) values(#{bvid},#{bname},#{gid},#{bimgPath},#{bunitAccount})-->
+<!--    </insert>-->
 
 
 

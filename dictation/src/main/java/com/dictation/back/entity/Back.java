@@ -1,6 +1,11 @@
 package com.dictation.back.entity;
 
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
@@ -9,83 +14,31 @@ import java.util.Date;
  * @Author zlc
  * @Date 2020-04-13 11:27
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "tbl_back")
 public class Back {
 
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    private int baid;
-    private Date time;
     private String info;
-    private int uid;
+
+    private Integer uid;
+
     private String type;
-    private int status;
-    private String path;
 
-    public int getBaid() {
-        return baid;
-    }
+    @TableLogic
+    private Integer deleted;
 
-    public void setBaid(int baid) {
-        this.baid = baid;
-    }
+    @Version
+    private Integer version;
 
-    public Date getTime() {
-        return time;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    @Override
-    public String toString() {
-        return "Back{" +
-                "baid=" + baid +
-                ", time=" + time +
-                ", info='" + info + '\'' +
-                ", uid=" + uid +
-                ", type='" + type + '\'' +
-                ", status=" + status +
-                ", path='" + path + '\'' +
-                '}';
-    }
 }

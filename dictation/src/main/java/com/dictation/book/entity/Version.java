@@ -1,40 +1,34 @@
-package com.dictation.record.entity;
+package com.dictation.book.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.Date;
 
 /**
- * @ClassName DayRecord
+ * @ClassName BookVersion
  * @Description
  * @Author zlc
- * @Date 2020-04-13 15:02
+ * @Date 2020-04-13 14:42
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-@TableName(value = "tbl_day_record")
-public class DayRecord {
+@TableName(value = "tbl_bookversion")
+public class Version {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private Integer errorSum;
+    private String versionName;
 
-    private Integer rightSum;
+    private Integer versionType;
 
-    private Integer sum;
+    private Date versionPublish;
 
-    private Integer userId;
-
-    private Double accuracy;
-
-    @Version
+    @com.baomidou.mybatisplus.annotation.Version
     private Integer version;
 
     @TableLogic
@@ -45,6 +39,4 @@ public class DayRecord {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-
-
 }

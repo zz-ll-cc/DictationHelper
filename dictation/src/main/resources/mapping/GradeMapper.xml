@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dictation.mapper.GradeMapper">
 
-    <select id="findAll" resultType="com.dictation.book.entity.Grade">
-        select * from tbl_grade
-    </select>
+<!--    <select id="findAll" resultType="com.dictation.book.entity.Grade">-->
+<!--        select * from tbl_grade-->
+<!--    </select>-->
 
 
 

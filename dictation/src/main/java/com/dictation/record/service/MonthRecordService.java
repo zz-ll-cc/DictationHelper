@@ -11,14 +11,14 @@ import java.util.List;
  */
 public interface MonthRecordService {
     //更新用户每月的记录，如果没有则插入
-    public MonthRecord saveOne(MonthRecord monthRecord);
+    MonthRecord saveOne(MonthRecord monthRecord);
 
-    public List<MonthRecord> findByUid(int uid);
+    List<MonthRecord> findByUid(int uid);
 
     //获取近五个月记录
-    public List<MonthRecord> findLastFiveRecordsByUid(int uid);
+    List<MonthRecord> findLastFiveRecordsByUid(int uid);
 
-    public List<Double> findAccuracyListByUid(int uid);
+    List<Double> findAccuracyListByUid(int uid);
 
-    public List<String> findDateListByUid(int uid);
+    List<String> findDateListByUid(int uid);
 }

@@ -4,43 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dictation.mapper.WordMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="wid">
-        insert into tbl_word(wenglish,wchinese,unId,bid,type,wimgPath)
-            values (#{wenglish} , #{wchinese} , #{unId} , #{bid} , #{type} , #{wimgPath})
-    </insert>
+<!--    <insert id="insert" useGeneratedKeys="true" keyProperty="wid">-->
+<!--        insert into tbl_word(wenglish,wchinese,unId,bid,type,wimgPath)-->
+<!--            values (#{wenglish} , #{wchinese} , #{unId} , #{bid} , #{type} , #{wimgPath})-->
+<!--    </insert>-->
 
-    <delete id="delete">
-        delete from tbl_word where wid = #{wid}
-    </delete>
+<!--    <delete id="delete">-->
+<!--        delete from tbl_word where wid = #{wid}-->
+<!--    </delete>-->
 
-    <update id="update">
-        update tbl_word
-        set wenglish = #{wenglish} , wchinese = #{wchinese} , unId = #{unId} , bid = #{bid}
-            , type = #{type} , wimgPath = #{wimgPath}
-        where wid = #{wid}
-    </update>
+<!--    <update id="update">-->
+<!--        update tbl_word-->
+<!--        set wenglish = #{wenglish} , wchinese = #{wchinese} , unId = #{unId} , bid = #{bid}-->
+<!--            , type = #{type} , wimgPath = #{wimgPath}-->
+<!--        where wid = #{wid}-->
+<!--    </update>-->
 
-    <update id="updatePic">
-        update tbl_word
-        set wimgPath = #{wimgPath}
-        where wid = #{wid}
-    </update>
+<!--    <update id="updatePic">-->
+<!--        update tbl_word-->
+<!--        set wimgPath = #{wimgPath}-->
+<!--        where wid = #{wid}-->
+<!--    </update>-->
 
-    <select id="findById" resultType="com.dictation.book.entity.Word">
-        select * from tbl_word where wid = #{wid}
-    </select>
+<!--    <select id="findById" resultType="com.dictation.book.entity.Word">-->
+<!--        select * from tbl_word where wid = #{wid}-->
+<!--    </select>-->
 
-    <select id="findAll" resultType="com.dictation.book.entity.Word">
-        select * from tbl_word
-    </select>
+<!--    <select id="findAll" resultType="com.dictation.book.entity.Word">-->
+<!--        select * from tbl_word-->
+<!--    </select>-->
 
-    <select id="findByBid" resultType="com.dictation.book.entity.Word">
-        select * from tbl_word where bid = #{bid}
-    </select>
+<!--    <select id="findByBid" resultType="com.dictation.book.entity.Word">-->
+<!--        select * from tbl_word where bid = #{bid}-->
+<!--    </select>-->
 
-    <select id="findByBidAndUnid" resultType="com.dictation.book.entity.Word">
-        select * from tbl_word where bid = #{bid} and unId = #{unId}
-    </select>
+<!--    <select id="findByBidAndUnid" resultType="com.dictation.book.entity.Word">-->
+<!--        select * from tbl_word where bid = #{bid} and unId = #{unId}-->
+<!--    </select>-->
 
 
 

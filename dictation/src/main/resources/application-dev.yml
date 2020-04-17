@@ -15,17 +15,19 @@ spring:
   datasource:
     username: lichen
     password: Lichen!0524
-    url: jdbc:mysql://zin4ever.top/dictation_db
+    url: jdbc:mysql://zin4ever.top/dictation_db?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 
-mybatis:
-  mapper-locations: classpath*:mapping/*Mapper.xml
-  type-aliases-package: com.dictation
+mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#showSql
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:mapping/*Mapper.xml
 
 pagehelper:
   helperDialect: mysql

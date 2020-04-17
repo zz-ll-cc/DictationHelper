@@ -23,7 +23,26 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public List<Unit> findAll() {
-        return unitMapper.findAll();
+        return unitMapper.selectList(null);
     }
 
+    @Override
+    public boolean save(Unit unit) {
+        return unitMapper.insert(unit) == 1;
+    }
+
+    @Override
+    public boolean delete(Unit unit) {
+        return unitMapper.deleteById(unit.getId()) == 1;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return unitMapper.deleteById(id) == 1;
+    }
+
+    @Override
+    public boolean update(Unit unit) {
+        return unitMapper.updateById(unit) ==1;
+    }
 }

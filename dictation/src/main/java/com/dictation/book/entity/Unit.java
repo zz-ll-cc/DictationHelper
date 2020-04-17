@@ -1,57 +1,45 @@
 package com.dictation.book.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.Version;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * @ClassName Unit
  * @Description
  * @Author zlc
  * @Date 2020-04-13 17:17
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "tbl_unit")
 public class Unit {
 
-    private int unid;
-    private String unName;
-    private int bid;
-    private int type;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    public int getUnid() {
-        return unid;
-    }
+    private String unitName;
 
-    public void setUnid(int unid) {
-        this.unid = unid;
-    }
+    private Integer bookId;
 
-    public String getUnName() {
-        return unName;
-    }
+    private Integer type;
 
-    public void setUnName(String unName) {
-        this.unName = unName;
-    }
+    @Version
+    private Integer version;
 
-    public int getBid() {
-        return bid;
-    }
+    @TableLogic
+    private Integer deleted;
 
-    public void setBid(int bid) {
-        this.bid = bid;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public int getType() {
-        return type;
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    public void setType(int type) {
-        this.type = type;
-    }
 
-    @Override
-    public String toString() {
-        return "Unit{" +
-                "unid=" + unid +
-                ", unName='" + unName + '\'' +
-                ", bid=" + bid +
-                ", type=" + type +
-                '}';
-    }
 }

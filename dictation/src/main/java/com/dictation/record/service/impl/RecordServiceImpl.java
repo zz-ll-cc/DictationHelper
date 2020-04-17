@@ -24,24 +24,24 @@ public class RecordServiceImpl implements RecordService {
     RecordMapper recordMapper;
 
     @Override
-    public Record save(Record record) {
-        recordMapper.insert(record);
-        return record;
+    public boolean save(Record record) {
+
+        return recordMapper.insert(record) == 1;
     }
 
     @Override
     public List<Record> findAll() {
-        return recordMapper.findAll();
+        return recordMapper.selectList(null);
     }
 
     @Override
     public List<Double> getArr() {
         List<Double> accs = null;
-        List<Record> records = recordMapper.findAll();
+        List<Record> records = recordMapper.selectList(null);
         if(records != null && records.size() != 0){
             accs = new ArrayList<>(records.size());
             for (Record r:records){
-                double acc=r.getAcc();
+                double acc = r.getAccuracy();
                 accs.add(acc);
             }
         }
@@ -51,12 +51,12 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public List<String> getDate() {
         List<String> dates = null;
-        List<Record> records = recordMapper.findAll();
+        List<Record> records = recordMapper.selectList(null);
         if(records != null && records.size() != 0){
             dates = new ArrayList<>(records.size());
             for (Record r:records){
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String transDate = sdf.format(r.getDate());
+                String transDate = sdf.format(r.getCreateTime());
                 dates.add(transDate);
             }
         }

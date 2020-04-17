@@ -1,5 +1,12 @@
 package com.dictation.record.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import javax.jnlp.IntegrationService;
 import java.util.Date;
 
 /**
@@ -8,92 +15,38 @@ import java.util.Date;
  * @Author zlc
  * @Date 2020-04-14 13:09
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@TableName(value = "tbl_record")
 public class Record {
 
-    private int rid;
-    private int error;
-    private int rright;
-    private Date date;
-    private int uid;
-    private int sum;
-    private double acc;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    public Record(int error, int rright, Date date, int uid, int sum, double acc) {
-        this.error = error;
-        this.rright = rright;
-        this.date = date;
-        this.uid = uid;
-        this.sum = sum;
-        this.acc = acc;
-    }
-    public Record(){}
+    private Integer errorSum;
 
-    public int getRid() {
-        return rid;
-    }
+    private Integer rightSum;
 
-    public void setRid(int rid) {
-        this.rid = rid;
-    }
+    private Integer sum;
 
-    public int getError() {
-        return error;
-    }
+    private Integer userId;
 
-    public void setError(int error) {
-        this.error = error;
-    }
+    private Double accuracy;
 
-    public int getRright() {
-        return rright;
-    }
+    @Version
+    private Integer version;
 
-    public void setRright(int rright) {
-        this.rright = rright;
-    }
+    @TableLogic
+    private Integer deleted;
 
-    public Date getDate() {
-        return date;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    public int getUid() {
-        return uid;
-    }
 
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
 
-    public int getSum() {
-        return sum;
-    }
-
-    public void setSum(int sum) {
-        this.sum = sum;
-    }
-
-    public double getAcc() {
-        return acc;
-    }
-
-    public void setAcc(double acc) {
-        this.acc = acc;
-    }
-
-    @Override
-    public String toString() {
-        return "Record{" +
-                "rid=" + rid +
-                ", error=" + error +
-                ", rright=" + rright +
-                ", date=" + date +
-                ", uid=" + uid +
-                ", sum=" + sum +
-                ", acc=" + acc +
-                '}';
-    }
 }

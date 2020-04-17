@@ -1,63 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Version.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/VersionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/VersionServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/config/MybatisPlusConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/handler/MyMetaObjectHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/VersionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/controller/BackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/controller/BackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/entity/Back.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/entity/Back.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/BackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/impl/BackServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/back/service/impl/BackServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/BookVersionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/controller/VersionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/BookVersion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Grade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Grade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Unit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/entity/Word.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/BookVersionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/GradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/GradeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/UnitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/UnitService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/WordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/WordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/BookVersionServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/GradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/GradeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/UnitServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/UnitServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/WordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/book/service/impl/WordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BackMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/BookVersionMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/DayRecordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/GradeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/RecordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/UnitMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/mapper/WordMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/controller/RecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/controller/RecordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/DayRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/DayRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/Record.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/entity/Record.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/DayRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/DayRecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/MonthRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/MonthRecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/RecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/RecordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/DayRecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/DayRecordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/RecordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/record/service/impl/RecordServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/upload/controller/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/java/com/dictation/upload/controller/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BackMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BackMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/BookVersionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/DayRecordMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/DayRecordMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/GradeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/GradeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/RecordMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/RecordMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/UnitMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/UnitMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/WordMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/main/resources/mapping/WordMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dictation/src/test/java/com/dictation/DictationApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="af997425-8bdd-427e-a581-40bc2a0e5015" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +121,7 @@
       <workItem from="1586748117748" duration="9614000" />
       <workItem from="1586769034716" duration="2632000" />
       <workItem from="1586935659944" duration="4938000" />
-      <workItem from="1587104959451" duration="1124000" />
+      <workItem from="1587104959451" duration="1430000" />
     </task>
     <servers />
   </component>

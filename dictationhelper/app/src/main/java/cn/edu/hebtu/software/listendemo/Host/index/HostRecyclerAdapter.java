@@ -141,12 +141,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         final Book book = res.get(i);
         viewHolder1.tvName.setText(book.getBname());
         if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
-            try {
-                URL url = new URL(book.getBimgPath());
-                Glide.with(context).load(url).into(viewHolder1.ivCover);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            Glide.with(context).load(book.getBimgPath()).into(viewHolder1.ivCover);
         }
 
         if (bindId == book.getBid()) {

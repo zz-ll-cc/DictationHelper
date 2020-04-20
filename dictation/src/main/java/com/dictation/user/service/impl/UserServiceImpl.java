@@ -25,7 +25,6 @@ import java.util.function.Predicate;
  * @Author: szy
  * @Date 2020/4/14
  */
-@Transactional
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -49,24 +48,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByPhone(String phone) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User.class,new Predicate<TableFieldInfo>() {
-            @Override
-            public boolean test(TableFieldInfo tableFieldInfo) {
-                return !tableFieldInfo.getColumn().equals("upassword");
-            }
-        }).eq(User::getUphone, phone);
+        wrapper.eq(User::getUphone, phone);
         return this.userMapper.selectOne(wrapper);
     }
 
     @Override
     public User findUserByUid(int uid) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User.class,new Predicate<TableFieldInfo>() {
-            @Override
-            public boolean test(TableFieldInfo tableFieldInfo) {
-                return !tableFieldInfo.getColumn().equals("upassword");
-            }
-        }).eq(User::getUid, uid);
+        wrapper.eq(User::getUid, uid);
         return this.userMapper.selectOne(wrapper);
     }
 
@@ -96,29 +85,16 @@ public class UserServiceImpl implements UserService {
         String secondEnc = DigestUtils.md5Hex(firstEnc + SALT);
         // 3. 构造查询
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User.class,new Predicate<TableFieldInfo>() {
-            @Override
-            public boolean test(TableFieldInfo tableFieldInfo) {
-                return !tableFieldInfo.getColumn().equals("upassword"); // 不需要upassword
-            }
-        }).eq(User::getUphone,phone).eq(User::getUpassword,secondEnc);
+        wrapper.eq(User::getUphone,phone).eq(User::getUpassword,secondEnc);
         // 执行查询
         return this.userMapper.selectOne(wrapper);
     }
 
     @Override
     public User updateUser(User user) {
-        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.eq("uid",user.getUid());
-        this.userMapper.update(user,wrapper);
-
+        this.userMapper.updateById(user);
         LambdaQueryWrapper<User> wrapper2 = new LambdaQueryWrapper<>();
-        wrapper2.select(User.class,new Predicate<TableFieldInfo>() {
-            @Override
-            public boolean test(TableFieldInfo tableFieldInfo) {
-                return !tableFieldInfo.getColumn().equals("upassword");
-            }
-        }).eq(User::getUid, user.getUid());
+        wrapper2.eq(User::getUid, user.getUid());
         user = this.userMapper.selectOne(wrapper2);
         return user;
     }
@@ -133,7 +109,6 @@ public class UserServiceImpl implements UserService {
             String secondEncrypt = DigestUtils.md5Hex(firstEncrypt + SALT);
             user.setUpassword(secondEncrypt);
             this.userMapper.updateById(user);
-            user.setUpassword(null);
         }
         return user;
     }

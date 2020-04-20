@@ -6,8 +6,8 @@ public class Constant {
     // 筛选书籍部分
     public static final int VERSION_ALL = 1;    // 查询书籍时，版本号 选择查询全部
     public static final int GRADE_ALL = 1;      // 查询书籍时，年级号 选择查询全部
-    public static final String VERSION="2";
-    public static final String GRADE="3";
+    public static final String VERSION = "2";
+    public static final String GRADE = "3";
 
     // SharedPreferences 部分
     public static final String SP_NAME = "用户";      // SharedPreferences 名称
@@ -22,36 +22,30 @@ public class Constant {
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
     public static final String BOOK_JSON = "";//最近读过的一本书
 
+    public static final String BASE_URL = "http://114.55.101.120:80/";//"http://192.168.43.26:8080/"
+
     // URL 链接部分
-    public static final String URL_BOOKS_FIND_ALL = "http://47.94.171.160:8080/book/all";   // 获取全部书的信息
-    public static final String URL_BOOKS_FIND_BY_VERSION = "http://47.94.171.160:8080/book/findbyversion";  // 只通过 Version 查询书
-    public static final String URL_BOOKS_FIND_BY_GRADE = "http://47.94.171.160:8080/book/findbygrade";      // 只通过 Grade 查询书
-    public static final String URL_BOOKS_FIND_BY_VER_AND_GRA = "http://47.94.171.160:8080/book/findbyversionandgrade";  // 通过Version与grade一起查书
-    public static final String URL_UNITS_FIND_ALL = "http://47.94.171.160:8080/unit/all";   // 查询所有 Unit
-    public static final String URL_VERSIONS_FIND_ALL = "http://47.94.171.160:8080/version/all";     // 查询所有 Version
-    public static final String URL_GRADES_FIND_ALL = "http://47.94.171.160:8080/grade/all"; // 查询所有 Grade
-    public static final String URL_WORDS_FIND_ALL = "http://47.94.171.160:8080/word/findallwords";  // 查询所有单词
-    public static final String URL_WORDS_FIND_BY_BOOK = "http://47.94.171.160:8080/word/findwordsbybook";   // 根据 Book 查单词
-    public static final String URL_WORDS_FIND_BY_BOOK_AND_UNIT = "http://47.94.171.160:8080/word/findwordsbybookandunit";   // 根据 Book 与 Unit 查单词
-    public static final String URL_LOGIN_VERIFY = "http://47.94.171.160:8080/user/login"; //手机验证码登录
-    public static final String URL_SAVE_RECORD = "http://47.94.171.160:8080/record/save";//保存听写记录http:
-    public static final String URL_GET_RECORD = "http://47.94.171.160:8080/chart/getChart";//保存听写记录http://47.94.171.160:8080/chart/getChart?uid=10020
-    public static final String URL_GET_ACCOUNT = "http://47.94.171.160:8080/word/getsumbybid";//根据bid获取这本书的单词总数
+    public static final String URL_BOOKS_FIND_ALL = BASE_URL + "book/all";   // 获取全部书的信息
+    public static final String URL_BOOKS_FIND_BY_VER_AND_GRA = BASE_URL + "book/findbyversionandgrade";  // 通过Version与grade一起查书
+    public static final String URL_VERSIONS_FIND_ALL = BASE_URL + "version/all";     // 查询所有 Version
+    public static final String URL_GRADES_FIND_ALL = BASE_URL + "grade/all"; // 查询所有 Grade
+    public static final String URL_WORDS_FIND_BY_BOOK_AND_UNIT = BASE_URL + "word/findwordsbybookandunit";   // 根据 Book 与 Unit 查单词
+    public static final String URL_LOGIN_VERIFY = BASE_URL + "user/login"; //手机验证码登录
+    public static final String URL_SAVE_RECORD = BASE_URL + "record/save";//保存听写记录http:
+    public static final String URL_GET_ACCOUNT = BASE_URL + "word/getsumbybid";//根据bid获取这本书的单词总数
 
 
-
-
-    public static final String URL_HEAD_UPLOAD = "http://47.94.171.160:8080/user/uploadhead";//头像上传
-    public static final String URL_UPDATE_USER = "http://47.94.171.160:8080/user/updateuser";//更新用户详细信息
-    public static final String URL_UPD_PWD = "http://47.94.171.160:8080/user/updatepwd";       // 修改密码
+    public static final String URL_HEAD_UPLOAD = BASE_URL + "user/uploadhead";//头像上传
+    public static final String URL_UPDATE_USER = BASE_URL + "user/updateuser";//更新用户详细信息
+    public static final String URL_UPD_PWD = BASE_URL + "user/updatepwd";       // 修改密码
     // Intent 传递 ====  接收部分
     public static final String HOST_CON_DETAIL_BOOK = "book";   // 在Host -> BookDetail 时传递 book Entity
     public static final String DETAIL_CON_RECITE_OR_DICTATION = "chooseWords";  // 在Detail -> 听写/背诵 时传递 List<Word> (jsonStr) 使用
     public static final String RECITE_CON_DICTATION = "wordlist";   // 在 背诵 -> 听写时使用
-    public static final String NEWWORD_CON_LEARNWORD_LEARN="learnNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
-    public static final String WRONGWORD_CON_LEARNWORD_LEARN="learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
-    public static final String NEWWORD_CON_LEARNWORD_DICTATION="listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
-    public static final String WRONGWORD_CON_LEARNWORD_DICTATION="listenWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
+    public static final String NEWWORD_CON_LEARNWORD_LEARN = "learnNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
+    public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
+    public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
+    public static final String WRONGWORD_CON_LEARNWORD_DICTATION = "listenWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
 
     // 拼写
     public static final String NO_STYLE = "未拼写";           // 默写时，输入值为空时默认值
@@ -83,15 +77,15 @@ public class Constant {
     public static final int PWD_TYPE_UPD_OLD = 1;   // 通过旧密码修改密码
     public static final int PWD_TYPE_UPD_PHONE = 2; // 通过手机验证修改密码
 
-  public static Point point;//获取屏幕的大小
+    public static Point point;//获取屏幕的大小
 
     //学习记录
-    public static final String URL_GETRECORD_TOLINECHART_FIVE="http://47.94.171.160:8080/dayrecord/getdata";
-    public static final String URL_GETRECORD_TOLINECHART_MONTH="http://47.94.171.160:8080/dayrecord/getdata";
-    public static final int WORD_FIVE=1;
-    public static final int WORD_MONTH=2;
-    public static final int ACCURENCY_FIVE=3;
-    public static final int ACCURENCY_MONTH=4;
+    public static final String URL_GETRECORD_TOLINECHART_FIVE = BASE_URL + "dayrecord/getdata";
+    public static final String URL_GETRECORD_TOLINECHART_MONTH = BASE_URL + "dayrecord/getdata";
+    public static final int WORD_FIVE = 1;
+    public static final int WORD_MONTH = 2;
+    public static final int ACCURENCY_FIVE = 3;
+    public static final int ACCURENCY_MONTH = 4;
 
 
 }

@@ -93,7 +93,8 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updateuser")
-    public User updateUser(User user){
+    public User updateUser(@RequestBody User user){
+        System.out.println(user.toString());
         return this.userService.updateUser(user);
     }
 
@@ -126,9 +127,10 @@ public class UserController {
                                @RequestParam(value = "uid",required = true,defaultValue = "")int uid,
                                @RequestParam(value = "upasswordOld",required = false)String passwordOld,
                                @RequestParam(value = "upasswordNew",required = false)String passwordNew,
-                               @RequestParam(value = "password",required = false)String password) {
+                               @RequestParam(value = "upassword",required = false)String password) {
         LoginInfo loginInfo = new LoginInfo();
         if (type == 1) {    // 此时为根据旧密码修改旧密码
+            System.out.println("旧"+passwordOld+",新"+passwordNew);
             String phone = this.userService.findPhoneByUid(uid);
             User user = userService.loginByPP(phone, passwordOld);
             if (user != null) {
@@ -139,6 +141,7 @@ public class UserController {
                 loginInfo.setRegister_type(0);
             }
         } else if(type == 0 || type == 2){    // 此时为设置密码
+            System.out.println(password);
             User user = userService.findUserByUid(uid);
             user = userService.updatePwd(user, password);
             loginInfo.setRegister_type(1);

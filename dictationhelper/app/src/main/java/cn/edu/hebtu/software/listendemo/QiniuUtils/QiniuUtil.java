@@ -47,9 +47,9 @@ public class QiniuUtil {
 //        }
 //    }
 
-
     //上传图片
-    public static String uploadImg2QiNiu(String picPath) {
+    public synchronized static String uploadImg2QiNiu(String picPath) {
+
         UploadManager uploadManager = new UploadManager();
         // 设置图片名字
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

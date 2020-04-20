@@ -9,8 +9,16 @@ public class Grade implements Serializable {
     private String gname;
     private int deleted;
     private int version;
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public int getDeleted() {
         return deleted;
@@ -26,22 +34,6 @@ public class Grade implements Serializable {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public int getGid() {

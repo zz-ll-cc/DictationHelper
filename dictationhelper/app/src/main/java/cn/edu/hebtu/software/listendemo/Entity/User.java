@@ -18,8 +18,8 @@ public class User implements Serializable {
     public static final int isVip = 1;
     private int deleted;
     private int version;
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
 
     public int getDeleted() {
         return deleted;
@@ -37,19 +37,23 @@ public class User implements Serializable {
         this.version = version;
     }
 
-    public Date getCreateTime() {
+    public static int getIsVip() {
+        return isVip;
+    }
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

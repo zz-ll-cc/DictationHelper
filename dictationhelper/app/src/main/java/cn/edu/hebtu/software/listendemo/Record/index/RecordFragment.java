@@ -207,9 +207,9 @@ public class RecordFragment extends Fragment {
         User user = new Gson().fromJson(getActivity().getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE).getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
         if (user.getUphone().equals("15833143601")){
             csb.setText("已连续学习1天");
-        }else {
-            csb.setText("已连续学习5天");
-        }
+    }else {
+        csb.setText("已连续学习5天");
+    }
     }
 
     private void initRecycler() {

@@ -1,4 +1,5 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.settings;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,7 +36,6 @@ import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISCameraConfig;
 import com.yuyh.library.imgsel.config.ISListConfig;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
@@ -51,7 +52,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -60,6 +60,7 @@ import okhttp3.Response;
 import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
 
 public class EditMsgActivity extends AppCompatActivity implements View.OnClickListener {
+    private String headpicPath = "";
     private ImageView ivExit;
     private ImageView ivHeader;
     private TextView tvSetHeader;
@@ -86,13 +87,13 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             switch (msg.what) {
                 case UPLOAD_FORM:
                     sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj + "").commit();
-                    Log.e("editMSGJSON",msg.obj + "");
+                    Log.e("editMSGJSON", msg.obj + "");
                     Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case UPLOAD_HEADER:
                     user = gson.fromJson(msg.obj + "", User.class);
-                    Log.e("editHeaderJSON",msg.obj + "");
+                    Log.e("editHeaderJSON", msg.obj + "");
                     sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
                     tvSetHeader.setText("上传成功");
                     RequestOptions ro = new RequestOptions().circleCrop();
@@ -173,7 +174,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             day = 1;
         } else {
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.getUbirth());
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(user.getUbirth());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 day = ca.get(Calendar.DAY_OF_MONTH);
@@ -260,7 +261,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private void updNewUserMsg() {
         if (!tvBirth.getText().toString().isEmpty()) {
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(tvBirth.getText().toString());
+                Date date = new SimpleDateFormat("yyyy年MM月dd日").parse(tvBirth.getText().toString());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 int day = ca.get(Calendar.DAY_OF_MONTH);
@@ -424,31 +425,33 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
 //                 .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
 //        RequestBody requestBody = requestBodyBuilder.build();
         //上传到七牛
-        String headpicPath=uploadImg2QiNiu(path);
+        this.headpicPath = uploadImg2QiNiu(path);
         //路径返回给服务器
-        FormBody fb = new FormBody.Builder().add("fileUrl", headpicPath + "").add("uid", user.getUid() + "").build();
-        Request request = new Request.Builder()
-                .url(Constant.URL_HEAD_UPLOAD)
-                .post(fb)
-                .build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Message message = new Message();
-                message.what = UPLOAD_ERROR;
-                handler.sendMessage(message);
-            }
+        synchronized (QiniuUtil.class) {
+            FormBody fb = new FormBody.Builder().add("fileUrl", headpicPath + "").add("uid", user.getUid() + "").build();
+            Request request = new Request.Builder()
+                    .url(Constant.URL_HEAD_UPLOAD)
+                    .post(fb)
+                    .build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Message message = new Message();
+                    message.what = UPLOAD_ERROR;
+                    handler.sendMessage(message);
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Message message = new Message();
-                message.obj = response.body().string();
-                Log.e("changHead", message.obj.toString());
-                message.what = UPLOAD_HEADER;
-                handler.sendMessage(message);
-            }
-        });
-        tvSetHeader.setText("正在上传...");
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Message message = new Message();
+                    message.obj = response.body().string();
+                    Log.e("changHead", message.obj.toString());
+                    message.what = UPLOAD_HEADER;
+                    handler.sendMessage(message);
+                }
+            });
+            tvSetHeader.setText("正在上传...");
+        }
     }
 }

@@ -95,8 +95,6 @@ public class ListenIndexActivity extends AppCompatActivity {
         Gson gson = new Gson();
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        Log.e("ListenIndexActivity", "" + user.toString());
-
 
 //        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
 //            //透明状态栏

@@ -338,7 +338,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
             String[] args = localMedia.getCutPath().split("/");
             //builder.addFormDataPart("file",""+args[args.length-1],fileBody);
             Log.e("path",args[args.length-1]);
-           String headpicPath=uploadImg2QiNiu(args[args.length-1]);
+           String headpicPath=uploadImg2QiNiu(localMedia.getCutPath());
            builder.addFormDataPart("fileUrl",  headpicPath+ "");
 
         }

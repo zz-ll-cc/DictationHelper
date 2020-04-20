@@ -46,8 +46,8 @@ public class RecordController {
         DayRecord dayRecord=new DayRecord().setRightSum(right).setErrorSum(error).setSum(sum).setAccuracy(acc).setUserId(uid);
         //保存天记录
         dayRecordService.saveOne(dayRecord);
-        String datestr3= datestr1.split("-")[0]+"-"+datestr1.split("-")[1]; // yyyy-MM-dd
-        MonthRecord monthRecord=new MonthRecord(error,uid,right,sum,datestr3,acc);
+        String datestr= datestr1.split("-")[0]+"-"+datestr1.split("-")[1]; // yyyy-MM-dd
+        MonthRecord monthRecord=new MonthRecord().setErrorSum(error).setUserId(uid).setRightSum(right).setAccuracy(acc).setDate(datestr);
         //保存月记录
         monthRecordService.saveOne(monthRecord);
 

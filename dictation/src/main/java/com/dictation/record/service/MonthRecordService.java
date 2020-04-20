@@ -16,7 +16,7 @@ public interface MonthRecordService {
     List<MonthRecord> findByUid(int uid);
 
     //获取近五个月记录
-    List<MonthRecord> findLastFiveRecordsByUid(int uid);
+    List<MonthRecord> findLastFiveRecordsByUid(int uid,int pageNum,int pageSize);
 
     List<Double> findAccuracyListByUid(int uid);
 

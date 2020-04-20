@@ -1,6 +1,9 @@
 package com.dictation.record.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.mapper.MonthRecordMapper;
+import com.dictation.record.entity.DayRecord;
 import com.dictation.record.entity.MonthRecord;
 import com.dictation.record.service.MonthRecordService;
 import com.github.pagehelper.PageHelper;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,39 +29,47 @@ public class MonthRecordServiceImpl implements MonthRecordService {
     @Override
     public MonthRecord saveOne(MonthRecord monthRecord) {
         MonthRecord oldRecord = null;
-        if((oldRecord = monthRecordMapper.findByUidAndDate(monthRecord.getUid(),monthRecord.getDate())) != null){
+        QueryWrapper<MonthRecord> monthRecordQueryWrapper = new QueryWrapper<>();
+        monthRecordQueryWrapper.eq("user_id",monthRecord.getUserId()).eq("date",monthRecord.getDate());
+        if((oldRecord = monthRecordMapper.selectOne(monthRecordQueryWrapper))!= null){
             oldRecord.setSum(monthRecord.getSum() + oldRecord.getSum());
-            oldRecord.setMright(monthRecord.getMright() + oldRecord.getMright());
-            oldRecord.setError(monthRecord.getError() + oldRecord.getError());
-            oldRecord.setAcc(monthRecord.getMright()*1.0/monthRecord.getSum()*100);
-            monthRecordMapper.update(oldRecord);
+            oldRecord.setRightSum(monthRecord.getRightSum() + oldRecord.getRightSum());
+            oldRecord.setErrorSum(monthRecord.getErrorSum() + oldRecord.getErrorSum());
+            oldRecord.setAccuracy(monthRecord.getRightSum()*1.0/monthRecord.getSum()*100);
+            monthRecordMapper.updateById(oldRecord);
             return oldRecord;
         }
-        monthRecord.setAcc(monthRecord.getMright()*1.0/monthRecord.getSum()*100);
+        monthRecord.setAccuracy(monthRecord.getRightSum()*1.0/monthRecord.getSum()*100);
         monthRecordMapper.insert(monthRecord);
         return monthRecord;
     }
 
     @Override
     public List<MonthRecord> findByUid(int uid) {
-        return monthRecordMapper.findByUid(uid);
+        QueryWrapper<MonthRecord> monthRecordQueryWrapper = new QueryWrapper<>();
+        monthRecordQueryWrapper.eq("user_id",uid);
+        return monthRecordMapper.selectList(monthRecordQueryWrapper);
     }
 
 
     @Override
-    public List<MonthRecord> findLastFiveRecordsByUid(int uid) {
-        PageHelper.startPage(1,5);
-        return monthRecordMapper.findByUid(uid);
+    public List<MonthRecord> findLastFiveRecordsByUid(int uid,int pageNum,int pageSize) {
+        Page<MonthRecord> monthRecordPage = new Page<>(pageNum,pageSize);
+        QueryWrapper<MonthRecord> monthRecordQueryWrapper = new QueryWrapper<>();
+        monthRecordQueryWrapper.eq("user_id",uid);
+        return monthRecordMapper.selectPage(monthRecordPage,monthRecordQueryWrapper).getRecords();
     }
 
     @Override
     public List<Double> findAccuracyListByUid(int uid) {
         List<Double> accuracyList = null;
-        List<MonthRecord> records = monthRecordMapper.findByUid(uid);
+        QueryWrapper<MonthRecord> monthRecordQueryWrapper = new QueryWrapper<>();
+        monthRecordQueryWrapper.eq("user_id",uid);
+        List<MonthRecord> records = monthRecordMapper.selectList(monthRecordQueryWrapper);
         if(records != null && records.size() != 0){
             accuracyList = new ArrayList<>(records.size());
             for(MonthRecord mr : records){
-                accuracyList.add(mr.getAcc());
+                accuracyList.add(mr.getAccuracy());
             }
         }
         return accuracyList;
@@ -66,7 +78,9 @@ public class MonthRecordServiceImpl implements MonthRecordService {
     @Override
     public List<String> findDateListByUid(int uid) {
         List<String> dateList = null;
-        List<MonthRecord> records = monthRecordMapper.findByUid(uid);
+        QueryWrapper<MonthRecord> monthRecordQueryWrapper = new QueryWrapper<>();
+        monthRecordQueryWrapper.eq("user_id",uid);
+        List<MonthRecord> records = monthRecordMapper.selectList(monthRecordQueryWrapper);
         if(records != null && records.size() != 0){
             dateList = new ArrayList<>(records.size());
             for (MonthRecord r:records){

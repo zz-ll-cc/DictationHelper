@@ -65,6 +65,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_HEAD_UPLOAD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_LOGIN_VERIFY;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_UPDATE_USER;
+import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
 
 public class CompleteInformationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener , View.OnClickListener, EasyPermissions.PermissionCallbacks {
 

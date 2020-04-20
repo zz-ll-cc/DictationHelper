@@ -1,5 +1,4 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.settings;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -50,12 +49,15 @@ import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
 
 public class EditMsgActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivExit;
@@ -427,7 +429,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         FormBody fb = new FormBody.Builder().add("fileUrl", headpicPath + "").add("uid", user.getUid() + "").build();
         Request request = new Request.Builder()
                 .url(Constant.URL_HEAD_UPLOAD)
-                .post(requestBody)
+                .post(fb)
                 .build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {

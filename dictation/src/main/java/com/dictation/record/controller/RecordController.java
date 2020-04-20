@@ -47,7 +47,7 @@ public class RecordController {
         //保存天记录
         dayRecordService.saveOne(dayRecord);
         String datestr= datestr1.split("-")[0]+"-"+datestr1.split("-")[1]; // yyyy-MM-dd
-        MonthRecord monthRecord=new MonthRecord().setErrorSum(error).setUserId(uid).setRightSum(right).setAccuracy(acc).setDate(datestr);
+        MonthRecord monthRecord=new MonthRecord().setErrorSum(error).setUserId(uid).setRightSum(right).setSum(sum).setAccuracy(acc).setDate(datestr);
         //保存月记录
         monthRecordService.saveOne(monthRecord);
 

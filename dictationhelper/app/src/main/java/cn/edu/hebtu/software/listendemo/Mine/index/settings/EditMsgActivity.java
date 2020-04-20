@@ -84,11 +84,13 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             switch (msg.what) {
                 case UPLOAD_FORM:
                     sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj + "").commit();
+                    Log.e("editMSGJSON",msg.obj + "");
                     Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
                 case UPLOAD_HEADER:
                     user = gson.fromJson(msg.obj + "", User.class);
+                    Log.e("editHeaderJSON",msg.obj + "");
                     sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
                     tvSetHeader.setText("上传成功");
                     RequestOptions ro = new RequestOptions().circleCrop();
@@ -169,7 +171,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             day = 1;
         } else {
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(user.getUbirth());
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.getUbirth());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 day = ca.get(Calendar.DAY_OF_MONTH);
@@ -256,7 +258,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private void updNewUserMsg() {
         if (!tvBirth.getText().toString().isEmpty()) {
             try {
-                Date date = new SimpleDateFormat("yyyy年MM月dd日").parse(tvBirth.getText().toString());
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(tvBirth.getText().toString());
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);
                 int day = ca.get(Calendar.DAY_OF_MONTH);

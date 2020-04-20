@@ -28,8 +28,7 @@ import java.io.InputStream;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private QiniuUtil qiniuUtil;
+
     @RequestMapping("/login")
     public LoginInfo login(@RequestParam(value = "login_type",required = true)int login_type,
                         @RequestParam(value = "phone",required = true,defaultValue = "")String phone,
@@ -40,6 +39,7 @@ public class UserController {
                 loginInfo = this.loginByVC(phone);   // 使用验证码登陆
                 break;
             case 2:
+
                 loginInfo = this.loginUserByPwd(phone, password);    // 使用密码登录
                 break;
         }
@@ -101,24 +101,11 @@ public class UserController {
      * 修改头像
      */
     @RequestMapping("/uploadhead")
-    public User uploadhead(@RequestParam(value = "file",required = false) MultipartFile file,
+    public User uploadhead(@RequestParam(value = "fileUrl",required = false) String fileUrl,
                            @RequestParam(value = "uid",required = false) int uid){
-        // 1. 获取图片
-        File f = null;
-        InputStream ins = null;
-        String url = null;
-        try {
-            ins = file.getInputStream();
-            f = new File(file.getOriginalFilename());
-            FileUtil.inputStreamToFile(ins,f);
-            url = qiniuUtil.saveImage(f,file.getOriginalFilename());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // 2. 修改头像地址
-        this.userService.updateUserImage(uid,url);
-        // 3. 获取user对象
+        // 1. 修改头像地址
+        this.userService.updateUserImage(uid,fileUrl);
+        // 2. 返回user对象
         User user = this.userService.findUserByUid(uid);
         return user;
     }

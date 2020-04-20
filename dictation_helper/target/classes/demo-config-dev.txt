@@ -1,5 +1,0 @@
-# config
-jdbcUrl = jdbc:mysql://zin4ever.top:3306/dictation_db
-user = lichen
-password = Lichen!0524
-devMode = true

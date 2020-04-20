@@ -411,14 +411,18 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
 
     private void uploadImg(String path) {
         Log.e("path", path);
-        File file = new File(path);
-        MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream; charset=utf-8");
-        String[] args = path.split("/");
-        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("uid", user.getUid() + "")
-                .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
-        RequestBody requestBody = requestBodyBuilder.build();
+//        File file = new File(path);
+//        MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream; charset=utf-8");
+//        String[] args = path.split("/");
+//         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
+//              .setType(MultipartBody.FORM)
+//                 .addFormDataPart("uid", user.getUid() + "")
+//                 .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
+//        RequestBody requestBody = requestBodyBuilder.build();
+        //上传到七牛
+        String headpicPath=uploadImg2QiNiu(path);
+        //路径返回给服务器
+        FormBody fb = new FormBody.Builder().add("fileUrl", headpicPath + "").add("uid", user.getUid() + "").build();
         Request request = new Request.Builder()
                 .url(Constant.URL_HEAD_UPLOAD)
                 .post(requestBody)

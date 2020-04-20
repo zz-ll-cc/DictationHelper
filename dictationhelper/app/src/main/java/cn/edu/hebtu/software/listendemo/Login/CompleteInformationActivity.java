@@ -335,7 +335,10 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
             }
             //获取剪裁后的路径，而不是getPath
             String[] args = localMedia.getCutPath().split("/");
-            builder.addFormDataPart("file",""+args[args.length-1],fileBody);
+            //builder.addFormDataPart("file",""+args[args.length-1],fileBody);
+            Log.e("path",args[args.length-1]);
+           String headpicPath=uploadImg2QiNiu(args[args.length-1]);
+           builder.addFormDataPart("fileUrl",  headpicPath+ "");
 
         }
 

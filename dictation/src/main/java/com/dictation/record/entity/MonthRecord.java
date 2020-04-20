@@ -1,100 +1,51 @@
 package com.dictation.record.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.util.Date;
 
 /**
  * @ClassName MonthRecord
  * @Description
- * @Author liuzhe
+ * @Author lz
  * @Date 2020-04-14 21:46
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@TableName(value = "tbl_month_record")
 public class MonthRecord {
-    private int mrid;
-    private int error;
-    private int uid;
-    private int mright;
-    private int sum;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
+
+    private Integer errorSum;
+
+    private Integer rightSum;
+
+    private Integer sum;
+
+    private Integer userId;
+
+    private Double accuracy;
+
     private String date;
-    private double acc;
 
-    public MonthRecord( int error, int uid, int mright, int sum, String date, double acc) {
-        this.mrid = mrid;
-        this.error = error;
-        this.uid = uid;
-        this.mright = mright;
-        this.sum = sum;
-        this.date = date;
-        this.acc = acc;
-    }
+    @Version
+    private Integer version;
 
-    public MonthRecord() { }
+    @TableLogic
+    private Integer deleted;
 
-    public int getMrid() {
-        return mrid;
-    }
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-    public void setMrid(int mrid) {
-        this.mrid = mrid;
-    }
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
-    public int getError() {
-        return error;
-    }
 
-    public void setError(int error) {
-        this.error = error;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public int getMright() {
-        return mright;
-    }
-
-    public void setMright(int mright) {
-        this.mright = mright;
-    }
-
-    public int getSum() {
-        return sum;
-    }
-
-    public void setSum(int sum) {
-        this.sum = sum;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public double getAcc() {
-        return acc;
-    }
-
-    public void setAcc(double acc) {
-        this.acc = acc;
-    }
-
-    @Override
-    public String toString() {
-        return "MonthRecord{" +
-                "mrid=" + mrid +
-                ", error=" + error +
-                ", uid=" + uid +
-                ", mright=" + mright +
-                ", sum=" + sum +
-                ", date='" + date + '\'' +
-                ", acc=" + acc +
-                '}';
-    }
 }

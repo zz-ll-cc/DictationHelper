@@ -81,9 +81,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserImage(int id, String url) {
-        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
-        wrapper.set("uheadPath",url).eq("uid",id);
-        this.userMapper.update(null,wrapper);
+        User user = this.userMapper.selectById(id);
+        user.setUheadPath(url);
+        this.userMapper.updateById(user);
     }
 
     @Override

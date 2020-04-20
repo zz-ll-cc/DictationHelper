@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>dictation</name>
     <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -153,17 +154,43 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
                 <directory>src/main/webapp/WEB-INF/jsp</directory>
                 <!--如果使用springboot自带的tomcat启动，则使用如下配置jsp路径-->
-                <targetPath>META-INF/resources</targetPath>
+<!--                <targetPath>META-INF/resources</targetPath>-->
                 <!--如果使用maven启动本地tomcat启动，则使用如下配置-->
-                <!--<targetPath>/WEB-INF/jsp</targetPath>-->
+                <targetPath>/WEB-INF/jsp</targetPath>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
     </build>

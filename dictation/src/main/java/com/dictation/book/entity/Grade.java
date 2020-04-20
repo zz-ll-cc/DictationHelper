@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.jnlp.IntegrationService;
 import java.util.Date;
 
 /**

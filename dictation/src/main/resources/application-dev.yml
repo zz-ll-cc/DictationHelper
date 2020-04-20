@@ -2,7 +2,6 @@ server:
   servlet:
     context-path: /
   port: 8080
-
 spring:
   mvc:
     view:
@@ -19,11 +18,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 30000
-      minimum-idle: 3
-      maximum-pool-size: 10
-
-
-
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -33,10 +27,5 @@ mybatis-plus:
       logic-not-delete-value: 0
   mapper-locations: classpath*:mapping/*Mapper.xml
 
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
 
 

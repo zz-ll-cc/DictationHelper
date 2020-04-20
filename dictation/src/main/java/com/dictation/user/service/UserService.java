@@ -31,7 +31,7 @@ public interface UserService {
     public User loginByPP(String phone, String password);
 
     // 上传头像
-    public void uploadHead(User user);
+    //public void uploadHead(User user);
 
     // 修改用户信息
     public User updateUser(User user);

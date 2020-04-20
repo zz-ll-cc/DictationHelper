@@ -2,6 +2,9 @@ server:
   servlet:
     context-path: /
   port: 80
+  ssl:
+    key-store: 2964129_zin4ever.top
+    key-store-password: tvNgELBi
 spring:
   mvc:
     view:

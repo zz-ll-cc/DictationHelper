@@ -96,21 +96,21 @@
 
 
         <!--pagehelper-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-autoconfigure</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper</artifactId>-->
+<!--            <version>5.1.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper-spring-boot-autoconfigure</artifactId>-->
+<!--            <version>1.2.3</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+<!--            <version>1.2.3</version>-->
+<!--        </dependency>-->
 
         <!--七牛云上传sdk-->
         <dependency>
@@ -153,6 +153,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.2.RELEASE</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -167,11 +168,11 @@
             <resource>
                 <directory>src/main/webapp/WEB-INF/jsp</directory>
                 <!--如果使用springboot自带的tomcat启动，则使用如下配置jsp路径-->
-<!--                <targetPath>META-INF/resources</targetPath>-->
+                <targetPath>META-INF/resources</targetPath>
                 <!--如果使用maven启动本地tomcat启动，则使用如下配置-->
-                <targetPath>/WEB-INF/jsp</targetPath>
+<!--                <targetPath>/WEB-INF/jsp</targetPath>-->
                 <includes>
-                    <include>**/*.*</include>
+                    <include>**/**</include>
                 </includes>
             </resource>
             <resource>

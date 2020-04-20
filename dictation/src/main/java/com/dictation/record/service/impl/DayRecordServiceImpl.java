@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.mapper.DayRecordMapper;
 import com.dictation.record.entity.DayRecord;
 import com.dictation.record.service.DayRecordService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

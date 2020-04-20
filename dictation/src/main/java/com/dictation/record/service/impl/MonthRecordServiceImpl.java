@@ -6,7 +6,6 @@ import com.dictation.mapper.MonthRecordMapper;
 import com.dictation.record.entity.DayRecord;
 import com.dictation.record.entity.MonthRecord;
 import com.dictation.record.service.MonthRecordService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

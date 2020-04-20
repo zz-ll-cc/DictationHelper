@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private int uid;
@@ -15,6 +16,42 @@ public class User implements Serializable {
     private String usex;
     private int ugrade; //0保密,123456
     public static final int isVip = 1;
+    private int deleted;
+    private int version;
+    private Date createTime;
+    private Date updateTime;
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     @Override
     public String toString() {

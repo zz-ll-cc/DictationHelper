@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Word implements Serializable {
     public static final int TYPE_KEYNODE = 1;
@@ -13,6 +14,42 @@ public class Word implements Serializable {
     private String wchinese;
     private String wenglish;
     private int isTrue;
+    private int deleted;
+    private int version;
+    private Date createTime;
+    private Date updateTime;
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     @Override
     public String toString() {

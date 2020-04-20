@@ -17,6 +17,10 @@ spring:
     password: Lichen!0524
     url: jdbc:mysql://zin4ever.top/dictation_db?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 30000
+      minimum-idle: 3
+      maximum-pool-size: 10
 
 
 

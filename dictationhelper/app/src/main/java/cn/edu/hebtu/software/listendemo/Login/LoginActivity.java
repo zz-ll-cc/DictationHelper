@@ -147,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putString(Constant.USER_KEEP_KEY , jsonObject.getString("user"));
                                 editor.putBoolean(Constant.AUTO_LOGIN_KEY , true);
+                                Log.e("LoginJSON",jsonObject.getString("user"));
                                 editor.commit();
                                 Intent intent = new Intent(LoginActivity.this, CompleteInformationActivity.class);
                                 startActivity(intent);

@@ -31,10 +31,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 import com.yuyh.library.imgsel.ISNav;
 import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISCameraConfig;
 import com.yuyh.library.imgsel.config.ISListConfig;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -44,7 +49,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil;
+import cn.edu.hebtu.software.listendemo.QiniuUtils.Auth;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
@@ -57,7 +62,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
+//import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
 
 public class EditMsgActivity extends AppCompatActivity implements View.OnClickListener {
     private String headpicPath = "";
@@ -95,7 +100,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                     user = gson.fromJson(msg.obj + "", User.class);
                     Log.e("editHeaderJSON", msg.obj + "");
                     sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
-                    tvSetHeader.setText("上传成功");
+//                    tvSetHeader.setText("上传成功");
                     RequestOptions ro = new RequestOptions().circleCrop();
                     Glide.with(getApplicationContext())
                             .load(user.getUheadPath())
@@ -106,6 +111,37 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                     break;
                 case UPLOAD_ERROR:
                     tvSetHeader.setText("服务器繁忙...");
+                    break;
+                case UPLOAD_QINIU_TRUE:
+                    //路径返回给服务器
+                    Log.e("上传头像",msg.obj+"");
+                    //synchronized{
+                        FormBody fb = new FormBody.Builder().add("fileUrl", msg.obj + "").add("uid", user.getUid() + "").build();
+                        Request request = new Request.Builder()
+                                .url(Constant.URL_HEAD_UPLOAD)
+                                .post(fb)
+                                .build();
+                        Call call = client.newCall(request);
+                        call.enqueue(new okhttp3.Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                Message message = new Message();
+                                message.what = UPLOAD_ERROR;
+                                handler.sendMessage(message);
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                Message message = new Message();
+                                message.obj = response.body().string();
+                                Log.e("changHead", message.obj.toString());
+                                message.what = UPLOAD_HEADER;
+                                handler.sendMessage(message);
+                            }
+                        });
+                        tvSetHeader.setText("上传成功");
+//                        tvSetHeader.setText("正在上传...");
+                    //}
                     break;
             }
 
@@ -120,6 +156,8 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private static final int UPLOAD_HEADER = 200;
     private static final int UPLOAD_FORM = 400;
     private static final int UPLOAD_ERROR = 600;
+    private static final int UPLOAD_QINIU_TRUE=800;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -414,44 +452,38 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+
+    public synchronized  String uploadImg2QiNiu(String picPath) {
+        UploadManager uploadManager = new UploadManager();
+        // 设置图片名字
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String key = "icon_" + sdf.format(new Date());
+        uploadManager.put(picPath, key, Auth.create(Constant.ACCESSKEY, Constant.SECRETKEY).uploadToken(Constant.BUCKET), new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject res) {
+                // info.error中包含了错误信息，可打印调试
+                // 上传成功后将key值上传到自己的服务器
+                if (info.isOK()) {
+                    Log.e( "token===" ,Auth.create(Constant.ACCESSKEY, Constant.SECRETKEY).uploadToken(Constant.BUCKET));
+                    headpicPath ="http://cdn.zin4ever.top/"+key;
+                    Log.e(" headpicPath" , headpicPath);
+                    Message message = new Message();
+                    message.what = UPLOAD_QINIU_TRUE;
+                    message.obj=headpicPath;
+                    headpicPath="";
+                    handler.sendMessage(message);
+                }else{
+                    Log.e("error",info.error);
+                }
+            }
+        }, null);
+        return headpicPath;
+    }
+
     private void uploadImg(String path) {
         Log.e("path", path);
-//        File file = new File(path);
-//        MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream; charset=utf-8");
-//        String[] args = path.split("/");
-//         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
-//              .setType(MultipartBody.FORM)
-//                 .addFormDataPart("uid", user.getUid() + "")
-//                 .addFormDataPart("file", "" + args[args.length - 1], RequestBody.create(MutilPart_Form_Data, file));
-//        RequestBody requestBody = requestBodyBuilder.build();
+        tvSetHeader.setText("正在上传...");
         //上传到七牛
         this.headpicPath = uploadImg2QiNiu(path);
-        //路径返回给服务器
-        synchronized (QiniuUtil.class) {
-            FormBody fb = new FormBody.Builder().add("fileUrl", headpicPath + "").add("uid", user.getUid() + "").build();
-            Request request = new Request.Builder()
-                    .url(Constant.URL_HEAD_UPLOAD)
-                    .post(fb)
-                    .build();
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Message message = new Message();
-                    message.what = UPLOAD_ERROR;
-                    handler.sendMessage(message);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Message message = new Message();
-                    message.obj = response.body().string();
-                    Log.e("changHead", message.obj.toString());
-                    message.what = UPLOAD_HEADER;
-                    handler.sendMessage(message);
-                }
-            });
-            tvSetHeader.setText("正在上传...");
-        }
     }
 }

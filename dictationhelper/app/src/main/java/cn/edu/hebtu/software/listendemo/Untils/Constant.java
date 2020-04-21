@@ -87,5 +87,11 @@ public class Constant {
     public static final int ACCURENCY_FIVE = 3;
     public static final int ACCURENCY_MONTH = 4;
 
+   //头像上传
+    public static final String ACCESSKEY = "ITGiHJmwEZeBfn6HNC76VWk5PahCoK7J9q7W36Qv";//此处填你自己的AccessKey
+    public static final String SECRETKEY = "pWk_nnowhVKlz3YVTGH4XAVcjtXprOYHQdFnts6_";//此处填你自己的SecretKey
+    public static final String BUCKET = "zin";
+
+
 
 }

@@ -3,6 +3,10 @@ server:
     context-path: /
   port: 8080
 spring:
+  mail:
+    host: smtp.qq.com
+    username: 390597658@qq.com
+    password: zymbtjndogqocbbh
   mvc:
     view:
       prefix: /
@@ -26,6 +30,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
   mapper-locations: classpath*:mapping/*Mapper.xml
+
 
 
 

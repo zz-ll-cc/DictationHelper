@@ -1,6 +1,5 @@
 package com.dictation.util;
 
-import ch.qos.logback.core.util.FileUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -54,7 +53,7 @@ public class QiniuUtil {
             }
             String fileExt = fileName.substring(dotPos + 1).toLowerCase();
             // 判断是否是合法的文件后缀
-            if (!this.isFileAllowed(fileExt)) {
+            if (!FileUtil.isFileAllowed(fileExt)) {
                 return null;
             }
             String randName = UUID.randomUUID().toString().replaceAll("-", "") + "." + fileExt;
@@ -76,17 +75,7 @@ public class QiniuUtil {
     }
 
 
-    // 图片允许的后缀扩展名
-    public String[] IMAGE_FILE_EXTD = new String[] { "png", "bmp", "jpg", "jpeg","pdf" };
 
-    public boolean isFileAllowed(String fileName) {
-        for (String ext : IMAGE_FILE_EXTD) {
-            if (ext.equals(fileName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 }

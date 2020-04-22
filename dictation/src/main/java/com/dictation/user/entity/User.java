@@ -19,20 +19,41 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("tbl_user")
 public class User {
-    @TableId(type = IdType.AUTO)
-    private int uid;
+
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer uid;
+
+    @TableField("user_name")
     private String uname;
+
+    @TableField("user_city")
     private String ucity;
+
+    @TableField("user_phone")
     private String uphone;
-    @TableField("uheadPath")
+
+    @TableField("user_head_path")
     private String uheadPath;
+
+    @TableField("user_password")
     private String upassword;
+
+    @TableField("user_birth")
     private String ubirth;
-    private int vip;
+
+    @TableField("is_vip")
+    private Integer vip;
+
     @TableField("is_admin")
-    private int is_admin;
+    private Integer is_admin;
+
+    @TableField("user_sex")
     private String usex;
-    private int ugrade;
+
+    @TableField("user_grade")
+    private Integer ugrade;
+
+    private Integer userCredit;
 
     @Version
     private Integer version;    // 版本号

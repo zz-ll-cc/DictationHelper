@@ -3,6 +3,7 @@ package com.dictation.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dictation.user.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: UserMapper
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @Author: szy
  * @Date 2020/4/14
  */
+@Component
 public interface UserMapper extends BaseMapper<User> {
 //    // 查看传入的phone是否已经存在
 //    public User checkPhone(String phone);

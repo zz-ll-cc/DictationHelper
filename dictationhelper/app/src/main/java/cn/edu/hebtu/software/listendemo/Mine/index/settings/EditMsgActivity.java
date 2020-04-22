@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +22,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -100,48 +104,56 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                     user = gson.fromJson(msg.obj + "", User.class);
                     Log.e("editHeaderJSON", msg.obj + "");
                     sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
-//                    tvSetHeader.setText("上传成功");
-                    RequestOptions ro = new RequestOptions().circleCrop();
-                    Glide.with(getApplicationContext())
-                            .load(user.getUheadPath())
-                            .apply(ro)
-                            .into(ivHeader);
-                    initData();
-                    setData();
+//                    RequestOptions ro = new RequestOptions().circleCrop();
+//                    Animation operatingAnim = AnimationUtils.loadAnimation(EditMsgActivity.this, R.anim.anim_upload_progress);
+//                    ivHeader.setImageResource(R.drawable.wait);
+//                    ivHeader.setAnimation(operatingAnim);
+                    //使用请求选项设置占位符
+//                    RequestOptions requestOptions = new RequestOptions()
+//                            .placeholder(R.drawable.wait);
+//                    Glide.with(getApplicationContext())
+//                            .load(user.getUheadPath())
+//                            .apply(ro)
+//                            .apply(requestOptions)
+//                            .into(ivHeader);
+                    //operatingAnim.cancel();
+                    tvSetHeader.setText("上传成功");
+                    refreshHeadImg();
+                    //initData();
+                    //setData();
                     break;
                 case UPLOAD_ERROR:
                     tvSetHeader.setText("服务器繁忙...");
+
                     break;
                 case UPLOAD_QINIU_TRUE:
                     //路径返回给服务器
-                    Log.e("上传头像",msg.obj+"");
-                    //synchronized{
-                        FormBody fb = new FormBody.Builder().add("fileUrl", msg.obj + "").add("uid", user.getUid() + "").build();
-                        Request request = new Request.Builder()
-                                .url(Constant.URL_HEAD_UPLOAD)
-                                .post(fb)
-                                .build();
-                        Call call = client.newCall(request);
-                        call.enqueue(new okhttp3.Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                Message message = new Message();
-                                message.what = UPLOAD_ERROR;
-                                handler.sendMessage(message);
-                            }
+                    Log.e("上传头像", msg.obj + "");
+                    FormBody fb = new FormBody.Builder().add("fileUrl", msg.obj + "").add("uid", user.getUid() + "").build();
+                    Request request = new Request.Builder()
+                            .url(Constant.URL_HEAD_UPLOAD)
+                            .post(fb)
+                            .build();
+                    Call call = client.newCall(request);
+                    call.enqueue(new okhttp3.Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Message message = new Message();
+                            message.what = UPLOAD_ERROR;
+                            handler.sendMessage(message);
+                        }
 
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {
-                                Message message = new Message();
-                                message.obj = response.body().string();
-                                Log.e("changHead", message.obj.toString());
-                                message.what = UPLOAD_HEADER;
-                                handler.sendMessage(message);
-                            }
-                        });
-                        tvSetHeader.setText("上传成功");
-//                        tvSetHeader.setText("正在上传...");
-                    //}
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Message message = new Message();
+                            message.obj = response.body().string();
+                            Log.e("changHead", message.obj.toString());
+                            message.what = UPLOAD_HEADER;
+                            handler.sendMessage(message);
+                        }
+                    });
+
+
                     break;
             }
 
@@ -156,7 +168,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private static final int UPLOAD_HEADER = 200;
     private static final int UPLOAD_FORM = 400;
     private static final int UPLOAD_ERROR = 600;
-    private static final int UPLOAD_QINIU_TRUE=800;
+    private static final int UPLOAD_QINIU_TRUE = 800;
 
 
     @Override
@@ -177,6 +189,15 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         ivExit.setOnClickListener(this);
         tvChooseDate.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+    }
+
+    private void refreshHeadImg(){
+        RequestOptions ro = new RequestOptions().circleCrop();
+        if (null != user.getUheadPath() && !user.getUheadPath().equals(""))
+            Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
+        else {
+            Glide.with(this).load(getResources().getDrawable(R.drawable.head_user)).apply(ro).into(ivHeader);
+        }
     }
 
     private void setData() {
@@ -453,7 +474,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    public synchronized  String uploadImg2QiNiu(String picPath) {
+    public synchronized String uploadImg2QiNiu(String picPath) {
         UploadManager uploadManager = new UploadManager();
         // 设置图片名字
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -464,16 +485,16 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 // info.error中包含了错误信息，可打印调试
                 // 上传成功后将key值上传到自己的服务器
                 if (info.isOK()) {
-                    Log.e( "token===" ,Auth.create(Constant.ACCESSKEY, Constant.SECRETKEY).uploadToken(Constant.BUCKET));
-                    headpicPath ="http://cdn.zin4ever.top/"+key;
-                    Log.e(" headpicPath" , headpicPath);
+                    Log.e("token===", Auth.create(Constant.ACCESSKEY, Constant.SECRETKEY).uploadToken(Constant.BUCKET));
+                    headpicPath = "http://cdn.zin4ever.top/" + key;
+                    Log.e(" headpicPath", headpicPath);
                     Message message = new Message();
                     message.what = UPLOAD_QINIU_TRUE;
-                    message.obj=headpicPath;
-                    headpicPath="";
+                    message.obj = headpicPath;
+                    headpicPath = "";
                     handler.sendMessage(message);
-                }else{
-                    Log.e("error",info.error);
+                } else {
+                    Log.e("error", info.error);
                 }
             }
         }, null);

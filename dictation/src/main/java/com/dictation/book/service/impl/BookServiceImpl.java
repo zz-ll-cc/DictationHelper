@@ -6,6 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.book.entity.Book;
 import com.dictation.book.service.BookService;
 import com.dictation.mapper.BookMapper;
+import com.dictation.util.RedisUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +27,26 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookMapper bookMapper;
 
+    @Autowired
+    RedisUtil redisUtil;
+
     @Override
     public List<Book> findAll() {
-        return bookMapper.selectList(null);
+        String result;
+        List<Book> bookList = null;
+        try {
+            if((result = (String) redisUtil.get("book:all")) == null){
+                bookList = bookMapper.selectList(null);
+                redisUtil.set("book:all",new ObjectMapper().writeValueAsString(bookList),60*60*12);
+                return bookList;
+            } else {
+                JavaType javaType = new ObjectMapper().getTypeFactory().constructCollectionType(List.class,Book.class);
+                return new ObjectMapper().readValue(result,javaType);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

@@ -22,6 +22,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 30000
+  redis:
+    sentinel:
+      master: mymaster
+      nodes: 114.55.101.120:26379
+    password: sunnycat
+    database: 0
+#    sentinel:
+#      master: myredis
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

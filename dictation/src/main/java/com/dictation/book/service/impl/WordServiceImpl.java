@@ -29,7 +29,7 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public boolean delete(Word word) {
-        return wordMapper.deleteById(word.getId()) == 1;
+        return wordMapper.deleteById(word.getWid()) == 1;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class WordServiceImpl implements WordService {
     @Override
     public boolean updatePic(int wid, String url) {
         Word word = wordMapper.selectById(wid);
-        word.setWordImg(url);
+        word.setWimgPath(url);
         return wordMapper.updateById(word) == 1;
     }
 

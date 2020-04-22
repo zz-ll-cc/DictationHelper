@@ -33,7 +33,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public boolean delete(Unit unit) {
-        return unitMapper.deleteById(unit.getId()) == 1;
+        return unitMapper.deleteById(unit.getUnid()) == 1;
     }
 
     @Override

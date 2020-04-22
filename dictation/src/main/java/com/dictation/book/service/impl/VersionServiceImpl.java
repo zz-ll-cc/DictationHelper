@@ -28,7 +28,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Override
     public boolean delete(Version version) {
-        return versionMapper.deleteById(version.getId()) == 1;
+        return versionMapper.deleteById(version.getBvId()) == 1;
     }
 
     @Override

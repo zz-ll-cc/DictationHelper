@@ -33,7 +33,7 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public boolean delete(Grade grade) {
-        return gradeMapper.deleteById(grade.getId()) == 1;
+        return gradeMapper.deleteById(grade.getGid()) == 1;
     }
 
 

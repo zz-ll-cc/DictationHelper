@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -14,24 +15,30 @@ import java.util.Date;
  * @Author zlc
  * @Date 2020-04-13 11:30
  */
+@ToString
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "tbl_book")
 public class Book {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer bid;
 
-    private Integer versionId;
+    @TableField("version_id")
+    private Integer bvid;
 
-    private String bookName;
+    @TableField("book_name")
+    private String bname;
 
-    private Integer gradeId;
+    @TableField("grade_id")
+    private Integer gid;
 
-    private String bookCover;
+    @TableField("book_cover")
+    private String bimgPath;
 
-    private Integer unitNum;
+    @TableField("unit_num")
+    private Integer bunitAccount;
 
     @Version
     private Integer version;
@@ -44,4 +51,6 @@ public class Book {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    
 }

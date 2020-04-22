@@ -19,12 +19,14 @@ import java.util.Date;
 @TableName(value = "tbl_grade")
 public class Grade {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer gid;
 
-    private String gradeName;
+    @TableField("grade_name")
+    private String gname;
 
-    private Integer gradeType;
+    @TableField("grade_type")
+    private Integer gtype;
 
     @Version
     private Integer version;

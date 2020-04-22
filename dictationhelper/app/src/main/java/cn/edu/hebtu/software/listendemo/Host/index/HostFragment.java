@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -68,7 +67,8 @@ public class HostFragment extends Fragment {
     private List<Book> res = new ArrayList<>();
     private HostRecyclerAdapter adapter = null;
     private RecyclerView recyclerView = null;
-    private SharedPreferences sp =ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);;
+    private SharedPreferences sp = ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+    ;
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private View view;
     private LinearLayout llOut;
@@ -88,6 +88,7 @@ public class HostFragment extends Fragment {
             switch (msg.what) {
                 case GET_BOOKS:
                     initView(view);
+                    initRecyView();
                     setListener();
                     break;
             }
@@ -101,7 +102,7 @@ public class HostFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_host, container, false);
         initData();
         initView(view);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         banner = view.findViewById(R.id.play_banner);
         // 设置轮播图
         BannerSet();
@@ -119,14 +120,14 @@ public class HostFragment extends Fragment {
         tvContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String bookJson = sp.getString(BOOK_JSON,"");
-                if("".equals(bookJson)){
-                    Toast.makeText(getContext(),"没有找到当前的学习记录",Toast.LENGTH_SHORT).show();
-                }else{
-                    Book book = gson.fromJson(bookJson,Book.class);
+                String bookJson = sp.getString(BOOK_JSON, "");
+                if ("".equals(bookJson)) {
+                    Toast.makeText(getContext(), "没有找到当前的学习记录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Book book = gson.fromJson(bookJson, Book.class);
                     Intent intent = new Intent(getActivity(), BookDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK,book);
+                    bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, book);
                     intent.putExtras(bundle);
                     getContext().startActivity(intent);
                 }
@@ -162,11 +163,14 @@ public class HostFragment extends Fragment {
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recv_fragment_host);
-        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext(),sp);
-        recyclerView.setAdapter(adapter);
         llContinueStudy = view.findViewById(R.id.ll_fragment_host_continueStudy);
         llFindBooks = view.findViewById(R.id.ll_fragment_host_findBooks);
         llOut = view.findViewById(R.id.ll_fragment_host_out);
+    }
+
+    private void initRecyView() {
+        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext(), sp);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initData() {
@@ -196,7 +200,7 @@ public class HostFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
+        StatusBarUtil.setStatusBarColor(getActivity(), R.color.backgray);
     }
 
     @Override
@@ -209,7 +213,7 @@ public class HostFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initView(view);
-        StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);
+        StatusBarUtil.setStatusBarColor(getActivity(), R.color.backgray);
     }
 
     private void BannerSet() {
@@ -219,9 +223,9 @@ public class HostFragment extends Fragment {
         mTitleList.clear();
         for (int i = 0; i < mImgList.size(); i++) {
 //            mTitleList.add("第" + i + "张图片");
-            if(i == 0){
+            if (i == 0) {
                 mTitleList.add("好好学习");
-            }else if(i == 1){
+            } else if (i == 1) {
                 mTitleList.add("天天向上");
             }
         }
@@ -230,7 +234,7 @@ public class HostFragment extends Fragment {
             banner.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
-                    outline.setRoundRect(0,0,view.getWidth(),view.getHeight(),30);
+                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 30);
                 }
             });
             banner.setClipToOutline(true);
@@ -256,7 +260,7 @@ public class HostFragment extends Fragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Log.e("tt","第" + position + "张轮播图点击了！");
+                Log.e("tt", "第" + position + "张轮播图点击了！");
                 //Toast.makeText(this,"",Toast.LENGTH_LONG).show();
                 //UIUtils.showToast("第" + position + "张轮播图点击了！");
             }

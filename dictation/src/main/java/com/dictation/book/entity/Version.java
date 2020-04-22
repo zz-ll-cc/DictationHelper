@@ -19,14 +19,17 @@ import java.util.Date;
 @TableName(value = "tbl_bookversion")
 public class Version {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer bvId;
 
-    private String versionName;
+    @TableField("version_name")
+    private String bvName;
 
-    private Integer versionType;
+    @TableField("version_type")
+    private Integer nvType;
 
-    private Date versionPublish;
+    @TableField("version_publish")
+    private Date bvPubTime;
 
     @com.baomidou.mybatisplus.annotation.Version
     private Integer version;

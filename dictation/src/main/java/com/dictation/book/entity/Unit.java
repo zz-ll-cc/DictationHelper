@@ -20,12 +20,14 @@ import java.util.Date;
 @TableName(value = "tbl_unit")
 public class Unit {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer unid;
 
-    private String unitName;
+    @TableField("unit_name")
+    private String unName;
 
-    private Integer bookId;
+    @TableField("book_id")
+    private Integer bid;
 
     private Integer type;
 

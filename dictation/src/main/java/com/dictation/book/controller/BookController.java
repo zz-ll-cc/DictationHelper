@@ -25,7 +25,7 @@ public class BookController {
 
     @RequestMapping("/all")
     public List<Book> all(){
-        return bookService.findAll();
+    	return bookService.findAll();
     }
 
     @RequestMapping("/findbyversion")

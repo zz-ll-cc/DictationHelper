@@ -59,7 +59,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public boolean updateUrl(int bid, String url) {
         Book book = bookMapper.selectById(bid);
-        book.setBookCover(url);
+        book.setBimgPath(url);
         return bookMapper.updateById(book) == 1 ;
     }
 
@@ -70,7 +70,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean delete(Book book) {
-        return bookMapper.deleteById(book.getId()) == 1;
+        return bookMapper.deleteById(book.getBid()) == 1;
     }
 
     @Override

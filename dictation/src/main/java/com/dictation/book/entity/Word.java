@@ -19,20 +19,25 @@ import java.util.Date;
 @TableName(value = "tbl_word")
 public class Word {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.AUTO,value = "id")
+    private Integer wid;
 
-    private String wordEnglish;
+    @TableField("word_english")
+    private String wenglish;
 
-    private String wordChinese;
+    @TableField("word_chinese")
+    private String wchinese;
 
-    private Integer unitId;
+    @TableField("unit_id")
+    private Integer unid;
 
-    private Integer bookId;
+    @TableField("book_id")
+    private Integer bid;
 
     private Integer type;
 
-    private String wordImg;
+    @TableField("word_img")
+    private String wimgPath;
 
     @Version
     private Integer version;

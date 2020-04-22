@@ -20,6 +20,14 @@ public class Grade implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
     public int getDeleted() {
         return deleted;
     }

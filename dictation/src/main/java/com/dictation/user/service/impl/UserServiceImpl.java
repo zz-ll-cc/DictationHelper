@@ -2,12 +2,16 @@ package com.dictation.user.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.dictation.mapper.CreditRecordMapper;
 import com.dictation.mapper.UserMapper;
+import com.dictation.user.entity.CreditRecord;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
 import java.util.Random;
@@ -22,6 +26,10 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    CreditRecordMapper creditRecordMapper;
+
     static final String SALT = "haohaoxuexi";
 
     @Override
@@ -111,6 +119,7 @@ public class UserServiceImpl implements UserService {
         this.userMapper.deleteById(user.getUid());
     }
 
+
     /**
      * 随机生成姓名
      */
@@ -134,4 +143,19 @@ public class UserServiceImpl implements UserService {
         }
         return val;
     }
+
+
+    @Override
+    @Async("asyncServiceExecutor")
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum) {
+        User user = userMapper.selectById(uid);
+        user.setUserCredit(user.getUserCredit() + changeNum);
+        userMapper.updateById(user);
+        creditRecordMapper.insert(new CreditRecord().setIncrement(changeNum).setUserId(uid).setReason(changReason));
+    }
+
+
+
+
 }

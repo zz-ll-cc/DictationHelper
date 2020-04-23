@@ -5,6 +5,9 @@ import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
 import com.dictation.util.FileUtil;
 import com.dictation.util.QiniuUtil;
+import com.dictation.util.RedisUtil;
+import com.dictation.util.TimeUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName: UserController
@@ -28,6 +35,9 @@ import java.io.InputStream;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @RequestMapping("/login")
     public LoginInfo login(@RequestParam(value = "login_type",required = true)int login_type,
@@ -158,4 +168,47 @@ public class UserController {
         this.userService.deleteUser(user);
         return "success";
     }
+
+
+
+    @RequestMapping("/check")
+    public List<Boolean> getSignInList(@RequestParam("id") int id){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return redisUtil.getBitList("signin:" + id + ":" + simpleDateFormat.format(new Date()));
+    }
+
+
+    @RequestMapping("/signIn")
+    public List<Boolean> signIn(@RequestParam("id") int id){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        String key = "signin:" + id + ":" + simpleDateFormat.format(new Date());
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek != 1){
+            dayOfWeek -= 1;
+        }else{
+            dayOfWeek = 7;
+        }
+        long time = 0;
+        if(!redisUtil.hasKey(key)){
+            time = TimeUtil.getSecondsToNextMonday4pm();
+        }
+        if(!redisUtil.getBit(key,dayOfWeek-1)){
+            redisUtil.setBit(key,dayOfWeek-1,true, time);
+            userService.updateUserCreditAndInsertRecord(id,"每日登录",5);
+        }
+        return redisUtil.getBitList(key);
+    }
+
+
+
+
+
+
+
+
+
+
 }

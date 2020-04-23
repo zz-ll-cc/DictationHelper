@@ -1,5 +1,6 @@
 package com.dictation.mail.controller;
 
+import com.dictation.mail.service.MailService;
 import com.dictation.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -27,21 +28,16 @@ import java.util.List;
 @RequestMapping("/mail")
 public class MailController {
 
+
+
     @Autowired
-    JavaMailSenderImpl javaMailSender;
+    MailService mailService;
 
     @RequestMapping("/report")
     public String sendReportMail(@RequestParam("id") String id,@RequestParam("title") String title,
                                  @RequestParam("content") String content, @RequestParam("files") MultipartFile[] files){
-
         try {
             List<File> fileList = null;
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-            mimeMessageHelper.setText("来自用户id：" + id + "<br><br>" + content, true);
-            mimeMessageHelper.setSubject(title);
-            mimeMessageHelper.setTo("dictationmail@163.com");
-            mimeMessageHelper.setFrom("390597658@qq.com");
             if(files.length > 0){
                 fileList = new ArrayList<>(files.length);
                 for(MultipartFile file : files){
@@ -52,20 +48,16 @@ public class MailController {
                         InputStream ins = file.getInputStream();
                         f = new File(file.getOriginalFilename());
                         FileUtil.inputStreamToFile(ins,f);
-                        mimeMessageHelper.addAttachment(f.getName(),f);
                         fileList.add(f);
                     }
                 }
             }
-            javaMailSender.send(mimeMessage);
-            fileList.forEach(file -> file.delete());
-            return "发送成功";
+            mailService.send(fileList,id,content,title);
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
-            return "服务器正忙，请稍后再试";
         }
 
-
+        return "发送成功";
     }
 
 

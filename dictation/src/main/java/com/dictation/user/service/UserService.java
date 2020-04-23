@@ -41,4 +41,9 @@ public interface UserService {
 
     // 删除用户
     public void deleteUser(User user);
+
+    //增加用户积分并添加积分记录
+    void updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum);
+
+
 }

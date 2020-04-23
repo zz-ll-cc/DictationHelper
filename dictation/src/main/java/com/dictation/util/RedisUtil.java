@@ -5,9 +5,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,6 +36,15 @@ public class RedisUtil {
                 redisTemplate.expire(key, time, TimeUnit.SECONDS);
             }
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean exists(String key){
+        try {
+            return redisTemplate.hasKey(key);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -639,6 +648,132 @@ public class RedisUtil {
             return 0;
         }
     }
+
+    //=======================================================Hyperloglog================================================================
+
+
+    /**
+     * 将 key 对应的一个 value 存入
+     * @param key
+     * @param value
+     * @return
+     */
+    public long pfAdd(String key, Object value){
+        try {
+            Long result = redisTemplate.opsForHyperLogLog().add(key, value);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    /**
+     * 统计 key 的 value 有多少个
+     * @param key
+     * @return
+     */
+    public long pfCount(String key){
+        try {
+            Long result = redisTemplate.opsForHyperLogLog().size(key);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * 合并多个hyperloglog到一个新key中
+     * @param newKey
+     * @param keys
+     * @return
+     */
+    public long pfMerge(String newKey, String... keys){
+        try {
+            Long result = redisTemplate.opsForHyperLogLog().union(newKey, keys);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * 删除一个Hyperloglog
+     * @param key
+     * @return
+     */
+    public boolean pfDel(String key) {
+        try {
+            expire(key, 0);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+    //=========================================================Bitmap=======================================================================
+
+
+    public boolean setBit(String key, long offset, boolean value){
+        try {
+            redisTemplate.opsForValue().setBit(key, offset, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean setBit(String key, long offset, boolean value , long time){
+        try {
+            redisTemplate.opsForValue().setBit(key, offset, value);
+            if(time > 0){
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean getBit(String key, long offset){
+        try {
+            return redisTemplate.opsForValue().getBit(key, offset);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public List<Boolean> getBitList(String key){
+        try {
+            List<Boolean> weekRecordOfSignIn = new ArrayList<>();
+            for(int i = 0 ; i < 7; i++){
+                weekRecordOfSignIn.add(i,redisTemplate.opsForValue().getBit(key, i));
+            }
+            return weekRecordOfSignIn;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
 
 
 }

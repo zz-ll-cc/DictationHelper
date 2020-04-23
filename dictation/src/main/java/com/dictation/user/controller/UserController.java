@@ -1,26 +1,19 @@
 package com.dictation.user.controller;
 
+import com.dictation.user.entity.CreditRecord;
 import com.dictation.user.entity.LoginInfo;
+import com.dictation.user.entity.ReasonEnum;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
-import com.dictation.util.FileUtil;
-import com.dictation.util.QiniuUtil;
 import com.dictation.util.RedisUtil;
 import com.dictation.util.TimeUtil;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -170,7 +164,11 @@ public class UserController {
     }
 
 
-
+    /**
+     * 用户打开积分页面
+     * @param id
+     * @return
+     */
     @RequestMapping("/check")
     public List<Boolean> getSignInList(@RequestParam("id") int id){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -178,30 +176,71 @@ public class UserController {
     }
 
 
+    /**
+     * 用户签到
+     * @param id
+     * @return
+     */
     @RequestMapping("/signIn")
     public List<Boolean> signIn(@RequestParam("id") int id){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        String key = "signin:" + id + ":" + simpleDateFormat.format(new Date());
-
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek != 1){
-            dayOfWeek -= 1;
-        }else{
-            dayOfWeek = 7;
-        }
+        String key = TimeUtil.createUserSignInKey(id);
+        int dayOfWeek = TimeUtil.calculateDayOfWeek();
         long time = 0;
         if(!redisUtil.hasKey(key)){
             time = TimeUtil.getSecondsToNextMonday4pm();
         }
         if(!redisUtil.getBit(key,dayOfWeek-1)){
             redisUtil.setBit(key,dayOfWeek-1,true, time);
-            userService.updateUserCreditAndInsertRecord(id,"每日登录",5);
+            //异步
+            userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
         }
         return redisUtil.getBitList(key);
     }
 
+
+    /**
+     * 更新用户信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updatemyself")
+    public User updateMySelf(@RequestParam("id") int id){
+        userService.recordActiveUser(id);
+        return userService.findUserByUid(id);
+    }
+
+
+    /**
+     * 2：有效听写，
+     * 3：学习10分钟 4：学习30分钟 5：学习60分钟
+     * @param id
+     * @return
+     */
+    @RequestMapping("updateCredit")
+    public User modifyCredit(@RequestParam("id") int id, @RequestParam("code") int code,@RequestParam("incr") int increment){
+        String reason  = "";
+        int creditNum = 0;
+        switch (code){
+            case 1:
+                reason = ReasonEnum.DT.getReason();
+                creditNum = ReasonEnum.DT.getCreditNum();
+                break;
+            case 2:
+                reason = ReasonEnum.STM.getReason();
+                creditNum = ReasonEnum.STM.getCreditNum();
+                break;
+            case 3:
+                reason = ReasonEnum.SHH.getReason();
+                creditNum = ReasonEnum.SHH.getCreditNum();
+                break;
+            case 4:
+                reason = ReasonEnum.SAH.getReason();
+                creditNum = ReasonEnum.SAH.getCreditNum();
+                break;
+        }
+        System.out.println(creditNum);
+        return userService.updateUserCreditAndInsertRecord(id,reason,increment);
+    }
 
 
 

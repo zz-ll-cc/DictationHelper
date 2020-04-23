@@ -7,9 +7,14 @@ import com.dictation.mapper.UserMapper;
 import com.dictation.user.entity.CreditRecord;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
+import com.dictation.util.RedisUtil;
+import com.dictation.util.TimeUtil;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +24,7 @@ import java.util.Random;
 /**
  * @ClassName: UserServiceImpl
  * @Description: TODO
- * @Author: szy
+ * @Author: szy/zlc
  * @Date 2020/4/14
  */
 @Service("userServiceImpl")
@@ -28,7 +33,13 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
+    RedisUtil redisUtil;
+
+    @Autowired
     CreditRecordMapper creditRecordMapper;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     static final String SALT = "haohaoxuexi";
 
@@ -148,11 +159,43 @@ public class UserServiceImpl implements UserService {
     @Override
     @Async("asyncServiceExecutor")
     @Transactional(rollbackFor = Exception.class)
-    public void updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum) {
+    public void updateUserCreditAndInsertRecordAsync(int uid, String changReason, int changeNum) {
         User user = userMapper.selectById(uid);
         user.setUserCredit(user.getUserCredit() + changeNum);
         userMapper.updateById(user);
         creditRecordMapper.insert(new CreditRecord().setIncrement(changeNum).setUserId(uid).setReason(changReason));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum) {
+        User user = userMapper.selectById(uid);
+        user.setUserCredit(user.getUserCredit() + changeNum);
+        userMapper.updateById(user);
+        creditRecordMapper.insert(new CreditRecord().setIncrement(changeNum).setUserId(uid).setReason(changReason));
+        return user;
+    }
+
+
+    /**
+     * 每天凌晨4点执行
+     * 设置14天过期
+     */
+    @Scheduled(cron = "0 0 4 * * ? *")
+    @Override
+    public void persistDailyActiveUser(){
+        //如redis里找昨天的hyperloglog并且记录日志文件，然后设置过期时间
+        String key = TimeUtil.getYesterdayActiveUserKey();
+        long result = redisUtil.pfCount(key);
+        redisUtil.expire(key,1209600);
+        logger.warn("昨日活跃用户数为："+result);
+    }
+
+
+    @Override
+    public void recordActiveUser(int id){
+        String key = TimeUtil.createDailyActiveUserKey();
+        redisUtil.pfAdd(key,id);
     }
 
 

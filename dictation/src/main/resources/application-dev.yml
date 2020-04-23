@@ -38,7 +38,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
   mapper-locations: classpath*:mapping/*Mapper.xml
-
-
-
-
+logging:
+  file:
+    path: /
+    name: dictation.log

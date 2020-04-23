@@ -43,7 +43,13 @@ public interface UserService {
     public void deleteUser(User user);
 
     //增加用户积分并添加积分记录
-    void updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum);
+    User updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum);
+
+    void updateUserCreditAndInsertRecordAsync(int uid, String changReason, int changeNum);
+
+    void persistDailyActiveUser();
+
+    void recordActiveUser(int id);
 
 
 }

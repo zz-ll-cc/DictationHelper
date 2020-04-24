@@ -1,12 +1,11 @@
 package com.dictation.user.controller;
 
-import com.dictation.user.entity.CreditRecord;
-import com.dictation.user.entity.LoginInfo;
-import com.dictation.user.entity.ReasonEnum;
-import com.dictation.user.entity.User;
+import com.dictation.user.entity.*;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
 import com.dictation.util.TimeUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -170,9 +169,18 @@ public class UserController {
      * @return
      */
     @RequestMapping("/check")
-    public List<Boolean> getSignInList(@RequestParam("id") int id){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return redisUtil.getBitList("signin:" + id + ":" + simpleDateFormat.format(new Date()));
+    public UserSignIn getSignInList(@RequestParam("id") int id){
+        String key = redisUtil.createUserSignInKey(id);
+        UserSignIn signIn = new UserSignIn();
+        try {
+            signIn
+                    .setWeekRecord(redisUtil.getBitList(key))
+                    .setContinuousSignIn(userService.getContinuousSignIn(id))
+                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return signIn;
     }
 
 
@@ -182,19 +190,29 @@ public class UserController {
      * @return
      */
     @RequestMapping("/signIn")
-    public List<Boolean> signIn(@RequestParam("id") int id){
-        String key = TimeUtil.createUserSignInKey(id);
+    public UserSignIn signIn(@RequestParam("id") int id){
+        String key = redisUtil.createUserSignInKey(id);
         int dayOfWeek = TimeUtil.calculateDayOfWeek();
         long time = 0;
         if(!redisUtil.hasKey(key)){
             time = TimeUtil.getSecondsToNextMonday4pm();
         }
         if(!redisUtil.getBit(key,dayOfWeek-1)){
+            //检查是否有连续登陆记录，如果有，刷新时间，incr，如果没有，返回1，创建一天记录，设置时间
             redisUtil.setBit(key,dayOfWeek-1,true, time);
             //异步
             userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
         }
-        return redisUtil.getBitList(key);
+        UserSignIn signIn = new UserSignIn();
+        try {
+            signIn
+                    .setWeekRecord(redisUtil.getBitList(key))
+                    .setContinuousSignIn(userService.continuousSignIn(id))
+                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return signIn;
     }
 
 
@@ -205,8 +223,22 @@ public class UserController {
      */
     @RequestMapping("/updatemyself")
     public User updateMySelf(@RequestParam("id") int id){
+        String uStr;
+        User user = null;
+        try {
+            if((uStr = (String) redisUtil.get(redisUtil.getUserKey(id))) == null){
+                //
+                user = userService.findUserByUid(id);
+                redisUtil.set(redisUtil.getUserKey(id),new ObjectMapper().writeValueAsString(user));
+            }else{
+                user = new ObjectMapper().readValue(uStr,User.class);
+                redisUtil.expire(redisUtil.getUserKey(id),60*60);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         userService.recordActiveUser(id);
-        return userService.findUserByUid(id);
+        return user;
     }
 
 

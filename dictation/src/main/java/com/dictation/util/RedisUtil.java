@@ -152,6 +152,23 @@ public class RedisUtil {
         return redisTemplate.opsForValue().increment(key, increment);
     }
 
+    /**
+     * 递增同时设置时间
+     * @param key
+     * @param increment
+     * @param time
+     * @return
+     */
+    public long incr(String key, long increment,long time){
+        if(increment < 0){
+            throw new RuntimeException("增量要大于0");
+        }
+        if(time > 0){
+            expire(key, time);
+        }
+        return redisTemplate.opsForValue().increment(key, increment);
+    }
+
 
     /**
      * 递减
@@ -772,7 +789,42 @@ public class RedisUtil {
     }
 
 
+    //==========================================Key=============================================
 
+    public String getUserKey(int id){
+        return "user:" + id;
+    }
+
+
+    public static String createDailyActiveUserKey(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String key = "signin:" + simpleDateFormat.format(new Date());
+        return key;
+    }
+
+    public static String getYesterdayActiveUserKey(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,-24);
+        String key = "signin:" + simpleDateFormat.format(calendar.getTime());
+        return key;
+    }
+
+
+
+    public static String createUserContinusSignInKey(int id){
+        return "user:continuous:signIn:" + id;
+    }
+
+
+    public static String createUserSignInKey(int id){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //key的规则是 signin:{id}:{MonthOfYear}:{WeekOfMonth}
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        String key = "signin:" + id + ":" + (calendar.get(Calendar.MONTH)+1) + ":" + (calendar.get(Calendar.WEEK_OF_MONTH)+1);
+        return key;
+    }
 
 
 

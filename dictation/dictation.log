@@ -1,0 +1,122 @@
+2020-04-24 13:13:07.495  INFO 16448 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 16448 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-24 13:13:07.499  INFO 16448 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-24 13:13:07.937  WARN 16448 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-24 13:13:08.064  INFO 16448 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-24 13:13:08.161  INFO 16448 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-24 13:13:08.189  INFO 16448 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 Redis repository interfaces.
+2020-04-24 13:13:08.618  INFO 16448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-24 13:13:08.625  INFO 16448 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-24 13:13:08.625  INFO 16448 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-24 13:13:08.882  INFO 16448 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-24 13:13:08.886  INFO 16448 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-24 13:13:08.886  INFO 16448 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1348 ms
+2020-04-24 13:13:09.023  INFO 16448 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-24 13:13:09.788  INFO 16448 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-24 13:13:10.352  INFO 16448 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-24 13:13:10.353  INFO 16448 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-24 13:13:10.705  INFO 16448 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-24 13:13:10.760  INFO 16448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-24 13:13:10.762  INFO 16448 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.632 seconds (JVM running for 4.693)
+2020-04-24 13:25:16.491  INFO 16448 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-24 13:25:16.491  INFO 16448 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-24 13:25:16.498  INFO 16448 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-04-24 13:25:16.603  INFO 16448 --- [http-nio-8080-exec-2] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-24 13:25:16.605  INFO 16448 --- [http-nio-8080-exec-2] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-04-24 13:27:32.089  INFO 1020 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 1020 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-24 13:27:32.091  INFO 1020 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-24 13:27:32.544  WARN 1020 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-24 13:27:32.676  INFO 1020 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-24 13:27:32.678  INFO 1020 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-24 13:27:32.708  INFO 1020 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19ms. Found 0 Redis repository interfaces.
+2020-04-24 13:27:33.166  INFO 1020 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-24 13:27:33.175  INFO 1020 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-24 13:27:33.176  INFO 1020 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-24 13:27:33.443  INFO 1020 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-24 13:27:33.447  INFO 1020 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-24 13:27:33.447  INFO 1020 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1289 ms
+2020-04-24 13:27:33.609  INFO 1020 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-24 13:27:34.394  INFO 1020 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-24 13:27:34.993  INFO 1020 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-24 13:27:34.995  INFO 1020 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-24 13:27:35.386  INFO 1020 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-24 13:27:35.449  INFO 1020 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-24 13:27:35.451  INFO 1020 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.94 seconds (JVM running for 5.249)
+2020-04-24 13:28:00.607  INFO 1020 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-24 13:28:00.607  INFO 1020 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-24 13:28:00.616  INFO 1020 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2020-04-24 13:28:00.729  INFO 1020 --- [http-nio-8080-exec-2] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-24 13:28:00.730  INFO 1020 --- [http-nio-8080-exec-2] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-04-24 14:49:52.888  INFO 26192 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 26192 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-24 14:49:52.891  INFO 26192 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-24 14:49:53.416  WARN 26192 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-24 14:49:53.564  INFO 26192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-24 14:49:53.566  INFO 26192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-24 14:49:53.595  INFO 26192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 Redis repository interfaces.
+2020-04-24 14:49:54.062  INFO 26192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-24 14:49:54.070  INFO 26192 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-24 14:49:54.070  INFO 26192 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-24 14:49:54.327  INFO 26192 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-24 14:49:54.330  INFO 26192 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-24 14:49:54.331  INFO 26192 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1385 ms
+2020-04-24 14:49:54.508  INFO 26192 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-24 14:49:55.275  INFO 26192 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-24 14:49:55.873  INFO 26192 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-24 14:49:55.874  INFO 26192 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-24 14:49:56.245  INFO 26192 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-24 14:49:56.313  INFO 26192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-24 14:49:56.315  INFO 26192 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.839 seconds (JVM running for 5.022)
+2020-04-24 14:50:45.984  INFO 26192 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-24 14:50:45.984  INFO 26192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-24 14:50:45.990  INFO 26192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2020-04-24 14:50:46.090  INFO 26192 --- [http-nio-8080-exec-1] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-24 14:50:46.091  INFO 26192 --- [http-nio-8080-exec-1] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-04-24 14:52:29.205  WARN 26192 --- [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""]
+2020-04-24 14:54:45.184  INFO 19248 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 19248 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-24 14:54:45.186  INFO 19248 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-24 14:54:45.876  WARN 19248 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-24 14:54:46.097  INFO 19248 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-24 14:54:46.100  INFO 19248 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-24 14:54:46.158  INFO 19248 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33ms. Found 0 Redis repository interfaces.
+2020-04-24 14:54:46.750  INFO 19248 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-24 14:54:46.758  INFO 19248 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-24 14:54:46.759  INFO 19248 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-24 14:54:47.023  INFO 19248 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-24 14:54:47.027  INFO 19248 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-24 14:54:47.028  INFO 19248 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1798 ms
+2020-04-24 14:54:47.185  INFO 19248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-24 14:54:48.078  INFO 19248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-24 14:54:48.717  INFO 19248 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-24 14:54:48.718  INFO 19248 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-24 14:54:49.101  INFO 19248 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-24 14:54:49.166  INFO 19248 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-24 14:54:49.169  INFO 19248 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 4.384 seconds (JVM running for 5.569)
+2020-04-24 14:55:04.314  INFO 19248 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-24 14:55:04.314  INFO 19248 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-24 14:55:04.325  INFO 19248 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-04-24 14:55:04.357  WARN 19248 --- [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""]
+2020-04-24 14:56:32.977  INFO 19248 --- [http-nio-8080-exec-5] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-24 14:56:32.979  INFO 19248 --- [http-nio-8080-exec-5] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-04-24 14:59:44.440  INFO 22000 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 22000 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-24 14:59:44.443  INFO 22000 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-24 14:59:44.900  WARN 22000 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-24 14:59:45.023  INFO 22000 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-24 14:59:45.025  INFO 22000 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-24 14:59:45.055  INFO 22000 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 Redis repository interfaces.
+2020-04-24 14:59:45.485  INFO 22000 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-24 14:59:45.491  INFO 22000 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-24 14:59:45.491  INFO 22000 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-24 14:59:45.749  INFO 22000 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-24 14:59:45.752  INFO 22000 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-24 14:59:45.753  INFO 22000 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1240 ms
+2020-04-24 14:59:45.905  INFO 22000 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-24 14:59:46.626  INFO 22000 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-24 14:59:47.184  INFO 22000 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-24 14:59:47.185  INFO 22000 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-24 14:59:47.509  INFO 22000 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-24 14:59:47.570  INFO 22000 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-24 14:59:47.573  INFO 22000 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.796 seconds (JVM running for 5.156)
+2020-04-24 14:59:54.035  INFO 22000 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-24 14:59:54.035  INFO 22000 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-24 14:59:54.039  INFO 22000 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2020-04-24 15:00:24.231  INFO 22000 --- [http-nio-8080-exec-3] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-24 15:00:24.232  INFO 22000 --- [http-nio-8080-exec-3] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library

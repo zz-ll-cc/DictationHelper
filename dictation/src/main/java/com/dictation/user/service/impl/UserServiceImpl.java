@@ -9,6 +9,8 @@ import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
 import com.dictation.util.TimeUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,33 +59,102 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.selectOne(wrapper).getUphone();
     }
 
+
+    /**
+     * 根据手机号查询user，如果当前user不在缓存中，把user存入缓存
+     * @param phone
+     * @return
+     */
     @Override
     public User findUserByPhone(String phone) {
+        User user = null;
+        String uStr;
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUphone, phone);
-        return this.userMapper.selectOne(wrapper);
+        if((user = userMapper.selectOne(wrapper)) == null){
+            return null;
+        }
+        String key = redisUtil.getUserKey(user.getUid());
+        try {
+            if((uStr = (String) redisUtil.get(key)) == null){
+                uStr = new ObjectMapper().writeValueAsString(user);
+                redisUtil.set(key,uStr,60*60);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
+
+    /**
+     * 用户信息存入缓存
+     * @param uid
+     * @return
+     */
     @Override
     public User findUserByUid(int uid) {
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getUid, uid);
-        return this.userMapper.selectOne(wrapper);
+        String uStr;
+        User user = null;
+        String key = redisUtil.getUserKey(uid);
+        try {
+            if((uStr = (String) redisUtil.get(key)) == null){
+                LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+                wrapper.eq(User::getUid, uid);
+                user = userMapper.selectOne(wrapper);
+                uStr = new ObjectMapper().writeValueAsString(user);
+                redisUtil.set(key,uStr,60*60);
+            }else{
+                redisUtil.expire(key,60*60);
+                user = new ObjectMapper().readValue(uStr,User.class);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
+
+    /**
+     * 保存用户信息的同时存入缓存
+     * @param phone
+     */
     @Override
     public void saveUser(String phone) {
         String name = getStringRandom();
         User user = new User();
         user.setUphone(phone);
         user.setUname(name);
-        this.userMapper.insert(user);
+        userMapper.insert(user);
+        String key = redisUtil.getUserKey(user.getUid());
+        try {
+            redisUtil.set(key,new ObjectMapper().writeValueAsString(user),60*60);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
+
+    /**
+     * 如果不在缓存中，不作处理
+     * 如果在缓存中，更新缓存
+     * @param id
+     * @param url
+     */
     @Override
     public void updateUserImage(int id, String url) {
+        String key = redisUtil.getUserKey(id);
+        String uStr;
         User user = this.userMapper.selectById(id);
         user.setUheadPath(url);
+        try {
+            if((uStr = (String) redisUtil.get(key)) != null){
+                uStr = new ObjectMapper().writeValueAsString(user);
+                redisUtil.set(key,uStr,60*60);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         this.userMapper.updateById(user);
     }
 
@@ -128,6 +199,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) {
         this.userMapper.deleteById(user.getUid());
+
     }
 
 
@@ -181,11 +253,11 @@ public class UserServiceImpl implements UserService {
      * 每天凌晨4点执行
      * 设置14天过期
      */
-    @Scheduled(cron = "0 0 4 * * ? *")
+    @Scheduled(cron = "0 0 4 * * ?")
     @Override
     public void persistDailyActiveUser(){
         //如redis里找昨天的hyperloglog并且记录日志文件，然后设置过期时间
-        String key = TimeUtil.getYesterdayActiveUserKey();
+        String key = redisUtil.getYesterdayActiveUserKey();
         long result = redisUtil.pfCount(key);
         redisUtil.expire(key,1209600);
         logger.warn("昨日活跃用户数为："+result);
@@ -194,9 +266,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void recordActiveUser(int id){
-        String key = TimeUtil.createDailyActiveUserKey();
+        String key = redisUtil.createDailyActiveUserKey();
         redisUtil.pfAdd(key,id);
     }
+
+
+    /**
+     * 用户连续签到天数增加
+     * @param id
+     * @return
+     */
+    @Override
+    public long continuousSignIn(int id){
+        String key = redisUtil.createUserContinusSignInKey(id);
+        if(!redisUtil.exists(key)){
+            redisUtil.set(key,1,TimeUtil.getSecondsToNextDay12pm());
+            return 1;
+        }else{
+            return redisUtil.incr(key,1,TimeUtil.getSecondsToNextDay12pm());
+        }
+    }
+
+
+    /**
+     * 获取连续签到天数
+     * @param id
+     * @return
+     */
+    @Override
+    public long getContinuousSignIn(int id){
+        String key = redisUtil.createUserContinusSignInKey(id);
+        if(!redisUtil.exists(key)){
+            return 0;
+        }else{
+            return (long) redisUtil.get(key);
+        }
+    }
+
 
 
 

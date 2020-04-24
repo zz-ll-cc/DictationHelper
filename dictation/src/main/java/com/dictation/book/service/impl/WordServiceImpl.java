@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.book.entity.Word;
 import com.dictation.book.service.WordService;
 import com.dictation.mapper.WordMapper;
+import com.dictation.util.RedisUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,9 @@ public class WordServiceImpl implements WordService {
 
     @Autowired
     WordMapper wordMapper;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public boolean save(Word word) {
@@ -60,16 +67,55 @@ public class WordServiceImpl implements WordService {
         return wordMapper.selectPage(wordPage,null).getRecords();
     }
 
+
+    /**
+     * 把单词存入缓存
+     * @return
+     */
     @Override
     public List<Word> findAll() {
-        return wordMapper.selectList(null);
+        String wStr;
+        List<Word> result = null;
+        try {
+            if((wStr = (String) redisUtil.get("word:all")) != null){
+                JavaType javaType = new ObjectMapper().getTypeFactory().constructCollectionType(List.class,Word.class);
+                result = new ObjectMapper().readValue(wStr,javaType);
+                return result;
+            }else{
+                if((result = wordMapper.selectList(null)) != null){
+                    redisUtil.set("word:all",new ObjectMapper().writeValueAsString(result));
+                }
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }finally {
+            return result;
+        }
     }
 
     @Override
     public List<Word> findAllByBid(int bid) {
-        QueryWrapper<Word> wordQueryWrapper = new QueryWrapper<>();
-        wordQueryWrapper.eq("book_id",bid);
-        return wordMapper.selectList(wordQueryWrapper);
+        List<Word> result = null;
+        String wStr;
+
+        try {
+            if((wStr = (String) redisUtil.get("word:" + bid)) != null){
+                JavaType javaType = new ObjectMapper().getTypeFactory().constructCollectionType(List.class,Word.class);
+                result = new ObjectMapper().readValue(wStr,javaType);
+            }else{
+                QueryWrapper<Word> wordQueryWrapper = new QueryWrapper<>();
+                wordQueryWrapper.eq("book_id",bid);
+                if((result = wordMapper.selectList(wordQueryWrapper)) != null){
+                    redisUtil.set("word:" + bid,new ObjectMapper().writeValueAsString(result));
+                }
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }finally {
+            return result;
+        }
+
+
     }
 
     @Override

@@ -89,7 +89,7 @@ class DictationApplicationTests {
 //            System.out.println(b);
 //        }
 
-        System.out.println(TimeUtil.getSecondsToNextMonday4pm()/1000);
+//        System.out.println(TimeUtil.getSecondsToNextMonday4pm()/1000);
 
 
     }

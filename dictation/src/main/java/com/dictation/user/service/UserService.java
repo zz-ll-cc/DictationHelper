@@ -52,4 +52,9 @@ public interface UserService {
     void recordActiveUser(int id);
 
 
+    long continuousSignIn(int id);
+
+    long getContinuousSignIn(int id);
+
+
 }

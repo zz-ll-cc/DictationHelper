@@ -32,12 +32,24 @@ public class TimeUtil {
         return timeOut;
     }
 
-
-    public static String createUserSignInKey(int id){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String key = "signin:" + id + ":" + simpleDateFormat.format(new Date());
-        return key;
+    public static long getSecondsToNextDay12pm(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        Long timeOut = (calendar.getTimeInMillis()-System.currentTimeMillis()) / 1000;
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        timeOut += 12*60*60; //到下周一的凌晨4点消失
+        return timeOut;
     }
+
+
+
+
+
 
     public static int calculateDayOfWeek(){
         Calendar calendar = Calendar.getInstance();
@@ -52,19 +64,9 @@ public class TimeUtil {
     }
 
 
-    public static String createDailyActiveUserKey(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String key = "signin:" + simpleDateFormat.format(new Date());
-        return key;
-    }
 
-    public static String getYesterdayActiveUserKey(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,-24);
-        String key = "signin:" + simpleDateFormat.format(calendar.getTime());
-        return key;
-    }
+
+
 
 
 }

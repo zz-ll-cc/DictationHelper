@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,25 +57,45 @@ public class BookServiceImpl implements BookService {
         return bookMapper.selectPage(page,null).getRecords();
     }
 
+
+    /**
+     * 先去缓存找
+     * @param bvid
+     * @return
+     */
     @Override
     public List<Book> findAllByVesion(int bvid) {
-        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
-        bookQueryWrapper.eq("version_id",bvid);
-        return bookMapper.selectList(bookQueryWrapper);
+        List<Book> bookList = findAll();
+        List<Book> bookResult = new ArrayList<>();
+
+        bookList.stream()
+                .filter(book -> book.getBvid()==bvid)
+                .forEach(book ->bookResult.add(book));
+        return bookResult;
     }
 
     @Override
     public List<Book> findAllByGrade(int gid) {
-        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
-        bookQueryWrapper.eq("grade_id",gid);
-        return bookMapper.selectList(bookQueryWrapper);
+        List<Book> bookList = findAll();
+        List<Book> bookResult = new ArrayList<>();
+
+        bookList.stream()
+                .filter(book -> book.getGid() == gid)
+                .forEach(book -> bookResult.add(book));
+
+        return bookResult;
     }
 
     @Override
     public List<Book> findAllByVesionAndGrade(int bvid, int gid) {
-        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
-        bookQueryWrapper.eq("grade_id",gid).eq("version_id",bvid);
-        return bookMapper.selectList(bookQueryWrapper);
+        List<Book> bookList = findAll();
+        List<Book> bookResult = new ArrayList<>();
+
+        bookList.stream()
+                .filter(book -> book.getGid() == gid && book.getBvid()==bvid)
+                .forEach(book -> bookResult.add(book));
+
+        return bookResult;
     }
 
     @Override

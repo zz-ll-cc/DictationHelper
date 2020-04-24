@@ -37,6 +37,8 @@ public class Book {
     @TableField("book_cover")
     private String bimgPath;
 
+    private Integer bookWordVersion;
+
     @TableField("unit_num")
     private Integer bunitAccount;
 

@@ -92,6 +92,9 @@ public class Constant {
     public static final String SECRETKEY = "pWk_nnowhVKlz3YVTGH4XAVcjtXprOYHQdFnts6_";//此处填你自己的SecretKey
     public static final String BUCKET = "zin";
 
-
-
+    // 意见反馈
+    public static final String FEEDBACK_KEEP_SP_NAME = "Feedback_keep";
+    public static final String FEEDBACK_POST_KEEP_CONTENT_KEY = "contentKeep";
+    public static final String FEEDBACK_POST_KEEP_TYPE_KEY = "typeKeep";
+    public static final String CON_POST_FEEDBACK_IP = BASE_URL+"mail/report";
 }

@@ -73,6 +73,7 @@ public class EidtCenterActivity extends AppCompatActivity {
         btnSafeOut.setOnClickListener(listener);
         rlChangeMsg.setOnClickListener(listener);
         rlChangePwd.setOnClickListener(listener);
+        rlSuggest.setOnClickListener(listener);
     }
 
     private void findViews() {
@@ -99,6 +100,7 @@ public class EidtCenterActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.rl_edit_center_back_suggest:
                     Intent intent = new Intent(EidtCenterActivity.this, FeedbackActivity.class);
+                    intent.putExtra("user",user);
                     startActivity(intent);
                     break;
                 case R.id.btn_safe_exit:

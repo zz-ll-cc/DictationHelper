@@ -19,6 +19,7 @@
     <color name="back5">#EBD5FC</color>
     <color name="back6">#FCD5D5</color>
     <color name="anjin">#D68917</color>
-
+    <color name="holo_red_light">#ffff4444</color>
+    <color name="holo_red_dark">#ffcc0000</color>
     <color name="backgray">#FFFAFAFA</color>
 </resources>

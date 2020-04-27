@@ -1,6 +1,7 @@
 package com.dictation.mail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -40,8 +41,14 @@ public class MailService {
         mimeMessageHelper.setSubject(title);
         mimeMessageHelper.setTo("dictationmail@163.com");
         mimeMessageHelper.setFrom("390597658@qq.com");
-        javaMailSender.send(mimeMessage);
-        fileList.forEach(file -> file.delete());
+        try {
+            javaMailSender.send(mimeMessage);
+        } catch (MailException e) {
+            e.printStackTrace();
+        }finally {
+            fileList.forEach(file -> file.delete());
+        }
+
 
     }
 

@@ -7,6 +7,7 @@ spring:
     host: smtp.qq.com
     username: 390597658@qq.com
     password: zymbtjndogqocbbh
+    port: 465
   mvc:
     view:
       prefix: /
@@ -27,7 +28,9 @@ spring:
       master: mymaster
       nodes: 114.55.101.120:26379
     password: sunnycat
-    database: 1
+    database: 0
+#    sentinel:
+#      master: myredis
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -36,6 +39,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
   mapper-locations: classpath*:mapping/*Mapper.xml
-
-
-
+logging:
+  file:
+    path: /
+    name: dictation.log

@@ -8,6 +8,11 @@ spring:
     username: 390597658@qq.com
     password: zymbtjndogqocbbh
     port: 465
+      properties:
+        mail:
+          smtp:
+            ssl:
+              enable: true
   mvc:
     view:
       prefix: /

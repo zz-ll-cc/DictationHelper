@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.settings.SyllabusActivity;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class MyShowAdapter extends RecyclerView.Adapter {
@@ -61,6 +62,8 @@ public class MyShowAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 switch (map.get("name").toString()){
                     case "我的积分":
+                        Intent intent1 = new Intent(context, SyllabusActivity.class);
+                        context.startActivity(intent1);
                         break;
                     case "消息通知":
                         break;

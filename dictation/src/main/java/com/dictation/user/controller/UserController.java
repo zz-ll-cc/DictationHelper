@@ -250,7 +250,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("updateCredit")
-    public User modifyCredit(@RequestParam("id") int id, @RequestParam("code") int code,@RequestParam("incr") int increment){
+    public User modifyCredit(@RequestParam("id") int id, @RequestParam("code") int code){
         String reason  = "";
         int creditNum = 0;
         switch (code){
@@ -272,7 +272,7 @@ public class UserController {
                 break;
         }
         System.out.println(creditNum);
-        return userService.updateUserCreditAndInsertRecord(id,reason,increment);
+        return userService.updateUserCreditAndInsertRecord(id,reason,creditNum);
     }
 
 

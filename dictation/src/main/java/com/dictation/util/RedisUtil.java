@@ -822,6 +822,7 @@ public class RedisUtil {
         //key的规则是 signin:{id}:{MonthOfYear}:{WeekOfMonth}
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
+
         String key = "signin:" + id + ":" + (calendar.get(Calendar.MONTH)+1) + ":" + (calendar.get(Calendar.WEEK_OF_MONTH)+1);
         return key;
     }

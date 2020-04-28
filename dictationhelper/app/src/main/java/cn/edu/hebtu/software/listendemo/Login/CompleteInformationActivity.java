@@ -3,8 +3,10 @@ package cn.edu.hebtu.software.listendemo.Login;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -32,6 +35,9 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.yuyh.library.imgsel.ISNav;
+import com.yuyh.library.imgsel.common.ImageLoader;
+import com.yuyh.library.imgsel.config.ISListConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,8 +104,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     Button btnSubmit;
     @BindView(R.id.tv_selectBirth)
     TextView tvSelect;
-    @BindView(R.id.iv_login_show_pwd)
-    ImageView ivShow;
 
     private List<LocalMedia> selectResultList = null;
     private SharedPreferences sp;
@@ -108,6 +113,7 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     private OkHttpClient okHttpClient;
     private static final int UPLOAD_QINIU_TRUE = 1000;
     private String headpicPath = "";
+    private static final int REQUEAT_CODE = 100;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -155,7 +161,12 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_register_user_msg);
-
+        ISNav.getInstance().init(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, String path, ImageView imageView) {
+                Glide.with(context).load(path).into(imageView);
+            }
+        });
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         okHttpClient = new OkHttpClient.Builder().connectTimeout(1000 * 60, TimeUnit.MILLISECONDS).build();
@@ -164,7 +175,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
         tvSkip.setOnClickListener(this::onClick);
         btnSubmit.setOnClickListener(this::onClick);
         tvSelect.setOnClickListener(this::onClick);
-        ivShow.setOnClickListener(this::onClick);
 
 
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
@@ -285,12 +295,11 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PictureConfig.CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            selectResultList = PictureSelector.obtainMultipleResult(data);
-            for (LocalMedia localMedia : selectResultList) {
-                Log.e("Path:", "" + localMedia.getCutPath());
-            }
-            uploadFile();
+        if (data != null) {
+            ArrayList<String> mSelectPath = data.getStringArrayListExtra("result");
+            RequestOptions ro = new RequestOptions().circleCrop();
+            Glide.with(this).load(mSelectPath.get(0)).apply(ro).into(ivHead);
+            uploadFile(mSelectPath.get(0));
         }
     }
 
@@ -312,28 +321,40 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     }
 
     private void startSelectPic() {
-        PictureSelector.create(CompleteInformationActivity.this)
-                .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                .theme(R.style.picture_QQ_style)
-                .maxSelectNum(1)// 最大图片选择数量 int
-                .minSelectNum(1)// 最小选择数量 int
-                .imageSpanCount(4)// 每行显示个数 int
-                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                .previewImage(true)// 是否可预览图片 true or false
-                .previewVideo(false)// 是否可预览视频 true or false
-                .enablePreviewAudio(false) // 是否可播放音频 true or false
-                .isCamera(true)// 是否显示拍照按钮 true or false
-                .isZoomAnim(true)//图片列表点击缩放效果
-                .enableCrop(true)// 是否裁剪 true or false
-                .withAspectRatio(1, 1)//一比一剪裁
-                .rotateEnabled(false)//禁止旋转
-                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-
+        ISListConfig config = new ISListConfig.Builder()
+                // 是否多选, 默认true
+                .multiSelect(false)
+                // 是否记住上次选中记录, 仅当multiSelect为true的时候配置，默认为true
+                .rememberSelected(true)
+                // “确定”按钮背景色
+                .btnBgColor(Color.GRAY)
+                // “确定”按钮文字颜色
+                .btnTextColor(Color.BLUE)
+                // 使用沉浸式状态栏
+                .statusBarColor(Color.parseColor("#3F51B5"))
+                // 返回图标ResId
+                .backResId(android.support.v7.appcompat.R.drawable.abc_action_bar_item_background_material)
+                // 标题
+                .title("选择图片")
+                // 标题文字颜色
+                .titleColor(Color.WHITE)
+                // TitleBar背景色
+                .titleBgColor(Color.parseColor("#3F51B5"))
+                // 裁剪大小。needCrop为true的时候配置
+                .cropSize(1, 1, 200, 200)
+                .needCrop(true)
+                // 第一个是否显示相机，默认true
+                .needCamera(true)
+                // 最大选择图片数量，默认9
+                .maxNum(1)
+                .build();
+        // 跳转到图片选择器
+        ISNav.getInstance().toListActivity(this, config, REQUEAT_CODE);
     }
 
 
     //上传文件
-    private void uploadFile() {
+    private void uploadFile(String path) {
 //        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         //表单参数
 //        builder.addFormDataPart("uid", "" + user.getUid());
@@ -343,24 +364,21 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
          * 文件名可以通过path的/分割字符串如何提出最后一段就是文件名
          *
          */
-        for (LocalMedia localMedia : selectResultList) {
             MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-            Log.e("Cutpath", "" + localMedia.getCutPath());
-            if (localMedia.getPictureType().equals("image/jpeg")) {
-                builder.addFormDataPart("type", "jpeg");
-            } else if (localMedia.getPictureType().equals("video/mp4")) {
-                builder.addFormDataPart("type", "mp4");
-            } else {
-                //剪裁的话就不是jpeg了
-//                return;
-            }
+//            if (localMedia.getPictureType().equals("image/jpeg")) {
+//                builder.addFormDataPart("type", "jpeg");
+//            } else if (localMedia.getPictureType().equals("video/mp4")) {
+//                builder.addFormDataPart("type", "mp4");
+//            } else {
+//                //剪裁的话就不是jpeg了
+////                return;
+//            }
             //获取剪裁后的路径，而不是getPath
-            String[] args = localMedia.getCutPath().split("/");
+//            String[] args = localMedia.getCutPath().split("/");
             //builder.addFormDataPart("file",""+args[args.length-1],fileBody);
-            Log.e("path", args[args.length - 1]);
-            String headpicPath = uploadImg2QiNiu(localMedia.getCutPath());
+//            Log.e("path", args[args.length - 1]);
+            String headpicPath = uploadImg2QiNiu(path);
 //            builder.addFormDataPart("fileUrl", headpicPath + "");
-        }
 
 
 //        RequestBody requestBody = builder.build();
@@ -441,12 +459,12 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 tvSetHead.setText("上传成功");
                 Glide.with(this)
                         .load(user.getUheadPath())
+                        .circleCrop()
                         .into(ivHead);
 //                PictureFileUtils.deleteCacheDirFile(CompleteInformationActivity.this);
                 break;
 
             case "finishSubmit":
-
 
                 Log.e("finishSubmit", "" + sp.getString(Constant.USER_KEEP_KEY, ""));
                 sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();

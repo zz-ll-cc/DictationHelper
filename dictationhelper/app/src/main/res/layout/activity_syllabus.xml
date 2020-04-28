@@ -311,12 +311,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <cn.edu.hebtu.software.listendemo.credit.view.MonthPager
+            <cn.edu.hebtu.software.listendemo.credit.component.MonthPager
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
                 android:background="#fff">
-            </cn.edu.hebtu.software.listendemo.credit.view.MonthPager>
+            </cn.edu.hebtu.software.listendemo.credit.component.MonthPager>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="10dp"
@@ -327,7 +327,7 @@
                 android:background="#fff"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.behavior.RecyclerViewBehavior"
+                app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior"
                 android:layout_marginBottom="45dp"/>
             <!-- paddingBottom或者magin距离必须是MonthPager高度的1/6-->
             <!-- RecyclerView的高度必须是MatchParent-->

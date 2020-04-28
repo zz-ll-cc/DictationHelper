@@ -42,7 +42,6 @@ public class UserController {
                 loginInfo = this.loginByVC(phone);   // 使用验证码登陆
                 break;
             case 2:
-
                 loginInfo = this.loginUserByPwd(phone, password);    // 使用密码登录
                 break;
         }

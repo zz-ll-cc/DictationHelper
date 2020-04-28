@@ -1,4 +1,5 @@
-package cn.edu.hebtu.software.listendemo.credit.behavior;
+package cn.edu.hebtu.software.listendemo.credit.task;
+
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,9 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import cn.edu.hebtu.software.listendemo.credit.Utils;
-import cn.edu.hebtu.software.listendemo.credit.view.MonthPager;
-
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
 
 public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerView> {
     private int initOffset = -1;
@@ -35,9 +35,7 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
         return true;
     }
 
-    private void initMinOffsetAndInitOffset(CoordinatorLayout parent,
-                                            RecyclerView child,
-                                            MonthPager monthPager) {
+    private void initMinOffsetAndInitOffset(CoordinatorLayout parent, RecyclerView child, MonthPager monthPager) {
         if (monthPager.getBottom() > 0 && initOffset == -1) {
             initOffset = monthPager.getViewHeight();
             saveTop(initOffset);

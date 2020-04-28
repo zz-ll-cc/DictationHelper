@@ -1,13 +1,9 @@
-package cn.edu.hebtu.software.listendemo.credit.model;
+package cn.edu.hebtu.software.listendemo.credit.component;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Const;
 
-
-import cn.edu.hebtu.software.listendemo.credit.Const;
-
-/**
- * Created by ldf on 17/6/27.
- */
-
+//周
 public class Week {
+
     public int row;
     public Day[] days = new Day[Const.TOTAL_COL];
 

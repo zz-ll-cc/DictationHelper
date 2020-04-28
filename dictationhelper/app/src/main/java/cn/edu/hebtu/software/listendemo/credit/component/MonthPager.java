@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.credit.view;
+package cn.edu.hebtu.software.listendemo.credit.component;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -7,12 +7,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import cn.edu.hebtu.software.listendemo.credit.behavior.MonthPagerBehavior;
-import cn.edu.hebtu.software.listendemo.credit.component.CalendarViewAdapter;
+import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
 
 
+//月
 @CoordinatorLayout.DefaultBehavior(MonthPagerBehavior.class)
 public class MonthPager extends ViewPager {
+
     public static int CURRENT_DAY_INDEX = 1000;
 
     private int currentPosition = CURRENT_DAY_INDEX;
@@ -38,6 +39,7 @@ public class MonthPager extends ViewPager {
     private void init() {
         ViewPager.OnPageChangeListener viewPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
+            //position 当前所在页面   positionOffset 当前所在页面偏移百分比   positionOffsetPixels 当前所在页面偏移量
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (monthPageChangeListener != null) {
                     monthPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -68,6 +70,14 @@ public class MonthPager extends ViewPager {
         hasPageChangeListener = true;
     }
 
+    public interface OnPageChangeListener {
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
+        void onPageSelected(int position);
+
+        void onPageScrollStateChanged(int state);
+    }
+
     @Override
     public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         if (hasPageChangeListener) {
@@ -86,6 +96,7 @@ public class MonthPager extends ViewPager {
         this.scrollable = scrollable;
     }
 
+    //手机屏幕处理事件
     @Override
     public boolean onTouchEvent(MotionEvent me) {
         if (!scrollable)
@@ -108,21 +119,11 @@ public class MonthPager extends ViewPager {
         calendarViewAdapter.notifyDataChanged(CalendarViewAdapter.loadSelectedDate());
     }
 
-    public int getPageScrollState() {
-        return pageScrollState;
-    }
-
-    public interface OnPageChangeListener {
-        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
-
-        void onPageSelected(int position);
-
-        void onPageScrollStateChanged(int state);
-    }
+    public int getPageScrollState() { return pageScrollState; }
 
     public int getTopMovableDistance() {
         CalendarViewAdapter calendarViewAdapter = (CalendarViewAdapter) getAdapter();
-        if(calendarViewAdapter == null) {
+        if (calendarViewAdapter == null) {
             return cellHeight;
         }
         rowIndex = calendarViewAdapter.getPagers().get(currentPosition % 3).getSelectedRowIndex();

@@ -1,18 +1,16 @@
 package cn.edu.hebtu.software.listendemo.credit.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.edu.hebtu.software.listendemo.R;
-import cn.edu.hebtu.software.listendemo.credit.component.State;
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
 
-/**
- * Created by ldf on 17/6/27.
- */
 
 public class ThemeDayView extends DayView {
     private TextView dateTv;
@@ -23,7 +21,6 @@ public class ThemeDayView extends DayView {
 
     /**
      * Constructor. Sets up the MarkerView with a custom layout resource.
-     *
      * @param context
      * @param layoutResource the layout resource to use for the MarkerView
      */
@@ -39,6 +36,7 @@ public class ThemeDayView extends DayView {
     @Override
     public void refreshContent() {
         CalendarDate date = day.getDate();
+        Log.e("tt3",date.getDay()+"");
         State state = day.getState();
         if (date != null) {
             if (date.equals(today)) {

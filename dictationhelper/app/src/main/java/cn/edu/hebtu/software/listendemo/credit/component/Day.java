@@ -1,17 +1,12 @@
-package cn.edu.hebtu.software.listendemo.credit.model;
+package cn.edu.hebtu.software.listendemo.credit.component;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import cn.edu.hebtu.software.listendemo.credit.component.State;
-
-
-/**
- * Created by ldf on 17/7/5.
- */
-
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+//日
 public class Day implements Parcelable {
-    private State state;
+    private State state;//状态
     private CalendarDate date;
     private int posRow;
     private int posCol;

@@ -3,19 +3,16 @@ package cn.edu.hebtu.software.listendemo.credit.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.edu.hebtu.software.listendemo.R;
-import cn.edu.hebtu.software.listendemo.credit.Utils;
-import cn.edu.hebtu.software.listendemo.credit.component.State;
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
-
-/**
- * Created by ldf on 17/6/26.
- */
 
 @SuppressLint("ViewConstructor")
 public class CustomDayView extends DayView {
@@ -28,7 +25,6 @@ public class CustomDayView extends DayView {
 
     /**
      * 构造器
-     *
      * @param context 上下文
      * @param layoutResource 自定义DayView的layout资源
      */
@@ -43,6 +39,7 @@ public class CustomDayView extends DayView {
     @Override
     public void refreshContent() {
         renderToday(day.getDate());
+        Log.e("test","CustomDayView—refreshContent");
         renderSelect(day.getState());
         renderMarker(day.getDate(), day.getState());
         super.refreshContent();
@@ -66,6 +63,7 @@ public class CustomDayView extends DayView {
     }
 
     private void renderSelect(State state) {
+        Log.e("test","CustomDayView—renderSelect—判断所点击日期的状态");
         if (state == State.SELECT) {
             selectedBackground.setVisibility(VISIBLE);
             dateTv.setTextColor(Color.WHITE);

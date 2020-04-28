@@ -3,24 +3,26 @@ package cn.edu.hebtu.software.listendemo.credit.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import cn.edu.hebtu.software.listendemo.credit.Const;
-import cn.edu.hebtu.software.listendemo.credit.Utils;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Const;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarRenderer;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnAdapterSelectListener;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
+
 
 @SuppressLint("ViewConstructor")
 public class Calendar extends View {
     /**
      * 日历列数
      */
-    private CalendarAttr.CalendarType calendarType;
+    //private CalendarAttr.CalendarType calendarType;
     private int cellHeight; // 单元格高度
     private int cellWidth; // 单元格宽度
 
@@ -28,10 +30,11 @@ public class Calendar extends View {
     private Context context;
     private CalendarAttr calendarAttr;
     private CalendarRenderer renderer;
+
     private OnAdapterSelectListener onAdapterSelectListener;
     private float touchSlop;
 
-    public Calendar(Context context,OnSelectDateListener onSelectDateListener, CalendarAttr attr) {
+    public Calendar(Context context, OnSelectDateListener onSelectDateListener, CalendarAttr attr) {
         super(context);
         this.onSelectDateListener = onSelectDateListener;
         calendarAttr = attr;
@@ -52,6 +55,7 @@ public class Calendar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.e("test","Calendar—onDraw—绘制每一天");
         renderer.draw(canvas);
     }
 
@@ -68,9 +72,7 @@ public class Calendar extends View {
     private float posX = 0;
     private float posY = 0;
 
-    /*
-     * 触摸事件为了确定点击的位置日期
-     */
+    //触摸事件为了确定点击的位置日期
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -84,6 +86,7 @@ public class Calendar extends View {
                 if (Math.abs(disX) < touchSlop && Math.abs(disY) < touchSlop) {
                     int col = (int) (posX / cellWidth);
                     int row = (int) (posY / cellHeight);
+                    Log.e("test","Calendar-onTouchEvent88-获取被点击日期的行列:"+col+":"+row);
                     onAdapterSelectListener.cancelSelectState();
                     renderer.onClickDate(col, row);
                     onAdapterSelectListener.updateSelectState();
@@ -94,38 +97,26 @@ public class Calendar extends View {
         return true;
     }
 
-    public CalendarAttr.CalendarType getCalendarType() {
-        return calendarAttr.getCalendarType();
-    }
+    public CalendarAttr.CalendarType getCalendarType() { return calendarAttr.getCalendarType(); }
 
     public void switchCalendarType(CalendarAttr.CalendarType calendarType) {
         calendarAttr.setCalendarType(calendarType);
         renderer.setAttr(calendarAttr);
     }
 
-    public int getCellHeight() {
-        return cellHeight;
-    }
+    public int getCellHeight() { return cellHeight; }
 
-    public void resetSelectedRowIndex() {
-        renderer.resetSelectedRowIndex();
-    }
+    public void resetSelectedRowIndex() { renderer.resetSelectedRowIndex(); }
 
-    public int getSelectedRowIndex() {
-        return renderer.getSelectedRowIndex();
-    }
+    public int getSelectedRowIndex() { return renderer.getSelectedRowIndex(); }
 
     public void setSelectedRowIndex(int selectedRowIndex) {
         renderer.setSelectedRowIndex(selectedRowIndex);
     }
 
-    public void setOnAdapterSelectListener(OnAdapterSelectListener onAdapterSelectListener) {
-        this.onAdapterSelectListener = onAdapterSelectListener;
-    }
+    public void setOnAdapterSelectListener(OnAdapterSelectListener onAdapterSelectListener) { this.onAdapterSelectListener = onAdapterSelectListener; }
 
-    public void showDate(CalendarDate current) {
-        renderer.showDate(current);
-    }
+    public void showDate(CalendarDate current) { renderer.showDate(current); }
 
     public void updateWeek(int rowCount) {
         renderer.updateWeek(rowCount);
@@ -133,26 +124,17 @@ public class Calendar extends View {
     }
 
     public void update() {
+        Log.e("test","Calendar—update138");
         renderer.update();
     }
 
-    public void cancelSelectState() {
-        renderer.cancelSelectState();
-    }
+    public void cancelSelectState() { renderer.cancelSelectState(); }
 
-    public CalendarDate getSeedDate() {
-        return renderer.getSeedDate();
-    }
+    public CalendarDate getSeedDate() { return renderer.getSeedDate(); }
 
-    public CalendarDate getFirstDate() {
-        return renderer.getFirstDate();
-    }
+    public CalendarDate getFirstDate() { return renderer.getFirstDate(); }
 
-    public CalendarDate getLastDate() {
-        return renderer.getLastDate();
-    }
+    public CalendarDate getLastDate() { return renderer.getLastDate(); }
 
-    public void setDayRenderer(IDayRenderer dayRenderer) {
-        renderer.setDayRenderer(dayRenderer);
-    }
+    public void setDayRenderer(IDayRenderer dayRenderer) { renderer.setDayRenderer(dayRenderer); }
 }

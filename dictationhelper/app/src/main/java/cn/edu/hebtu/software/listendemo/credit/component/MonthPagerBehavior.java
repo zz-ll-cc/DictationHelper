@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.credit.behavior;
+package cn.edu.hebtu.software.listendemo.credit.component;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
@@ -6,14 +6,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import cn.edu.hebtu.software.listendemo.credit.Utils;
-import cn.edu.hebtu.software.listendemo.credit.component.CalendarViewAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.MonthPager;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
 
-/**
- * Created by ldf on 17/6/15.
- */
 
+//处理父布局(CoordinatorLayout)滑动手势
 public class MonthPagerBehavior extends CoordinatorLayout.Behavior<MonthPager> {
     private int top = 0;
     private int touchSlop = 1;
@@ -35,6 +32,12 @@ public class MonthPagerBehavior extends CoordinatorLayout.Behavior<MonthPager> {
     private boolean isVerticalScroll;
     private boolean directionUpa;
 
+   // 类似于View的onTouchEvent()方法，可以在里面具体处理触摸事件的逻辑。
+   /* @param parent 分发此次事件的CoordinatorLayout
+    * @param child 和该Behavior关联的View
+    * @param ev the 触摸事件
+    * @return true表示自己消费掉了事件，就不会往后传递事件了。fasle表示自己不消费事件，默认返回false
+    */
     @Override
     public boolean onTouchEvent(CoordinatorLayout parent, MonthPager child, MotionEvent ev) {
         if (downY > lastTop) {
@@ -121,10 +124,15 @@ public class MonthPagerBehavior extends CoordinatorLayout.Behavior<MonthPager> {
         return false;
     }
 
-    private void saveTop(int top) {
-        Utils.saveTop(top);
-    }
+    private void saveTop(int top) { Utils.saveTop(top); }
 
+    // 这个是在有触摸事件产生的时候，由CoordinatorLayout分发过来。由我们自己决定是否拦截。
+    // 类似ViewGroup的onInterceptTouchEvent()方法。
+    /* @param parent 分发此次事件的CoordinatorLayout
+    * @param child 和该Behavior关联的View
+    * @param ev the 触摸事件
+     * @return true:表示要拦截事件，就将后续事件分发给onTouchEvent方法进行处理,fasle表示不进行拦截，默认返回false
+     */
     @Override
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, MonthPager child, MotionEvent ev) {
         switch (ev.getAction()) {
@@ -156,6 +164,13 @@ public class MonthPagerBehavior extends CoordinatorLayout.Behavior<MonthPager> {
 
     private int dependentViewTop = -1;
 
+    /**
+    * 在layoutDependsOn()方法产生关联(返回true)后，dependency的大小、位置等属性有变化，就会回调该方法。我们可以在这里进行相应的处理。比如跟随dependency上移而上移。
+     * @param parent
+    * @param child
+    * @param dependency 所依赖的View
+    * @return 如果child做出了相应的改变，返回true，否则返回false
+    */
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, MonthPager child, View dependency) {
         CalendarViewAdapter calendarViewAdapter = (CalendarViewAdapter) child.getAdapter();

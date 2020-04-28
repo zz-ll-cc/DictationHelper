@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.credit.component;
+package cn.edu.hebtu.software.listendemo.credit.interf;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cn.edu.hebtu.software.listendemo.credit.Utils;
-import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
-import cn.edu.hebtu.software.listendemo.credit.interf.OnAdapterSelectListener;
-import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
+import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
-import cn.edu.hebtu.software.listendemo.credit.view.MonthPager;
 
 
 public class CalendarViewAdapter extends PagerAdapter {
@@ -39,6 +37,7 @@ public class CalendarViewAdapter extends PagerAdapter {
     }
 
     public static void saveSelectedDate(CalendarDate calendarDate) {
+        Log.e("test","CalendarViewAdapter—saveSelectedDate42—保存被选日期");
         date = calendarDate;
     }
 
@@ -62,10 +61,12 @@ public class CalendarViewAdapter extends PagerAdapter {
                 }
 
                 @Override
-                public void updateSelectState() {
+                public void updateSelectState(){
+                    Log.e("test","CalendarViewAdapter—onAdapterSelectListener67");
                     invalidateCurrentCalendar();
                 }
             });
+            Log.e("test","CalendarViewAdapter—calendars.add");
             calendars.add(calendar);
         }
     }
@@ -143,8 +144,10 @@ public class CalendarViewAdapter extends PagerAdapter {
     }
 
     public void invalidateCurrentCalendar() {
+        Log.e("test","CalendarViewAdapter—invalidateCurrentCalendar149");
         for (int i = 0; i < calendars.size(); i++) {
             Calendar calendar = calendars.get(i);
+            Log.e("test","CalendarViewAdapter—calendar.update152");
             calendar.update();
             if (calendar.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
                 calendar.updateWeek(rowCount);

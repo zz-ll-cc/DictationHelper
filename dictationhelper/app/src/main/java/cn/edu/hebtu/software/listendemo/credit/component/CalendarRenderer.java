@@ -4,20 +4,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import cn.edu.hebtu.software.listendemo.credit.Const;
-import cn.edu.hebtu.software.listendemo.credit.Utils;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Const;
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
-import cn.edu.hebtu.software.listendemo.credit.model.Day;
-import cn.edu.hebtu.software.listendemo.credit.model.Week;
 
 
-/**
- * Created by ldf on 17/6/26.
- */
-
+//日历渲染器类
 public class CalendarRenderer {
     private Week weeks[] = new Week[Const.TOTAL_ROW];    // 行数组，每个元素代表一行
     private Calendar calendar;
@@ -35,17 +31,13 @@ public class CalendarRenderer {
         this.context = context;
     }
 
-    /**
-     * 使用dayRenderer绘制每一天
-     *
-     * @return void
-     */
+    //使用dayRenderer绘制每一天
     public void draw(Canvas canvas) {
+        Log.e("test","CalendarRender—draw—绘制每一天");
         for (int row = 0; row < Const.TOTAL_ROW; row++) {
             if (weeks[row] != null) {
                 for (int col = 0; col < Const.TOTAL_COL; col++) {
                     if (weeks[row].days[col] != null) {
-                        Log.e("tt",weeks[row].days[col]+"");
                         dayRenderer.drawDay(canvas, weeks[row].days[col]);
                     }
                 }
@@ -53,12 +45,9 @@ public class CalendarRenderer {
         }
     }
 
-    /**
-     * 点击某一天时刷新这一天的状态
-     *
-     * @return void
-     */
+    //点击某一天时刷新这一天的状态
     public void onClickDate(int col, int row) {
+        Log.e("test","CalendarRender—onClickDate58");
         if (col >= Const.TOTAL_COL || row >= Const.TOTAL_ROW)
             return;
         if (weeks[row] != null) {
@@ -66,16 +55,19 @@ public class CalendarRenderer {
                 if (weeks[row].days[col].getState() == State.CURRENT_MONTH) {
                     weeks[row].days[col].setState(State.SELECT);
                     selectedDate = weeks[row].days[col].getDate();
+                    Log.e("test","CalendarRender—onClickDate66—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectDate(selectedDate);
                     seedDate = selectedDate;
                 } else if (weeks[row].days[col].getState() == State.PAST_MONTH) {
                     selectedDate = weeks[row].days[col].getDate();
+                    Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectOtherMonth(-1);
                     onSelectDateListener.onSelectDate(selectedDate);
                 } else if (weeks[row].days[col].getState() == State.NEXT_MONTH) {
                     selectedDate = weeks[row].days[col].getDate();
+                    Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectOtherMonth(1);
                     onSelectDateListener.onSelectDate(selectedDate);
@@ -83,6 +75,7 @@ public class CalendarRenderer {
             } else {
                 weeks[row].days[col].setState(State.SELECT);
                 selectedDate = weeks[row].days[col].getDate();
+                Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                 CalendarViewAdapter.saveSelectedDate(selectedDate);
                 onSelectDateListener.onSelectDate(selectedDate);
                 seedDate = selectedDate;
@@ -92,7 +85,6 @@ public class CalendarRenderer {
 
     /**
      * 刷新指定行的周数据
-     *
      * @param rowIndex  参数月所在年
      * @return void
      */
@@ -130,16 +122,13 @@ public class CalendarRenderer {
 
     /**
      * 填充月数据
-     *
      * @return void
      */
     private void instantiateMonth() {
+        Log.e("test","CalendarRenderer—instantiateMonth138");
         int lastMonthDays = Utils.getMonthDays(seedDate.year, seedDate.month - 1);    // 上个月的天数
         int currentMonthDays = Utils.getMonthDays(seedDate.year, seedDate.month);    // 当前月的天数
-        int firstDayPosition = Utils.getFirstDayWeekPosition(
-                seedDate.year,
-                seedDate.month,
-                attr.getWeekArrayType());
+        int firstDayPosition = Utils.getFirstDayWeekPosition(seedDate.year, seedDate.month, attr.getWeekArrayType());
         Log.e("ldf","firstDayPosition = " + firstDayPosition);
 
         int day = 0;
@@ -162,10 +151,10 @@ public class CalendarRenderer {
 
     /**
      * 填充月中周数据
-     *
      * @return void
      */
     private int fillWeek(int lastMonthDays, int currentMonthDays, int firstDayWeek, int day, int row) {
+        Log.e("test","CalendarRenderer—fillWeek167");
         for (int col = 0; col < Const.TOTAL_COL; col++) {
             int position = col + row * Const.TOTAL_COL;// 单元格位置
             if (position >= firstDayWeek && position < firstDayWeek + currentMonthDays) {
@@ -181,6 +170,7 @@ public class CalendarRenderer {
     }
 
     private void fillCurrentMonthDate(int day, int row, int col) {
+        Log.e("test","CalendarRenderer—fillCurrentMonthDate184");
         CalendarDate date = seedDate.modifyDay(day);
         if (weeks[row] == null) {
             weeks[row] = new Week(row);
@@ -206,10 +196,7 @@ public class CalendarRenderer {
     }
 
     private void instantiateNextMonth(int currentMonthDays, int firstDayWeek, int row, int col, int position) {
-        CalendarDate date = new CalendarDate(
-                seedDate.year,
-                seedDate.month + 1,
-                position - firstDayWeek - currentMonthDays + 1);
+        CalendarDate date = new CalendarDate(seedDate.year, seedDate.month + 1, position - firstDayWeek - currentMonthDays + 1);
         if (weeks[row] == null) {
             weeks[row] = new Week(row);
         }
@@ -225,10 +212,7 @@ public class CalendarRenderer {
     }
 
     private void instantiateLastMonth(int lastMonthDays, int firstDayWeek, int row, int col, int position) {
-        CalendarDate date = new CalendarDate(
-                seedDate.year,
-                seedDate.month - 1,
-                lastMonthDays - (firstDayWeek - position - 1));
+        CalendarDate date = new CalendarDate(seedDate.year, seedDate.month - 1, lastMonthDays - (firstDayWeek - position - 1));
         if (weeks[row] == null) {
             weeks[row] = new Week(row);
         }
@@ -242,7 +226,6 @@ public class CalendarRenderer {
 
     /**
      * 根据种子日期孵化出本日历牌的数据
-     *
      * @return void
      */
     public void showDate(CalendarDate seedDate) {
@@ -255,6 +238,7 @@ public class CalendarRenderer {
     }
 
     public void update() {
+        Log.e("test","CalendarRenderer—update253");
         instantiateMonth();
         calendar.invalidate();
     }
@@ -285,39 +269,21 @@ public class CalendarRenderer {
         return selectedRowIndex;
     }
 
-    public void setSelectedRowIndex(int selectedRowIndex) {
-        this.selectedRowIndex = selectedRowIndex;
-    }
+    public void setSelectedRowIndex(int selectedRowIndex) { this.selectedRowIndex = selectedRowIndex; }
 
-    public Calendar getCalendar() {
-        return calendar;
-    }
+    public Calendar getCalendar() { return calendar; }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
+    public void setCalendar(Calendar calendar) { this.calendar = calendar; }
 
-    public CalendarAttr getAttr() {
-        return attr;
-    }
+    public CalendarAttr getAttr() { return attr; }
 
-    public void setAttr(CalendarAttr attr) {
-        this.attr = attr;
-    }
+    public void setAttr(CalendarAttr attr) { this.attr = attr; }
 
-    public Context getContext() {
-        return context;
-    }
+    public Context getContext() { return context; }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
+    public void setContext(Context context) { this.context = context; }
 
-    public void setOnSelectDateListener(OnSelectDateListener onSelectDateListener) {
-        this.onSelectDateListener = onSelectDateListener;
-    }
+    public void setOnSelectDateListener(OnSelectDateListener onSelectDateListener) { this.onSelectDateListener = onSelectDateListener; }
 
-    public void setDayRenderer(IDayRenderer dayRenderer) {
-        this.dayRenderer = dayRenderer;
-    }
+    public void setDayRenderer(IDayRenderer dayRenderer) { this.dayRenderer = dayRenderer; }
 }

@@ -157,46 +157,6 @@
             android:orientation="horizontal">
 
             <TextView
-
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="密码："
-                android:textSize="16dp" />
-
-            <ImageView
-                android:id="@+id/iv_login_show_pwd"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/eye_close" />
-
-            <EditText
-                android:id="@+id/et_regist_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff"
-                android:hint="(选填)"
-                android:inputType="textPassword"
-                android:maxEms="8"
-                android:maxLines="1"
-                android:textSize="16dp" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="50dp"
-            android:background="#000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -223,7 +183,7 @@
                 android:id="@+id/tv_selectBirth"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:gravity="center"
                 android:text="选择"
                 android:textColor="@color/black"

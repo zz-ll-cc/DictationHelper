@@ -97,8 +97,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
     Button btnSubmit;
     @BindView(R.id.tv_selectBirth)
     TextView tvSelect;
-    @BindView(R.id.et_regist_password)
-    EditText etPass;
     @BindView(R.id.iv_login_show_pwd)
     ImageView ivShow;
 
@@ -222,15 +220,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                     }
 
                 }
-                if (!etPass.getText().toString().isEmpty()) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Base64.Encoder encoder = Base64.getEncoder();
-                        Log.e("encode", "" + new String(encoder.encode(etPass.getText().toString().getBytes())));
-                        user.setUpassword(new String(encoder.encode(etPass.getText().toString().getBytes())));
-                    } else {
-                        user.setUpassword(etPass.getText().toString());
-                    }
-                }
                 if (!etUserName.getText().toString().equals(user.getUname()) && !etUserName.getText().toString().isEmpty()) {
                     user.setUname(etUserName.getText().toString());
                 }
@@ -254,23 +243,6 @@ public class CompleteInformationActivity extends AppCompatActivity implements Da
                 Calendar now = Calendar.getInstance();
                 dpd = new DatePickerDialog(this, this::onDateSet, 2016 - spinYear.getSelectedItemPosition(), 0, 1);
                 dpd.show();
-                break;
-
-            case R.id.iv_login_show_pwd:
-                //显示密码
-
-                if (etPass.getInputType() == 128) {
-                    // 1. 将password 的输入框文本变为 "密码" 形式
-                    etPass.setInputType(129);
-                    // 2. 将图片变为close
-                    ivShow.setImageResource(R.drawable.eye_close);
-                } else if (etPass.getInputType() == 129) {   // 当前为 "密码" 格式
-                    // 1. 变为文本格式
-                    etPass.setInputType(128);
-                    // 2. 修改图片
-                    ivShow.setImageResource(R.drawable.eye_open);
-                }
-
                 break;
         }
     }

@@ -103,6 +103,7 @@ public class NewWordActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewNewOrWrong.setLayoutManager(layoutManager);
         recyclerViewNewOrWrong.setAdapter(newWordRecyclerViewAdapter);
+
     }
 
     private void initData() {

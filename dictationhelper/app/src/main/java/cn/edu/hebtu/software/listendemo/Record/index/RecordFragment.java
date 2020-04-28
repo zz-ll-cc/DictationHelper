@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.DayRecord;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.ChartView;
@@ -71,7 +72,7 @@ public class RecordFragment extends Fragment {
     private LinearLayout llaccurrencyChart;
     private LinearLayout llwordsearch;
     private LinearLayout llacurrencyseach;
-    private List<Map<String, Object>> recordList = new ArrayList<>();
+    private List<DayRecord> recordList = new ArrayList<>();
     private SQLiteDatabase currectsumdatabase;
     private  ChartView wordFiveView;
     private  ChartView wordMonthView;
@@ -87,10 +88,9 @@ public class RecordFragment extends Fragment {
                     List xlist = new ArrayList();
                     List datalist = new ArrayList();
                     for (int i = 0; i < recordList.size(); i++) {
-                        String xstr = recordList.get(i).get("date").toString();
-                        double accStr= Double.parseDouble(recordList.get(i).get("acc").toString());
+                        String xstr = recordList.get(i).getCreateTime().toString();
+                        double accStr= Double.parseDouble(recordList.get(i).getAccuracy().toString());
                         String accStr1 = (int)accStr+"";
-                        Log.e("acc",accStr1);
                         try {
                             Date date = new Date(simpleDateFormatt.parse(xstr).toString());
                             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
@@ -205,11 +205,6 @@ public class RecordFragment extends Fragment {
         showAdapter = new RecordShowAdapter(getContext(), R.layout.fragment_record_recycler_item, showResources);
         rvShow.setAdapter(showAdapter);
         User user = new Gson().fromJson(getActivity().getSharedPreferences(Constant.SP_NAME,MODE_PRIVATE).getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
-        if (user.getUphone().equals("15833143601")){
-            csb.setText("已连续学习1天");
-    }else {
-        csb.setText("已连续学习5天");
-    }
     }
 
     private void initRecycler() {
@@ -290,6 +285,7 @@ public class RecordFragment extends Fragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,Constant.point.y/3+50);
         llaccurrencyChart.setLayoutParams(params);
         llwordChart.setLayoutParams(params);
+        csb.setText("");
     }
 
     private void getAccurencyFiveRecord() {
@@ -308,7 +304,7 @@ public class RecordFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
-                Type listType = new TypeToken<List<Map<String, Object>>>() {
+                Type listType = new TypeToken<List<DayRecord>>() {
                 }.getType();
                 recordList = new Gson().fromJson(str, listType);
                 Message message = new Message();

@@ -1,6 +1,4 @@
 package com.dictation.user.service.impl;
-
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.dictation.mapper.CreditRecordMapper;
 import com.dictation.mapper.UserMapper;
@@ -48,14 +46,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUser(String phone) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User::getUid).eq(User::getUphone, phone);
+//        wrapper.select(User::getUid).eq(User::getUphone, phone);
+        wrapper.eq(User::getUphone, phone);
         return this.userMapper.selectOne(wrapper) != null;
     }
 
     @Override
     public String findPhoneByUid(int uid) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User::getUphone).eq(User::getUid, uid);
+//        wrapper.select(User::getUphone).eq(User::getUid, uid);
+        wrapper.eq(User::getUid, uid);
         return this.userMapper.selectOne(wrapper).getUphone();
     }
 

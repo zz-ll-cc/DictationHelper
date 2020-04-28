@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgray"
+    android:id="@+id/smart">
+
+    <com.scwang.smartrefresh.layout.header.FalsifyHeader
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/rl_fragment_my_edit_header">
+
+            <ImageView
+                android:id="@+id/iv_fragment_my_header"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/head_user" />
+
+            <TextView
+                android:id="@+id/tv_fragment_my_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_fragment_my_header"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:maxEms="6"
+                android:maxLines="1"
+                android:text="是玉啊."
+                android:textColor="#000"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#F57C00" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:id="@+id/rcv_my_show">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

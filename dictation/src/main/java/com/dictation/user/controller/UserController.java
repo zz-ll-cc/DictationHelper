@@ -76,6 +76,7 @@ public class UserController {
     public LoginInfo loginByVC(String phone) {
         LoginInfo loginInfo=new LoginInfo();
         Boolean info = userService.checkUser(phone);
+        System.out.println(info);
         if (info){
             User user = userService.findUserByPhone(phone);
             loginInfo.setRegister_type(2);

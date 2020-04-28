@@ -68,6 +68,8 @@
         <activity android:name=".Mine.index.settings.EditMsgActivity" />
         <activity android:name=".Mine.index.settings.FeedbackActivity" />
         <activity android:name=".Mine.index.settings.EidtCenterActivity" />
+        <activity android:name=".Mine.index.settings.MyCreditActivity"/>
+        <activity android:name=".Mine.index.settings.SyllabusActivity"/>
     </application>
 
 </manifest>

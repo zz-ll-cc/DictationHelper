@@ -7,6 +7,7 @@ spring:
     host: smtp.qq.com
     username: 390597658@qq.com
     password: zymbtjndogqocbbh
+    port: 25
   mvc:
     view:
       prefix: /

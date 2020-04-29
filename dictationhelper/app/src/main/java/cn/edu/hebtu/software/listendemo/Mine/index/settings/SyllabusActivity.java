@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Host.learnWord.CustomDialogLearnWord;
+import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
@@ -36,6 +38,7 @@ import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
+import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 
 /**
  * Created by ldf on 16/11/4.
@@ -55,6 +58,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private TextView lastMonthBtn;
     private ImageView ivSignRemind;
     private TextView tvSignDay;
+    private TextView dateTv ;
     private int signRemindStatus = 0;
     private List<Map<String, String>> title = new ArrayList<>();
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
@@ -73,6 +77,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private String[] task_name = {"今日累计", "今日最好成绩"};
     private String[] task_content = new String[]{};
     private String[] add_credit = {"+5积分", "+5积分"};
+    private HashMap<String, String> markData = new HashMap<>();
+    private ThemeDayView themeDayView ;
+    ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,10 +94,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         initCalendarView();
         initToolbarClickListener();
         Log.e("ldf", "OnCreated");
-//        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
-//        calendarAdapter.switchToMonth();
-//        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-//        calendarAdapter.switchToWeek(monthPager.getRowIndex());
+        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+        calendarAdapter.switchToMonth();
+        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+        calendarAdapter.switchToWeek(monthPager.getRowIndex());
     }
 
     public void findView() {
@@ -108,6 +115,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         rvToDoList = (RecyclerView) findViewById(R.id.list);
         ivSignRemind = (ImageView) findViewById(R.id.iv_my_credit_sign_remind);
         tvSignDay = (TextView) findViewById(R.id.tv_sign_day);
+        themeDayView = new ThemeDayView(context, R.layout.custom_day);
     }
 
     @Override
@@ -163,7 +171,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     //初始化CustomDayView，并作为CalendarViewAdapter的参数传入
     private void initCalendarView() {
         initListener();
-        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day);
+        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day,markData);
         calendarAdapter = new CalendarViewAdapter(
                 context,
                 onSelectDateListener,
@@ -181,7 +189,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 
     //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
     private void initMarkData() {
-        HashMap<String, String> markData = new HashMap<>();
         //1表示未签到   0表示已签到
         markData.put("2020-4-27", "0");
         markData.put("2020-4-26", "1");
@@ -194,7 +201,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         markData.put("2020-4-19", "0");
         calendarAdapter.setMarkData(markData);
         calendarAdapter.notifyDataChanged();
-        calendarAdapter.notifyDataChanged();
+        dateTv=themeDayView.findViewById(R.id.date);
     }
 
     //初始化monthPager，MonthPager继承自ViewPager
@@ -276,6 +283,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         onSelectDateListener = new OnSelectDateListener() {
             @Override
             public void onSelectDate(CalendarDate date) {
+                Log.e("click", date.getYear() + "-" + date.getMonth() + "-" + date.getDay());
+                String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+                //签到框
+                //创建并显示自定义的dialog
+                CustomDialogSign dialog = new CustomDialogSign(themeDayView,date, markData, SyllabusActivity.this);
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(), "sign");
+                calendarAdapter.notifyDataChanged();
                 refreshClickDate(date);
             }
 
@@ -302,7 +317,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
 //        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
 //        calendarAdapter.switchToWeek(monthPager.getRowIndex());
-//        refreshMonthPager();
+        refreshMonthPager();
         super.onResume();
     }
 
@@ -315,8 +330,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-    public void onClickBackToDayBtn() { refreshMonthPager(); }
+    public void onClickBackToDayBtn() {
+        refreshMonthPager();
+    }
 
     private void refreshMonthPager() {
         CalendarDate today = new CalendarDate();

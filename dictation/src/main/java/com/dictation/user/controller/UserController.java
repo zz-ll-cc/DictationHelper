@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -164,55 +165,68 @@ public class UserController {
 
 
     /**
-     * 用户打开积分页面
+     *
+     * 若不传year，默认为今年
+     *
      * @param id
+     * @param year 不是必传字段
      * @return
      */
     @RequestMapping("/check")
-    public UserSignIn getSignInList(@RequestParam("id") int id){
-        String key = redisUtil.createUserSignInKey(id);
+    public UserSignIn getSignInMap(@RequestParam("id") int id, @RequestParam(value = "year", required = false) String... year){
         UserSignIn signIn = new UserSignIn();
-        try {
-            signIn
-                    .setWeekRecord(redisUtil.getBitList(key))
-                    .setContinuousSignIn(userService.getContinuousSignIn(id))
-                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        signIn.setUser(userService.findUserByUid(id)).setYearRecord(userService.getSignInRecordMap(id,year));
+
+//        String key = redisUtil.createUserSignInKey(id,year);
+//        UserSignIn signIn = new UserSignIn();
+//        try {
+//            signIn
+//                    .setWeekRecord(redisUtil.getBitList(key))
+//                    .setContinuousSignIn(userService.getContinuousSignIn(id))
+//                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
         return signIn;
     }
 
 
+
+
+
+
     /**
-     * 用户签到
+     * 用户签到,调用signIn
      * @param id
-     * @return
+     * @return  如果签到失败，返回null，否则返回对应user
      */
     @RequestMapping("/signIn")
-    public UserSignIn signIn(@RequestParam("id") int id){
-        String key = redisUtil.createUserSignInKey(id);
-        int dayOfWeek = TimeUtil.calculateDayOfWeek();
-        long time = 0;
-        if(!redisUtil.hasKey(key)){
-            time = TimeUtil.getSecondsToNextMonday4pm();
-        }
-        if(!redisUtil.getBit(key,dayOfWeek-1)){
-            //检查是否有连续登陆记录，如果有，刷新时间，incr，如果没有，返回1，创建一天记录，设置时间
-            redisUtil.setBit(key,dayOfWeek-1,true, time);
-            //异步
-            userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
-        }
-        UserSignIn signIn = new UserSignIn();
-        try {
-            signIn
-                    .setWeekRecord(redisUtil.getBitList(key))
-                    .setContinuousSignIn(userService.continuousSignIn(id))
-                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return signIn;
+    public User signIn(@RequestParam("id") int id){
+
+        return userService.signIn(id);
+
+//        String key = redisUtil.createUserSignInKey(id,null);
+//        int dayOfWeek = TimeUtil.calculateDayOfWeek();
+//        long time = 0;
+//        if(!redisUtil.hasKey(key)){
+//            time = TimeUtil.getSecondsToNextMonday4pm();
+//        }
+//        if(!redisUtil.getBit(key,dayOfWeek-1)){
+//            //检查是否有连续登陆记录，如果有，刷新时间，incr，如果没有，返回1，创建一天记录，设置时间
+//            redisUtil.setBit(key,dayOfWeek-1,true, time);
+//            //异步
+//            userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
+//        }
+//        UserSignIn signIn = new UserSignIn();
+//        try {
+//            signIn
+//                    .setWeekRecord(redisUtil.getBitList(key))
+//                    .setContinuousSignIn(userService.continuousSignIn(id))
+//                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return signIn;
     }
 
 

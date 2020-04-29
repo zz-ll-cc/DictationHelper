@@ -1,52 +1,105 @@
-2020-04-27 15:56:28.850  INFO 12476 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 12476 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
-2020-04-27 15:56:28.900  INFO 12476 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
-2020-04-27 15:56:30.144  WARN 12476 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
-2020-04-27 15:56:30.291  INFO 12476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-04-27 15:56:30.293  INFO 12476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2020-04-27 15:56:30.327  INFO 12476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18ms. Found 0 Redis repository interfaces.
-2020-04-27 15:56:30.826  INFO 12476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-04-27 15:56:30.834  INFO 12476 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-04-27 15:56:30.834  INFO 12476 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
-2020-04-27 15:56:31.068  INFO 12476 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2020-04-27 15:56:31.072  INFO 12476 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-04-27 15:56:31.072  INFO 12476 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2128 ms
-2020-04-27 15:56:31.238  INFO 12476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-04-27 15:56:32.231  INFO 12476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-04-27 15:56:32.894  INFO 12476 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
-2020-04-27 15:56:32.895  INFO 12476 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
-2020-04-27 15:56:33.261  INFO 12476 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-04-27 15:56:33.315  INFO 12476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-04-27 15:56:33.318  INFO 12476 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 4.953 seconds (JVM running for 6.889)
-2020-04-27 15:57:24.755  INFO 12476 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-04-27 15:57:24.755  INFO 12476 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-04-27 15:57:24.763  INFO 12476 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-2020-04-27 15:57:24.979  INFO 12476 --- [http-nio-8080-exec-2] c.dictation.handler.MyMetaObjectHandler  : start insert fill ....
-2020-04-27 15:57:25.248  INFO 12476 --- [http-nio-8080-exec-2] io.lettuce.core.EpollProvider            : Starting without optional epoll library
-2020-04-27 15:57:25.250  INFO 12476 --- [http-nio-8080-exec-2] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
-2020-04-27 15:57:26.452 ERROR 12476 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2] with root cause
+2020-04-29 12:43:48.123  INFO 3980 --- [main] com.dictation.DictationApplicationTests  : Starting DictationApplicationTests on DESKTOP-ZLC with PID 3980 (started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-29 12:43:48.128  INFO 3980 --- [main] com.dictation.DictationApplicationTests  : The following profiles are active: dev
+2020-04-29 12:43:49.029  WARN 3980 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-29 12:43:49.192  INFO 3980 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-29 12:43:49.194  INFO 3980 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-29 12:43:49.238  INFO 3980 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28ms. Found 0 Redis repository interfaces.
+2020-04-29 12:43:50.067  INFO 3980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-29 12:43:51.224  INFO 3980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-29 12:43:52.819  INFO 3980 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-29 12:43:52.827  INFO 3980 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-29 12:43:53.834  INFO 3980 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-29 12:43:53.909  INFO 3980 --- [main] com.dictation.DictationApplicationTests  : Started DictationApplicationTests in 6.269 seconds (JVM running for 7.688)
+2020-04-29 12:43:54.160  INFO 3980 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-04-29 12:43:54.163  INFO 3980 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'asyncServiceExecutor'
+2020-04-29 12:43:54.177  INFO 3980 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-29 12:43:54.275  INFO 3980 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-29 12:44:52.239  INFO 8700 --- [main] com.dictation.DictationApplicationTests  : Starting DictationApplicationTests on DESKTOP-ZLC with PID 8700 (started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-29 12:44:52.240  INFO 8700 --- [main] com.dictation.DictationApplicationTests  : The following profiles are active: dev
+2020-04-29 12:44:52.948  WARN 8700 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-29 12:44:53.112  INFO 8700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-29 12:44:53.116  INFO 8700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-29 12:44:53.156  INFO 8700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 Redis repository interfaces.
+2020-04-29 12:44:53.962  INFO 8700 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-29 12:44:55.185  INFO 8700 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-29 12:44:56.136  INFO 8700 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-29 12:44:56.146  INFO 8700 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-29 12:44:56.977  INFO 8700 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-29 12:44:57.033  INFO 8700 --- [main] com.dictation.DictationApplicationTests  : Started DictationApplicationTests in 5.198 seconds (JVM running for 6.75)
+2020-04-29 12:44:57.247  INFO 8700 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-04-29 12:44:57.252  INFO 8700 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'asyncServiceExecutor'
+2020-04-29 12:44:57.269  INFO 8700 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-29 12:44:57.487  INFO 8700 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-29 14:21:31.581  INFO 3372 --- [main] com.dictation.DictationApplicationTests  : Starting DictationApplicationTests on DESKTOP-ZLC with PID 3372 (started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-29 14:21:31.583  INFO 3372 --- [main] com.dictation.DictationApplicationTests  : The following profiles are active: dev
+2020-04-29 14:21:32.637  WARN 3372 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-29 14:21:32.827  INFO 3372 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-29 14:21:32.829  INFO 3372 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-29 14:21:32.864  INFO 3372 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 Redis repository interfaces.
+2020-04-29 14:21:33.706  INFO 3372 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-29 14:21:34.988  INFO 3372 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-29 14:21:36.192  INFO 3372 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-29 14:21:36.200  INFO 3372 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-29 14:21:37.049  INFO 3372 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-29 14:21:37.155  INFO 3372 --- [main] com.dictation.DictationApplicationTests  : Started DictationApplicationTests in 6.127 seconds (JVM running for 7.517)
+2020-04-29 14:21:37.569  INFO 3372 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-04-29 14:21:37.573  INFO 3372 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'asyncServiceExecutor'
+2020-04-29 14:21:37.606  INFO 3372 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-29 14:21:37.787  INFO 3372 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-29 16:33:31.625  INFO 10300 --- [main] com.dictation.DictationApplicationTests  : Starting DictationApplicationTests on DESKTOP-ZLC with PID 10300 (started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-29 16:33:31.627  INFO 10300 --- [main] com.dictation.DictationApplicationTests  : The following profiles are active: dev
+2020-04-29 16:33:32.679  WARN 10300 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-29 16:33:32.963  INFO 10300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-29 16:33:32.965  INFO 10300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-29 16:33:33.051  INFO 10300 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 Redis repository interfaces.
+2020-04-29 16:33:35.879  INFO 10300 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-29 16:33:37.381  INFO 10300 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-29 16:33:38.769  INFO 10300 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-29 16:33:38.782  INFO 10300 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-29 16:33:41.829  INFO 10300 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-29 16:33:41.969  INFO 10300 --- [main] com.dictation.DictationApplicationTests  : Started DictationApplicationTests in 10.947 seconds (JVM running for 12.538)
+2020-04-29 16:33:42.470  INFO 10300 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-04-29 16:33:42.475  INFO 10300 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'asyncServiceExecutor'
+2020-04-29 16:33:42.490  INFO 10300 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-29 16:33:42.506  INFO 10300 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-04-29 16:34:21.327  INFO 6324 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 6324 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
+2020-04-29 16:34:21.329  INFO 6324 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-04-29 16:34:21.849  WARN 6324 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
+2020-04-29 16:34:21.971  INFO 6324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-04-29 16:34:21.973  INFO 6324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-04-29 16:34:22.001  INFO 6324 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16ms. Found 0 Redis repository interfaces.
+2020-04-29 16:34:22.438  INFO 6324 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-04-29 16:34:22.447  INFO 6324 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-04-29 16:34:22.447  INFO 6324 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-04-29 16:34:22.801  INFO 6324 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-04-29 16:34:22.805  INFO 6324 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-04-29 16:34:22.805  INFO 6324 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1429 ms
+2020-04-29 16:34:22.954  INFO 6324 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-04-29 16:34:23.883  INFO 6324 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-04-29 16:34:24.494  INFO 6324 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-04-29 16:34:24.495  INFO 6324 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-04-29 16:34:24.835  INFO 6324 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-04-29 16:34:24.896  INFO 6324 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-04-29 16:34:24.897  INFO 6324 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 4.043 seconds (JVM running for 5.107)
+2020-04-29 16:34:58.737  INFO 6324 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-29 16:34:58.738  INFO 6324 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-04-29 16:34:58.745  INFO 6324 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-04-29 16:34:58.834  WARN 6324 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String[]' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "zzz,10084"]
+2020-04-29 16:35:28.390  INFO 6324 --- [http-nio-8080-exec-4] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-04-29 16:35:28.392  INFO 6324 --- [http-nio-8080-exec-4] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-04-29 16:35:48.387 ERROR 6324 --- [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
-org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:81) ~[mybatis-3.4.6.jar:3.4.6]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_73]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_73]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_73]
-	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_73]
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433) ~[mybatis-spring-1.3.2.jar:1.3.2]
-	at com.sun.proxy.$Proxy70.selectOne(Unknown Source) ~[na:na]
-	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166) ~[mybatis-spring-1.3.2.jar:1.3.2]
-	at com.baomidou.mybatisplus.core.override.PageMapperMethod.execute(PageMapperMethod.java:101) ~[mybatis-plus-core-3.0.5.jar:na]
-	at com.baomidou.mybatisplus.core.override.PageMapperProxy.invoke(PageMapperProxy.java:64) ~[mybatis-plus-core-3.0.5.jar:na]
-	at com.sun.proxy.$Proxy93.selectOne(Unknown Source) ~[na:na]
-	at com.dictation.user.service.impl.UserServiceImpl.findUserByPhone(UserServiceImpl.java:74) ~[classes/:na]
+java.lang.NullPointerException: null
+	at com.dictation.user.service.impl.UserServiceImpl.updateUserSignIn(UserServiceImpl.java:356) ~[classes/:na]
+	at com.dictation.user.service.impl.UserServiceImpl.signIn(UserServiceImpl.java:333) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_73]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_73]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_73]
 	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_73]
 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344) ~[spring-aop-5.2.5.RELEASE.jar:5.2.5.RELEASE]
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:205) ~[spring-aop-5.2.5.RELEASE.jar:5.2.5.RELEASE]
-	at com.sun.proxy.$Proxy95.findUserByPhone(Unknown Source) ~[na:na]
-	at com.dictation.user.controller.UserController.loginByVC(UserController.java:88) ~[classes/:na]
-	at com.dictation.user.controller.UserController.login(UserController.java:42) ~[classes/:na]
+	at com.sun.proxy.$Proxy95.signIn(Unknown Source) ~[na:na]
+	at com.dictation.user.controller.UserController.signIn(UserController.java:206) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_73]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_73]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_73]
@@ -98,88 +151,5 @@ org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or nu
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.33.jar:9.0.33]
 	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_73]
 
-2020-04-27 16:00:06.416  INFO 12860 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 12860 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
-2020-04-27 16:00:06.418  INFO 12860 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
-2020-04-27 16:00:06.912  WARN 12860 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
-2020-04-27 16:00:07.050  INFO 12860 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-04-27 16:00:07.053  INFO 12860 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2020-04-27 16:00:07.083  INFO 12860 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 Redis repository interfaces.
-2020-04-27 16:00:07.491  INFO 12860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-04-27 16:00:07.499  INFO 12860 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-04-27 16:00:07.499  INFO 12860 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
-2020-04-27 16:00:07.761  INFO 12860 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2020-04-27 16:00:07.766  INFO 12860 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-04-27 16:00:07.766  INFO 12860 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1307 ms
-2020-04-27 16:00:07.910  INFO 12860 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-04-27 16:00:08.688  INFO 12860 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-04-27 16:00:09.245  INFO 12860 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
-2020-04-27 16:00:09.246  INFO 12860 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
-2020-04-27 16:00:09.591  INFO 12860 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-04-27 16:00:09.649  INFO 12860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-04-27 16:00:09.652  INFO 12860 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.601 seconds (JVM running for 4.941)
-2020-04-27 16:00:47.854  INFO 12860 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-04-27 16:00:47.855  INFO 12860 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-04-27 16:00:47.861  INFO 12860 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2020-04-27 16:00:48.185  INFO 12860 --- [http-nio-8080-exec-3] io.lettuce.core.EpollProvider            : Starting without optional epoll library
-2020-04-27 16:00:48.186  INFO 12860 --- [http-nio-8080-exec-3] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
-2020-04-27 16:27:37.004  INFO 9868 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 9868 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
-2020-04-27 16:27:37.008  INFO 9868 --- [main] com.dictation.DictationApplication       : The following profiles are active: pro
-2020-04-27 16:27:37.467  WARN 9868 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
-2020-04-27 16:27:37.607  INFO 9868 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-04-27 16:27:37.609  INFO 9868 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2020-04-27 16:27:37.642  INFO 9868 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19ms. Found 0 Redis repository interfaces.
-2020-04-27 16:27:38.092  INFO 9868 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
-2020-04-27 16:27:38.099  INFO 9868 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-04-27 16:27:38.099  INFO 9868 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
-2020-04-27 16:27:38.344  INFO 9868 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2020-04-27 16:27:38.347  INFO 9868 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-04-27 16:27:38.347  INFO 9868 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1298 ms
-2020-04-27 16:27:38.502  INFO 9868 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-04-27 16:27:39.273  INFO 9868 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-04-27 16:27:39.840  INFO 9868 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
-2020-04-27 16:27:39.841  INFO 9868 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
-2020-04-27 16:27:40.187  INFO 9868 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-04-27 16:27:40.235  INFO 9868 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2020-04-27 16:27:40.239  INFO 9868 --- [main] ConditionEvaluationReportLoggingListener : 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-2020-04-27 16:27:40.243 ERROR 9868 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Web server failed to start. Port 80 was already in use.
-
-Action:
-
-Identify and stop the process that's listening on port 80 or configure this application to listen on another port.
-
-2020-04-27 16:27:40.244  INFO 9868 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
-2020-04-27 16:27:40.245  INFO 9868 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'asyncServiceExecutor'
-2020-04-27 16:27:40.254  INFO 9868 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2020-04-27 16:27:40.457  INFO 9868 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2020-04-27 16:28:04.532  INFO 11404 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on DESKTOP-ZLC with PID 11404 (D:\git\DictationHelper\dictation\target\classes started by ZLC in D:\git\DictationHelper\dictation)
-2020-04-27 16:28:04.535  INFO 11404 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
-2020-04-27 16:28:04.940  WARN 11404 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zzz.mybatis_plus.mapper]' package. Please check your configuration.
-2020-04-27 16:28:05.076  INFO 11404 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-04-27 16:28:05.078  INFO 11404 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2020-04-27 16:28:05.118  INFO 11404 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 Redis repository interfaces.
-2020-04-27 16:28:05.570  INFO 11404 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-04-27 16:28:05.577  INFO 11404 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-04-27 16:28:05.577  INFO 11404 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
-2020-04-27 16:28:05.802  INFO 11404 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2020-04-27 16:28:05.805  INFO 11404 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-04-27 16:28:05.805  INFO 11404 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1228 ms
-2020-04-27 16:28:05.998  INFO 11404 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-04-27 16:28:06.870  INFO 11404 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-04-27 16:28:07.410  INFO 11404 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
-2020-04-27 16:28:07.411  INFO 11404 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
-2020-04-27 16:28:07.731  INFO 11404 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-04-27 16:28:07.784  INFO 11404 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-04-27 16:28:07.786  INFO 11404 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 3.588 seconds (JVM running for 4.758)
-2020-04-27 16:28:12.789  INFO 11404 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-04-27 16:28:12.789  INFO 11404 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-04-27 16:28:12.797  INFO 11404 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2020-04-29 16:37:28.419  INFO 6324 --- [http-nio-8080-exec-6] c.dictation.handler.MyMetaObjectHandler  : start insert fill ....
+2020-04-29 16:37:28.561  INFO 6324 --- [http-nio-8080-exec-6] c.dictation.handler.MyMetaObjectHandler  : start update fill ....

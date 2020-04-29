@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName UserSignIn
@@ -20,7 +21,12 @@ import java.util.List;
 public class UserSignIn {
 
     private User user;
-    private List<Boolean> weekRecord;
-    private Long continuousSignIn;
+//    private List<Boolean> weekRecord;
+
+
+    //Map<yyyy, Map<yyyy-MM-dd,0/1>>
+    private Map<String, Map<String,String>> yearRecord;
+
+
 
 }

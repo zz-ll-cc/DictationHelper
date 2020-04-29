@@ -55,6 +55,16 @@ public class User {
 
     private Integer userCredit;
 
+    private Integer accumulateStudyTime;
+
+    private Integer accumulateStudyWords;
+
+    private Integer accumulateSignIn;
+
+    private Integer continuousSignIn;
+
+
+
     @Version
     private Integer version;    // 版本号
 

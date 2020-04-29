@@ -2,6 +2,8 @@ package com.dictation.user.service;
 
 import com.dictation.user.entity.User;
 
+import java.util.Map;
+
 /**
  * @ClassName: UserService
  * @Description: TODO
@@ -10,37 +12,37 @@ import com.dictation.user.entity.User;
  */
 public interface UserService {
     // 通过手机号检测是否存在User对象
-    public boolean checkUser(String phone);
+    boolean checkUser(String phone);
 
     // 根据uid查询手机信息
-    public String findPhoneByUid(int uid);
+    String findPhoneByUid(int uid);
 
     // 根据手机号查找对应User信息
-    public User findUserByPhone(String phone);
+    User findUserByPhone(String phone);
 
     // 根据Uid查找对应User信息
-    public User findUserByUid(int uid);
+    User findUserByUid(int uid);
 
     // 新建 User 对象，随机生成 userName
-    public void saveUser(String phone);
+    void saveUser(String phone);
 
     // 根据uid更新头像 ====> 数据库
-    public void updateUserImage(int id,String url);
+    void updateUserImage(int id,String url);
 
     // 根据手机号和密码
-    public User loginByPP(String phone, String password);
+    User loginByPP(String phone, String password);
 
     // 上传头像
     //public void uploadHead(User user);
 
     // 修改用户信息
-    public User updateUser(User user);
+    User updateUser(User user);
 
     // 修改密码
-    public User updatePwd(User user,String upassword);
+    User updatePwd(User user,String upassword);
 
     // 删除用户
-    public void deleteUser(User user);
+    void deleteUser(User user);
 
     //增加用户积分并添加积分记录
     User updateUserCreditAndInsertRecord(int uid, String changReason, int changeNum);
@@ -54,7 +56,20 @@ public interface UserService {
 
     long continuousSignIn(int id);
 
+
     long getContinuousSignIn(int id);
+
+    //签到
+    User signIn(int id);
+
+
+    //修改连续签到和累计签到
+    User updateUserSignIn(int id, boolean is_continuous, boolean is_accumulate);
+
+    //去缓存中查找用户签到map
+    Map<String, Map<String,String>> getSignInRecordMap(int id, String... year);
+
+
 
 
 }

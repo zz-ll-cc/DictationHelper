@@ -97,4 +97,14 @@ public class Constant {
     public static final String FEEDBACK_POST_KEEP_CONTENT_KEY = "contentKeep";
     public static final String FEEDBACK_POST_KEEP_TYPE_KEY = "typeKeep";
     public static final String CON_POST_FEEDBACK_IP = BASE_URL+"mail/report";
+
+   //积分
+    public static final String URL_GET_SIGNDAY=BASE_URL+"/user/check";
+    public static final String URL_SIGN_IN=BASE_URL+"/user/signIn";
+    public static final String URL_UPDATE_MYSELF=BASE_URL+"/user/updatemyself";
+    public static final String URL_UPDATE_CREDIT=BASE_URL+"/user/updateCredit";
+    public static final String URL_CREDICT_DETAIL=BASE_URL+"";
+    public static final String URL_GET_MAX_SCORE=BASE_URL+"record/getMaxScore";
+    public static final String URL_SIGN_RETROACTIVE=BASE_URL+"/user/retroactive";
+
 }

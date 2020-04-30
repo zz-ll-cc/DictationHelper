@@ -232,25 +232,19 @@ public class UserController {
 
     /**
      * 更新用户信息
+     *
+     * 从缓存中获取用户，如果没有，则查找数据库并更新lastLoginTime然后存入缓存
+     *
+     * 记录app日活
+     *
      * @param id
      * @return
      */
     @RequestMapping("/updatemyself")
     public User updateMySelf(@RequestParam("id") int id){
-        String uStr;
-        User user = null;
-        try {
-            if((uStr = (String) redisUtil.get(redisUtil.getUserKey(id))) == null){
-                //
-                user = userService.findUserByUid(id);
-                redisUtil.set(redisUtil.getUserKey(id),new ObjectMapper().writeValueAsString(user));
-            }else{
-                user = new ObjectMapper().readValue(uStr,User.class);
-                redisUtil.expire(redisUtil.getUserKey(id),60*60);
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        User user;
+        user = userService.findUserByUid(id);
+        user = userService.recordLastLoginTime(user);
         userService.recordActiveUser(id);
         return user;
     }
@@ -290,6 +284,12 @@ public class UserController {
 
 
 
+
+    @RequestMapping("/reSignIn")
+    public User reSignIn(@RequestParam("id") int id, @RequestParam("date") String date){
+        //不用判断日期是否是格式化的！！！
+        return userService.reSignIn(id, date) ? userService.findUserByUid(id) : null;
+    }
 
 
 

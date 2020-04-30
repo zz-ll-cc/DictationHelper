@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
-import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
+import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 
 
 //处理父布局(CoordinatorLayout)滑动手势

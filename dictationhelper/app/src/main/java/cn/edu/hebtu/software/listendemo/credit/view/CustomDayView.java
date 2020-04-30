@@ -43,7 +43,6 @@ public class CustomDayView extends DayView {
     @Override
     public void refreshContent() {
         renderToday(day.getDate());
-        Log.e("test","CustomDayView—refreshContent");
         renderSelect(day.getState());
         renderMarker(day.getDate(), day.getState());
         super.refreshContent();
@@ -67,7 +66,6 @@ public class CustomDayView extends DayView {
     }
 
     private void renderSelect(State state) {
-        Log.e("test","CustomDayView—renderSelect—判断所点击日期的状态");
         if (state == State.SELECT) {
             selectedBackground.setVisibility(VISIBLE);
             dateTv.setTextColor(Color.WHITE);

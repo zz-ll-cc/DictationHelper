@@ -7,7 +7,7 @@ import android.util.Log;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Const;
 import cn.edu.hebtu.software.listendemo.credit.Utils.State;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
-import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
+import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
@@ -243,9 +243,7 @@ public class CalendarRenderer {
         calendar.invalidate();
     }
 
-    public CalendarDate getSeedDate() {
-        return this.seedDate;
-    }
+    public CalendarDate getSeedDate() { return this.seedDate; }
 
     public void cancelSelectState() {
         for (int i = 0; i < Const.TOTAL_ROW; i++) {
@@ -261,13 +259,9 @@ public class CalendarRenderer {
         }
     }
 
-    public void resetSelectedRowIndex() {
-        selectedRowIndex = 0;
-    }
+    public void resetSelectedRowIndex() { selectedRowIndex = 0; }
 
-    public int getSelectedRowIndex() {
-        return selectedRowIndex;
-    }
+    public int getSelectedRowIndex() { return selectedRowIndex; }
 
     public void setSelectedRowIndex(int selectedRowIndex) { this.selectedRowIndex = selectedRowIndex; }
 

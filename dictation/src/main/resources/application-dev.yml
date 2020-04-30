@@ -19,7 +19,7 @@ spring:
   datasource:
     username: lichen
     password: Lichen!0524
-    url: jdbc:mysql://zin4ever.top/dictation_db?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://zin4ever.top/dictation_db?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 30000
@@ -31,6 +31,8 @@ spring:
     database: 0
 #    sentinel:
 #      master: myredis
+  jackson:
+    time-zone: GMT+8
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -63,11 +63,20 @@ public interface UserService {
     User signIn(int id);
 
 
-    //修改连续签到和累计签到
-    User updateUserSignIn(int id, boolean is_continuous, boolean is_accumulate);
+    //签到时 修改连续签到和累计签到
+    User updateUserSignIn(int id,boolean is_continuous);
+
+    //补签时 根据数据修改  hint为提示
+    User updateUserSignIn(int id,int accumulate_increment);
 
     //去缓存中查找用户签到map
     Map<String, Map<String,String>> getSignInRecordMap(int id, String... year);
+
+    //记录上一次登录日期时间
+    User recordLastLoginTime(User user);
+
+    //补签
+    boolean reSignIn(int id,String formatDate);
 
 
 

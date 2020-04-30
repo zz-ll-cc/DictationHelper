@@ -46,11 +46,7 @@ public class TimeUtil {
         return timeOut;
     }
 
-
-
-
-
-
+    
     public static int calculateDayOfWeek(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

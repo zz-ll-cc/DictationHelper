@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.credit.interf;
+package cn.edu.hebtu.software.listendemo.credit.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +13,9 @@ import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
+import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
+import cn.edu.hebtu.software.listendemo.credit.interf.OnAdapterSelectListener;
+import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 
 
@@ -291,7 +294,6 @@ public class CalendarViewAdapter extends PagerAdapter {
 
     /**
      * 为每一个Calendar实例设置renderer对象
-     *
      * @return void
      */
     public void setCustomDayRenderer(IDayRenderer dayRenderer) {

@@ -195,8 +195,9 @@ public class LoginActivity extends AppCompatActivity {
         // 2. 判断sharedP中是否已经有登录用户
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         if (sp.getBoolean(Constant.AUTO_LOGIN_KEY, Constant.DEFAULT_LOGIN_KEY)) {
+            User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
             // 此时不为第一次登陆或退出登录情况，自动登陆
-
+            updateUser(user.getUid());
             Intent intent = new Intent(this, ListenIndexActivity.class);
             startActivity(intent);
             finish();
@@ -476,5 +477,30 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+    //发送自动登录信息
+    private void updateUser(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("updateUser", "" + json);
+            }
+        });
+    }
 
 }

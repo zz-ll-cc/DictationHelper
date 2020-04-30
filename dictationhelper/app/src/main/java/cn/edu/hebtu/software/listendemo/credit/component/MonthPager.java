@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
+import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 
 
 //月

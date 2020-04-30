@@ -55,7 +55,6 @@ public class Calendar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.e("test","Calendar—onDraw—绘制每一天");
         renderer.draw(canvas);
     }
 

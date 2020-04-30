@@ -5,44 +5,64 @@ import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.Host.learnWord.CustomDialogLearnWord;
-import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
+import cn.edu.hebtu.software.listendemo.Entity.DayRecord;
+import cn.edu.hebtu.software.listendemo.Entity.Record;
+import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.credit.Utils.UpdateCredit;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
-import cn.edu.hebtu.software.listendemo.credit.interf.CalendarViewAdapter;
+import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-/**
- * Created by ldf on 16/11/4.
- */
 
 @SuppressLint("SetTextI18n")
 public class SyllabusActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,9 +76,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     //  TextView themeSwitch;
     private TextView nextMonthBtn;
     private TextView lastMonthBtn;
-    private ImageView ivSignRemind;
-    private TextView tvSignDay;
-    private TextView dateTv ;
+    //    private ImageView ivSignRemind;
+    private TextView tvSignDayContinue;
+    private TextView tvSignDaySum;
+    private TextView tvCreditSum;
+    private TextView dateTv;
+    private TextView tvCreditDetail;
+    private TextView tvWordSum;
+    private ImageView btnBack;
     private int signRemindStatus = 0;
     private List<Map<String, String>> title = new ArrayList<>();
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
@@ -73,13 +98,117 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private long studyTime = 0;
     private long time1 = 0;
     private long time2 = 0;
-    private String[] task;
+    private String[] task = new String[2];
     private String[] task_name = {"今日累计", "今日最好成绩"};
-    private String[] task_content = new String[]{};
-    private String[] add_credit = {"+5积分", "+5积分"};
+    private String[] task_content = new String[2];
+    private String[] add_credit = new String[2];
     private HashMap<String, String> markData = new HashMap<>();
-    private ThemeDayView themeDayView ;
-    ;
+    private ThemeDayView themeDayView;
+    private SharedPreferences sp;
+    private Gson gson = new GsonBuilder().serializeNulls().create();
+    private User user;
+    private static final int GET_SIGN_DAY_CONTINUE = 100;
+    private static final int GET_SIGN_DAY_SUM = 200;
+    private static final int GET_CREDIT_SUM = 300;
+    private static final int GET_WORD_SUM = 400;
+    private static final int UPDATE_USER = 500;
+    private static final int GET_MARKER_DATE = 600;
+    private static final int GET_MAX_RECORD = 700;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case GET_SIGN_DAY_CONTINUE:
+                    tvSignDayContinue.setText(msg.obj + "");
+                    break;
+                case GET_SIGN_DAY_SUM:
+                    tvSignDaySum.setText(msg.obj + "");
+                    break;
+                case GET_CREDIT_SUM:
+                    tvCreditSum.setText(msg.obj + "");
+                    break;
+                case GET_WORD_SUM:
+                    tvWordSum.setText(msg.obj + "");
+                    break;
+//                case UPDATE_USER:
+//                    if (msg.obj != null) {
+//                        User user = gson.fromJson(msg.obj + "", User.class);
+//                        tvSignDayContinue.setText(user.getContinuousSignIn() + "天");
+//                        tvSignDaySum.setText(user.getAccumulateSignIn() + "天");
+//                        tvCreditSum.setText(user.getUserCredit() + "分");
+//                        tvWordSum.setText(user.getAccumulateStudyWords() + "词");
+//                    }
+//                    break;
+                case GET_MARKER_DATE:
+                    if (msg.obj != null) {
+                        Map<String, String> markData1 = new HashMap<>();
+                        UserSignIn userSignIns = gson.fromJson(msg.obj + "", UserSignIn.class);
+                        CalendarDate date = new CalendarDate();
+                        markData1 = userSignIns.getYearRecord().get(date.getYear() + "");
+                        if (markData1 != null) {
+                            for (int i = 0; i < markData1.size(); i++) {
+                                if (markData1.size() != 0) {
+                                    Iterator<String> iter = markData1.keySet().iterator();
+                                    while (iter.hasNext()) {
+                                        String key = iter.next();
+                                        String[] str = key.split("-");
+                                        int month = Integer.parseInt(str[1]);
+                                        int day = Integer.parseInt(str[2]);
+                                        String d = str[0] + "-" + month + "-" + day;
+                                        String value = markData1.get(key);
+                                        if (value.equals("false")) {
+                                            markData.put(d, "1");//1表示未签到   0表示已签到
+                                        } else {
+                                            markData.put(d, "0");//1表示未签到   0表示已签到
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    calendarAdapter.setMarkData(markData);
+                    calendarAdapter.notifyDataChanged();
+                    break;
+                case GET_MAX_RECORD:
+                    if (!msg.obj .equals("0")) {
+                        Record record = gson.fromJson(msg.obj + "", Record.class);
+                        String s = record.getAccuracy() + "";
+                        String str = s.substring(0, s.indexOf("."));
+                        int score = Integer.parseInt( str);
+                        task_content[1] =  score+ "分";
+                        for (int i = 0; i < task.length; i++) {
+                            Map<String, String> map = new HashMap<>();
+                            map.put("task", task[i]);
+                            map.put("task_name", task_name[i]);
+                            map.put("task_content", task_content[i]);
+                            map.put("add_credit", add_credit[i]);
+                            title.add(map);
+                        }
+                        rvToDoList.setHasFixedSize(true);
+                        rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
+                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score, user, SyllabusActivity.this, title));
+                    } else {
+                        task_content[1] = "未听写";
+                        int score = 0;
+                        for (int i = 0; i < task.length; i++) {
+                            Map<String, String> map = new HashMap<>();
+                            map.put("task", task[i]);
+                            map.put("task_name", task_name[i]);
+                            map.put("task_content", task_content[i]);
+                            map.put("add_credit", add_credit[i]);
+                            title.add(map);
+                        }
+                        rvToDoList.setHasFixedSize(true);
+                        rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
+                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score, user, SyllabusActivity.this, title));
+                    }
+                    break;
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,8 +216,15 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_syllabus);
         context = this;
         findView();
-        ivSignRemind.setOnClickListener(this);
-        rvToDoList.setHasFixedSize(true);
+        sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        Log.e("userInfo", user.toString());
+        //getSignInfo(user.getUid());
+        //updateUser(user.getUid());
+//        ivSignRemind.setOnClickListener(this);
+        tvCreditDetail.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        Log.e("listenrecordlist", "" + "13");
         initRecycleView();
         initCurrentDate();
         initCalendarView();
@@ -97,7 +233,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
         calendarAdapter.switchToMonth();
         Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-        calendarAdapter.switchToWeek(monthPager.getRowIndex());
+        // calendarAdapter.switchToWeek(monthPager.getRowIndex());
     }
 
     public void findView() {
@@ -113,30 +249,43 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         nextMonthBtn = (TextView) findViewById(R.id.next_month);
         lastMonthBtn = (TextView) findViewById(R.id.last_month);
         rvToDoList = (RecyclerView) findViewById(R.id.list);
-        ivSignRemind = (ImageView) findViewById(R.id.iv_my_credit_sign_remind);
-        tvSignDay = (TextView) findViewById(R.id.tv_sign_day);
+//        ivSignRemind = (ImageView) findViewById(R.id.iv_my_credit_sign_remind);
+        tvSignDayContinue = (TextView) findViewById(R.id.tv_sign_day_continue);
+        tvSignDaySum = (TextView) findViewById(R.id.tv_sign_day_sum);
         themeDayView = new ThemeDayView(context, R.layout.custom_day);
+        tvCreditSum = (TextView) findViewById(R.id.tv_sign_point_sum);
+        tvCreditDetail = (TextView) findViewById(R.id.tv_my_point_detail);
+        tvWordSum = (TextView) findViewById(R.id.tv_word_sum);
+        btnBack = (ImageView) findViewById(R.id.iv_my_credit_back);
+        dateTv = themeDayView.findViewById(R.id.date);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //每日签到提醒
-            case R.id.iv_my_credit_sign_remind:
-                if (signRemindStatus == 0) {
-                    ivSignRemind.setImageDrawable(getResources().getDrawable(R.drawable.sign_remind_check));
-                    signRemindStatus = 1;
-                } else {
-                    ivSignRemind.setImageDrawable(getResources().getDrawable(R.drawable.sign_remind));
-                    signRemindStatus = 0;
-                }
+//            case R.id.iv_my_credit_sign_remind:
+//                if (signRemindStatus == 0) {
+//                    ivSignRemind.setImageDrawable(getResources().getDrawable(R.drawable.sign_remind_check));
+//                    signRemindStatus = 1;
+//                } else {
+//                    ivSignRemind.setImageDrawable(getResources().getDrawable(R.drawable.sign_remind));
+//                    signRemindStatus = 0;
+//                }
+//                break;
+            case R.id.tv_my_point_detail:
+
+                break;
+            case R.id.iv_my_credit_back:
+                finish();
                 break;
         }
     }
 
     //初始化任务列表
     public void initRecycleView() {
-        rvToDoList.setLayoutManager(new LinearLayoutManager(this));//recycleView线性显示
+        Log.e("listenrecordlist", "" + "12");
+        getListenerRecordData(user.getUid());
         java.util.Calendar beginCal = java.util.Calendar.getInstance();
         beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
         java.util.Calendar endCal = java.util.Calendar.getInstance();
@@ -147,18 +296,13 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             Log.e("mEventList", "not NULL");
         } else {
             Log.e("mEventList", "NULL");
-            task = new String[]{"学习10分钟", "每日听写"};
-            task_content = new String[]{"0分钟", "100分"};
+            task[0] = "学习10分钟";
+            task[1] = "每日听写";
+            task_content[0] = "0分钟";
+            //task_content[1] = "100分";
+            add_credit[0] = "+1积分";
+            add_credit[1] = "+5积分";
         }
-        for (int i = 0; i < task.length; i++) {
-            Map<String, String> map = new HashMap<>();
-            map.put("task", task[i]);
-            map.put("task_name", task_name[i]);
-            map.put("task_content", task_content[i]);
-            map.put("add_credit", add_credit[i]);
-            title.add(map);
-        }
-        rvToDoList.setAdapter(new TaskAdapter(this, title));
     }
 
     //初始化currentDate
@@ -171,12 +315,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     //初始化CustomDayView，并作为CalendarViewAdapter的参数传入
     private void initCalendarView() {
         initListener();
-        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day,markData);
-        calendarAdapter = new CalendarViewAdapter(
-                context,
-                onSelectDateListener,
-                CalendarAttr.WeekArrayType.Monday,
-                customDayView);
+        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day, markData);
+        calendarAdapter = new CalendarViewAdapter(context, onSelectDateListener, CalendarAttr.WeekArrayType.Monday, customDayView);
         calendarAdapter.setOnCalendarTypeChangedListener(new CalendarViewAdapter.OnCalendarTypeChanged() {
             @Override
             public void onCalendarTypeChanged(CalendarAttr.CalendarType type) {
@@ -189,19 +329,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 
     //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
     private void initMarkData() {
-        //1表示未签到   0表示已签到
-        markData.put("2020-4-27", "0");
-        markData.put("2020-4-26", "1");
-        markData.put("2020-4-25", "0");
-        markData.put("2020-4-24", "0");
-        markData.put("2020-4-23", "1");
-        markData.put("2020-4-22", "0");
-        markData.put("2020-4-21", "0");
-        markData.put("2020-4-20", "0");
-        markData.put("2020-4-19", "0");
-        calendarAdapter.setMarkData(markData);
-        calendarAdapter.notifyDataChanged();
-        dateTv=themeDayView.findViewById(R.id.date);
+        getMarkData(user.getUid());
     }
 
     //初始化monthPager，MonthPager继承自ViewPager
@@ -224,11 +352,13 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             public void onPageSelected(int position) {
                 mCurrentPage = position;
                 currentCalendars = calendarAdapter.getPagers();
+                Log.e("currentCalendars", currentCalendars.size() + "");
                 if (currentCalendars.get(position % currentCalendars.size()) != null) {
                     CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
                     currentDate = date;
                     tvYear.setText(date.getYear() + "年");
                     tvMonth.setText(date.getMonth() + "");
+                    Log.e("currentCalendars", date.getMonth() + "");
                 }
             }
 
@@ -287,7 +417,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 //签到框
                 //创建并显示自定义的dialog
-                CustomDialogSign dialog = new CustomDialogSign(themeDayView,date, markData, SyllabusActivity.this);
+                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this);
                 dialog.setCancelable(false);
                 dialog.show(getSupportFragmentManager(), "sign");
                 calendarAdapter.notifyDataChanged();
@@ -317,18 +447,15 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
 //        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
 //        calendarAdapter.switchToWeek(monthPager.getRowIndex());
-        refreshMonthPager();
+//        refreshMonthPager();
         super.onResume();
     }
 
-
     private void refreshClickDate(CalendarDate date) {
-//        Log.e("tt",date+"");
         currentDate = date;
         tvYear.setText(date.getYear() + "年");
         tvMonth.setText(date.getMonth() + "");
     }
-
 
     public void onClickBackToDayBtn() {
         refreshMonthPager();
@@ -374,18 +501,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         } else {
                             time2 = e.getTimeStamp();
                             studyTime = studyTime + (time2 - time1);
-                            String time2Str = dateFormat.format(time2);
-                            String time1Str = dateFormat.format(time1);
                             String studyTimeStr = dateFormat.format(studyTime);
                             try {
-                                Date begin = dateFormat.parse(time1Str);
-                                Date end = dateFormat.parse(time2Str);
-                                long between = (end.getTime() - begin.getTime()) / 1000;//除以1000是为了转换成秒
-                                long day1 = between / (24 * 3600);
-                                long hour1 = between % (24 * 3600) / 3600;
-                                long minute1 = between % 3600 / 60;
-                                long second1 = between % 60 / 60;
-                                Log.e("TAG", "study" + day1 + "天" + hour1 + "小时" + minute1 + "分钟" + second1 + "秒");
                                 Date studyTime = dateFormat.parse(studyTimeStr);
                                 long studytime = (studyTime.getTime()) / 1000;
                                 long day2 = studytime / (24 * 3600);
@@ -394,20 +511,34 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                                 long second2 = studytime % 60 / 60;
                                 Log.e("TAG", "studytime" + day2 + "天" + hour2 + "小时" + minute2 + "分钟" + second2 + "秒");
                                 if (hour2 != 0) {
-                                    task = new String[]{"学习10分钟", "每日听写"};
-                                    task_content = new String[]{hour2 + "小时" + minute2 + "分钟", "100分"};
+                                    task[0] = "学习60分钟";
+                                    task[1] = "每日听写";
+                                    add_credit[0] = "+5积分";
+                                    add_credit[1] = "+5积分";
+                                    task_content[0] = hour2 + "小时" + minute2 + "分钟";
+                                    //task_content[1] = "100分";
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
                                 } else {
-                                    task = new String[]{"学习10分钟", "每日听写"};
-                                    task_content = new String[]{minute2 + "分钟", "100分"};
+                                    if (minute2 < 30) {
+                                        task[0] = "学习10分钟";
+                                        add_credit[0] = "+1积分";
+                                    } else if (minute2 > 30 && minute2 < 60) {
+                                        task[0] = "学习30分钟";
+                                        add_credit[0] = "+3积分";
+                                    } else {
+                                        task[0] = "学习60分钟";
+                                        add_credit[0] = "+5积分";
+                                    }
+                                    task[1] = "每日听写";
+                                    add_credit[1] = "+5积分";
+                                    task_content[0] = minute2 + "分钟";
+                                    //task_content[1] = "100分";
                                     Log.e("studytime", minute2 + "分钟");
                                 }
                                 mEventList.add(e);
                             } catch (ParseException e1) {
                                 e1.printStackTrace();
                             }
-//                                Log.e("TAG",  "time2："+time2 +" "+dateFormat.format(time2)+" time1："+time1+" "+dateFormat.format(time1)+" 差："+(time2-time1)+" "+dateFormat.format(time2-time1)+" studyTime " +dateFormat1.format(time2-time1));
-//                                Log.e("TAG", " studyTime " + dateFormat1.format(studyTime));
                         }
                     }
                 }
@@ -416,5 +547,211 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         }
         return mEventList;
     }
+
+
+    //获取签到信息
+    private void getMarkData(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        CalendarDate date = new CalendarDate();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").add("year",date.getYear()+"").build();
+        Log.e("userId", userId + "");
+        Request request = new Request.Builder().url(Constant.URL_GET_SIGNDAY).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("usersign", "" + json);
+                Message message0 = new Message();
+                message0.what = GET_MARKER_DATE;
+                message0.obj = json;
+                handler.sendMessage(message0);
+                User user = gson.fromJson(json, UserSignIn.class).getUser();
+                Message message = new Message();
+                message.what = GET_SIGN_DAY_CONTINUE;
+                int i1 = 0;
+                if (user.getContinuousSignIn() != null) {
+                    i1 = user.getContinuousSignIn();
+                }
+                message.obj = i1 + "天";
+                handler.sendMessage(message);
+                Message message1 = new Message();
+                message1.what = GET_SIGN_DAY_SUM;
+                int i2 = 0;
+                if (user.getAccumulateSignIn() != null) {
+                    i2 = user.getAccumulateSignIn();
+                }
+                message1.obj = i2 + "天";
+                handler.sendMessage(message1);
+                Message message2 = new Message();
+                message2.what = GET_CREDIT_SUM;
+                int i3 = 0;
+                if (user.getUserCredit() != null) {
+                    i3 = user.getUserCredit();
+                }
+                message2.obj = i3 + "分";
+                handler.sendMessage(message2);
+                Message message3 = new Message();
+                message3.what = GET_WORD_SUM;
+                int i4 = 0;
+                if (user.getAccumulateStudyWords() != null) {
+                    i4 = user.getAccumulateStudyWords();
+                }
+                message3.obj = i4 + "词";
+                handler.sendMessage(message3);
+
+            }
+        });
+    }
+
+    //获取当天听写记录最高分
+    private void getListenerRecordData(int userId) {
+        Log.e("listenrecordlist", "" + "11");
+        OkHttpClient okHttpClient = new OkHttpClient();
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String datestr = dateFormat.format(calendar.getTime());
+        System.out.println(datestr);
+        FormBody fb = new FormBody.Builder().add("uid", userId + "").add("date", datestr + "").build();
+        Request request = new Request.Builder().url(Constant.URL_GET_MAX_SCORE).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                if(json==null || json.equals("")){
+                    Message message = new Message();
+                    message.what = GET_MAX_RECORD;
+                    message.obj = "0";
+                    handler.sendMessage(message);
+                }else{
+                    Message message = new Message();
+                    message.what = GET_MAX_RECORD;
+                    message.obj = json;
+                    handler.sendMessage(message);
+                }
+
+            }
+        });
+    }
+
+
+    //获取用户信息 —连续登录天数、累计登录天数、累计积分、累计单词
+//    private void updateUser(int userId) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+//        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            /**
+//             * 未完待续
+//             * @param call
+//             * @param response
+//             * @throws IOException
+//             */
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String json = response.body().string();
+//                Log.e("response", "" + json);
+//                if (json != null) {
+////                    User user = gson.fromJson(json, User.class);
+////                    Message message = new Message();
+////                    message.what = GET_SIGN_DAY_CONTINUE;
+////                    message.obj = user.getContinuousSignIn() + "天";
+////                    handler.sendMessage(message);
+////                    Message message1 = new Message();
+////                    message1.what = GET_SIGN_DAY_SUM;
+////                    message1.obj = user.getAccumulateSignIn() + "天";
+////                    handler.sendMessage(message1);
+////                    Message message2 = new Message();
+////                    message2.what = GET_CREDIT_SUM;
+////                    message2.obj = user.getUserCredit() + "分";
+////                    handler.sendMessage(message2);
+////                    Message message3 = new Message();
+////                    message3.what = GET_WORD_SUM;
+////                    message3.obj = user.getAccumulateStudyWords() + "词";
+////                    handler.sendMessage(message3);
+//                }
+//            }
+//        });
+//    }
+
+//       public void getSignInfo(int userId) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+//        Request request = new Request.Builder().url(Constant.URL_SIGN_IN).post(fb).build();
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            /**
+//             * 未完待续
+//             *
+//             * @param call
+//             * @param response
+//             * @throws IOException
+//             */
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String json = response.body().string();
+//                Log.e("user", "" + json);
+//                if (json != null) {
+//                    User user = gson.fromJson(json, User.class);
+//                    Message message = new Message();
+//                    message.what = GET_SIGN_DAY_CONTINUE;
+//                    message.obj = user.getContinuousSignIn() + "天";
+//                    handler.sendMessage(message);
+//                    Message message1 = new Message();
+//                    message1.what = GET_SIGN_DAY_SUM;
+//                    message1.obj = user.getAccumulateSignIn() + "天";
+//                    handler.sendMessage(message1);
+//                    Message message2 = new Message();
+//                    message2.what = GET_CREDIT_SUM;
+//                    message2.obj = user.getUserCredit() + "分";
+//                    handler.sendMessage(message2);
+//                    Message message3 = new Message();
+//                    message3.what = GET_WORD_SUM;
+//                    message3.obj = user.getAccumulateStudyWords() + "词";
+//                    handler.sendMessage(message3);
+//                }
+//
+//            }
+//
+//        });
+//    }
+
+
 }
 

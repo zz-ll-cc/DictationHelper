@@ -6,6 +6,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -19,15 +21,31 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
+import cn.edu.hebtu.software.listendemo.QiniuUtils.Json;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.credit.Utils.UpdateCredit;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
+import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 //自定义的Dialog需要继承DialogFragment
 public class CustomDialogSign extends DialogFragment {
@@ -35,12 +53,18 @@ public class CustomDialogSign extends DialogFragment {
     private CalendarDate date;
     private HashMap<String, String> markData;
     private Activity context;
+    private User user;
+    private TextView dateTv;
+    private Handler handler;
+    private static final int GET_SIGN_INFO = 800;
+    private static final int GET_SIGN_RETROACTIVE_INFO=1100;
 
     public CustomDialogSign() {
     }
 
     @SuppressLint("ValidFragment")
-    public CustomDialogSign(ThemeDayView themeDayView, CalendarDate date, HashMap<String, String> markData, Activity context) {
+    public CustomDialogSign(User user, ThemeDayView themeDayView, CalendarDate date, HashMap<String, String> markData, Activity context) {
+        this.user = user;
         this.themeDayView = themeDayView;
         this.date = date;
         this.markData = markData;
@@ -62,6 +86,7 @@ public class CustomDialogSign extends DialogFragment {
         TextView btnOK = view.findViewById(R.id.btn_ok_sign);
         TextView btnCancel = view.findViewById(R.id.btn_sign_back);
         CalendarDate currentDate = new CalendarDate();
+        dateTv = (TextView) themeDayView.findViewById(R.id.date);
         int offset = Utils.calculateMonthOffset(date.getYear(), date.getMonth(), currentDate);
         if (offset == 0) {
             int offset1 = currentDate.getDay() - date.getDay();
@@ -70,26 +95,52 @@ public class CustomDialogSign extends DialogFragment {
             if (date.getYear() == currentDate.getYear() && date.getMonth() == currentDate.getMonth() && date.getDay() == currentDate.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 if (markData.get(signDate) == null || markData.get(signDate).equals("")) {
-                    markData.put(signDate, "0");
-                    Log.e("click", "   签到成功!   ");
-                    tvContent.setText("签到成功！");
-                    TextView dateTv = (TextView) themeDayView.findViewById(R.id.date);
-                    dateTv.setText("签");
-                    Log.e("click", dateTv.getText() + "");
+                    //用户签到
+                    userSignIn(user.getUid());
+                    handler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            switch (msg.what) {
+                                case GET_SIGN_INFO:
+                                    markData.put(signDate, "0");
+                                    if (msg.obj.equals("1")) {
+                                        tvContent.setText("签到成功！");
+                                        dateTv.setText("签");
+                                    } else {
+                                        tvContent.setText("签到失败！");
+                                    }
+                                    break;
+                            }
+                        }
+                    };
                 } else {
-                    TextView dateTv = (TextView) themeDayView.findViewById(R.id.date);
                     dateTv.setText("签");
-                    Log.e("click", dateTv.getText() + "");
-                    Log.e("click", "今天已签到,不可重复签到哦！");
                     tvContent.setText("今天已签到，不可重复签到哦！");
                 }
                 //补签
             } else if (currentDate.getDay() > date.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 if (markData.get(signDate) == null || markData.get(signDate).equals("")) {
-                    markData.put(signDate, "0");
-                    Log.e("click", "   补签成功!   ");
-                    tvContent.setText("补签成功！");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
+                    Date date=new Date();
+                    retroactive(user.getUid(),dateFormat.format(date));
+                    handler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            switch (msg.what) {
+                                case GET_SIGN_RETROACTIVE_INFO:
+                                    markData.put(signDate, "0");
+                                    if (msg.obj.equals("1")) {
+                                        tvContent.setText("补签成功！");
+                                    } else {
+                                        tvContent.setText("补签失败！");
+                                    }
+                                    break;
+                            }
+                        }
+                    };
                 } else {
                     dismissAllowingStateLoss();
                     getDialog().dismiss();
@@ -99,11 +150,9 @@ public class CustomDialogSign extends DialogFragment {
                 getDialog().dismiss();
             }
         } else if (offset > 0) {
-            Log.e("click", "未来！");
             dismissAllowingStateLoss();
             getDialog().dismiss();
         } else {
-            Log.e("click", "只可补签当前月！");
             tvContent.setText("只可补签当前月！");
         }
 
@@ -123,12 +172,85 @@ public class CustomDialogSign extends DialogFragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_ok_sign:
+                    context.finish();
+                    Intent intent = new Intent(context, SyllabusActivity.class);
+                    startActivity(intent);
                     getDialog().dismiss();
                     break;
                 case R.id.btn_sign_back:
+                    context.finish();
+                    Intent intent1 = new Intent(context, SyllabusActivity.class);
+                    startActivity(intent1);
                     getDialog().dismiss();
                     break;
             }
         }
+    }
+
+    public void userSignIn(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_SIGN_IN).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("userSignIn", "" + json);
+                if (json != null || !json.equals("")) {
+                    Message message = new Message();
+                    message.what = GET_SIGN_INFO;
+                    message.obj ="1";
+                    handler.sendMessage(message);
+                }
+            }
+
+        });
+    }
+
+    public void retroactive(int userId,String date){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").add("date",date).build();
+        Request request = new Request.Builder().url(Constant.URL_SIGN_RETROACTIVE).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("userSignIn", "" + json);
+                if (json != null || !json.equals("")) {
+                    Message message = new Message();
+                    message.what = GET_SIGN_RETROACTIVE_INFO;
+                    message.obj = json;
+                    handler.sendMessage(message);
+                }
+            }
+
+        });
+
     }
 }

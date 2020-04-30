@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2016.
- * wb-lijinwei.a@alibaba-inc.com
- */
-
 package cn.edu.hebtu.software.listendemo.credit.Utils;
 
 import android.annotation.SuppressLint;
@@ -206,7 +201,7 @@ public final class Utils {
         String dateString = seedDate.toString();
         Date date = new Date();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             date = sdf.parse(dateString);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
@@ -231,7 +226,7 @@ public final class Utils {
         String dateString = seedDate.toString();
         Date date = null;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             date = sdf.parse(dateString);
         } catch (ParseException e) {
             System.out.println(e.getMessage());

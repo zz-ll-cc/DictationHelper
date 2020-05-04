@@ -16,20 +16,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,13 +34,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.Entity.DayRecord;
 import cn.edu.hebtu.software.listendemo.Entity.Record;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
-import cn.edu.hebtu.software.listendemo.credit.Utils.UpdateCredit;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
@@ -98,10 +91,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private long studyTime = 0;
     private long time1 = 0;
     private long time2 = 0;
-    private String[] task = new String[2];
-    private String[] task_name = {"今日累计", "今日最好成绩"};
-    private String[] task_content = new String[2];
-    private String[] add_credit = new String[2];
+//    private String[] task = new String[2];
+//    private String[] task_name = {"今日累计", "今日最好成绩"};
+//    private String[] task_content = new String[2];
+//    private String[] add_credit = new String[2];
+    private String[] task = {"学习10分钟","学习30分钟","学习60分钟","每日听写"};
+    private String[] task_name = {"","","", "今日最好成绩"};
+    private String[] task_content = {"","","",""};
+    private String[] add_credit = {"+1积分","+3积分","+5积分","+5积分"};
     private HashMap<String, String> markData = new HashMap<>();
     private ThemeDayView themeDayView;
     private SharedPreferences sp;
@@ -129,9 +126,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 case GET_CREDIT_SUM:
                     tvCreditSum.setText(msg.obj + "");
                     break;
-                case GET_WORD_SUM:
-                    tvWordSum.setText(msg.obj + "");
-                    break;
+//                case GET_WORD_SUM:
+//                    tvWordSum.setText(msg.obj + "");
+//                    break;
 //                case UPDATE_USER:
 //                    if (msg.obj != null) {
 //                        User user = gson.fromJson(msg.obj + "", User.class);
@@ -177,7 +174,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         String s = record.getAccuracy() + "";
                         String str = s.substring(0, s.indexOf("."));
                         int score = Integer.parseInt( str);
-                        task_content[1] =  score+ "分";
+//                        task_content[1] =  score+ "分";
+                        task_content[3] =  score+ "分";
                         for (int i = 0; i < task.length; i++) {
                             Map<String, String> map = new HashMap<>();
                             map.put("task", task[i]);
@@ -190,7 +188,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
                         rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score, user, SyllabusActivity.this, title));
                     } else {
-                        task_content[1] = "未听写";
+//                        task_content[1] = "未听写";
+                        task_content[3] = "未听写";
                         int score = 0;
                         for (int i = 0; i < task.length; i++) {
                             Map<String, String> map = new HashMap<>();
@@ -224,7 +223,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        ivSignRemind.setOnClickListener(this);
         tvCreditDetail.setOnClickListener(this);
         btnBack.setOnClickListener(this);
-        Log.e("listenrecordlist", "" + "13");
         initRecycleView();
         initCurrentDate();
         initCalendarView();
@@ -284,7 +282,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 
     //初始化任务列表
     public void initRecycleView() {
-        Log.e("listenrecordlist", "" + "12");
         getListenerRecordData(user.getUid());
         java.util.Calendar beginCal = java.util.Calendar.getInstance();
         beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
@@ -296,12 +293,13 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             Log.e("mEventList", "not NULL");
         } else {
             Log.e("mEventList", "NULL");
-            task[0] = "学习10分钟";
-            task[1] = "每日听写";
-            task_content[0] = "0分钟";
+            tvWordSum.setText( "0分钟");
+//            task[0] = "学习10分钟";
+//            task[1] = "每日听写";
+//            task_content[0] = "0分钟";
             //task_content[1] = "100分";
-            add_credit[0] = "+1积分";
-            add_credit[1] = "+5积分";
+//            add_credit[0] = "+1积分";
+//            add_credit[1] = "+5积分";
         }
     }
 
@@ -328,9 +326,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
-    private void initMarkData() {
-        getMarkData(user.getUid());
-    }
+    private void initMarkData() { getMarkData(user.getUid()); }
 
     //初始化monthPager，MonthPager继承自ViewPager
     private void initMonthPager() {
@@ -511,28 +507,38 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                                 long second2 = studytime % 60 / 60;
                                 Log.e("TAG", "studytime" + day2 + "天" + hour2 + "小时" + minute2 + "分钟" + second2 + "秒");
                                 if (hour2 != 0) {
-                                    task[0] = "学习60分钟";
-                                    task[1] = "每日听写";
-                                    add_credit[0] = "+5积分";
-                                    add_credit[1] = "+5积分";
-                                    task_content[0] = hour2 + "小时" + minute2 + "分钟";
+//                                    task[0] = "学习60分钟";
+//                                    task[1] = "每日听写";
+//                                    add_credit[0] = "+5积分";
+//                                    add_credit[1] = "+5积分";
+//                                    task_content[0] = hour2 + "小时" + minute2 + "分钟";
                                     //task_content[1] = "100分";
+//                                    Message message3 = new Message();
+//                                    message3.what = GET_WORD_SUM;
+//                                    message3.obj =hour2 + "时" + minute2 + "分";
+//                                    handler.sendMessage(message3);
+                                    tvWordSum.setText( hour2 + "时" + minute2 + "分");
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
                                 } else {
-                                    if (minute2 < 30) {
-                                        task[0] = "学习10分钟";
-                                        add_credit[0] = "+1积分";
-                                    } else if (minute2 > 30 && minute2 < 60) {
-                                        task[0] = "学习30分钟";
-                                        add_credit[0] = "+3积分";
-                                    } else {
-                                        task[0] = "学习60分钟";
-                                        add_credit[0] = "+5积分";
-                                    }
-                                    task[1] = "每日听写";
-                                    add_credit[1] = "+5积分";
-                                    task_content[0] = minute2 + "分钟";
+//                                    if (minute2 < 30) {
+//                                        task[0] = "学习10分钟";
+//                                        add_credit[0] = "+1积分";
+//                                    } else if (minute2 > 30 && minute2 < 60) {
+//                                        task[0] = "学习30分钟";
+//                                        add_credit[0] = "+3积分";
+//                                    } else {
+//                                        task[0] = "学习60分钟";
+//                                        add_credit[0] = "+5积分";
+//                                    }
+//                                    task[1] = "每日听写";
+//                                    add_credit[1] = "+5积分";
+//                                    task_content[0] = minute2 + "分钟";
                                     //task_content[1] = "100分";
+//                                    Message message3 = new Message();
+//                                    message3.what = GET_WORD_SUM;
+//                                    message3.obj =minute2 + "分";
+//                                    handler.sendMessage(message3);
+                                    tvWordSum.setText( minute2 + "分钟");
                                     Log.e("studytime", minute2 + "分钟");
                                 }
                                 mEventList.add(e);
@@ -547,7 +553,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         }
         return mEventList;
     }
-
 
     //获取签到信息
     private void getMarkData(int userId) {
@@ -603,14 +608,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 }
                 message2.obj = i3 + "分";
                 handler.sendMessage(message2);
-                Message message3 = new Message();
-                message3.what = GET_WORD_SUM;
-                int i4 = 0;
-                if (user.getAccumulateStudyWords() != null) {
-                    i4 = user.getAccumulateStudyWords();
-                }
-                message3.obj = i4 + "词";
-                handler.sendMessage(message3);
+//                Message message3 = new Message();
+//                message3.what = GET_WORD_SUM;
+//                int i4 = 0;
+//                if (user.getAccumulateStudyWords() != null) {
+//                    i4 = user.getAccumulateStudyWords();
+//                }
+//                message3.obj = i4 + "词";
+//                handler.sendMessage(message3);
 
             }
         });
@@ -618,7 +623,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 
     //获取当天听写记录最高分
     private void getListenerRecordData(int userId) {
-        Log.e("listenrecordlist", "" + "11");
         OkHttpClient okHttpClient = new OkHttpClient();
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -643,6 +647,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
+                Log.e("listenrecord",json);
                 if(json==null || json.equals("")){
                     Message message = new Message();
                     message.what = GET_MAX_RECORD;
@@ -658,99 +663,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-
-
-    //获取用户信息 —连续登录天数、累计登录天数、累计积分、累计单词
-//    private void updateUser(int userId) {
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
-//        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
-//        Call call = okHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            /**
-//             * 未完待续
-//             * @param call
-//             * @param response
-//             * @throws IOException
-//             */
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String json = response.body().string();
-//                Log.e("response", "" + json);
-//                if (json != null) {
-////                    User user = gson.fromJson(json, User.class);
-////                    Message message = new Message();
-////                    message.what = GET_SIGN_DAY_CONTINUE;
-////                    message.obj = user.getContinuousSignIn() + "天";
-////                    handler.sendMessage(message);
-////                    Message message1 = new Message();
-////                    message1.what = GET_SIGN_DAY_SUM;
-////                    message1.obj = user.getAccumulateSignIn() + "天";
-////                    handler.sendMessage(message1);
-////                    Message message2 = new Message();
-////                    message2.what = GET_CREDIT_SUM;
-////                    message2.obj = user.getUserCredit() + "分";
-////                    handler.sendMessage(message2);
-////                    Message message3 = new Message();
-////                    message3.what = GET_WORD_SUM;
-////                    message3.obj = user.getAccumulateStudyWords() + "词";
-////                    handler.sendMessage(message3);
-//                }
-//            }
-//        });
-//    }
-
-//       public void getSignInfo(int userId) {
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
-//        Request request = new Request.Builder().url(Constant.URL_SIGN_IN).post(fb).build();
-//        Call call = okHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            /**
-//             * 未完待续
-//             *
-//             * @param call
-//             * @param response
-//             * @throws IOException
-//             */
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String json = response.body().string();
-//                Log.e("user", "" + json);
-//                if (json != null) {
-//                    User user = gson.fromJson(json, User.class);
-//                    Message message = new Message();
-//                    message.what = GET_SIGN_DAY_CONTINUE;
-//                    message.obj = user.getContinuousSignIn() + "天";
-//                    handler.sendMessage(message);
-//                    Message message1 = new Message();
-//                    message1.what = GET_SIGN_DAY_SUM;
-//                    message1.obj = user.getAccumulateSignIn() + "天";
-//                    handler.sendMessage(message1);
-//                    Message message2 = new Message();
-//                    message2.what = GET_CREDIT_SUM;
-//                    message2.obj = user.getUserCredit() + "分";
-//                    handler.sendMessage(message2);
-//                    Message message3 = new Message();
-//                    message3.what = GET_WORD_SUM;
-//                    message3.obj = user.getAccumulateStudyWords() + "词";
-//                    handler.sendMessage(message3);
-//                }
-//
-//            }
-//
-//        });
-//    }
 
 
 }

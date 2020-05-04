@@ -2,8 +2,6 @@ package cn.edu.hebtu.software.listendemo.Mine.index.settings;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,30 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
-import cn.edu.hebtu.software.listendemo.QiniuUtils.Json;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
-import cn.edu.hebtu.software.listendemo.credit.Utils.UpdateCredit;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
-import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -97,14 +81,15 @@ public class CustomDialogSign extends DialogFragment {
                 if (markData.get(signDate) == null || markData.get(signDate).equals("")) {
                     //用户签到
                     userSignIn(user.getUid());
+                    Log.e("userSignIn","用户签到");
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
                             super.handleMessage(msg);
                             switch (msg.what) {
                                 case GET_SIGN_INFO:
-                                    markData.put(signDate, "0");
                                     if (msg.obj.equals("1")) {
+                                        markData.put(signDate, "0");
                                         tvContent.setText("签到成功！");
                                         dateTv.setText("签");
                                     } else {
@@ -121,10 +106,9 @@ public class CustomDialogSign extends DialogFragment {
                 //补签
             } else if (currentDate.getDay() > date.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                if (markData.get(signDate) == null || markData.get(signDate).equals("")) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
-                    Date date=new Date();
-                    retroactive(user.getUid(),dateFormat.format(date));
+                if (markData.get(signDate) == null || markData.get(signDate).equals("1")) {
+                    Log.e("userReSignIn","补签中");
+                    retroactive(user.getUid(),signDate);
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
@@ -228,6 +212,7 @@ public class CustomDialogSign extends DialogFragment {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.e("userReSignIn", "f");
                 e.printStackTrace();
             }
 
@@ -241,11 +226,11 @@ public class CustomDialogSign extends DialogFragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.e("userSignIn", "" + json);
+                Log.e("userReSignIn", "" + json);
                 if (json != null || !json.equals("")) {
                     Message message = new Message();
                     message.what = GET_SIGN_RETROACTIVE_INFO;
-                    message.obj = json;
+                    message.obj = "1";
                     handler.sendMessage(message);
                 }
             }

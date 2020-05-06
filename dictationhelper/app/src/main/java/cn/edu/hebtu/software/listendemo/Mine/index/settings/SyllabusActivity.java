@@ -251,6 +251,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         }
                         tag[3] = "true";
                     }
+if(taskAdapter!=null){
+                        taskAdapter.notifyDataSetChanged();
+                    }
                     Log.e("tagg","2");
                     Log.e("tagg",title.toString());
                     break;

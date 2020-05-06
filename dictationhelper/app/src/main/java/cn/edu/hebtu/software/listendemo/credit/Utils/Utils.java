@@ -140,7 +140,11 @@ public final class Utils {
      * @return void
      */
     public static void setMarkData(HashMap<String, String> data) {
-        markData = data;
+        if (data == null){
+            markData = new HashMap<>();
+        }else {
+            markData = data;
+        }
     }
 
     /**

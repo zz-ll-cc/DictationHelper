@@ -25,6 +25,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -36,7 +40,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.Entity.CreditRecord;
 import cn.edu.hebtu.software.listendemo.Entity.Record;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
@@ -46,10 +49,10 @@ import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
-import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
+import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
@@ -58,6 +61,8 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 
 @SuppressLint("SetTextI18n")
@@ -92,10 +97,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");// HH:mm:ss
     private SimpleDateFormat dateFormat1 = new SimpleDateFormat("HH:mm");// HH:mm
     private long studyTime = 0;
-    private long studyMinute=0;
+    private long studyMinute = 0;
     private long time1 = 0;
     private long time2 = 0;
-    private  TaskAdapter  taskAdapter;
+    private TaskAdapter taskAdapter;
     //    private String[] task = new String[2];
 //    private String[] task_name = {"今日累计", "今日最好成绩"};
 //    private String[] task_content = new String[2];
@@ -105,7 +110,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private String[] task_content = {"", "", "", ""};
     private String[] add_credit = {"+1积分", "+3积分", "+5积分", "+5积分"};
     String[] tag = {"false", "false", "false", "false"};
-    private HashMap<String, String> markData = new HashMap<>();
+    private HashMap<String, String> markData = null;
     private ThemeDayView themeDayView;
     private SharedPreferences sp;
     private Gson gson = new GsonBuilder().serializeNulls().create();
@@ -162,6 +167,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                                         int day = Integer.parseInt(str[2]);
                                         String d = str[0] + "-" + month + "-" + day;
                                         String value = markData1.get(key);
+                                        if (markData == null)
+                                            markData = new HashMap<>();
                                         if (value.equals("false")) {
                                             markData.put(d, "1");//1表示未签到   0表示已签到
                                         } else {
@@ -197,11 +204,11 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             map.put("tag", tag[i]);
                             title.add(map);
                         }
-                        Log.e("tagg","1");
-                        Log.e("tagg",title.toString());
+                        Log.e("tagg", "1");
+                        Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        taskAdapter=new TaskAdapter(studyMinute,tvCreditSum, score1, user, SyllabusActivity.this, title);
+                        taskAdapter = new TaskAdapter(studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title,sp);
                         rvToDoList.setAdapter(taskAdapter);
                     } else {
 //                        task_content[1] = "未听写";
@@ -216,46 +223,47 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             map.put("tag", tag[i]);
                             title.add(map);
                         }
-                        Log.e("tagg","1");
-                        Log.e("tagg",title.toString());
+                        Log.e("tagg", "1");
+                        Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        taskAdapter=new TaskAdapter(studyMinute,tvCreditSum, score, user, SyllabusActivity.this, title);
+                        taskAdapter = new TaskAdapter(studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title,sp);
                         rvToDoList.setAdapter(taskAdapter);
                     }
                     break;
                 case GET_CREDICT_RECORD:
-                    Type type = new TypeToken<Map<String, String>>() {}.getType();
+                    Type type = new TypeToken<Map<String, String>>() {
+                    }.getType();
                     Map<String, String> records = gson.fromJson(msg.obj + "", type);
                     if (records.get("学习10分钟").equals("true")) {
-                        if(title.size()>0){
-                            title.get(0).put("tag","true");
+                        if (title.size() > 0) {
+                            title.get(0).put("tag", "true");
                         }
                         tag[0] = "true";
                     }
                     if (records.get("学习30分钟").equals("true")) {
-                        if(title.size()>0){
-                            title.get(1).put("tag","true");
+                        if (title.size() > 0) {
+                            title.get(1).put("tag", "true");
                         }
                         tag[1] = "true";
                     }
                     if (records.get("学习60分钟").equals("true")) {
-                        if(title.size()>0){
-                            title.get(2).put("tag","true");
+                        if (title.size() > 0) {
+                            title.get(2).put("tag", "true");
                         }
                         tag[2] = "true";
                     }
                     if (records.get("有效听写").equals("true")) {
-                        if(title.size()>0){
-                            title.get(3).put("tag","true");
+                        if (title.size() > 0) {
+                            title.get(3).put("tag", "true");
                         }
                         tag[3] = "true";
                     }
-if(taskAdapter!=null){
+                    if (taskAdapter != null) {
                         taskAdapter.notifyDataSetChanged();
                     }
-                    Log.e("tagg","2");
-                    Log.e("tagg",title.toString());
+                    Log.e("tagg", "2");
+                    Log.e("tagg", title.toString());
                     break;
             }
 
@@ -268,8 +276,9 @@ if(taskAdapter!=null){
         setContentView(R.layout.activity_syllabus);
         context = this;
         findView();
+//        EventBus.getDefault().register(this);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        user = gson.fromJson(sp.getString(USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         getCreditRecord(user.getUid());
         Log.e("userInfo", user.toString());
         //getSignInfo(user.getUid());
@@ -287,6 +296,17 @@ if(taskAdapter!=null){
         Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
         // calendarAdapter.switchToWeek(monthPager.getRowIndex());
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void updateSp(User user0) {
+//        sp.edit().putString(USER_KEEP_KEY, gson.toJson(user0)).commit();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//    }
 
     public void findView() {
         content = (CoordinatorLayout) findViewById(R.id.content);
@@ -337,9 +357,9 @@ if(taskAdapter!=null){
     //初始化任务列表
     public void initRecycleView() {
         getListenerRecordData(user.getUid());
-        Long currentTimestamps=System.currentTimeMillis();
-        Long oneDayTimestamps= Long.valueOf(60*60*24*1000);
-        long startTime=currentTimestamps-(currentTimestamps+60*60*8*1000)%oneDayTimestamps;
+        Long currentTimestamps = System.currentTimeMillis();
+        Long oneDayTimestamps = Long.valueOf(60 * 60 * 24 * 1000);
+        long startTime = currentTimestamps - (currentTimestamps + 60 * 60 * 8 * 1000) % oneDayTimestamps;
         //java.util.Calendar beginCal = java.util.Calendar.getInstance();
         //beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
         java.util.Calendar endCal = java.util.Calendar.getInstance();
@@ -577,7 +597,7 @@ if(taskAdapter!=null){
 //                                    message3.obj =hour2 + "时" + minute2 + "分";
 //                                    handler.sendMessage(message3);
                                     tvWordSum.setText(hour2 + "时" + minute2 + "分");
-                                    studyMinute=hour2*60+minute2;
+                                    studyMinute = hour2 * 60 + minute2;
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
                                 } else {
 //                                    if (minute2 < 30) {
@@ -599,7 +619,7 @@ if(taskAdapter!=null){
 //                                    message3.obj =minute2 + "分";
 //                                    handler.sendMessage(message3);
                                     tvWordSum.setText(minute2 + "分钟");
-                                    studyMinute=minute2;
+                                    studyMinute = minute2;
                                     Log.e("studytime", minute2 + "分钟");
                                 }
                                 mEventList.add(e);
@@ -668,6 +688,7 @@ if(taskAdapter!=null){
                     i3 = user.getUserCredit();
                 }
                 message2.obj = i3 + "分";
+                sp.edit().putString(USER_KEEP_KEY,gson.toJson(user)).commit();
                 handler.sendMessage(message2);
 //                Message message3 = new Message();
 //                message3.what = GET_WORD_SUM;

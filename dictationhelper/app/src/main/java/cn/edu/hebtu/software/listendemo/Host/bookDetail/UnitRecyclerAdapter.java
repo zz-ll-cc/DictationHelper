@@ -176,9 +176,6 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         final MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
         final Unit unit = unitList.get(i);
         myViewHolder.tvUnit.setText(unit.getUnName());
-        /*
-        TODO    取消的单元名称的获取
-         */
 //        myViewHolder.tvUnitName.setText(unit.getUnTitle());
         List<Word> words = unit.getWords();
         WordRecyclerAdapter adapter = new WordRecyclerAdapter(words, context, R.layout.fragment_book_detail_word_item);

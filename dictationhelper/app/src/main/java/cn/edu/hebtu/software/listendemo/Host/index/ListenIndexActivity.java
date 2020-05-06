@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Host.searchWord.SearchWordActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.MyInfoFragment;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Record.index.RecordFragment;
@@ -29,6 +31,7 @@ import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 public class ListenIndexActivity extends AppCompatActivity {
     //所需要的全部资源
     public static Activity activity;
+
     private class MyTabSpec {
         private ImageView imageView = null;
         private int normalImage;
@@ -83,6 +86,12 @@ public class ListenIndexActivity extends AppCompatActivity {
     private String[] tabStrid = {"首页", "学习记录", "我的"};
     //用于记录当前正在显示的Fragment
     private Fragment curFragment = null;
+    private RelativeLayout rlOut;
+    private float posX;
+    private float posY;
+    private float curPosX;
+    private float curPosY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +100,33 @@ public class ListenIndexActivity extends AppCompatActivity {
         Intent intent = getIntent();
         initDtata(); //初始化MyTabSpec
         changeTab(tabStrid[0]);  //设置默认显示的TabSpec
-
+        rlOut = findViewById(R.id.rl_index_out);
+        rlOut.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        posX = event.getX();
+                        posY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        curPosX = event.getX();
+                        curPosY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if ((curPosY - posY > 0) && (Math.abs(curPosY - posY) > 50)){
+                            if (curFragment instanceof HostFragment){
+                                Intent intent = new Intent(ListenIndexActivity.this, SearchWordActivity.class);
+                                startActivity(intent);
+                                // todo: 修改进入样式
+                                overridePendingTransition(R.anim.out_search_to_up,R.anim.in_search_from_down);
+                            }
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
         Gson gson = new Gson();
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);

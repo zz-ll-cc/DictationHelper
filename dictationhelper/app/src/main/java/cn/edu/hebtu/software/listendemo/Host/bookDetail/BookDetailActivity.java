@@ -1,10 +1,12 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,15 +38,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.EventInfo;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
-import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
@@ -52,15 +53,18 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_UNIT;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
-import static com.mob.MobSDK.getContext;
 
 public class BookDetailActivity extends AppCompatActivity {
-    private int nowCount;
-    private int requestCount;
+    private static final int nowCount = 100;
+    private static final int requestCount = 0;
+    private static final int GET_VERSION_CHANGE = 10086;
+    private static final int GET_VERSION_CHANGE_FALSE = 20086;
     private ImageView ivExit;
     private TextView tvName;
     private ImageView ivCollect;
@@ -78,31 +82,68 @@ public class BookDetailActivity extends AppCompatActivity {
     private boolean isBind = false;
     private boolean isCollected = false;
     private List<Integer> colList;
-    private Map<Integer,List<Integer>> colMap;
+    private Map<Integer, List<Integer>> colMap;
     private User user;
     private OkHttpClient client = new OkHttpClient();
     private NumberProgressBar pbLearn;
     private NumberProgressBar pbListen;
     private SQLiteDatabase sqLiteDatabase;
-
-
+    // 记录单词以及单元信息
+    private BookUnitWordDBHelper dbHelper;
+    private SQLiteDatabase wordDB;
+    private boolean versionChange = false;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == requestCount) {
-                initView();
-                setListener();
+            switch (msg.what){
+                case requestCount:
+                    Log.e("requestCount",requestCount+"");
+                    List<Word> words1 = (List<Word>) msg.obj;
+                    keepNewWords(words1);
+                    initView();
+                    setListener();
+                    break;
+                case nowCount:
+                    Log.e("nowCount",nowCount+"");
+                    List<Word> words = (List<Word>) msg.obj;
+                    keepNewWords(words);
+                    initView();
+                    setListener();
+                    break;
+                case GET_VERSION_CHANGE:
+                    break;
             }
         }
     };
+
+    private void keepNewWords(List<Word> words) {
+        for (Word word : words) {
+            Log.e("插入单词",word.toString());
+            ContentValues cv = new ContentValues();
+            cv.put("wid", word.getWid());
+            cv.put("bid", word.getBid());
+            cv.put("wenglish", word.getWenglish());
+            cv.put("wchinese", word.getWchinese());
+            cv.put("unid", word.getUnid());
+            cv.put("type", word.getType());
+            cv.put("wimgPath", word.getWimgPath());
+            cv.put("version", word.getVersion());
+            cv.put("deleted", word.getDeleted());
+            cv.put("createTime", word.getCreateTime());
+            cv.put("updateTime", word.getUpdateTime());
+            wordDB.insert(TBL_WORD, null, cv);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         EventBus.getDefault().register(this);
-
+        dbHelper = new BookUnitWordDBHelper(this, BOOK_UNIT_WORD_DBNAME, 1);
+        wordDB = dbHelper.getWritableDatabase();
         findView();
         initData();
         StatusBarUtil.statusBarLightMode(this);
@@ -138,10 +179,10 @@ public class BookDetailActivity extends AppCompatActivity {
                                 Type type = new TypeToken<Map<Integer, Integer>>() {
                                 }.getType();
                                 Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
-                                bindMap.put(user.getUid(),Constant.DEFAULT_BIND_ID);
+                                bindMap.put(user.getUid(), Constant.DEFAULT_BIND_ID);
 
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
+                                editor.putString(Constant.BIND_KEY, gson.toJson(bindMap));
                                 // 修改显示样式
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.bind_no));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
@@ -152,7 +193,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                         break;
                                     }
                                 }
-                                colMap.put(user.getUid(),colList);
+                                colMap.put(user.getUid(), colList);
                                 editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "已解除绑定教材", Toast.LENGTH_SHORT).show();
@@ -181,17 +222,17 @@ public class BookDetailActivity extends AppCompatActivity {
                                 Type type = new TypeToken<Map<Integer, Integer>>() {
                                 }.getType();
                                 Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
-                                bindMap.put(user.getUid(),book.getBid());
+                                bindMap.put(user.getUid(), book.getBid());
 
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
+                                editor.putString(Constant.BIND_KEY, gson.toJson(bindMap));
 
                                 // 修改显示样式
                                 ivBind.setImageDrawable(getResources().getDrawable(R.drawable.binded));
                                 ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
                                 // 修改收藏列表
                                 colList.add(book.getBid());
-                                colMap.put(user.getUid(),colList);
+                                colMap.put(user.getUid(), colList);
                                 editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                                 editor.commit();
                                 Toast.makeText(BookDetailActivity.this, "成功绑定教材，默认收藏", Toast.LENGTH_SHORT).show();
@@ -222,7 +263,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        colMap.put(user.getUid(),colList);
+                        colMap.put(user.getUid(), colList);
                         editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                         editor.commit();
                         isCollected = false;
@@ -231,7 +272,7 @@ public class BookDetailActivity extends AppCompatActivity {
                         // 当前为未收藏
                         SharedPreferences.Editor editor = sp.edit();
                         colList.add(book.getBid());
-                        colMap.put(user.getUid(),colList);
+                        colMap.put(user.getUid(), colList);
                         editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                         editor.commit();
                         isCollected = true;
@@ -242,13 +283,39 @@ public class BookDetailActivity extends AppCompatActivity {
         }
     }
 
+    private List<Word> getDataFromLocal(Unit unit) {
+        Cursor cursor = wordDB.query(TBL_WORD, null, "bid = ? and unid = ?", new String[]{book.getBid() + "", unit.getUnid() + ""}, null, null, null);
+        List<Word> words = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Word word = new Word();
+                word.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
+                word.setWid(cursor.getInt(cursor.getColumnIndex("wid")));
+                word.setWchinese(cursor.getString(cursor.getColumnIndex("wchinese")));
+                word.setWenglish(cursor.getString(cursor.getColumnIndex("wenglish")));
+                word.setWimgPath(cursor.getString(cursor.getColumnIndex("wimgPath")));
+                word.setType(cursor.getInt(cursor.getColumnIndex("type")));
+                word.setCreateTime(cursor.getString(cursor.getColumnIndex("createTime")));
+                word.setUpdateTime(cursor.getString(cursor.getColumnIndex("updateTime")));
+                word.setUnid(cursor.getInt(cursor.getColumnIndex("unid")));
+                word.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
+                word.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
+                words.add(word);
+            } while (cursor.moveToNext());
+        }
+        Log.e("数据库获取","aaaa");
+        return words;
+    }
+
     private void initData() {
         book = (Book) getIntent().getSerializableExtra(Constant.HOST_CON_DETAIL_BOOK);
+//        checkVersion(book.getBid(),book.getVersion());
         tvName.setText(book.getBname());
         tvName.setSelected(true);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
-        Type type = new TypeToken<Map<Integer,List<Integer>>>() {}.getType();
+        Type type = new TypeToken<Map<Integer, List<Integer>>>() {
+        }.getType();
         colMap = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
         if (colMap.containsKey(user.getUid()))
             colList = colMap.get(user.getUid());
@@ -256,8 +323,9 @@ public class BookDetailActivity extends AppCompatActivity {
             colList = new ArrayList<>();
         if (colList.contains(book.getBid()))
             isCollected = true;
-        Type type1 = new TypeToken<Map<Integer,Integer>>(){}.getType();
-        Map<Integer,Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY,Constant.DEFAULT_BING_MAP),type1);
+        Type type1 = new TypeToken<Map<Integer, Integer>>() {
+        }.getType();
+        Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type1);
         int bindId = -1;
         if (bindMap.containsKey(user.getUid()))
             bindId = bindMap.get(user.getUid());
@@ -274,35 +342,87 @@ public class BookDetailActivity extends AppCompatActivity {
             units.add(unit);
         }
         int i = 0;
+        // 根据单元，查单词
         for (final Unit unit : units) {
-            // 根据单元，查单词
-            FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("unid", unit.getUnid() + "").build();
-            Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                }
+            Cursor cursor = wordDB.query(TBL_WORD, null, "bid = ? and unid = ?", new String[]{book.getBid() + "", unit.getUnid() + ""}, null, null, null);
+            if (cursor.moveToFirst()) {
+                List<Word> words = new ArrayList<>();
+                do {
+                    Word word = new Word();
+                    word.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
+                    word.setWid(cursor.getInt(cursor.getColumnIndex("wid")));
+                    word.setWchinese(cursor.getString(cursor.getColumnIndex("wchinese")));
+                    word.setWenglish(cursor.getString(cursor.getColumnIndex("wenglish")));
+                    word.setWimgPath(cursor.getString(cursor.getColumnIndex("wimgPath")));
+                    word.setType(cursor.getInt(cursor.getColumnIndex("type")));
+                    word.setCreateTime(cursor.getString(cursor.getColumnIndex("createTime")));
+                    word.setUpdateTime(cursor.getString(cursor.getColumnIndex("updateTime")));
+                    word.setUnid(cursor.getInt(cursor.getColumnIndex("unid")));
+                    word.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
+                    word.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
+                    words.add(word);
+                } while (cursor.moveToNext());
+                unit.setWords(words);
+                EventBus.getDefault().post("fromDatabase");
+            } else {    // 进行网络请求，获取数据
+                FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("unid", unit.getUnid() + "").build();
+                Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
+                Call call = client.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        List<Word> words = getDataFromLocal(unit);
+                        unit.setWords(words);
+                        Message message = new Message();
+                        message.what = nowCount;
+                        message.obj = words;
+                        handler.sendMessage(message);
+                        Log.e("网络获取","aaa");
+                    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String jsonWords = response.body().string();
-                    Type type = new TypeToken<List<Word>>() {
-                    }.getType();
-                    List<Word> words = gson.fromJson(jsonWords, type);
-                    unit.setWords(words);
-                    Message message = new Message();
-                    message.what = nowCount++;
-                    handler.sendMessage(message);
-                }
-            });
-
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String jsonWords = response.body().string();
+                        Type type = new TypeToken<List<Word>>() {
+                        }.getType();
+                        List<Word> words = gson.fromJson(jsonWords, type);
+                        unit.setWords(words);
+                        Message message = new Message();
+                        message.what = nowCount;
+                        message.obj = words;
+                        handler.sendMessage(message);
+                        Log.e("网络获取","aaa");
+                    }
+                });
+            }
         }
-
         //记录在本地这本书
         sp.edit().putString(Constant.BOOK_JSON, gson.toJson(book)).commit();
+    }
 
+    /**
+     * 根据书的id，检测此书是否发生更改
+     * @param bookVersion
+     */
+    private void checkVersion(int bid, int bookVersion) {
+        FormBody fb = new FormBody.Builder().add("bid", bid + "").add("bookVersion", bookVersion + "").build();
+        Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                versionChange = false;
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonWords = response.body().string();
+                versionChange = gson.fromJson(jsonWords, boolean.class);
+                Message message = new Message();
+                message.what = GET_VERSION_CHANGE;
+                handler.sendMessage(message);
+            }
+        });
     }
 
     private void initView() {
@@ -345,8 +465,8 @@ public class BookDetailActivity extends AppCompatActivity {
         pbListen = findViewById(R.id.pb_listen);
     }
 
-    private void askForAccount(){
-        FormBody body = new FormBody.Builder().add("bid",book.getBid()+"").build();
+    private void askForAccount() {
+        FormBody body = new FormBody.Builder().add("bid", book.getBid() + "").build();
         Request request = new Request.Builder().url(URL_GET_ACCOUNT).post(body).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -357,46 +477,58 @@ public class BookDetailActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                EventInfo<String,String,Object> eventInfo = new EventInfo<>();
-                Map<String,String> map = new HashMap<>();
-                map.put("count",response.body().string());
+                EventInfo<String, String, Object> eventInfo = new EventInfo<>();
+                Map<String, String> map = new HashMap<>();
+                map.put("count", response.body().string());
                 eventInfo.setContentString("receiveCount");
                 eventInfo.setContentMap(map);
                 EventBus.getDefault().post(eventInfo);
             }
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiver(EventInfo eventInfo){
-        if("receiveCount".equals(eventInfo.getContentString())){
+    public void receiver(EventInfo eventInfo) {
+        if ("receiveCount".equals(eventInfo.getContentString())) {
             String count = (String) eventInfo.getContentMap().get("count");
             int accout = Integer.parseInt(count);
             //数据库查询计算比例
             int correct = getListenProgress();
-            double result = correct*1.0/accout*100;
-            Log.e("1,2",""+result);
+            double result = correct * 1.0 / accout * 100;
+            Log.e("1,2", "" + result);
             pbListen.setProgress((int) Math.round(result));
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void initView(String from){
+        switch (from){
+            case "fromDatabase":
+                initView();
+                setListener();
+                break;
 
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        dbHelper.close();
+        wordDB.close();
     }
 
 
-    public int getListenProgress(){
-        CorrectWordDBHelper currectWordDBHelper =new CorrectWordDBHelper(this,"tbl_correctWord.db",1);
+    public int getListenProgress() {
+        CorrectWordDBHelper currectWordDBHelper = new CorrectWordDBHelper(this, "tbl_correctWord.db", 1);
         sqLiteDatabase = currectWordDBHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.query("TBL_CURRECTWORD", null,"BID=?" , new String[]{book.getBid()+""}, null, null, null);
+        Cursor cursor = sqLiteDatabase.query("TBL_CURRECTWORD", null, "BID=?", new String[]{book.getBid() + ""}, null, null, null);
         int correct = 0;
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 correct += 1;
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
-        Log.e("正确的",""+correct);
+        Log.e("正确的", "" + correct);
         return correct;
     }
 }

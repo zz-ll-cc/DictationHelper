@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp"
         android:layout_weight="0.5"
         android:gravity="center"
-        android:text="tips:听写前最好戴上耳机"
+        android:text="tips:此处下滑可进行搜索~"
         android:textColor="@color/anjin" />
 
     <ScrollView

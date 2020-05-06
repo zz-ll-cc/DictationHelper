@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Login.LoginActivity"></activity>
+        <activity android:name=".Host.searchWord.SearchWordActivity"></activity>
+        <activity android:name=".Login.LoginActivity" />
         <activity
             android:name=".Login.Splash"
             android:theme="@style/AppTheme.Start">
@@ -38,7 +39,7 @@
         </activity>
         <activity
             android:name=".Host.index.ListenIndexActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Host.searchBook.SearchBookActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -58,7 +59,7 @@
             android:theme="@style/AppTheme.NoActionBar" /> <!-- 完善个人信息 -->
         <activity
             android:name=".Login.CompleteInformationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- 听写记录 -->
@@ -68,8 +69,8 @@
         <activity android:name=".Mine.index.settings.EditMsgActivity" />
         <activity android:name=".Mine.index.settings.FeedbackActivity" />
         <activity android:name=".Mine.index.settings.EidtCenterActivity" />
-        <activity android:name=".Mine.index.settings.MyCreditActivity"/>
-        <activity android:name=".Mine.index.settings.SyllabusActivity"/>
+        <activity android:name=".Mine.index.settings.MyCreditActivity" />
+        <activity android:name=".Mine.index.settings.SyllabusActivity" />
     </application>
 
 </manifest>

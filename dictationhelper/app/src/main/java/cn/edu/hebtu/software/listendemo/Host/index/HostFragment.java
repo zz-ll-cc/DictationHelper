@@ -1,8 +1,11 @@
 package cn.edu.hebtu.software.listendemo.Host.index;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,9 +43,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.Host.searchBook.SearchBookActivity;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
@@ -53,17 +58,17 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_BOOK;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
 
 public class HostFragment extends Fragment {
-    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
-    private float x1 = 0;
-    private float x2 = 0;
-    private float y1 = 0;
-    private float y2 = 0;
+    private static final int GET_WORDS = 2000;
     private LinearLayout llFindBooks;
     private LinearLayout llContinueStudy;
     private List<Book> res = new ArrayList<>();
+    private List<Word> initWords ;
     private HostRecyclerAdapter adapter = null;
     private RecyclerView recyclerView = null;
     private SharedPreferences sp = ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
@@ -79,33 +84,119 @@ public class HostFragment extends Fragment {
     private List<String> mTitleList = new ArrayList<>();
     private List<Integer> mImgList = new ArrayList<>();
 
-
+    // 书的sqlite
+    private BookUnitWordDBHelper bookDBHelper;
+    private SQLiteDatabase bookDB;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case GET_BOOKS:
+                case GET_BOOKS: // 获取所有书
                     initView(view);
+                    makeBookData2DB();
                     initRecyView();
                     setListener();
                     break;
+                case GET_WORDS: // 获取所有单词
+                    makeWordData2DB();
+                    initData();
+                    initRecyView();
+                    setListener();
             }
         }
     };
+
+    /**
+     * 将单词初始数据写入sqlite
+     */
+    private void makeWordData2DB() {
+        for (Word word:initWords){
+            ContentValues cv = new ContentValues();
+            cv.put("wid", word.getWid());
+            cv.put("bid", word.getBid());
+            cv.put("wenglish", word.getWenglish());
+            cv.put("wchinese", word.getWchinese());
+            cv.put("unid", word.getUnid());
+            cv.put("type", word.getType());
+            cv.put("wimgPath", word.getWimgPath());
+            cv.put("version", word.getVersion());
+            cv.put("deleted", word.getDeleted());
+            cv.put("createTime", word.getCreateTime());
+            cv.put("updateTime", word.getUpdateTime());
+            bookDB.insert(TBL_WORD, null, cv);
+        }
+    }
+
+    /**
+     * 将相关数据写入db
+     */
+    private void makeBookData2DB() {
+        for (Book book : res){
+            ContentValues cv = new ContentValues();
+            cv.put("bid",book.getBid());
+            cv.put("bvid",book.getBvid());
+            cv.put("bimgPath",book.getBimgPath());
+            cv.put("gid",book.getGid());
+            cv.put("bname",book.getBname());
+            cv.put("bookWordVersion",book.getBookWordVersion());
+            cv.put("bunitAccount",book.getBunitAccount());
+            cv.put("createTime",book.getCreateTime());
+            cv.put("updateTime",book.getUpdateTime());
+            cv.put("version",book.getVersion());
+            cv.put("deleted",book.getDeleted());
+            bookDB.insert(TBL_BOOK,null,cv);
+        }
+    }
+
     private OkHttpClient client = new OkHttpClient();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_host, container, false);
-        initData();
-        initView(view);
+        bookDBHelper = new BookUnitWordDBHelper(ListenIndexActivity.activity,BOOK_UNIT_WORD_DBNAME,1);
+        bookDB = bookDBHelper.getWritableDatabase();
         ButterKnife.bind(this, view);
-        banner = view.findViewById(R.id.play_banner);
+        initView(view);
+        getInitWords();
+
+        initData();
         // 设置轮播图
         BannerSet();
+        initRecyView();
+        setListener();
         return view;
+    }
+
+    private void getInitWords() {
+        long wordCount = -1;
+        Cursor cursor = bookDB.query(TBL_WORD,new String[]{"count(wid) wordCount"},null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            wordCount = cursor.getLong(cursor.getColumnIndex("wordCount"));
+        }
+        if (wordCount == 0) {
+            FormBody fb = new FormBody.Builder().build();
+            Request request = new Request.Builder().url(Constant.GET_INIT_ALL_WORD).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String jsonBooks = response.body().string();
+                    Message message = new Message();
+                    message.what = GET_WORDS;
+                    Type type = new TypeToken<List<Word>>() {
+                    }.getType();
+                    initWords = gson.fromJson(jsonBooks, type);
+                    handler.sendMessage(message);
+                }
+            });
+        }
     }
 
     private void setListener() {
@@ -132,32 +223,6 @@ public class HostFragment extends Fragment {
                 }
             }
         });
-//        llOut.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                //继承了Activity的onTouchEvent方法，直接监听点击事件
-//                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    //当手指按下的时候
-//                    x1 = event.getX();
-//                    y1 = event.getY();
-//                }
-//                if(event.getAction() == MotionEvent.ACTION_UP) {
-//                    //当手指离开的时候
-//                    x2 = event.getX();
-//                    y2 = event.getY();
-//                    if(y1 - y2 > 50) {
-//                        Toast.makeText(getContext(), "向上滑", Toast.LENGTH_SHORT).show();
-//                    } else if(y2 - y1 > 50) {
-//                        Toast.makeText(getContext(), "向下滑", Toast.LENGTH_SHORT).show();
-//                    } else if(x1 - x2 > 50) {
-//                        Toast.makeText(getContext(), "向左滑", Toast.LENGTH_SHORT).show();
-//                    } else if(x2 - x1 > 50) {
-//                        Toast.makeText(getContext(), "向右滑", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                return false;
-//            }
-//        });
     }
 
     private void initView(View view) {
@@ -165,6 +230,7 @@ public class HostFragment extends Fragment {
         llContinueStudy = view.findViewById(R.id.ll_fragment_host_continueStudy);
         llFindBooks = view.findViewById(R.id.ll_fragment_host_findBooks);
         llOut = view.findViewById(R.id.ll_fragment_host_out);
+        banner = view.findViewById(R.id.play_banner);
     }
 
     private void initRecyView() {
@@ -174,26 +240,48 @@ public class HostFragment extends Fragment {
 
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        FormBody fb = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(Constant.URL_BOOKS_FIND_ALL).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+        // 先对本地数据库进行查询所有操作
+        Cursor cursor = bookDB.query(TBL_BOOK,null,null,null,null,null,null);
+        // 此时有数据，不用去进行网络请求
+        if(cursor.moveToFirst()){
+            res.clear();
+            do {
+                Book book = new Book();
+                book.setBid(cursor.getInt(cursor.getColumnIndex("bid")));
+                book.setBimgPath(cursor.getString(cursor.getColumnIndex("bimgPath")));
+                book.setBname(cursor.getString(cursor.getColumnIndex("bname")));
+                book.setBunitAccount(cursor.getInt(cursor.getColumnIndex("bunitAccount")));
+                book.setBvid(cursor.getInt(cursor.getColumnIndex("bvid")));
+                book.setGid(cursor.getInt(cursor.getColumnIndex("gid")));
+                book.setBookWordVersion(cursor.getInt(cursor.getColumnIndex("bookWordVersion")));
+                book.setCreateTime(cursor.getString(cursor.getColumnIndex("createTime")));
+                book.setUpdateTime(cursor.getString(cursor.getColumnIndex("updateTime")));
+                book.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
+                book.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
+                res.add(book);
+            }while (cursor.moveToNext());
+        }else { // 此时数据库里边没有相关数据，需要发送网络请求获取
+            FormBody fb = new FormBody.Builder().build();
+            Request request = new Request.Builder().url(Constant.URL_BOOKS_FIND_ALL).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String jsonBooks = response.body().string();
-                Message message = new Message();
-                message.what = GET_BOOKS;
-                Type type = new TypeToken<List<Book>>() {
-                }.getType();
-                res = gson.fromJson(jsonBooks, type);
-                handler.sendMessage(message);
-            }
-        });
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String jsonBooks = response.body().string();
+                    Message message = new Message();
+                    message.what = GET_BOOKS;
+                    Type type = new TypeToken<List<Book>>() {
+                    }.getType();
+                    res = gson.fromJson(jsonBooks, type);
+                    handler.sendMessage(message);
+                }
+            });
+        }
     }
 
     @Override
@@ -206,12 +294,15 @@ public class HostFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         banner.stopAutoPlay();
+        bookDB.close();
+        bookDBHelper.close();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         initView(view);
+        initRecyView();
         StatusBarUtil.setStatusBarColor(getActivity(), R.color.backgray);
     }
 

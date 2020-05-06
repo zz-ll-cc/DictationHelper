@@ -4,7 +4,7 @@
     <corners android:radius="10dp"/>
 
     <!--填充色-->
-    <solid android:color="#B0AFAF"/>
+    <solid android:color="#F3F2F2"/>
 
     <!--边框-->
 

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:background="@color/white"
+    android:id="@+id/rl_index_out"
     android:fitsSystemWindows="true">
     <!--等价于FragementTabhost-->
     <LinearLayout

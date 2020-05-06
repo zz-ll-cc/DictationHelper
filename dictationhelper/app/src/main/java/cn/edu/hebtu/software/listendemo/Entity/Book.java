@@ -10,6 +10,15 @@ public class Book implements Serializable {
     private String bname;
     private String bimgPath;
     private int bunitAccount;
+    private int bookWordVersion;
+
+    public int getBookWordVersion() {
+        return bookWordVersion;
+    }
+
+    public void setBookWordVersion(int bookWordVersion) {
+        this.bookWordVersion = bookWordVersion;
+    }
 
     private int deleted;
     private int version;

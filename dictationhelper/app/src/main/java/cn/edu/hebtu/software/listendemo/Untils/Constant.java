@@ -97,4 +97,11 @@ public class Constant {
     public static final String FEEDBACK_POST_KEEP_CONTENT_KEY = "contentKeep";
     public static final String FEEDBACK_POST_KEEP_TYPE_KEY = "typeKeep";
     public static final String CON_POST_FEEDBACK_IP = BASE_URL+"mail/report";
+
+    // book、unit、word存放数据库名称
+    public static final String BOOK_UNIT_WORD_DBNAME = "book_unit_word.db";
+    // 搜索历史存放的数据库名称
+    public static final String SEARCH_HISTORY_DBNAME = "search_history.db";
+    // 获取初始化所有单词
+    public static final String GET_INIT_ALL_WORD = BASE_URL+"word/findallwords";
 }

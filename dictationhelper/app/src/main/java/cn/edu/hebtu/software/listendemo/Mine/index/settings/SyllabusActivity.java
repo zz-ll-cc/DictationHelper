@@ -337,10 +337,13 @@ if(taskAdapter!=null){
     //初始化任务列表
     public void initRecycleView() {
         getListenerRecordData(user.getUid());
-        java.util.Calendar beginCal = java.util.Calendar.getInstance();
-        beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
+        Long currentTimestamps=System.currentTimeMillis();
+        Long oneDayTimestamps= Long.valueOf(60*60*24*1000);
+        long startTime=currentTimestamps-(currentTimestamps+60*60*8*1000)%oneDayTimestamps;
+        //java.util.Calendar beginCal = java.util.Calendar.getInstance();
+        //beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
         java.util.Calendar endCal = java.util.Calendar.getInstance();
-        long startTime = beginCal.getTimeInMillis();
+        //long startTime = beginCal.getTimeInMillis();
         long endTime = endCal.getTimeInMillis();
         ArrayList<UsageEvents.Event> mEventList = getEventList(this, startTime, endTime);
         if (mEventList.size() > 0) {

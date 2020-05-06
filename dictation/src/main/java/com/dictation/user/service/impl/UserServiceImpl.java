@@ -1,5 +1,6 @@
 package com.dictation.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dictation.mapper.CreditRecordMapper;
 import com.dictation.mapper.UserMapper;
 import com.dictation.user.entity.CreditRecord;
@@ -260,6 +261,13 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectById(uid);
         user.setUserCredit(user.getUserCredit() + changeNum);
         userMapper.updateById(user);
+        try {
+            redisUtil.set(redisUtil.getUserKey(uid),new ObjectMapper().writeValueAsString(user),60*60);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            logger.warn(e.toString());
+        }
+
         creditRecordMapper.insert(new CreditRecord().setIncrement(changeNum).setUserId(uid).setReason(changReason));
         return user;
     }
@@ -616,8 +624,15 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
-
+    @Override
+    public List<CreditRecord> checkUserCreditRecord(int id) {
+        QueryWrapper<CreditRecord> queryWrapper = new QueryWrapper<>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        queryWrapper
+                .like("create_time",simpleDateFormat.format(new Date()))
+                .eq("user_id",id);
+        return creditRecordMapper.selectList(queryWrapper);
+    }
 
 
 }

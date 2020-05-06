@@ -120,4 +120,17 @@ public class BookServiceImpl implements BookService {
     public boolean delete(Integer id) {
         return bookMapper.deleteById(id) == 1;
     }
+
+    @Override
+    public boolean checkBookVersion(int bid, int version) {
+        Book book = bookMapper.selectById(bid);
+        return book.getBookWordVersion() == version;
+    }
+
+    @Override
+    public Book findOneById(Integer id) {
+        return bookMapper.selectById(id);
+    }
+
+
 }

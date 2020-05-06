@@ -6,15 +6,17 @@ import java.util.List;
 
 public interface BookService {
 
-    public List<Book> findAll();
-    public List<Book> findAllByPaging(int pageNum,int pageSize);
-    public List<Book> findAllByVesion(int bvid);
-    public List<Book> findAllByGrade(int gid);
-    public List<Book> findAllByVesionAndGrade(int bvid,int gid);
-    public boolean updateUrl(int bid,String url);
-    public boolean saveOne(Book book);
-    public boolean delete(Book book);
-    public boolean delete(Integer id);
+    List<Book> findAll();
+    List<Book> findAllByPaging(int pageNum,int pageSize);
+    List<Book> findAllByVesion(int bvid);
+    List<Book> findAllByGrade(int gid);
+    List<Book> findAllByVesionAndGrade(int bvid,int gid);
+    boolean updateUrl(int bid,String url);
+    boolean saveOne(Book book);
+    boolean delete(Book book);
+    boolean delete(Integer id);
+    boolean checkBookVersion(int bid,int version);
+    Book findOneById(Integer id);
 
 
 }

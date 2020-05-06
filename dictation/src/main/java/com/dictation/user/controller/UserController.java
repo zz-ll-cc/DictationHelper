@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName: UserController
@@ -256,7 +254,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping("updateCredit")
+    @RequestMapping("/updateCredit")
     public User modifyCredit(@RequestParam("id") int id, @RequestParam("code") int code){
         String reason  = "";
         int creditNum = 0;
@@ -289,6 +287,39 @@ public class UserController {
     public User reSignIn(@RequestParam("id") int id, @RequestParam("date") String date){
         //不用判断日期是否是格式化的！！！
         return userService.reSignIn(id, date) ? userService.findUserByUid(id) : null;
+    }
+
+
+
+    @RequestMapping("/checkCreditRecord")
+    public String checkCreditRecord(@RequestParam("id") int id){
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String,Object> map = new HashMap<>();
+        String result = null;
+        List<CreditRecord> creditRecords = userService.checkUserCreditRecord(id);
+        for(ReasonEnum s :ReasonEnum.values()){
+            map.put(s.getReason(),false);
+        }
+        if(creditRecords == null){
+            try {
+                result = objectMapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }finally {
+                return result;
+            }
+        }else{
+            for(CreditRecord c : creditRecords){
+                map.put(c.getReason(),true);
+            }
+            try {
+                result = objectMapper.writeValueAsString(map);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }finally {
+                return result;
+            }
+        }
     }
 
 

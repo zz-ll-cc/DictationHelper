@@ -1,7 +1,9 @@
 package com.dictation.user.service;
 
+import com.dictation.user.entity.CreditRecord;
 import com.dictation.user.entity.User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,6 +79,9 @@ public interface UserService {
 
     //补签
     boolean reSignIn(int id,String formatDate);
+
+    //获取用户积分记录
+    List<CreditRecord> checkUserCreditRecord(int id);
 
 
 

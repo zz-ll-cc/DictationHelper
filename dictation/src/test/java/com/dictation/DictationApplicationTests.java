@@ -8,6 +8,8 @@ import com.dictation.book.service.VersionService;
 import com.dictation.book.service.WordService;
 import com.dictation.record.service.DayRecordService;
 import com.dictation.user.entity.User;
+import com.dictation.user.entity.UserSignIn;
+import com.dictation.user.service.UserService;
 import com.dictation.util.FileUtil;
 import com.dictation.util.RedisUtil;
 import com.dictation.util.TimeUtil;
@@ -57,6 +59,9 @@ class DictationApplicationTests {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    UserService userService;
+
 
 
     @Test
@@ -102,4 +107,9 @@ class DictationApplicationTests {
 
     }
 
+
+    @Test
+    void name() {
+
+    }
 }

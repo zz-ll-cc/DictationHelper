@@ -1,14 +1,20 @@
 package com.dictation.book.controller;
 
 import com.dictation.book.entity.Book;
+import com.dictation.book.entity.Word;
 import com.dictation.book.service.BookService;
+import com.dictation.book.service.WordService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName BookController
@@ -22,6 +28,9 @@ public class BookController {
 
     @Autowired
     BookService bookService;
+
+    @Autowired
+    WordService wordService;
 
     @RequestMapping("/all")
     public List<Book> all(){
@@ -68,9 +77,34 @@ public class BookController {
             return bookService.findAllByVesion(bvid);
         }
         else {
-            return bookService.findAllByVesionAndGrade(bvid,gid);
+            return bookService.findAllByVesionAndGrade(bvid, gid);
+        }
+
+    }
+
+
+    @RequestMapping("/checkbookversion")
+    public String checkBookVersion(@RequestParam("bid") int bid, @RequestParam("version") int bookWordVersion){
+        Map<String,Object> map = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        if(!bookService.checkBookVersion(bid,bookWordVersion)){
+            map.put("type",1);
+            map.put("word",wordService.findAllByBid(bid));
+            map.put("version",bookService.findOneById(bid).getBookWordVersion());
+        }else{
+            map.put("type",0);
+            map.put("word",null);
+            map.put("version",null);
+        }
+        try {
+            return objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
         }
     }
+
+
 
 
 

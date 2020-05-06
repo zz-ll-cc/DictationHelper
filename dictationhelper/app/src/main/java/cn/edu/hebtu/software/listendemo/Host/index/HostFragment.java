@@ -35,10 +35,16 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +64,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity.POST_FROM_BOOK_DETAIL;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_BOOK;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
@@ -145,7 +152,10 @@ public class HostFragment extends Fragment {
             cv.put("updateTime",book.getUpdateTime());
             cv.put("version",book.getVersion());
             cv.put("deleted",book.getDeleted());
-            bookDB.insert(TBL_BOOK,null,cv);
+            int exists = bookDB.update(TBL_BOOK,cv,"bid = ?",new String[]{book+""});
+            if (exists == 0){
+                bookDB.insert(TBL_BOOK,null,cv);
+            }
         }
     }
 
@@ -157,6 +167,7 @@ public class HostFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_host, container, false);
         bookDBHelper = new BookUnitWordDBHelper(ListenIndexActivity.activity,BOOK_UNIT_WORD_DBNAME,1);
         bookDB = bookDBHelper.getWritableDatabase();
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this, view);
         initView(view);
         getInitWords();
@@ -293,11 +304,29 @@ public class HostFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         banner.stopAutoPlay();
         bookDB.close();
         bookDBHelper.close();
     }
 
+    public static final String CHANGE_FROM = "changeFrom";
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeBookWordVersionRes(Map<String,Object> map){
+        switch (map.get(CHANGE_FROM).toString()){
+            case POST_FROM_BOOK_DETAIL:
+                for(int i=0 ; i<res.size();i++){
+                    Book book = res.get(i);
+                    if (book.getBid() == (int)map.get("bid")){
+                        book.setBookWordVersion((int)map.get("bookWordVersion"));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+                break;
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();

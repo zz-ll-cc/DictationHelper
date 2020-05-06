@@ -534,6 +534,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {//从相册选择完图片
             //压缩图片
+
             new Thread(new MyRunnable(data.getStringArrayListExtra("result"),
                     originImages, dragImages, myHandler, true)).start();
         }

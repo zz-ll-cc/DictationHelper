@@ -23,8 +23,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.CreditRecord;
 import cn.edu.hebtu.software.listendemo.Entity.Record;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
@@ -89,8 +92,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");// HH:mm:ss
     private SimpleDateFormat dateFormat1 = new SimpleDateFormat("HH:mm");// HH:mm
     private long studyTime = 0;
+    private long studyMinute=0;
     private long time1 = 0;
     private long time2 = 0;
+    private  TaskAdapter  taskAdapter;
     //    private String[] task = new String[2];
 //    private String[] task_name = {"今日累计", "今日最好成绩"};
 //    private String[] task_content = new String[2];
@@ -99,6 +104,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private String[] task_name = {"", "", "", "今日最好成绩"};
     private String[] task_content = {"", "", "", ""};
     private String[] add_credit = {"+1积分", "+3积分", "+5积分", "+5积分"};
+    String[] tag = {"false", "false", "false", "false"};
     private HashMap<String, String> markData = new HashMap<>();
     private ThemeDayView themeDayView;
     private SharedPreferences sp;
@@ -111,6 +117,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private static final int UPDATE_USER = 500;
     private static final int GET_MARKER_DATE = 600;
     private static final int GET_MAX_RECORD = 700;
+    private static final int GET_CREDICT_RECORD = 1000;
 
     private Handler handler = new Handler() {
         @Override
@@ -177,7 +184,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             String str = s.substring(0, s.indexOf("."));
                             score1 = Integer.parseInt(str);
                             task_content[3] = score1 + "分";
-                        }else{
+                        } else {
                             task_content[3] = "未听写";
                         }
 //                        task_content[1] =  score+ "分";
@@ -187,11 +194,15 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             map.put("task_name", task_name[i]);
                             map.put("task_content", task_content[i]);
                             map.put("add_credit", add_credit[i]);
+                            map.put("tag", tag[i]);
                             title.add(map);
                         }
+                        Log.e("tagg","1");
+                        Log.e("tagg",title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score1, user, SyllabusActivity.this, title));
+                        taskAdapter=new TaskAdapter(studyMinute,tvCreditSum, score1, user, SyllabusActivity.this, title);
+                        rvToDoList.setAdapter(taskAdapter);
                     } else {
 //                        task_content[1] = "未听写";
                         task_content[3] = "未听写";
@@ -202,12 +213,49 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             map.put("task_name", task_name[i]);
                             map.put("task_content", task_content[i]);
                             map.put("add_credit", add_credit[i]);
+                            map.put("tag", tag[i]);
                             title.add(map);
                         }
+                        Log.e("tagg","1");
+                        Log.e("tagg",title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score, user, SyllabusActivity.this, title));
+                        taskAdapter=new TaskAdapter(studyMinute,tvCreditSum, score, user, SyllabusActivity.this, title);
+                        rvToDoList.setAdapter(taskAdapter);
                     }
+                    break;
+                case GET_CREDICT_RECORD:
+                    Type type = new TypeToken<Map<String, String>>() {}.getType();
+                    Map<String, String> records = gson.fromJson(msg.obj + "", type);
+                    if (records.get("学习10分钟").equals("true")) {
+                        if(title.size()>0){
+                            title.get(0).put("tag","true");
+                        }
+                        tag[0] = "true";
+                    }
+                    if (records.get("学习30分钟").equals("true")) {
+                        if(title.size()>0){
+                            title.get(1).put("tag","true");
+                        }
+                        tag[1] = "true";
+                    }
+                    if (records.get("学习60分钟").equals("true")) {
+                        if(title.size()>0){
+                            title.get(2).put("tag","true");
+                        }
+                        tag[2] = "true";
+                    }
+                    if (records.get("有效听写").equals("true")) {
+                        if(title.size()>0){
+                            title.get(3).put("tag","true");
+                        }
+                        tag[3] = "true";
+                    }
+if(taskAdapter!=null){
+                        taskAdapter.notifyDataSetChanged();
+                    }
+                    Log.e("tagg","2");
+                    Log.e("tagg",title.toString());
                     break;
             }
 
@@ -222,6 +270,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         findView();
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        getCreditRecord(user.getUid());
         Log.e("userInfo", user.toString());
         //getSignInfo(user.getUid());
         //updateUser(user.getUid());
@@ -288,10 +337,13 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     //初始化任务列表
     public void initRecycleView() {
         getListenerRecordData(user.getUid());
-        java.util.Calendar beginCal = java.util.Calendar.getInstance();
-        beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
+        Long currentTimestamps=System.currentTimeMillis();
+        Long oneDayTimestamps= Long.valueOf(60*60*24*1000);
+        long startTime=currentTimestamps-(currentTimestamps+60*60*8*1000)%oneDayTimestamps;
+        //java.util.Calendar beginCal = java.util.Calendar.getInstance();
+        //beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
         java.util.Calendar endCal = java.util.Calendar.getInstance();
-        long startTime = beginCal.getTimeInMillis();
+        //long startTime = beginCal.getTimeInMillis();
         long endTime = endCal.getTimeInMillis();
         ArrayList<UsageEvents.Event> mEventList = getEventList(this, startTime, endTime);
         if (mEventList.size() > 0) {
@@ -525,6 +577,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                                    message3.obj =hour2 + "时" + minute2 + "分";
 //                                    handler.sendMessage(message3);
                                     tvWordSum.setText(hour2 + "时" + minute2 + "分");
+                                    studyMinute=hour2*60+minute2;
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
                                 } else {
 //                                    if (minute2 < 30) {
@@ -546,6 +599,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                                    message3.obj =minute2 + "分";
 //                                    handler.sendMessage(message3);
                                     tvWordSum.setText(minute2 + "分钟");
+                                    studyMinute=minute2;
                                     Log.e("studytime", minute2 + "分钟");
                                 }
                                 mEventList.add(e);
@@ -671,6 +725,38 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    //获取今天领取积分的记录
+    public void getCreditRecord(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_CREDIT_RECORD).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("checkCredit", "" + json);
+                if (response != null || !response.equals("")) {
+                    Message message = new Message();
+                    message.what = GET_CREDICT_RECORD;
+                    message.obj = json;
+                    handler.sendMessage(message);
+                }
+
+            }
+        });
+    }
 
 }
 

@@ -82,7 +82,7 @@ public class CustomDayView extends DayView {
         if (date != null) {
             if (date.equals(today)) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                if(markData.get(signDate)!=null){
+                if(null != markData){
                     if(markData.get(signDate).equals("0")){
                         dateTv.setText("签");
                     }else{

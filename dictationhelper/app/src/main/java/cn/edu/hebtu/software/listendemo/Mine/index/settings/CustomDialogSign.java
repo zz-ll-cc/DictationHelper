@@ -41,7 +41,7 @@ public class CustomDialogSign extends DialogFragment {
     private TextView dateTv;
     private Handler handler;
     private static final int GET_SIGN_INFO = 800;
-    private static final int GET_SIGN_RETROACTIVE_INFO=1100;
+    private static final int GET_SIGN_RETROACTIVE_INFO = 1100;
 
     public CustomDialogSign() {
     }
@@ -78,10 +78,11 @@ public class CustomDialogSign extends DialogFragment {
             //今天
             if (date.getYear() == currentDate.getYear() && date.getMonth() == currentDate.getMonth() && date.getDay() == currentDate.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                if (markData.get(signDate) == null || markData.get(signDate).equals("")) {
+
+                if (markData == null || markData.size() > 0 || markData.get(signDate).equals("1")) {
                     //用户签到
                     userSignIn(user.getUid());
-                    Log.e("userSignIn","用户签到");
+                    Log.e("userSignIn", "用户签到");
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
@@ -89,6 +90,9 @@ public class CustomDialogSign extends DialogFragment {
                             switch (msg.what) {
                                 case GET_SIGN_INFO:
                                     if (msg.obj.equals("1")) {
+                                        if (markData == null){
+                                            markData = new HashMap<>();
+                                        }
                                         markData.put(signDate, "0");
                                         tvContent.setText("签到成功！");
                                         dateTv.setText("签");
@@ -106,15 +110,18 @@ public class CustomDialogSign extends DialogFragment {
                 //补签
             } else if (currentDate.getDay() > date.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                if (markData.get(signDate) == null || markData.get(signDate).equals("1")) {
-                    Log.e("userReSignIn","补签中");
-                    retroactive(user.getUid(),signDate);
+                if (null == markData || markData.get(signDate).equals("1")) {
+                    Log.e("userReSignIn", "补签中");
+                    retroactive(user.getUid(), signDate);
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
                             super.handleMessage(msg);
                             switch (msg.what) {
                                 case GET_SIGN_RETROACTIVE_INFO:
+                                    if (markData == null){
+                                        markData = new HashMap<>();
+                                    }
                                     markData.put(signDate, "0");
                                     if (msg.obj.equals("1")) {
                                         tvContent.setText("补签成功！");
@@ -196,7 +203,7 @@ public class CustomDialogSign extends DialogFragment {
                 if (json != null || !json.equals("")) {
                     Message message = new Message();
                     message.what = GET_SIGN_INFO;
-                    message.obj ="1";
+                    message.obj = "1";
                     handler.sendMessage(message);
                 }
             }
@@ -204,9 +211,9 @@ public class CustomDialogSign extends DialogFragment {
         });
     }
 
-    public void retroactive(int userId,String date){
+    public void retroactive(int userId, String date) {
         OkHttpClient okHttpClient = new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("id", userId + "").add("date",date).build();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").add("date", date).build();
         Request request = new Request.Builder().url(Constant.URL_SIGN_RETROACTIVE).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

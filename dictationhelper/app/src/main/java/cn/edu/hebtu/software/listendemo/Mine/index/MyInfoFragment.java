@@ -101,6 +101,7 @@ public class MyInfoFragment extends Fragment {
         rvShow.setAdapter(adapter);
     }
 
+
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
@@ -109,7 +110,7 @@ public class MyInfoFragment extends Fragment {
         mapIntegral.put("imgBg", R.drawable.my_integral_border);
         mapIntegral.put("img", R.drawable.integral);
         mapIntegral.put("name", "我的积分");
-        mapIntegral.put("content", "0");
+        mapIntegral.put("content", user.getUserCredit());
 
         Map<String, Object> mapMessage = new HashMap<>();
         mapMessage.put("imgBg", R.drawable.my_message_border);
@@ -150,6 +151,7 @@ public class MyInfoFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
+        Log.e("aaaaaaaaaaaaaaaaaaaaaa",user.toString());
         setData();
         setListener();
         StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);

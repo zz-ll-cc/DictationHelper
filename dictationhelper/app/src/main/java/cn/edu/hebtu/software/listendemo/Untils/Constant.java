@@ -87,7 +87,7 @@ public class Constant {
     public static final int ACCURENCY_FIVE = 3;
     public static final int ACCURENCY_MONTH = 4;
 
-   //头像上传
+    //头像上传
     public static final String ACCESSKEY = "ITGiHJmwEZeBfn6HNC76VWk5PahCoK7J9q7W36Qv";//此处填你自己的AccessKey
     public static final String SECRETKEY = "pWk_nnowhVKlz3YVTGH4XAVcjtXprOYHQdFnts6_";//此处填你自己的SecretKey
     public static final String BUCKET = "zin";
@@ -96,7 +96,7 @@ public class Constant {
     public static final String FEEDBACK_KEEP_SP_NAME = "Feedback_keep";
     public static final String FEEDBACK_POST_KEEP_CONTENT_KEY = "contentKeep";
     public static final String FEEDBACK_POST_KEEP_TYPE_KEY = "typeKeep";
-    public static final String CON_POST_FEEDBACK_IP = BASE_URL+"mail/report";
+    public static final String CON_POST_FEEDBACK_IP = BASE_URL + "mail/report";
 
 
     // book、unit、word存放数据库名称
@@ -104,15 +104,17 @@ public class Constant {
     // 搜索历史存放的数据库名称
     public static final String SEARCH_HISTORY_DBNAME = "search_history.db";
     // 获取初始化所有单词
-    public static final String GET_INIT_ALL_WORD = BASE_URL+"word/findallwords";
-
-   //积分
+    public static final String GET_INIT_ALL_WORD = BASE_URL + "word/findallwords";
+    // 打开书详情时，检测有没有更新
+    public static final String CHECK_BOOK_DETAIL_VERSION = BASE_URL + "book/checkbookversion";
+   
+//积分
     public static final String URL_GET_SIGNDAY=BASE_URL+"/user/check";
     public static final String URL_SIGN_IN=BASE_URL+"/user/signIn";
     public static final String URL_UPDATE_MYSELF=BASE_URL+"/user/updatemyself";
     public static final String URL_UPDATE_CREDIT=BASE_URL+"/user/updateCredit";
-    public static final String URL_CREDICT_DETAIL=BASE_URL+"";
+    public static final String URL_CREDIT_RECORD=BASE_URL+"/user/checkCreditRecord";
     public static final String URL_GET_MAX_SCORE=BASE_URL+"record/getMaxScore";
-    public static final String URL_SIGN_RETROACTIVE=BASE_URL+"/user/retroactive";
+    public static final String URL_SIGN_RETROACTIVE=BASE_URL+"/user/reSignIn";
 
 }

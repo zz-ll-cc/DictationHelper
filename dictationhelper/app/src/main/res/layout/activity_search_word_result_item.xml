@@ -26,6 +26,5 @@
         android:maxEms="16"
         android:maxLines="1"
         android:text="苹果"
-        android:textColor="#000"
         android:textSize="15sp" />
 </RelativeLayout>

@@ -30,6 +30,8 @@ import com.google.gson.reflect.TypeToken;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -55,12 +57,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Host.index.HostFragment.CHANGE_FROM;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_BOOK;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_UNIT;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
 
 public class BookDetailActivity extends AppCompatActivity {
+    public static final String POST_FROM_BOOK_DETAIL = "fromBookDetail";
     private static final int nowCount = 100;
     private static final int requestCount = 0;
     private static final int GET_VERSION_CHANGE = 10086;
@@ -91,7 +96,6 @@ public class BookDetailActivity extends AppCompatActivity {
     // 记录单词以及单元信息
     private BookUnitWordDBHelper dbHelper;
     private SQLiteDatabase wordDB;
-    private boolean versionChange = false;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -112,10 +116,36 @@ public class BookDetailActivity extends AppCompatActivity {
                     setListener();
                     break;
                 case GET_VERSION_CHANGE:
+                    // 2. 更新书信息
+                    updateBook();
+                    // 2. 装填新单词
+                    List<Word> words0 = (List<Word>) msg.obj;
+                    keepNewWords(words0);
+                    initView();
+                    setListener();
                     break;
             }
         }
     };
+
+    private void updateBook() {
+        ContentValues cv = new ContentValues();
+        cv.put("bid",book.getBid());
+        cv.put("bvid",book.getBvid());
+        cv.put("bimgPath",book.getBimgPath());
+        cv.put("gid",book.getGid());
+        cv.put("bname",book.getBname());
+        cv.put("bookWordVersion",book.getBookWordVersion());
+        cv.put("bunitAccount",book.getBunitAccount());
+        cv.put("createTime",book.getCreateTime());
+        cv.put("updateTime",book.getUpdateTime());
+        cv.put("version",book.getVersion());
+        cv.put("deleted",book.getDeleted());
+        int col = wordDB.update(TBL_BOOK,cv,"bid = ?",new String[]{book.getBid()+""});
+        if (col == 0){
+            wordDB.insert(TBL_BOOK,null,cv);
+        }
+    }
 
     private void keepNewWords(List<Word> words) {
         for (Word word : words) {
@@ -146,6 +176,7 @@ public class BookDetailActivity extends AppCompatActivity {
         wordDB = dbHelper.getWritableDatabase();
         findView();
         initData();
+
         StatusBarUtil.statusBarLightMode(this);
     }
 
@@ -341,8 +372,15 @@ public class BookDetailActivity extends AppCompatActivity {
             unit.setUnName("UNIT " + (i + 1));
             units.add(unit);
         }
-        int i = 0;
+        checkBookDetailVersion();
         // 根据单元，查单词
+        selectAllWordByUnit();
+
+        //记录在本地这本书
+        sp.edit().putString(Constant.BOOK_JSON, gson.toJson(book)).commit();
+    }
+
+    private void selectAllWordByUnit() {
         for (final Unit unit : units) {
             Cursor cursor = wordDB.query(TBL_WORD, null, "bid = ? and unid = ?", new String[]{book.getBid() + "", unit.getUnid() + ""}, null, null, null);
             if (cursor.moveToFirst()) {
@@ -377,7 +415,6 @@ public class BookDetailActivity extends AppCompatActivity {
                         message.what = nowCount;
                         message.obj = words;
                         handler.sendMessage(message);
-                        Log.e("网络获取","aaa");
                     }
 
                     @Override
@@ -391,38 +428,66 @@ public class BookDetailActivity extends AppCompatActivity {
                         message.what = nowCount;
                         message.obj = words;
                         handler.sendMessage(message);
-                        Log.e("网络获取","aaa");
                     }
                 });
             }
         }
-        //记录在本地这本书
-        sp.edit().putString(Constant.BOOK_JSON, gson.toJson(book)).commit();
     }
 
-    /**
-     * 根据书的id，检测此书是否发生更改
-     * @param bookVersion
-     */
-    private void checkVersion(int bid, int bookVersion) {
-        FormBody fb = new FormBody.Builder().add("bid", bid + "").add("bookVersion", bookVersion + "").build();
-        Request request = new Request.Builder().url(Constant.URL_WORDS_FIND_BY_BOOK_AND_UNIT).post(fb).build();
+    private void checkBookDetailVersion() {
+        FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("version", book.getBookWordVersion() + "").build();
+        Request request = new Request.Builder().url(Constant.CHECK_BOOK_DETAIL_VERSION).post(fb).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                versionChange = false;
+                e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonWords = response.body().string();
-                versionChange = gson.fromJson(jsonWords, boolean.class);
-                Message message = new Message();
-                message.what = GET_VERSION_CHANGE;
-                handler.sendMessage(message);
+                try {
+                    JSONObject jsonStr = new JSONObject(jsonWords);
+                    EventBus.getDefault().post(jsonStr);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void CheckBookVersion(JSONObject jsonStr){
+        int type = 0;
+        try {
+            type = jsonStr.getInt("type");
+            switch (type){
+                case 0:
+                    // 此时未进行更改
+                    selectAllWordByUnit();
+                    break;
+                case 1:
+                    // 此时进行了更改
+                    // 1. 修改对应书的version
+                    book.setBookWordVersion(jsonStr.getInt("version"));
+                    Map<String,Object> postMap = new HashMap<>();
+                    postMap.put(CHANGE_FROM,POST_FROM_BOOK_DETAIL);
+                    postMap.put("bid",book.getBid());
+                    postMap.put("bookWordVersion",book.getBookWordVersion());
+                    EventBus.getDefault().post(postMap);
+                    updateBook();
+                    // 2. 修改单词
+                    Type type1 = new TypeToken<List<Word>>(){}.getType();
+                    List<Word> words = gson.fromJson(jsonStr.get("word").toString(),type1);
+                    keepNewWords(words);
+                    // 3. 装填单词
+                    selectAllWordByUnit();
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView() {

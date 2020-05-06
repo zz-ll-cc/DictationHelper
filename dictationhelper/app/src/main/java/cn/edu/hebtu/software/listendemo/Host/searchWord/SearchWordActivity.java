@@ -181,7 +181,7 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         protected Object doInBackground(Object[] selectKey) {
-            Cursor cursor = resultDB.query(TBL_WORD, new String[]{"distinct (wenglish)","wid", "wimgPath","wchinese"}, "wenglish like ? or wchinese like ?", new String[]{selectKey[0].toString()+"%",selectKey[0].toString()+"%"}, null, null, null);
+            Cursor cursor = resultDB.query(TBL_WORD, new String[]{"distinct (wenglish)","wid", "wimgPath","wchinese"}, "wenglish like ? or wchinese like ?", new String[]{selectKey[0].toString()+"%",selectKey[0].toString()+"%"}, "wenglish", null, null);
             if (cursor.moveToFirst()) {
                 do {
                     Word word = new Word();
@@ -303,9 +303,11 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
         if (keyCode == KeyEvent.KEYCODE_BACK && !NOW_TYPE.equals(TYPE_ONE_RESULT)) {
             finish();
             overridePendingTransition(R.anim.rev_in_search_from_down, R.anim.rev_out_search_to_up);
-            return super.onKeyDown(keyCode, event);
         }
-        return super.onKeyDown(keyCode, event);
+        if (keyCode == KeyEvent.KEYCODE_BACK && NOW_TYPE.equals(TYPE_ONE_RESULT)){
+            initShowTypeIntoHistory();
+        }
+        return false;
     }
 
     @Override
@@ -367,6 +369,7 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
         }
         // 修改展示界面
         changeViewType(TYPE_ONE_RESULT);
+        NOW_TYPE = TYPE_ONE_RESULT;
         setOneResultShow();
     }
 }

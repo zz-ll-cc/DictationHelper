@@ -91,14 +91,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private long studyTime = 0;
     private long time1 = 0;
     private long time2 = 0;
-//    private String[] task = new String[2];
+    //    private String[] task = new String[2];
 //    private String[] task_name = {"今日累计", "今日最好成绩"};
 //    private String[] task_content = new String[2];
 //    private String[] add_credit = new String[2];
-    private String[] task = {"学习10分钟","学习30分钟","学习60分钟","每日听写"};
-    private String[] task_name = {"","","", "今日最好成绩"};
-    private String[] task_content = {"","","",""};
-    private String[] add_credit = {"+1积分","+3积分","+5积分","+5积分"};
+    private String[] task = {"学习10分钟", "学习30分钟", "学习60分钟", "每日听写"};
+    private String[] task_name = {"", "", "", "今日最好成绩"};
+    private String[] task_content = {"", "", "", ""};
+    private String[] add_credit = {"+1积分", "+3积分", "+5积分", "+5积分"};
     private HashMap<String, String> markData = new HashMap<>();
     private ThemeDayView themeDayView;
     private SharedPreferences sp;
@@ -169,13 +169,18 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     calendarAdapter.notifyDataChanged();
                     break;
                 case GET_MAX_RECORD:
-                    if (!msg.obj .equals("0")) {
+                    if (!msg.obj.equals("0")) {
                         Record record = gson.fromJson(msg.obj + "", Record.class);
-                        String s = record.getAccuracy() + "";
-                        String str = s.substring(0, s.indexOf("."));
-                        int score = Integer.parseInt( str);
+                        int score1 = 0;
+                        if (record.getId() != null) {
+                            String s = record.getAccuracy() + "";
+                            String str = s.substring(0, s.indexOf("."));
+                            score1 = Integer.parseInt(str);
+                            task_content[3] = score1 + "分";
+                        }else{
+                            task_content[3] = "未听写";
+                        }
 //                        task_content[1] =  score+ "分";
-                        task_content[3] =  score+ "分";
                         for (int i = 0; i < task.length; i++) {
                             Map<String, String> map = new HashMap<>();
                             map.put("task", task[i]);
@@ -186,7 +191,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         }
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score, user, SyllabusActivity.this, title));
+                        rvToDoList.setAdapter(new TaskAdapter(tvCreditSum, score1, user, SyllabusActivity.this, title));
                     } else {
 //                        task_content[1] = "未听写";
                         task_content[3] = "未听写";
@@ -293,7 +298,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             Log.e("mEventList", "not NULL");
         } else {
             Log.e("mEventList", "NULL");
-            tvWordSum.setText( "0分钟");
+            tvWordSum.setText("0分钟");
 //            task[0] = "学习10分钟";
 //            task[1] = "每日听写";
 //            task_content[0] = "0分钟";
@@ -326,7 +331,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
-    private void initMarkData() { getMarkData(user.getUid()); }
+    private void initMarkData() {
+        getMarkData(user.getUid());
+    }
 
     //初始化monthPager，MonthPager继承自ViewPager
     private void initMonthPager() {
@@ -517,7 +524,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                                    message3.what = GET_WORD_SUM;
 //                                    message3.obj =hour2 + "时" + minute2 + "分";
 //                                    handler.sendMessage(message3);
-                                    tvWordSum.setText( hour2 + "时" + minute2 + "分");
+                                    tvWordSum.setText(hour2 + "时" + minute2 + "分");
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
                                 } else {
 //                                    if (minute2 < 30) {
@@ -538,7 +545,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                                    message3.what = GET_WORD_SUM;
 //                                    message3.obj =minute2 + "分";
 //                                    handler.sendMessage(message3);
-                                    tvWordSum.setText( minute2 + "分钟");
+                                    tvWordSum.setText(minute2 + "分钟");
                                     Log.e("studytime", minute2 + "分钟");
                                 }
                                 mEventList.add(e);
@@ -558,7 +565,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private void getMarkData(int userId) {
         OkHttpClient okHttpClient = new OkHttpClient();
         CalendarDate date = new CalendarDate();
-        FormBody fb = new FormBody.Builder().add("id", userId + "").add("year",date.getYear()+"").build();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").add("year", date.getYear() + "").build();
         Log.e("userId", userId + "");
         Request request = new Request.Builder().url(Constant.URL_GET_SIGNDAY).post(fb).build();
         Call call = okHttpClient.newCall(request);
@@ -647,13 +654,13 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.e("listenrecord",json);
-                if(json==null || json.equals("")){
+                Log.e("listenrecord", json);
+                if (json == null || json.equals("")) {
                     Message message = new Message();
                     message.what = GET_MAX_RECORD;
                     message.obj = "0";
                     handler.sendMessage(message);
-                }else{
+                } else {
                     Message message = new Message();
                     message.what = GET_MAX_RECORD;
                     message.obj = json;

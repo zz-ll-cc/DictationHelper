@@ -1,17 +1,12 @@
-package cn.edu.hebtu.software.listendemo.credit.model;
+package cn.edu.hebtu.software.listendemo.credit.component;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import cn.edu.hebtu.software.listendemo.credit.component.State;
-
-
-/**
- * Created by ldf on 17/7/5.
- */
-
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+//日
 public class Day implements Parcelable {
-    private State state;
+    private State state;//状态
     private CalendarDate date;
     private int posRow;
     private int posCol;
@@ -23,42 +18,24 @@ public class Day implements Parcelable {
         this.posCol = posCol;
     }
 
-    public State getState() {
-        return state;
-    }
+    public State getState() { return state; }
 
-    public void setState(State state) {
-        this.state = state;
-    }
+    public void setState(State state) { this.state = state; }
 
-    public CalendarDate getDate() {
-        return date;
-    }
+    public CalendarDate getDate() { return date; }
 
-    public void setDate(CalendarDate date) {
-        this.date = date;
-    }
+    public void setDate(CalendarDate date) { this.date = date; }
 
-    public int getPosRow() {
-        return posRow;
-    }
+    public int getPosRow() { return posRow; }
 
-    public void setPosRow(int posRow) {
-        this.posRow = posRow;
-    }
+    public void setPosRow(int posRow) { this.posRow = posRow; }
 
-    public int getPosCol() {
-        return posCol;
-    }
+    public int getPosCol() { return posCol; }
 
-    public void setPosCol(int posCol) {
-        this.posCol = posCol;
-    }
+    public void setPosCol(int posCol) { this.posCol = posCol; }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
+    public int describeContents() { return 0; }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {

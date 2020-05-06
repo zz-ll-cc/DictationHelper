@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -164,79 +165,86 @@ public class UserController {
 
 
     /**
-     * 用户打开积分页面
+     *
+     * 若不传year，默认为今年
+     *
      * @param id
+     * @param year 不是必传字段
      * @return
      */
     @RequestMapping("/check")
-    public UserSignIn getSignInList(@RequestParam("id") int id){
-        String key = redisUtil.createUserSignInKey(id);
+    public UserSignIn getSignInMap(@RequestParam("id") int id, @RequestParam(value = "year", required = false) String... year){
         UserSignIn signIn = new UserSignIn();
-        try {
-            signIn
-                    .setWeekRecord(redisUtil.getBitList(key))
-                    .setContinuousSignIn(userService.getContinuousSignIn(id))
-                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        signIn.setUser(userService.findUserByUid(id)).setYearRecord(userService.getSignInRecordMap(id,year));
+
+//        String key = redisUtil.createUserSignInKey(id,year);
+//        UserSignIn signIn = new UserSignIn();
+//        try {
+//            signIn
+//                    .setWeekRecord(redisUtil.getBitList(key))
+//                    .setContinuousSignIn(userService.getContinuousSignIn(id))
+//                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
         return signIn;
     }
 
 
+
+
+
+
     /**
-     * 用户签到
+     * 用户签到,调用signIn
      * @param id
-     * @return
+     * @return  如果签到失败，返回null，否则返回对应user
      */
     @RequestMapping("/signIn")
-    public UserSignIn signIn(@RequestParam("id") int id){
-        String key = redisUtil.createUserSignInKey(id);
-        int dayOfWeek = TimeUtil.calculateDayOfWeek();
-        long time = 0;
-        if(!redisUtil.hasKey(key)){
-            time = TimeUtil.getSecondsToNextMonday4pm();
-        }
-        if(!redisUtil.getBit(key,dayOfWeek-1)){
-            //检查是否有连续登陆记录，如果有，刷新时间，incr，如果没有，返回1，创建一天记录，设置时间
-            redisUtil.setBit(key,dayOfWeek-1,true, time);
-            //异步
-            userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
-        }
-        UserSignIn signIn = new UserSignIn();
-        try {
-            signIn
-                    .setWeekRecord(redisUtil.getBitList(key))
-                    .setContinuousSignIn(userService.continuousSignIn(id))
-                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return signIn;
+    public User signIn(@RequestParam("id") int id){
+
+        return userService.signIn(id);
+
+//        String key = redisUtil.createUserSignInKey(id,null);
+//        int dayOfWeek = TimeUtil.calculateDayOfWeek();
+//        long time = 0;
+//        if(!redisUtil.hasKey(key)){
+//            time = TimeUtil.getSecondsToNextMonday4pm();
+//        }
+//        if(!redisUtil.getBit(key,dayOfWeek-1)){
+//            //检查是否有连续登陆记录，如果有，刷新时间，incr，如果没有，返回1，创建一天记录，设置时间
+//            redisUtil.setBit(key,dayOfWeek-1,true, time);
+//            //异步
+//            userService.updateUserCreditAndInsertRecordAsync(id,"每日登录",5);
+//        }
+//        UserSignIn signIn = new UserSignIn();
+//        try {
+//            signIn
+//                    .setWeekRecord(redisUtil.getBitList(key))
+//                    .setContinuousSignIn(userService.continuousSignIn(id))
+//                    .setUser(new ObjectMapper().readValue((String)redisUtil.get(redisUtil.getUserKey(id)),User.class));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return signIn;
     }
 
 
     /**
      * 更新用户信息
+     *
+     * 从缓存中获取用户，如果没有，则查找数据库并更新lastLoginTime然后存入缓存
+     *
+     * 记录app日活
+     *
      * @param id
      * @return
      */
     @RequestMapping("/updatemyself")
     public User updateMySelf(@RequestParam("id") int id){
-        String uStr;
-        User user = null;
-        try {
-            if((uStr = (String) redisUtil.get(redisUtil.getUserKey(id))) == null){
-                //
-                user = userService.findUserByUid(id);
-                redisUtil.set(redisUtil.getUserKey(id),new ObjectMapper().writeValueAsString(user));
-            }else{
-                user = new ObjectMapper().readValue(uStr,User.class);
-                redisUtil.expire(redisUtil.getUserKey(id),60*60);
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        User user;
+        user = userService.findUserByUid(id);
+        user = userService.recordLastLoginTime(user);
         userService.recordActiveUser(id);
         return user;
     }
@@ -276,6 +284,12 @@ public class UserController {
 
 
 
+
+    @RequestMapping("/reSignIn")
+    public User reSignIn(@RequestParam("id") int id, @RequestParam("date") String date){
+        //不用判断日期是否是格式化的！！！
+        return userService.reSignIn(id, date) ? userService.findUserByUid(id) : null;
+    }
 
 
 

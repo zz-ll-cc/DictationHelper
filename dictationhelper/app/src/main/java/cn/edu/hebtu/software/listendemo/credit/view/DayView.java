@@ -2,27 +2,22 @@ package cn.edu.hebtu.software.listendemo.credit.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import cn.edu.hebtu.software.listendemo.credit.Utils;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.component.Day;
 import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
-import cn.edu.hebtu.software.listendemo.credit.model.Day;
-
-/**
- * Created by ldf on 16/10/19.
- */
 
 public abstract class DayView extends RelativeLayout implements IDayRenderer {
-
     protected Day day;
     protected Context context;
     protected int layoutResource;
 
     /**
      * 构造器 传入资源文件创建DayView
-     *
      * @param layoutResource 资源文件
      * @param context 上下文
      */
@@ -35,7 +30,6 @@ public abstract class DayView extends RelativeLayout implements IDayRenderer {
 
     /**
      * 为自定义的DayView设置资源文件
-     *
      * @param layoutResource 资源文件
      * @return CalendarDate 修改后的日期
      */
@@ -56,6 +50,7 @@ public abstract class DayView extends RelativeLayout implements IDayRenderer {
     @Override
     public void drawDay(Canvas canvas, Day day) {
         this.day = day;
+        Log.e("test","DayView-drawDay:"+day.getDate()+"");
         refreshContent();
         int saveId = canvas.save();
         canvas.translate(getTranslateX(canvas, day), day.getPosRow() * getMeasuredHeight());

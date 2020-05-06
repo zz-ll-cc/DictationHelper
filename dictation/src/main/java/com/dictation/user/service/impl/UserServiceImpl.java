@@ -3,6 +3,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.dictation.mapper.CreditRecordMapper;
 import com.dictation.mapper.UserMapper;
 import com.dictation.user.entity.CreditRecord;
+import com.dictation.user.entity.ReasonEnum;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
@@ -10,6 +11,7 @@ import com.dictation.util.TimeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Base64;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @ClassName: UserServiceImpl
@@ -110,6 +113,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            logger.error("findUserByUid:  id : " + uid);
         }
         return user;
     }
@@ -173,12 +177,24 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.selectOne(wrapper);
     }
 
+
+    //修改数据库，并修改缓存
     @Override
     public User updateUser(User user) {
-        this.userMapper.updateById(user);
-        LambdaQueryWrapper<User> wrapper2 = new LambdaQueryWrapper<>();
-        wrapper2.eq(User::getUid, user.getUid());
-        user = this.userMapper.selectOne(wrapper2);
+        try {
+            userMapper.updateById(user);
+            redisUtil.set(redisUtil.getUserKey(user.getUid()),new ObjectMapper().writeValueAsString(user));
+            redisUtil.expire(redisUtil.getUserKey(user.getUid()),60*60);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("updateUser:保存用户信息出错");
+        }
+
+
+//        this.userMapper.updateById(user);
+//        LambdaQueryWrapper<User> wrapper2 = new LambdaQueryWrapper<>();
+//        wrapper2.eq(User::getUid, user.getUid());
+//        user = this.userMapper.selectOne(wrapper2);
         return user;
     }
 
@@ -266,8 +282,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void recordActiveUser(int id){
-        String key = redisUtil.createDailyActiveUserKey();
-        redisUtil.pfAdd(key,id);
+        try {
+            String key = redisUtil.createDailyActiveUserKey();
+            redisUtil.pfAdd(key,id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("recordActiveUser:写入缓存失败");
+        }
     }
 
 
@@ -301,6 +322,298 @@ public class UserServiceImpl implements UserService {
         }else{
             return (long) redisUtil.get(key);
         }
+    }
+
+
+    /**
+     * 签到
+     * @param id
+     * @return
+     */
+    @Override
+    public User signIn(int id) {
+        //获取当前的签到key
+        String key = redisUtil.createUserSignInKey(id,null);
+        //获取当前是一年中的第几天
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        long day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
+        //存入缓存
+        redisUtil.setBit(key, day_of_year, true);
+        //修改累积签到和连续签到
+        //判断是否是连续签到     前一天是否签到了
+        if(redisUtil.getBit(key,day_of_year-1)){
+            //前一天签到了，连续签到+1
+            return updateUserSignIn(id,true);
+        }else{
+            //前一天没有签到,连续签到归零
+            return updateUserSignIn(id,false);
+        }
+
+    }
+
+
+    /**
+     *
+     * 根据id，在签到时对连续签到和累计签到进行修改
+     * 对用户的积分进行修改
+     * 插入积分记录表
+     *
+     * @param id
+     * @param is_continuous
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User updateUserSignIn(int id, boolean is_continuous) {
+        User user = userMapper.selectById(id);
+        //累计签到+1
+        user.setAccumulateSignIn(user.getAccumulateSignIn()+1);
+        //修改最后签到日期
+        user.setLastSignInTime(new Date());
+
+        if(is_continuous){
+            user.setContinuousSignIn(user.getContinuousSignIn()+1);
+        }else{
+            //如果不是连续签到
+            user.setContinuousSignIn(1);
+        }
+        user.setUserCredit(user.getUserCredit() + ReasonEnum.QD.getCreditNum());
+
+        creditRecordMapper.insert(new CreditRecord().setIncrement(ReasonEnum.QD.getCreditNum()).setUserId(id).setReason(ReasonEnum.QD.getReason()));
+
+        userMapper.updateById(user);
+
+        //更新缓存
+        try {
+            String key = redisUtil.getUserKey(id);
+            redisUtil.set(key,new ObjectMapper().writeValueAsString(user));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            logger.error("用户签到更新缓存时序列化错误");
+        }
+
+        return user;
+    }
+
+
+    /**
+     * 这里会计算一下当前的连续签到，修改user的累计签到，保存
+     *
+     * @param id
+     * @param accumulate_increment
+     * @return
+     */
+    @Override
+    public User updateUserSignIn(int id,int accumulate_increment) {
+
+        User user = this.findUserByUid(id);
+        user.setAccumulateSignIn(user.getAccumulateSignIn() + accumulate_increment);
+
+        int total = 0;
+        //从今天开始查找连续签到数
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int nowYear = calendar.get(Calendar.YEAR);
+        //循环解决跨年的情况,增加循环条件防止死循环
+        for( ; redisUtil.exists(redisUtil.createUserSignInKey(id, String.valueOf(nowYear))) && nowYear > 0 ; nowYear--){
+            //判断是否为今年
+            int startDay = 0;
+            if(nowYear == calendar.get(Calendar.YEAR)){
+                //如果是今年的话，从今天开始，并且不需要判断key是否存在
+                startDay = calendar.get(Calendar.DAY_OF_YEAR);
+
+                for(int i = startDay ; i > 0 ; i-- ){
+
+                    boolean t = redisUtil.getBit(redisUtil.createUserSignInKey(id, String.valueOf(nowYear)),i);
+                    total += t ? 1 : 0;
+                    //如果不是今天
+                    if(i != startDay && !t){
+                        //没有连续签到了，那么修改user的连续签到值，并保存
+                        user.setContinuousSignIn(total);
+                        this.updateUser(user);
+                        return user;
+                    }
+                    //循环正常结束，外层循环判断是否存在上一年的key
+                }
+
+            } else {
+                //如果不是，从一年的最后一天开始
+                //判断是否为闰年
+                startDay = nowYear % 4 == 0 ? 366 : 365;
+                for(int i = startDay ; i > 0 ; i-- ){
+
+                    boolean t = redisUtil.getBit(redisUtil.createUserSignInKey(id, String.valueOf(nowYear)),i);
+                    total += t ? 1 : 0;
+                    //如果有一天没签到，中指
+                    if(!t){
+                        //没有连续签到了，那么修改user的连续签到值，并保存
+                        user.setContinuousSignIn(total);
+                        this.updateUser(user);
+                        return user;
+                    }
+                }
+            }
+        }
+        return user;
+    }
+
+
+    /**
+     * 无论year是否为空，今年的map一定会返回
+     *
+     * @param id
+     * @param year
+     * @return
+     */
+    @Override
+    public Map<String, Map<String, String>> getSignInRecordMap(int id, String... year) {
+        String key;
+        Map<String, Map<String,String>> recordMap = new HashMap<>();
+        //查询今年的签到记录,如果没有key，存入null
+        key = redisUtil.createUserSignInKey(id,null);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        if(redisUtil.exists(key)){
+            //如果key存在，再做这些
+            int day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
+            Map<String,String> yearMap = new HashMap<>();
+            for(int i = day_of_year ; i > 0 ; i--){
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.DAY_OF_YEAR,i);
+                Date date = cal.getTime();
+                yearMap.put(simpleDateFormat.format(date), String.valueOf(redisUtil.getBit(key,i)));
+            }
+            recordMap.put(String.valueOf(calendar.get(Calendar.YEAR)),yearMap);
+        }else{
+            recordMap.put(String.valueOf(calendar.get(Calendar.YEAR)),null);
+        }
+
+        if(year == null) return recordMap;
+
+        //查询其他年份的签到记录
+
+        for(String s : year){
+
+            String sKey = redisUtil.createUserSignInKey(id,s);
+            //初始化map
+            Map<String,String> yearMap = new HashMap<>();
+            //不存在key，插入空数据然后跳过遍历
+            if(!redisUtil.exists(key)) {
+                recordMap.put(s,null);
+                continue;
+            }
+            //检查s的合法性
+            Calendar cal = null;
+            try {
+                cal = Calendar.getInstance();
+                cal.setTime(yearFormat.parse(s));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //与当前年份不重复
+            if(cal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) continue;
+
+            //判断是否是闰年,如果是闰年，一年有366天
+            int total_day = cal.get(Calendar.YEAR)%4 == 0 ? 366 : 365;
+
+            //循环添加数据
+            for(int i = total_day ; i > 0 ; i--){
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.DAY_OF_YEAR,i);
+                Date date = c.getTime();
+                yearMap.put(simpleDateFormat.format(date), String.valueOf(redisUtil.getBit(sKey,i)));
+            }
+
+            //添加到大map中
+            recordMap.put(String.valueOf(calendar.get(Calendar.YEAR)),yearMap);
+        }
+        return recordMap;
+    }
+
+    /**
+     * 更新用户最后一次登录时间
+     * @param user
+     * @return
+     */
+    @Override
+//    @Async("asyncServiceExecutor")
+    public User recordLastLoginTime(User user) {
+
+        try {
+            user.setLastLoginTime(new Date());
+            userMapper.updateById(user);
+            user = userMapper.selectById(user.getUid());
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("recordLastLoginTime:更新数据库失败");
+            return user;
+        }
+        String key = null;
+        try {
+            key = redisUtil.getUserKey(user.getUid());
+            redisUtil.set(key,new ObjectMapper().writeValueAsString(user));
+            redisUtil.expire(key,60*60);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            logger.error("recordLastLoginTime:写入缓存失败");
+        }
+
+        return user;
+
+    }
+
+
+    /**
+     * 目前是单日补签，可以拓展为多日期补签
+     *
+     * @param id
+     * @param formatDate    "yyyy-MM-dd"
+     * @return
+     */
+    @Override
+    public boolean reSignIn(int id, String formatDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(formatDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            logger.error("remedySignIn:日期格式转换出错,传入日期字符串为：" + formatDate);
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        int compareResult = now.compareTo(calendar);
+        if(compareResult == -1 || compareResult == 0) {
+            logger.error("reSignIn：不能补签今天，或今天以后，传入的formatDate为：" + formatDate);
+            return false;
+        }
+        String key = redisUtil.createUserSignInKey(id, String.valueOf(calendar.get(Calendar.YEAR)));
+
+
+        //输出错误日志用的
+        boolean a = false;
+        User u = null;
+        boolean b = false;
+        try {
+            a = redisUtil.setBit(key,calendar.get(Calendar.DAY_OF_YEAR),true);
+            u = this.updateUserSignIn(id,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            b = redisUtil.setBit(key,calendar.get(Calendar.DAY_OF_YEAR),false);
+            logger.error("remedySignIn:失败了 , 缓存签到：" + a + " , 数据库修改：" + u + ", 缓存回滚：" + b);
+        }
+
+
+
+        return true;
     }
 
 

@@ -1,17 +1,20 @@
-package cn.edu.hebtu.software.listendemo.credit.model;
+package cn.edu.hebtu.software.listendemo.credit.component;
 
 import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Calendar;
 
-import cn.edu.hebtu.software.listendemo.credit.Utils;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 
 
+/**
+ * 年月日
+ */
 public class CalendarDate implements Serializable {
     private static final long serialVersionUID = 1L;
     public int year;
-    public int month;  //1~12
+    public int month;
     public int day;
 
     public CalendarDate(int year, int month, int day) {
@@ -35,10 +38,10 @@ public class CalendarDate implements Serializable {
 
     /**
      * 通过修改当前Date对象的天数返回一个修改后的Date
-     *
      * @return CalendarDate 修改后的日期
      */
     public CalendarDate modifyDay(int day) {
+        //获取当前月与下个月的天数
         int lastMonthDays = Utils.getMonthDays(this.year, this.month - 1);
         int currentMonthDays = Utils.getMonthDays(this.year, this.month);
 
@@ -140,9 +143,7 @@ public class CalendarDate implements Serializable {
         if (date == null) {
             return false;
         }
-        if (this.getYear() == date.getYear()
-                && this.getMonth() == date.getMonth()
-                && this.getDay() == date.getDay()) {
+        if (this.getYear() == date.getYear() && this.getMonth() == date.getMonth() && this.getDay() == date.getDay()) {
             return true;
         }
         return false;

@@ -1,5 +1,6 @@
 package com.dictation.record.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dictation.mapper.RecordMapper;
 import com.dictation.record.entity.Record;
 import com.dictation.record.service.RecordService;
@@ -61,5 +62,20 @@ public class RecordServiceImpl implements RecordService {
             }
         }
         return dates;
+    }
+    @Override
+    public Record getMaxScore(int uid, String date) {
+        int score=0;
+        Record record=null;
+        QueryWrapper<Record> recordQueryWrapper = new QueryWrapper<>();
+        recordQueryWrapper.eq("user_id",uid).eq("create_time",date).orderByAsc("accuracy");
+        List<Record> records=recordMapper.selectList(recordQueryWrapper);
+        if(records.size()>0){
+//            String s=records.get(0).getAccuracy()+"";
+//            System.out.println(s);
+//            String str=s.substring(0, s.indexOf("."));
+            record=records.get(0);
+        }
+        return record;
     }
 }

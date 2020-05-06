@@ -15,4 +15,5 @@ public interface RecordService {
     List<String> getDate();
 
 
+    Record getMaxScore(int uid, String date);
 }

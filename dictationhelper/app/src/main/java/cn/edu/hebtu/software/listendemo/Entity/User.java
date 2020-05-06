@@ -20,6 +20,57 @@ public class User implements Serializable {
     private int version;
     private String createTime;
     private String updateTime;
+    private Integer userCredit;
+    private Integer accumulateStudyTime;
+    private Integer accumulateStudyWords;
+    private Integer accumulateSignIn;
+    private Integer continuousSignIn;
+    private String lastSignInTime;
+    private String lastLoginTime;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", uname='" + uname + '\'' +
+                ", ucity='" + ucity + '\'' +
+                ", uheadPath='" + uheadPath + '\'' +
+                ", uphone='" + uphone + '\'' +
+                ", upassword='" + upassword + '\'' +
+                ", ubirth='" + ubirth + '\'' +
+                ", vip=" + vip +
+                ", is_admain=" + is_admain +
+                ", usex='" + usex + '\'' +
+                ", ugrade=" + ugrade +
+                ", deleted=" + deleted +
+                ", version=" + version +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", userCredit=" + userCredit +
+                ", accumulateStudyTime=" + accumulateStudyTime +
+                ", accumulateStudyWords=" + accumulateStudyWords +
+                ", accumulateSignIn=" + accumulateSignIn +
+                ", continuousSignIn=" + continuousSignIn +
+                ", lastSignInTime='" + lastSignInTime + '\'' +
+                ", lastLoginTime='" + lastLoginTime + '\'' +
+                '}';
+    }
+
+    public String getLastSignInTime() {
+        return lastSignInTime;
+    }
+
+    public void setLastSignInTime(String lastSignInTime) {
+        this.lastSignInTime = lastSignInTime;
+    }
+
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
 
     public int getDeleted() {
         return deleted;
@@ -55,23 +106,6 @@ public class User implements Serializable {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid=" + uid +
-                ", uname='" + uname + '\'' +
-                ", ucity='" + ucity + '\'' +
-                ", uheadPath='" + uheadPath + '\'' +
-                ", uphone='" + uphone + '\'' +
-                ", upassword='" + upassword + '\'' +
-                ", ubirth='" + ubirth + '\'' +
-                ", vip=" + vip +
-                ", is_admain=" + is_admain +
-                ", usex='" + usex + '\'' +
-                ", ugrade=" + ugrade +
-                '}';
     }
 
     public int getUid() {
@@ -160,5 +194,45 @@ public class User implements Serializable {
 
     public void setUgrade(int ugrade) {
         this.ugrade = ugrade;
+    }
+
+    public Integer getUserCredit() {
+        return userCredit;
+    }
+
+    public void setUserCredit(Integer userCredit) {
+        this.userCredit = userCredit;
+    }
+
+    public Integer getAccumulateStudyTime() {
+        return accumulateStudyTime;
+    }
+
+    public void setAccumulateStudyTime(Integer accumulateStudyTime) {
+        this.accumulateStudyTime = accumulateStudyTime;
+    }
+
+    public Integer getAccumulateStudyWords() {
+        return accumulateStudyWords;
+    }
+
+    public void setAccumulateStudyWords(Integer accumulateStudyWords) {
+        this.accumulateStudyWords = accumulateStudyWords;
+    }
+
+    public Integer getAccumulateSignIn() {
+        return accumulateSignIn;
+    }
+
+    public void setAccumulateSignIn(Integer accumulateSignIn) {
+        this.accumulateSignIn = accumulateSignIn;
+    }
+
+    public Integer getContinuousSignIn() {
+        return continuousSignIn;
+    }
+
+    public void setContinuousSignIn(Integer continuousSignIn) {
+        this.continuousSignIn = continuousSignIn;
     }
 }

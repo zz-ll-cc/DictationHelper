@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f5f5f5">
+    android:background="@color/backgray"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/backgray"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -36,90 +35,256 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:text="积分详情"
+            android:visibility="invisible"
             android:textColor="@color/colorAccent"
             android:textSize="16dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/linearlayout_corner">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity=""
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="连续登录"
-                android:textColor="@color/black"
-                android:textSize="18dp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1天"
-                android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/sign_logo1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="连续签到"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_sign_day_continue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="天"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/sign_logo2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="累计签到"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_sign_day_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:text="天"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_my_point_sum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="5积分"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <!--<TextView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="每日签到"-->
-        <!--android:textSize="14dp" />-->
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity=""
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:gravity="right">
-            <ImageView
-                android:id="@+id/iv_my_credit_sign_remind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/sign_remind_check"/>
-            <TextView
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity=""
                 android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="开启每日签到提醒"
-                android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="10dp"
+                            android:src="@drawable/jifen" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="累计积分"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_sign_point_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="天"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="10dp"
+                            android:src="@drawable/sum1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="累计学习"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_word_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:text="0词"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
         </LinearLayout>
+
+
     </LinearLayout>
 
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="#ffffff"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="每日签到"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="14dp" />&ndash;&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="right"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingRight="10dp">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_my_credit_sign_remind"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/sign_remind" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:text="开启每日签到提醒"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="14dp" />-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,7 +293,7 @@
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-           android:paddingBottom="10dp">
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:id="@+id/choose_date_view"
@@ -139,7 +304,7 @@
 
                 <TextView
                     android:id="@+id/show_month_view"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:gravity="bottom|center"
                     android:maxLines="1"
@@ -169,19 +334,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right">
+                    android:gravity="right"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/back_today_button"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:gravity="bottom"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:text="今天"
                         android:textColor="#ff9c0e"
-                        android:textSize="14sp"
-                        android:gravity="bottom"/>
+                        android:textSize="14sp" />
                     <!--android:background="@drawable/button_bg"-->
 
                     <TextView
@@ -247,24 +412,24 @@
             </LinearLayout>
 
             <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="12dp"-->
-                <!--android:layout_marginBottom="8dp"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/theme_switch"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_toLeftOf="@id/scroll_switch"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:gravity="center"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:text="更改效果"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp" />-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:id="@+id/theme_switch"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toLeftOf="@id/scroll_switch"-->
+            <!--android:background="@drawable/button_bg"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingLeft="4dp"-->
+            <!--android:paddingRight="4dp"-->
+            <!--android:text="更改效果"-->
+            <!--android:textColor="#ff9c0e"-->
+            <!--android:textSize="14sp" />-->
             <!--</LinearLayout>-->
 
         </LinearLayout>
@@ -310,24 +475,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <cn.edu.hebtu.software.listendemo.credit.view.MonthPager
+            <cn.edu.hebtu.software.listendemo.credit.component.MonthPager
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:background="#fff">
-            </cn.edu.hebtu.software.listendemo.credit.view.MonthPager>
+                android:background="#fff"></cn.edu.hebtu.software.listendemo.credit.component.MonthPager>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="10dp"
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="45dp"
                 android:background="#fff"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.behavior.RecyclerViewBehavior"
-                android:layout_marginBottom="45dp"/>
+                app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />
             <!-- paddingBottom或者magin距离必须是MonthPager高度的1/6-->
             <!-- RecyclerView的高度必须是MatchParent-->
             <!-- RecyclerView的background必须是非透明-->
@@ -337,193 +501,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingLeft="15dp"-->
-            <!--android:paddingRight="15dp"-->
-            <!--android:background="#fff"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<LinearLayout-->
-                <!--android:id="@+id/choose_date_view"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="28dp"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:orientation="horizontal" >-->
-                <!--<TextView-->
-                    <!--android:id="@+id/show_month_view"-->
-                    <!--android:layout_width="24dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="bottom|center"-->
-                    <!--android:maxLines="1"-->
-                    <!--android:text="17"-->
-                    <!--android:textColor="#ff25adff"-->
-                    <!--android:textSize="19.3sp" />-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginRight="14dp"-->
-                    <!--android:gravity="bottom"-->
-                    <!--android:maxLines="1"-->
-                    <!--android:text="月"-->
-                    <!--android:textColor="#ff25adff"-->
-                    <!--android:textSize="19.3sp" />-->
-                <!--<TextView-->
-                    <!--android:id="@+id/show_year_view"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="bottom"-->
-                    <!--android:text="2014年"-->
-                    <!--android:textColor="#ff25adff"-->
-                    <!--android:textSize="13sp" />-->
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_marginTop="12dp"-->
-                <!--android:layout_marginBottom="8dp">-->
-                <!--<TextView-->
-                <!--android:id="@+id/back_today_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="24dp"-->
-                <!--android:paddingLeft="4dp"-->
-                <!--android:paddingRight="4dp"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:background="@drawable/button_bg"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:text="今天"-->
-                <!--android:gravity="center"-->
-                <!--android:textColor="#ff9c0e"-->
-                <!--android:textSize="14sp"/>-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/scroll_switch"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:layout_toLeftOf="@id/back_today_button"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:text="切换周月"-->
-                    <!--android:gravity="center"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp"/>-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/theme_switch"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:layout_toLeftOf="@id/scroll_switch"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:text="更改效果"-->
-                    <!--android:gravity="center"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/next_month"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:layout_toLeftOf="@id/scroll_switch"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:text="下一月"-->
-                    <!--android:gravity="center"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp"/>-->
-                <!--<TextView-->
-                    <!--android:id="@+id/last_month"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:layout_toLeftOf="@id/scroll_switch"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:text="上一月"-->
-                    <!--android:gravity="center"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp"/>-->
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
-        <!--<LinearLayout-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="28dp"-->
-            <!--android:background="#fff">-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="一" />-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="二"/>-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="三" />-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="四" />-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="五" />-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="六" />-->
-            <!--<TextView-->
-                <!--style="@style/weekIndicatorStyle"-->
-                <!--android:text="日" />-->
-        <!--</LinearLayout>-->
-
-        <!--<android.support.design.widget.CoordinatorLayout-->
-            <!--android:id="@+id/content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1">-->
-
-            <!--<cn.edu.hebtu.software.listendemo.credit.view.MonthPager-->
-                <!--android:id="@+id/calendar_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="270dp"-->
-                <!--android:background="#fff">-->
-            <!--</cn.edu.hebtu.software.listendemo.credit.view.MonthPager>-->
-
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/list"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="#ffffff"-->
-                <!--app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.behavior.RecyclerViewBehavior"-->
-                <!--android:layout_gravity="bottom"-->
-                <!--android:clipToPadding="false"-->
-                <!--android:clipChildren="false"-->
-                <!--android:layout_marginBottom="45dp"/>-->
-            <!--&lt;!&ndash; paddingBottom或者magin距离必须是MonthPager高度的1/6&ndash;&gt;-->
-            <!--&lt;!&ndash; RecyclerView的高度必须是MatchParent&ndash;&gt;-->
-            <!--&lt;!&ndash; RecyclerView的background必须是非透明&ndash;&gt;-->
-        <!--</android.support.design.widget.CoordinatorLayout>-->
-    <!--</LinearLayout>-->
-<!--</LinearLayout>-->

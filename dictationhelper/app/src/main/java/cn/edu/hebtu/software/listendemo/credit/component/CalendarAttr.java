@@ -1,31 +1,21 @@
 package cn.edu.hebtu.software.listendemo.credit.component;
-
-/**
- * Created by ldf on 17/6/26.
- */
-
+//日历显示类
 public class CalendarAttr {
-    /**
-     * 以何种方式排列星期:<br/>
-     * {@link WeekArrayType} <br/>
-     */
-    private WeekArrayType weekArrayType;
+    private WeekArrayType weekArrayType;    //以何种方式排列星期:WeekArrayType
+    private CalendarType calendarType;      //日历周布局或者月布局:CalendarType} 布局类型
+    private int cellHeight;                 //日期格子高度
+    private int cellWidth;                  //日期格子宽度
 
-    /**
-     * 日历周布局或者月布局:<br/>
-     * {@link CalendarType} 布局类型<br/>
-     */
-    private CalendarType calendarType;
+    //星期的排列方式
+    public enum WeekArrayType {
+        /*周日作为本周的第一天*/Sunday,
+        /*周一作为本周的第一天*/Monday
+    }
 
-    /**
-     * 日期格子高度
-     */
-    private int cellHeight;
-
-    /**
-     * 日期格子宽度
-     */
-    private int cellWidth;
+    //日历的周布局或月布局
+    public enum CalendarType {
+        WEEK, MONTH
+    }
 
     public WeekArrayType getWeekArrayType() {
         return weekArrayType;
@@ -59,12 +49,5 @@ public class CalendarAttr {
         this.cellWidth = cellWidth;
     }
 
-    public enum WeekArrayType {
-        /*周日作为本周的第一天*/Sunday,
-        /*周一作为本周的第一天*/Monday
-    }
 
-    public enum CalendarType {
-        WEEK, MONTH
-    }
 }

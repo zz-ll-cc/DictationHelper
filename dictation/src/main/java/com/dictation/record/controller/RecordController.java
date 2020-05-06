@@ -53,7 +53,10 @@ public class RecordController {
 
     }
 
-
+    @RequestMapping("/getMaxScore")
+    public Record getMaxScore(@RequestParam("uid") int uid,@RequestParam("date") String date){
+        return recordService.getMaxScore(uid,date);
+    }
 
 
 }

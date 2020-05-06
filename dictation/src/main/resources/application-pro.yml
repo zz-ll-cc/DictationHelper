@@ -8,11 +8,11 @@ spring:
     username: 390597658@qq.com
     password: zymbtjndogqocbbh
     port: 465
-      properties:
-        mail:
-          smtp:
-            ssl:
-              enable: true
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
   mvc:
     view:
       prefix: /
@@ -36,6 +36,8 @@ spring:
     database: 0
 #    sentinel:
 #      master: myredis
+  jackson:
+    time-zone: GMT+8
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

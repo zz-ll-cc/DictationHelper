@@ -1,9 +1,11 @@
 package com.dictation.util;
 
+import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -817,15 +819,37 @@ public class RedisUtil {
     }
 
 
-    public static String createUserSignInKey(int id){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        //key的规则是 signin:{id}:{MonthOfYear}:{WeekOfMonth}
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+    /**
+     *    根据年份生成签到表的key
+     *    signin:{id}:{yyyy}
+     *    如果year为null默认为当前年份
+     * @param id
+     * @param year      yyyy
+     * @return          如果年份错误无法转换返回null，同时打印错误日志
+     */
+    public static String createUserSignInKey(int id, String year){
+        String result = null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        try {
+            Date date;
+            if(year == null){
+                date = new Date();
+            }else{
+                date = simpleDateFormat.parse(year);
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            result = "sign:" + id + ":" + calendar.get(Calendar.YEAR);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.error("日期格式错误，无法生成签到key");
+        }finally {
+            return result;
+        }
 
-        String key = "signin:" + id + ":" + (calendar.get(Calendar.MONTH)+1) + ":" + (calendar.get(Calendar.WEEK_OF_MONTH)+1);
-        return key;
     }
+
+
 
 
 

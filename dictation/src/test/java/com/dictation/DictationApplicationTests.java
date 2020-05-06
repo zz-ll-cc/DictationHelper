@@ -75,9 +75,14 @@ class DictationApplicationTests {
 
         //signin:{uid}:{week_of_year}
         //activeuser:simpleDateFormat.format(date);
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        Date date = new Date();
-//        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR,1);
+        Date date = calendar.getTime();
+
+        System.out.println(simpleDateFormat.format(date));
+
 //        calendar.setTime(new Date());
 //        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 //        if(dayOfWeek != 1){
@@ -90,6 +95,9 @@ class DictationApplicationTests {
 //        }
 
 //        System.out.println(TimeUtil.getSecondsToNextMonday4pm()/1000);
+
+
+
 
 
     }

@@ -3,19 +3,18 @@ package cn.edu.hebtu.software.listendemo.credit.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.edu.hebtu.software.listendemo.R;
-import cn.edu.hebtu.software.listendemo.credit.Utils;
-import cn.edu.hebtu.software.listendemo.credit.component.State;
-import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
-import cn.edu.hebtu.software.listendemo.credit.model.CalendarDate;
+import java.util.HashMap;
 
-/**
- * Created by ldf on 17/6/26.
- */
+import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.credit.Utils.State;
+import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
+import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
+import cn.edu.hebtu.software.listendemo.credit.interf.IDayRenderer;
 
 @SuppressLint("ViewConstructor")
 public class CustomDayView extends DayView {
@@ -25,19 +24,20 @@ public class CustomDayView extends DayView {
     private View selectedBackground;
     private View todayBackground;
     private final CalendarDate today = new CalendarDate();
+    private HashMap<String, String> markData;
 
     /**
      * 构造器
-     *
      * @param context 上下文
      * @param layoutResource 自定义DayView的layout资源
      */
-    public CustomDayView(Context context, int layoutResource) {
+    public CustomDayView(Context context, int layoutResource,HashMap<String, String> markData) {
         super(context, layoutResource);
         dateTv = (TextView) findViewById(R.id.date);
         marker = (ImageView) findViewById(R.id.maker);
         selectedBackground = findViewById(R.id.selected_background);
         todayBackground = findViewById(R.id.today_background);
+        this.markData=markData;
     }
 
     @Override
@@ -81,7 +81,16 @@ public class CustomDayView extends DayView {
     private void renderToday(CalendarDate date) {
         if (date != null) {
             if (date.equals(today)) {
-                dateTv.setText("今");
+                String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+                if(markData.get(signDate)!=null){
+                    if(markData.get(signDate).equals("0")){
+                        dateTv.setText("签");
+                    }else{
+                        dateTv.setText("今");
+                    }
+                }else {
+                    dateTv.setText("今");
+                }
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");
@@ -92,6 +101,6 @@ public class CustomDayView extends DayView {
 
     @Override
     public IDayRenderer copy() {
-        return new CustomDayView(context, layoutResource);
+        return new CustomDayView(context, layoutResource,markData);
     }
 }

@@ -140,7 +140,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             }
         };
-        Log.e("tag1", position + "");
         holder.tv_credit_task.setText(title.get(position).get("task"));
         holder.tv_credit_task_name.setText(title.get(position).get("task_name"));
         if (title.get(position).get("task_content") != null) {
@@ -291,99 +290,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         }
                         break;
                 }
-//                switch (position) {
-//                    case 0:
-//                        if (title.get(position).get("task").equals("学习10分钟")) {
-//                            updateCredit(user.getUid(), 2);
-//                            handler = new Handler() {
-//                                @Override
-//                                public void handleMessage(Message msg) {
-//                                    super.handleMessage(msg);
-//                                    switch (msg.what) {
-//                                        case UPDATE_CRDICT:
-//                                            Log.e("msg1",msg.obj+"");
-//                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
-//                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
-//                                            } else {
-//                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-//                                            }
-//                                            break;
-//                                    }
-//                                }
-//                            };
-//                        } else if (title.get(position).get("task").equals("学习30分钟")) {
-//                            updateCredit(user.getUid(), 3);
-//                            handler = new Handler() {
-//                                @Override
-//                                public void handleMessage(Message msg) {
-//                                    super.handleMessage(msg);
-//                                    switch (msg.what) {
-//                                        case UPDATE_CRDICT:
-//                                            Log.e("msg2",msg.obj+"");
-//                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
-//                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
-//                                            } else {
-//                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-//                                            }
-//                                            break;
-//                                    }
-//                                }
-//                            };
-//
-//                        } else if (title.get(position).get("task").equals("学习60分钟")) {
-//                            updateCredit(user.getUid(), 4);
-//                            handler = new Handler() {
-//                                @Override
-//                                public void handleMessage(Message msg) {
-//                                    super.handleMessage(msg);
-//                                    switch (msg.what) {
-//                                        case UPDATE_CRDICT:
-//                                            Log.e("msg3",msg.obj+"");
-//                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
-//                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
-//                                            } else {
-//                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-//                                            }
-//                                            break;
-//                                    }
-//                                }
-//                            };
-//                        }
-//                        Log.e("taskitem", "学习");
-//                        break;
-//                    case 1:
-//                        if (!title.get(position).get("task_content").equals("未听写")) {
-//                            Log.e("msg5",title.get(position).get("task_content")+"");
-//                            updateCredit(user.getUid(), 1);
-//                            handler = new Handler() {
-//                                @Override
-//                                public void handleMessage(Message msg) {
-//                                    super.handleMessage(msg);
-//                                    switch (msg.what) {
-//                                        case UPDATE_CRDICT:
-//                                            Log.e("msg4",msg.obj+"");
-//                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
-//                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
-//                                            } else {
-//                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-//                                            }
-//                                            break;
-//                                    }
-//                                }
-//                            };
-//                        }else {
-//                            Toast.makeText(context, "快去听写领积分吧！", Toast.LENGTH_LONG).show();
-//                        }
-//                        break;
-//                }
 
             }
         });

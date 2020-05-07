@@ -49,18 +49,22 @@ public class CustomDayView extends DayView {
     }
 
     private void renderMarker(CalendarDate date, State state) {
-        if (Utils.loadMarkData().containsKey(date.toString())) {
-            if (state == State.SELECT || date.toString().equals(today.toString())) {
-                marker.setVisibility(GONE);
-            } else {
-                marker.setVisibility(VISIBLE);
-                if (Utils.loadMarkData().get(date.toString()).equals("0")) {
-                    marker.setEnabled(true);
+        if(Utils.loadMarkData()!=null) {
+            if (Utils.loadMarkData().containsKey(date.toString())) {
+                if (state == State.SELECT || date.toString().equals(today.toString())) {
+                    marker.setVisibility(GONE);
                 } else {
-                    marker.setEnabled(false);
+                    marker.setVisibility(VISIBLE);
+                    if (Utils.loadMarkData().get(date.toString()).equals("0")) {
+                        marker.setEnabled(true);
+                    } else {
+                        marker.setEnabled(false);
+                    }
                 }
+            } else {
+                marker.setVisibility(GONE);
             }
-        } else {
+        }else{
             marker.setVisibility(GONE);
         }
     }
@@ -81,7 +85,7 @@ public class CustomDayView extends DayView {
     private void renderToday(CalendarDate date) {
         if (date != null) {
             if (date.equals(today)) {
-                String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+                String signDate = today.getYear() + "-" + today.getMonth() + "-" + today.getDay();
                 if(null != markData){
                     if(markData.get(signDate).equals("0")){
                         dateTv.setText("签");

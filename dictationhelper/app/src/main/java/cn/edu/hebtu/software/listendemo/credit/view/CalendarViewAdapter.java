@@ -40,7 +40,6 @@ public class CalendarViewAdapter extends PagerAdapter {
     }
 
     public static void saveSelectedDate(CalendarDate calendarDate) {
-        Log.e("test","CalendarViewAdapter—saveSelectedDate42—保存被选日期");
         date = calendarDate;
     }
 
@@ -65,25 +64,25 @@ public class CalendarViewAdapter extends PagerAdapter {
 
                 @Override
                 public void updateSelectState(){
-                    Log.e("test","CalendarViewAdapter—onAdapterSelectListener67");
+//                    Log.e("test","CalendarViewAdapter—onAdapterSelectListener67");
                     invalidateCurrentCalendar();
                 }
             });
-            Log.e("test","CalendarViewAdapter—calendars.add");
+//            Log.e("test","CalendarViewAdapter—calendars.add");
             calendars.add(calendar);
         }
     }
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        Log.e("ldf", "setPrimaryItem");
+//        Log.e("ldf", "setPrimaryItem");
         super.setPrimaryItem(container, position, object);
         this.currentPosition = position;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        Log.e("ldf", "instantiateItem");
+//        Log.e("ldf", "instantiateItem");
         if (position < 2) {
             return null;
         }
@@ -147,10 +146,10 @@ public class CalendarViewAdapter extends PagerAdapter {
     }
 
     public void invalidateCurrentCalendar() {
-        Log.e("test","CalendarViewAdapter—invalidateCurrentCalendar149");
+//        Log.e("test","CalendarViewAdapter—invalidateCurrentCalendar149");
         for (int i = 0; i < calendars.size(); i++) {
             Calendar calendar = calendars.get(i);
-            Log.e("test","CalendarViewAdapter—calendar.update152");
+//            Log.e("test","CalendarViewAdapter—calendar.update152");
             calendar.update();
             if (calendar.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
                 calendar.updateWeek(rowCount);

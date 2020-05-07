@@ -33,7 +33,6 @@ public class CalendarRenderer {
 
     //使用dayRenderer绘制每一天
     public void draw(Canvas canvas) {
-        Log.e("test","CalendarRender—draw—绘制每一天");
         for (int row = 0; row < Const.TOTAL_ROW; row++) {
             if (weeks[row] != null) {
                 for (int col = 0; col < Const.TOTAL_COL; col++) {
@@ -47,7 +46,6 @@ public class CalendarRenderer {
 
     //点击某一天时刷新这一天的状态
     public void onClickDate(int col, int row) {
-        Log.e("test","CalendarRender—onClickDate58");
         if (col >= Const.TOTAL_COL || row >= Const.TOTAL_ROW)
             return;
         if (weeks[row] != null) {
@@ -55,19 +53,16 @@ public class CalendarRenderer {
                 if (weeks[row].days[col].getState() == State.CURRENT_MONTH) {
                     weeks[row].days[col].setState(State.SELECT);
                     selectedDate = weeks[row].days[col].getDate();
-                    Log.e("test","CalendarRender—onClickDate66—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectDate(selectedDate);
                     seedDate = selectedDate;
                 } else if (weeks[row].days[col].getState() == State.PAST_MONTH) {
                     selectedDate = weeks[row].days[col].getDate();
-                    Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectOtherMonth(-1);
                     onSelectDateListener.onSelectDate(selectedDate);
                 } else if (weeks[row].days[col].getState() == State.NEXT_MONTH) {
                     selectedDate = weeks[row].days[col].getDate();
-                    Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                     CalendarViewAdapter.saveSelectedDate(selectedDate);
                     onSelectDateListener.onSelectOtherMonth(1);
                     onSelectDateListener.onSelectDate(selectedDate);
@@ -75,7 +70,6 @@ public class CalendarRenderer {
             } else {
                 weeks[row].days[col].setState(State.SELECT);
                 selectedDate = weeks[row].days[col].getDate();
-                Log.e("test","CalendarRender—onClickDate—根据行列获取被选日期selectedDate");
                 CalendarViewAdapter.saveSelectedDate(selectedDate);
                 onSelectDateListener.onSelectDate(selectedDate);
                 seedDate = selectedDate;
@@ -125,11 +119,9 @@ public class CalendarRenderer {
      * @return void
      */
     private void instantiateMonth() {
-        Log.e("test","CalendarRenderer—instantiateMonth138");
         int lastMonthDays = Utils.getMonthDays(seedDate.year, seedDate.month - 1);    // 上个月的天数
         int currentMonthDays = Utils.getMonthDays(seedDate.year, seedDate.month);    // 当前月的天数
         int firstDayPosition = Utils.getFirstDayWeekPosition(seedDate.year, seedDate.month, attr.getWeekArrayType());
-        Log.e("ldf","firstDayPosition = " + firstDayPosition);
 
         int day = 0;
         for (int row = 0; row < Const.TOTAL_ROW; row++) {
@@ -154,7 +146,6 @@ public class CalendarRenderer {
      * @return void
      */
     private int fillWeek(int lastMonthDays, int currentMonthDays, int firstDayWeek, int day, int row) {
-        Log.e("test","CalendarRenderer—fillWeek167");
         for (int col = 0; col < Const.TOTAL_COL; col++) {
             int position = col + row * Const.TOTAL_COL;// 单元格位置
             if (position >= firstDayWeek && position < firstDayWeek + currentMonthDays) {
@@ -170,7 +161,6 @@ public class CalendarRenderer {
     }
 
     private void fillCurrentMonthDate(int day, int row, int col) {
-        Log.e("test","CalendarRenderer—fillCurrentMonthDate184");
         CalendarDate date = seedDate.modifyDay(day);
         if (weeks[row] == null) {
             weeks[row] = new Week(row);
@@ -238,7 +228,6 @@ public class CalendarRenderer {
     }
 
     public void update() {
-        Log.e("test","CalendarRenderer—update253");
         instantiateMonth();
         calendar.invalidate();
     }

@@ -179,6 +179,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     }
+                    initCalendarView();
+                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+                    calendarAdapter.switchToMonth();
                     calendarAdapter.setMarkData(markData);
                     calendarAdapter.notifyDataChanged();
                     break;
@@ -281,19 +284,18 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         user = gson.fromJson(sp.getString(USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         getCreditRecord(user.getUid());
         Log.e("userInfo", user.toString());
+        initMarkData();
         //getSignInfo(user.getUid());
-        //updateUser(user.getUid());
 //        ivSignRemind.setOnClickListener(this);
         tvCreditDetail.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         initRecycleView();
         initCurrentDate();
-        initCalendarView();
+        //initCalendarView();
         initToolbarClickListener();
-        Log.e("ldf", "OnCreated");
-        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
-        calendarAdapter.switchToMonth();
-        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+//        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+//        calendarAdapter.switchToMonth();
+//        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
         // calendarAdapter.switchToWeek(monthPager.getRowIndex());
     }
 
@@ -398,7 +400,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 rvToDoList.scrollToPosition(0);
             }
         });
-        initMarkData();
+//        initMarkData();
         initMonthPager();
     }
 
@@ -488,7 +490,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         onSelectDateListener = new OnSelectDateListener() {
             @Override
             public void onSelectDate(CalendarDate date) {
-                Log.e("click", date.getYear() + "-" + date.getMonth() + "-" + date.getDay());
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 //签到框
                 //创建并显示自定义的dialog
@@ -512,7 +513,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && !initiated) {
-            refreshMonthPager();
+            //refreshMonthPager();
             initiated = true;
         }
     }
@@ -640,7 +641,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         OkHttpClient okHttpClient = new OkHttpClient();
         CalendarDate date = new CalendarDate();
         FormBody fb = new FormBody.Builder().add("id", userId + "").add("year", date.getYear() + "").build();
-        Log.e("userId", userId + "");
         Request request = new Request.Builder().url(Constant.URL_GET_SIGNDAY).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -690,14 +690,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 message2.obj = i3 + "分";
                 sp.edit().putString(USER_KEEP_KEY,gson.toJson(user)).commit();
                 handler.sendMessage(message2);
-//                Message message3 = new Message();
-//                message3.what = GET_WORD_SUM;
-//                int i4 = 0;
-//                if (user.getAccumulateStudyWords() != null) {
-//                    i4 = user.getAccumulateStudyWords();
-//                }
-//                message3.obj = i4 + "词";
-//                handler.sendMessage(message3);
 
             }
         });

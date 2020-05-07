@@ -78,11 +78,9 @@ public class CustomDialogSign extends DialogFragment {
             //今天
             if (date.getYear() == currentDate.getYear() && date.getMonth() == currentDate.getMonth() && date.getDay() == currentDate.getDay()) {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-
-                if (markData == null || markData.size() > 0 || markData.get(signDate).equals("1")) {
+                if (markData == null || markData.get(signDate).equals("1")) {
                     //用户签到
                     userSignIn(user.getUid());
-                    Log.e("userSignIn", "用户签到");
                     handler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {

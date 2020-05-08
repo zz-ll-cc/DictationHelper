@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:layout_marginTop="25dp">
+    android:id="@+id/rl_search_out">
 
     <!--搜索框-->
     <LinearLayout

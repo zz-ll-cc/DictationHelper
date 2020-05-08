@@ -12,10 +12,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -71,6 +74,7 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
     private TextView tvWordChinese;
     private TextView tvClean;
     private ImageView ivWordExit;
+    private RelativeLayout rlOut;
     // 数据源
     private List<HistroyWord> histroyWords = new ArrayList<>(); // 历史单词
     private List<Word> wordResult = new ArrayList<>();          // 查询结果
@@ -90,9 +94,16 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
         StatusBarUtil.statusBarLightMode(this);
         StatusBarUtil.setStatusBarColor(this, R.color.white);
         findViews();
+        marginTopStateBar();
         setListeners();
         initShowTypeIntoHistory();  // 将当前显示状态变成“搜索历史”状态
 
+    }
+
+    private void marginTopStateBar() {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
+        rlOut.setLayoutParams(layoutParams);
     }
 
     private void setListeners() {
@@ -287,6 +298,7 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
         tvWordChinese = findViewById(R.id.tv_search_word_chinese);
         tvClean = findViewById(R.id.tv_search_word_clean);
         ivWordExit = findViewById(R.id.iv_search_word_word_exit);
+        rlOut = findViewById(R.id.rl_search_out);
     }
 
     @Override

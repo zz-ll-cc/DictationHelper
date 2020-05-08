@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,6 +99,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     private Context mContext;
     private FeedbackImgAdapter feedbackImgAdapter;
     private ItemTouchHelper itemTouchHelper;
+    private RelativeLayout rlOut;
     private RecyclerView rcvImg;
     private LinearLayout llType;
     private LinearLayout llReason;
@@ -139,9 +141,15 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
 
         initData();
         initView();
+        marginTopStateBar();
         setListener();
     }
 
+    private void marginTopStateBar() {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
+        rlOut.setLayoutParams(layoutParams);
+    }
     private void initData() {
         sp = getSharedPreferences(Constant.FEEDBACK_KEEP_SP_NAME, MODE_PRIVATE);
         // 获取原始资源数据
@@ -178,7 +186,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         llContent = findViewById(R.id.ll_feedback_content);
         llReason = findViewById(R.id.ll_feedback_type_reason);
         llType = findViewById(R.id.ll_feedback_type);
-
+        rlOut = findViewById(R.id.rl_feedback_push);
         initRcv();
         mLinearLayout = findViewById(R.id.ll);
         if (!keepContent.equals("") || originImages.size() > 1) {
@@ -702,6 +710,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     protected void onDestroy() {
         super.onDestroy();
         myHandler.removeCallbacksAndMessages(null);
+
     }
 
     private void showExitDialog() {

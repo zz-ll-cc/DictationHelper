@@ -101,15 +101,16 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private long time1 = 0;
     private long time2 = 0;
     private TaskAdapter taskAdapter;
-    //    private String[] task = new String[2];
-//    private String[] task_name = {"今日累计", "今日最好成绩"};
-//    private String[] task_content = new String[2];
-//    private String[] add_credit = new String[2];
-    private String[] task = {"学习10分钟", "学习30分钟", "学习60分钟", "每日听写"};
-    private String[] task_name = {"", "", "", "今日最好成绩"};
-    private String[] task_content = {"", "", "", ""};
-    private String[] add_credit = {"+1积分", "+3积分", "+5积分", "+5积分"};
-    String[] tag = {"false", "false", "false", "false"};
+    private String[] task = {"学习10分钟", "每日听写"};
+    private String[] task_name = {"", "今日最好成绩"};
+    private String[] task_content = {"", ""};
+    private String[] add_credit = {"", "+5积分"};
+    private String[] tag = {"false", "false"};
+    //    private String[] task = {"学习10分钟", "学习30分钟", "学习60分钟", "每日听写"};
+//    private String[] task_name = {"", "", "", "今日最好成绩"};
+//    private String[] task_content = {"", "", "", ""};
+//    private String[] add_credit = {"+1积分", "+3积分", "+5积分", "+5积分"};
+//    String[] tag = {"false", "false", "false", "false"};
     private HashMap<String, String> markData = null;
     private ThemeDayView themeDayView;
     private SharedPreferences sp;
@@ -138,18 +139,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 case GET_CREDIT_SUM:
                     tvCreditSum.setText(msg.obj + "");
                     break;
-//                case GET_WORD_SUM:
-//                    tvWordSum.setText(msg.obj + "");
-//                    break;
-//                case UPDATE_USER:
-//                    if (msg.obj != null) {
-//                        User user = gson.fromJson(msg.obj + "", User.class);
-//                        tvSignDayContinue.setText(user.getContinuousSignIn() + "天");
-//                        tvSignDaySum.setText(user.getAccumulateSignIn() + "天");
-//                        tvCreditSum.setText(user.getUserCredit() + "分");
-//                        tvWordSum.setText(user.getAccumulateStudyWords() + "词");
-//                    }
-//                    break;
                 case GET_MARKER_DATE:
                     if (msg.obj != null) {
                         Map<String, String> markData1 = new HashMap<>();
@@ -193,9 +182,11 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             String s = record.getAccuracy() + "";
                             String str = s.substring(0, s.indexOf("."));
                             score1 = Integer.parseInt(str);
-                            task_content[3] = score1 + "分";
+                            task_content[1] = score1 + "分";
+//                            task_content[3] = score1 + "分";
                         } else {
-                            task_content[3] = "未听写";
+                            task_content[1] = "未听写";
+//                            task_content[3] = "未听写";
                         }
 //                        task_content[1] =  score+ "分";
                         for (int i = 0; i < task.length; i++) {
@@ -211,11 +202,11 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        taskAdapter = new TaskAdapter(studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title,sp);
+                        taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title, sp);
                         rvToDoList.setAdapter(taskAdapter);
                     } else {
-//                        task_content[1] = "未听写";
-                        task_content[3] = "未听写";
+                        task_content[1] = "未听写";
+//                        task_content[3] = "未听写";
                         int score = 0;
                         for (int i = 0; i < task.length; i++) {
                             Map<String, String> map = new HashMap<>();
@@ -230,7 +221,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        taskAdapter = new TaskAdapter(studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title,sp);
+                        taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title, sp);
                         rvToDoList.setAdapter(taskAdapter);
                     }
                     break;
@@ -238,29 +229,52 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     Type type = new TypeToken<Map<String, String>>() {
                     }.getType();
                     Map<String, String> records = gson.fromJson(msg.obj + "", type);
-                    if (records.get("学习10分钟").equals("true")) {
-                        if (title.size() > 0) {
-                            title.get(0).put("tag", "true");
+                    if (title.size() > 0) {
+                        if (records.get("学习10分钟").equals("true")) {
+                            if (records.get("学习30分钟").equals("true")) {
+                                if (records.get("学习60分钟").equals("true")) {
+                                    title.get(0).put("tag", "true");
+                                } else {
+                                    title.get(0).put("tag", "false");
+                                }
+                                title.get(0).put("task", "学习60分钟");
+                                title.get(0).put("add_credit", "+5积分");
+                            } else {
+                                title.get(0).put("tag", "false");
+                                title.get(0).put("task", "学习30分钟");
+                                title.get(0).put("add_credit", "+3积分");
+                            }
+                        } else {
+                            title.get(0).put("tag", "false");
+                            title.get(0).put("task", "学习30分钟");
+                            title.get(0).put("add_credit", "+3积分");
                         }
-                        tag[0] = "true";
+                    } else {
+                        if (records.get("学习10分钟").equals("true")) {
+                            if (records.get("学习30分钟").equals("true")) {
+                                if (records.get("学习60分钟").equals("true")) {
+                                    tag[0] = "true";
+                                }else {
+                                    tag[0] = "false";
+                                }
+                                task[0] = "学习60分钟";
+                                add_credit[0] = "+5积分";
+                            }else{
+                                tag[0] = "false";
+                                task[0] = "学习30分钟";
+                                add_credit[0] = "+3积分";
+                            }
+                        } else {
+                            tag[0] = "false";
+                            task[0] = "学习10分钟";
+                            add_credit[0] = "+1积分";
+                        }
                     }
-                    if (records.get("学习30分钟").equals("true")) {
+                    if (records.get("有效听写").equals("true")) {
                         if (title.size() > 0) {
                             title.get(1).put("tag", "true");
                         }
                         tag[1] = "true";
-                    }
-                    if (records.get("学习60分钟").equals("true")) {
-                        if (title.size() > 0) {
-                            title.get(2).put("tag", "true");
-                        }
-                        tag[2] = "true";
-                    }
-                    if (records.get("有效听写").equals("true")) {
-                        if (title.size() > 0) {
-                            title.get(3).put("tag", "true");
-                        }
-                        tag[3] = "true";
                     }
                     if (taskAdapter != null) {
                         taskAdapter.notifyDataSetChanged();
@@ -373,12 +387,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         } else {
             Log.e("mEventList", "NULL");
             tvWordSum.setText("0分钟");
-//            task[0] = "学习10分钟";
-//            task[1] = "每日听写";
-//            task_content[0] = "0分钟";
-            //task_content[1] = "100分";
-//            add_credit[0] = "+1积分";
-//            add_credit[1] = "+5积分";
+            task[0] = "学习10分钟";
+            add_credit[0] = "+1积分";
         }
     }
 
@@ -556,7 +566,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     public ArrayList<UsageEvents.Event> getEventList(Context context, long startTime, long endTime) {
 
         ArrayList<UsageEvents.Event> mEventList = new ArrayList<>();
-
         Log.e("TAG", " EventUtils-getEventList()   Range start:" + startTime);
         Log.e("TAG", " EventUtils-getEventList()   Range end:" + endTime);
         Log.e("TAG", " EventUtils-getEventList()   Range start:" + dateFormat.format(startTime));
@@ -588,15 +597,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                                 Log.e("TAG", "studytime" + day2 + "天" + hour2 + "小时" + minute2 + "分钟" + second2 + "秒");
                                 if (hour2 != 0) {
 //                                    task[0] = "学习60分钟";
-//                                    task[1] = "每日听写";
 //                                    add_credit[0] = "+5积分";
-//                                    add_credit[1] = "+5积分";
-//                                    task_content[0] = hour2 + "小时" + minute2 + "分钟";
-                                    //task_content[1] = "100分";
-//                                    Message message3 = new Message();
-//                                    message3.what = GET_WORD_SUM;
-//                                    message3.obj =hour2 + "时" + minute2 + "分";
-//                                    handler.sendMessage(message3);
                                     tvWordSum.setText(hour2 + "时" + minute2 + "分");
                                     studyMinute = hour2 * 60 + minute2;
                                     Log.e("studytime", hour2 + "小时" + minute2 + "分钟");
@@ -611,14 +612,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                                        task[0] = "学习60分钟";
 //                                        add_credit[0] = "+5积分";
 //                                    }
-//                                    task[1] = "每日听写";
-//                                    add_credit[1] = "+5积分";
-//                                    task_content[0] = minute2 + "分钟";
-                                    //task_content[1] = "100分";
-//                                    Message message3 = new Message();
-//                                    message3.what = GET_WORD_SUM;
-//                                    message3.obj =minute2 + "分";
-//                                    handler.sendMessage(message3);
                                     tvWordSum.setText(minute2 + "分钟");
                                     studyMinute = minute2;
                                     Log.e("studytime", minute2 + "分钟");
@@ -688,7 +681,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     i3 = user.getUserCredit();
                 }
                 message2.obj = i3 + "分";
-                sp.edit().putString(USER_KEEP_KEY,gson.toJson(user)).commit();
+                sp.edit().putString(USER_KEEP_KEY, gson.toJson(user)).commit();
                 handler.sendMessage(message2);
 
             }

@@ -85,7 +85,6 @@ public class Calendar extends View {
                 if (Math.abs(disX) < touchSlop && Math.abs(disY) < touchSlop) {
                     int col = (int) (posX / cellWidth);
                     int row = (int) (posY / cellHeight);
-                    Log.e("test","Calendar-onTouchEvent88-获取被点击日期的行列:"+col+":"+row);
                     onAdapterSelectListener.cancelSelectState();
                     renderer.onClickDate(col, row);
                     onAdapterSelectListener.updateSelectState();
@@ -123,7 +122,6 @@ public class Calendar extends View {
     }
 
     public void update() {
-        Log.e("test","Calendar—update138");
         renderer.update();
     }
 

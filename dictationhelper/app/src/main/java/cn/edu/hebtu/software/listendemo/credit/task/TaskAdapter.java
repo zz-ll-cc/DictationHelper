@@ -67,8 +67,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private long studyMinute = 0;
     private long time1 = 0;
     private long time2 = 0;
+    private int state = 0;
+    private String[] tag;
 
-    public TaskAdapter(long studyMinute, TextView tvCreditSum, int score, User user, Context context, List<Map<String, String>> title,SharedPreferences sp) {
+    public TaskAdapter(String[] tag,long studyMinute, TextView tvCreditSum, int score, User user, Context context, List<Map<String, String>> title, SharedPreferences sp) {
         this.tvCreditSum = tvCreditSum;
         this.score = score;
         this.user = user;
@@ -77,70 +79,29 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         layoutInflater = LayoutInflater.from(context);
         this.studyMinute = studyMinute;
         this.sp = sp;
+        this.tag=tag;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(layoutInflater.inflate(R.layout.activty_my_credit_task_item, parent, false));
     }
+
     private void updateSp(User user0) {
         sp.edit().putString(USER_KEEP_KEY, gson.toJson(user0)).commit();
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        java.util.Calendar beginCal = java.util.Calendar.getInstance();
-//        beginCal.add(java.util.Calendar.HOUR_OF_DAY, -1);
-//        java.util.Calendar endCal = java.util.Calendar.getInstance();
-//        long startTime = beginCal.getTimeInMillis();
-//        long endTime = endCal.getTimeInMillis();
-//        ArrayList<UsageEvents.Event> mEventList = getEventList(context, startTime, endTime);
-        Log.e("ss", studyMinute + "");
-//        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_normal));
-//        holder.btn_add_credit.setTextColor(Color.parseColor("#ff8c00"));
-//        holder.btn_add_credit.setEnabled(true);
+//        for (int i=0; i < 3; i++) {
+//            if (tag[i].equals("false")) {
+//                state=i;
+//                break;
+//            }
+//        }
         this.positionp = position;
         Log.e("ViewHolder1", title.toString());
         Log.e("ViewHolder2", title.get(position).toString());
-        //getCreditRecord(user.getUid());
-        handler1 = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case GET_CREDICT_RECORD:
-//                        Type type = new TypeToken<Map<String, String>>() {}.getType();
-//                        Map<String, String> records = gson.fromJson(msg.obj + "", type);
-//                        if (records.get("学习10分钟").equals("true")) {
-//                            title.get(0).put("tag", "true");
-//                            Log.e("tag", title.get(0).toString());
-//                        }
-//                        if (records.get("学习30分钟").equals("true")) {
-//                            title.get(1).put("tag", "true");
-//                        }
-//                        if (records.get("学习60分钟").equals("true")) {
-//                            title.get(2).put("tag", "true");
-//                        }
-//                        if (records.get("有效听写").equals("true")) {
-//                            title.get(3).put("tag", "true");
-//                        }
-//
-//                        Log.e("tag", positionp+"");
-//                        if (title.get(position).get("tag").equals("true")) {
-//                            holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
-//                            holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
-//                            holder.btn_add_credit.setEnabled(false);
-//                        } else {
-//                            holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_normal));
-//                            holder.btn_add_credit.setTextColor(Color.parseColor("#ff8c00"));
-//                            holder.btn_add_credit.setEnabled(true);
-//                        }
-
-                        break;
-                }
-            }
-        };
-        Log.e("tag1", position + "");
         holder.tv_credit_task.setText(title.get(position).get("task"));
         holder.tv_credit_task_name.setText(title.get(position).get("task_name"));
         if (title.get(position).get("task_content") != null) {
@@ -169,97 +130,112 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                }
                 switch (position) {
                     case 0:
-                        if (studyMinute >= 10) {
-                            updateCredit(user.getUid(), 2);
-                            handler = new Handler() {
-                                @Override
-                                public void handleMessage(Message msg) {
-                                    super.handleMessage(msg);
-                                    switch (msg.what) {
-                                        case UPDATE_CRDICT:
-                                            Log.e("msg1", msg.obj + "");
-                                            if (!msg.obj.equals("0")) {
-                                                User user = gson.fromJson(msg.obj + "", User.class);
-                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-                                                tvCreditSum.setText(user.getUserCredit() + "分");
-                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
-                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
-                                                holder.btn_add_credit.setEnabled(false);
-                                                updateSp(user);
+                        switch (title.get(position).get("task")) {
+                            case "学习10分钟":
+                                if (studyMinute >= 1) {
+                                    updateCredit(user.getUid(), 2);
+                                    handler = new Handler() {
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            super.handleMessage(msg);
+                                            switch (msg.what) {
+                                                case UPDATE_CRDICT:
+                                                    Log.e("msg1", msg.obj + "");
+                                                    if (!msg.obj.equals("0")) {
+                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                        tvCreditSum.setText(user.getUserCredit() + "分");
+                                                        title.get(position).put("task", "学习30分钟");
+                                                        title.get(position).put("add_credit","+3积分");
+                                                        title.get(position).put("tag", "false");
+                                                         notifyDataSetChanged();
+//                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                        holder.btn_add_credit.setEnabled(false);
+                                                        updateSp(user);
 //                                                EventBus.getDefault().post(user);
-                                            } else {
-                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-                                            }
+                                                    } else {
+                                                        Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
+                                                    }
 
-                                            break;
-                                    }
+                                                    break;
+                                            }
+                                        }
+                                    };
+                                } else {
+                                    Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_SHORT).show();
                                 }
-                            };
-                        } else {
-                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
+                                break;
+                            case "学习30分钟":
+                                if (studyMinute >= 30) {
+                                    updateCredit(user.getUid(), 3);
+                                    handler = new Handler() {
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            super.handleMessage(msg);
+                                            switch (msg.what) {
+                                                case UPDATE_CRDICT:
+                                                    Log.e("msg2", msg.obj + "");
+                                                    if (!msg.obj.equals("0")) {
+                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+//                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                        holder.btn_add_credit.setEnabled(false);
+                                                        title.get(position).put("task","学习60分钟");
+                                                        title.get(position).put("tag","false");
+                                                        title.get(position).put("add_credit","+5积分");
+                                                        notifyDataSetChanged();
+                                                        tvCreditSum.setText(user.getUserCredit() + "分");
+                                                        updateSp(user);
+//                                                EventBus.getDefault().post(user);
+                                                    } else {
+                                                        Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                    };
+                                } else {
+                                    Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
+                            case "学习60分钟":
+                                if (studyMinute >= 60) {
+                                    updateCredit(user.getUid(), 4);
+                                    handler = new Handler() {
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            super.handleMessage(msg);
+                                            switch (msg.what) {
+                                                case UPDATE_CRDICT:
+                                                    Log.e("msg3", msg.obj + "");
+                                                    if (!msg.obj.equals("0")) {
+                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                        tvCreditSum.setText(user.getUserCredit() + "分");
+                                                        title.get(position).put("task","学习60分钟");
+                                                        title.get(position).put("add_credit","+5积分");
+                                                        title.get(position).put("tag","true");
+                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+                                                        holder.btn_add_credit.setEnabled(false);
+                                                        updateSp(user);
+//                                                EventBus.getDefault().post(user);
+                                                    } else {
+                                                        Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                    };
+                                } else {
+                                    Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
                         }
                         break;
                     case 1:
-                        if (studyMinute >= 30) {
-                            updateCredit(user.getUid(), 3);
-                            handler = new Handler() {
-                                @Override
-                                public void handleMessage(Message msg) {
-                                    super.handleMessage(msg);
-                                    switch (msg.what) {
-                                        case UPDATE_CRDICT:
-                                            Log.e("msg2", msg.obj + "");
-                                            if (!msg.obj.equals("0")) {
-                                                User user = gson.fromJson(msg.obj + "", User.class);
-                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
-                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
-                                                holder.btn_add_credit.setEnabled(false);
-                                                tvCreditSum.setText(user.getUserCredit() + "分");
-                                                updateSp(user);
-//                                                EventBus.getDefault().post(user);
-                                            } else {
-                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-                                            }
-                                            break;
-                                    }
-                                }
-                            };
-                        } else {
-                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
-                        }
-                        break;
-                    case 2:
-                        if (studyMinute >= 60) {
-                            updateCredit(user.getUid(), 4);
-                            handler = new Handler() {
-                                @Override
-                                public void handleMessage(Message msg) {
-                                    super.handleMessage(msg);
-                                    switch (msg.what) {
-                                        case UPDATE_CRDICT:
-                                            Log.e("msg3", msg.obj + "");
-                                            if (!msg.obj.equals("0")) {
-                                                User user = gson.fromJson(msg.obj + "", User.class);
-                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-                                                tvCreditSum.setText(user.getUserCredit() + "分");
-                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
-                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
-                                                holder.btn_add_credit.setEnabled(false);
-                                                updateSp(user);
-//                                                EventBus.getDefault().post(user);
-                                            } else {
-                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
-                                            }
-                                            break;
-                                    }
-                                }
-                            };
-                        } else {
-                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
-                        }
-                        break;
-                    case 3:
                         if (!title.get(position).get("task_content").equals("未听写")) {
                             Log.e("msg5", title.get(position).get("task_content") + "");
                             updateCredit(user.getUid(), 1);
@@ -277,6 +253,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                 holder.btn_add_credit.setEnabled(false);
                                                 tvCreditSum.setText(user.getUserCredit() + "分");
+                                                title.get(position).put("tag","true");
                                                 updateSp(user);
 //                                                EventBus.getDefault().post(user);
                                             } else {
@@ -287,13 +264,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                 }
                             };
                         } else {
-                            Toast.makeText(context, "快去听写领积分吧！", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "快去听写领积分吧！", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
 //                switch (position) {
 //                    case 0:
-//                        if (title.get(position).get("task").equals("学习10分钟")) {
+//                        if (studyMinute >= 10) {
 //                            updateCredit(user.getUid(), 2);
 //                            handler = new Handler() {
 //                                @Override
@@ -301,19 +278,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    super.handleMessage(msg);
 //                                    switch (msg.what) {
 //                                        case UPDATE_CRDICT:
-//                                            Log.e("msg1",msg.obj+"");
+//                                            Log.e("msg1", msg.obj + "");
 //                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
+//                                                User user = gson.fromJson(msg.obj + "", User.class);
 //                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
+//                                                tvCreditSum.setText(user.getUserCredit() + "分");
+//                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                holder.btn_add_credit.setEnabled(false);
+//                                                updateSp(user);
+////                                                EventBus.getDefault().post(user);
 //                                            } else {
 //                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
 //                                            }
+//
 //                                            break;
 //                                    }
 //                                }
 //                            };
-//                        } else if (title.get(position).get("task").equals("学习30分钟")) {
+//                        } else {
+//                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
+//                        }
+//                        break;
+//                    case 1:
+//                        if (studyMinute >= 30) {
 //                            updateCredit(user.getUid(), 3);
 //                            handler = new Handler() {
 //                                @Override
@@ -321,11 +309,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    super.handleMessage(msg);
 //                                    switch (msg.what) {
 //                                        case UPDATE_CRDICT:
-//                                            Log.e("msg2",msg.obj+"");
+//                                            Log.e("msg2", msg.obj + "");
 //                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
+//                                                User user = gson.fromJson(msg.obj + "", User.class);
 //                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
+//                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                holder.btn_add_credit.setEnabled(false);
+//                                                tvCreditSum.setText(user.getUserCredit() + "分");
+//                                                updateSp(user);
+////                                                EventBus.getDefault().post(user);
 //                                            } else {
 //                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
 //                                            }
@@ -333,8 +326,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    }
 //                                }
 //                            };
-//
-//                        } else if (title.get(position).get("task").equals("学习60分钟")) {
+//                        } else {
+//                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
+//                        }
+//                        break;
+//                    case 2:
+//                        if (studyMinute >= 60) {
 //                            updateCredit(user.getUid(), 4);
 //                            handler = new Handler() {
 //                                @Override
@@ -342,11 +339,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    super.handleMessage(msg);
 //                                    switch (msg.what) {
 //                                        case UPDATE_CRDICT:
-//                                            Log.e("msg3",msg.obj+"");
+//                                            Log.e("msg3", msg.obj + "");
 //                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
+//                                                User user = gson.fromJson(msg.obj + "", User.class);
 //                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
+//                                                tvCreditSum.setText(user.getUserCredit() + "分");
+//                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                holder.btn_add_credit.setEnabled(false);
+//                                                updateSp(user);
+////                                                EventBus.getDefault().post(user);
 //                                            } else {
 //                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
 //                                            }
@@ -354,12 +356,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    }
 //                                }
 //                            };
+//                        } else {
+//                            Toast.makeText(context, "学习时长不够，赶快去学习吧！", Toast.LENGTH_LONG).show();
 //                        }
-//                        Log.e("taskitem", "学习");
 //                        break;
-//                    case 1:
+//                    case 3:
 //                        if (!title.get(position).get("task_content").equals("未听写")) {
-//                            Log.e("msg5",title.get(position).get("task_content")+"");
+//                            Log.e("msg5", title.get(position).get("task_content") + "");
 //                            updateCredit(user.getUid(), 1);
 //                            handler = new Handler() {
 //                                @Override
@@ -367,11 +370,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    super.handleMessage(msg);
 //                                    switch (msg.what) {
 //                                        case UPDATE_CRDICT:
-//                                            Log.e("msg4",msg.obj+"");
+//                                            Log.e("msg4", msg.obj + "");
 //                                            if (!msg.obj.equals("0")) {
-//                                                User user = gson.fromJson(msg.obj+"", User.class);
+//                                                User user = gson.fromJson(msg.obj + "", User.class);
 //                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
-//                                                tvCreditSum.setText(user.getUserCredit()+"分");
+//                                                holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
+//                                                holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
+//                                                holder.btn_add_credit.setEnabled(false);
+//                                                tvCreditSum.setText(user.getUserCredit() + "分");
+//                                                updateSp(user);
+////                                                EventBus.getDefault().post(user);
 //                                            } else {
 //                                                Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
 //                                            }
@@ -379,7 +387,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                    }
 //                                }
 //                            };
-//                        }else {
+//                        } else {
 //                            Toast.makeText(context, "快去听写领积分吧！", Toast.LENGTH_LONG).show();
 //                        }
 //                        break;

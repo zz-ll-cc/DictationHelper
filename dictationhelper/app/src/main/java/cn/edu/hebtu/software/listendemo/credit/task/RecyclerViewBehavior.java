@@ -52,7 +52,7 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, RecyclerView child,
                                        View directTargetChild, View target, int nestedScrollAxes) {
-        Log.e("ldf", "onStartNestedScroll");
+//        Log.e("ldf", "onStartNestedScroll");
 
         MonthPager monthPager = (MonthPager) coordinatorLayout.getChildAt(0);
         monthPager.setScrollable(false);
@@ -64,14 +64,14 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, RecyclerView child,
                                   View target, int dx, int dy, int[] consumed) {
-        Log.e("ldf", "onNestedPreScroll");
+//        Log.e("ldf", "onNestedPreScroll");
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
         child.setVerticalScrollBarEnabled(true);
 
         MonthPager monthPager = (MonthPager) coordinatorLayout.getChildAt(0);
         if (monthPager.getPageScrollState() != ViewPager.SCROLL_STATE_IDLE) {
             consumed[1] = dy;
-            Log.w("ldf", "onNestedPreScroll: MonthPager dragging");
+//            Log.w("ldf", "onNestedPreScroll: MonthPager dragging");
             Toast.makeText(context, "loading month data", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -92,7 +92,7 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
 
     @Override
     public void onStopNestedScroll(final CoordinatorLayout parent, final RecyclerView child, View target) {
-        Log.e("ldf", "onStopNestedScroll");
+//        Log.e("ldf", "onStopNestedScroll");
         super.onStopNestedScroll(parent, child, target);
         MonthPager monthPager = (MonthPager) parent.getChildAt(0);
         monthPager.setScrollable(true);
@@ -113,7 +113,7 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
 
     @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, RecyclerView child, View target, float velocityX, float velocityY, boolean consumed) {
-        Log.d("ldf", "onNestedFling: velocityY: " + velocityY);
+//        Log.d("ldf", "onNestedFling: velocityY: " + velocityY);
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
     }
 

@@ -50,7 +50,6 @@ public abstract class DayView extends RelativeLayout implements IDayRenderer {
     @Override
     public void drawDay(Canvas canvas, Day day) {
         this.day = day;
-        Log.e("test","DayView-drawDay:"+day.getDate()+"");
         refreshContent();
         int saveId = canvas.save();
         canvas.translate(getTranslateX(canvas, day), day.getPosRow() * getMeasuredHeight());

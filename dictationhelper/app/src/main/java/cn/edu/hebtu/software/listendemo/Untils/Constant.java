@@ -81,7 +81,7 @@ public class Constant {
 
     //学习记录
     public static final String URL_GETRECORD_TOLINECHART_FIVE = BASE_URL + "dayrecord/getdata";
-    public static final String URL_GETRECORD_TOLINECHART_MONTH = BASE_URL + "dayrecord/getdata";
+    public static final String URL_GETRECORD_TOLINECHART_MONTH = BASE_URL + "monthrecord/getdata";
     public static final int WORD_FIVE = 1;
     public static final int WORD_MONTH = 2;
     public static final int ACCURENCY_FIVE = 3;

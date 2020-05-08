@@ -137,7 +137,6 @@ public class LearnWordActivity extends AppCompatActivity {
 
     }
 
-
     private void initData() {
         Intent intent = getIntent();
         String str = intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);

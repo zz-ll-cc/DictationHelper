@@ -81,7 +81,7 @@ public class MonthPager extends ViewPager {
     @Override
     public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         if (hasPageChangeListener) {
-            Log.e("ldf", "MonthPager Just Can Use Own OnPageChangeListener");
+//            Log.e("ldf", "MonthPager Just Can Use Own OnPageChangeListener");
         } else {
             super.addOnPageChangeListener(listener);
         }
@@ -89,7 +89,7 @@ public class MonthPager extends ViewPager {
 
     public void addOnPageChangeListener(OnPageChangeListener listener) {
         this.monthPageChangeListener = listener;
-        Log.e("ldf", "MonthPager Just Can Use Own OnPageChangeListener");
+//        Log.e("ldf", "MonthPager Just Can Use Own OnPageChangeListener");
     }
 
     public void setScrollable(boolean scrollable) {
@@ -154,7 +154,7 @@ public class MonthPager extends ViewPager {
     public int getRowIndex() {
         CalendarViewAdapter calendarViewAdapter = (CalendarViewAdapter) getAdapter();
         rowIndex = calendarViewAdapter.getPagers().get(currentPosition % 3).getSelectedRowIndex();
-        Log.e("ldf", "getRowIndex = " + rowIndex);
+//        Log.e("ldf", "getRowIndex = " + rowIndex);
         return rowIndex;
     }
 

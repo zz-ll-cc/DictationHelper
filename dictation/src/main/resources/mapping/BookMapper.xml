@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dictation.mapper.BookMapper">
+
+
+    <resultMap id="bookMap" type="com.dictation.book.entity.Book">
+        <id property="bid" column="id"/>
+        <result property="bvid" column="version_id"/>
+        <result property="bname" column="book_name"/>
+        <result property="gid" column="grade_id"/>
+        <result property="bimgPath" column="book_cover"/>
+        <result property="bookWordVersion" column="bookWordVersion"/>
+        <result property="bunitAccount" column="unit_num"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="unitList" ofType="com.dictation.book.entity.Unit" column="id" select="findUnitByBook"/>
+    </resultMap>
+
+
+
+
+    <resultMap id="unitMap" type="com.dictation.book.entity.Unit">
+        <id property="unid" column="id"/>
+        <result property="unName" column="unit_name"/>
+        <result property="bid" column="book_id"/>
+        <result property="type" column="type"/>
+        <result property="cost" column="cost"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="wordList" ofType="com.dictation.book.entity.Word" column="id" select="findWordsByUnit"/>
+    </resultMap>
+
+    <resultMap id="wordMap" type="com.dictation.book.entity.Word">
+        <id property="wid" column="id"/>
+        <result property="wenglish" column="word_english"/>
+        <result property="wchinese" column="word_chinese"/>
+        <result property="unid" column="unit_id"/>
+        <result property="bid" column="book_id"/>
+        <result property="type" column="type"/>
+        <result property="wimgPath" column="word_img"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="findUnitByBook" resultType="com.dictation.book.entity.Unit" resultMap="unitMap">
+        select * from tbl_unit where book_id = #{id}
+    </select>
+
+    <select id="findWordsByUnit" resultType="com.dictation.book.entity.Word" resultMap="wordMap">
+        select * from tbl_word where unit_id = #{id}
+    </select>
+
+
+
+
+</mapper>

@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName User
@@ -15,9 +16,10 @@ import java.util.Date;
  * @Date 2020-04-13 17:46
  */
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tbl_user")
+@TableName(value = "tbl_user",resultMap = "userMap")
 public class User {
 
     @TableId(type = IdType.AUTO,value = "id")
@@ -78,6 +80,10 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT_UPDATE) // 插入和修改时填充
     private Date updateTime;
+
+
+    @TableField(exist = false)
+    private List<Unlock> unlockList;
 
 
 }

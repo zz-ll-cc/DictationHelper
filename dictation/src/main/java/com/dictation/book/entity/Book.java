@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName Book
@@ -19,7 +20,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "tbl_book")
+@TableName(value = "tbl_book", resultMap = "bookMap")
 public class Book {
 
     @TableId(type = IdType.AUTO,value = "id")
@@ -53,6 +54,9 @@ public class Book {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    @TableField(exist = false)
+    private List<Unit> unitList;
 
     
 }

@@ -27,6 +27,11 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
+    public Unit findOneById(Integer id) {
+        return unitMapper.selectById(id);
+    }
+
+    @Override
     public boolean save(Unit unit) {
         return unitMapper.insert(unit) == 1;
     }

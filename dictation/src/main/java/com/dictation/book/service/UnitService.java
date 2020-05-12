@@ -8,6 +8,7 @@ import java.util.List;
 public interface UnitService {
 
     List<Unit> findAll();
+    Unit findOneById(Integer id);
     boolean save(Unit unit);
     boolean delete(Unit unit);
     boolean delete(Integer id);

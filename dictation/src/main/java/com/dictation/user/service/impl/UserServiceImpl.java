@@ -1,10 +1,14 @@
 package com.dictation.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dictation.book.entity.Unit;
+import com.dictation.book.service.UnitService;
 import com.dictation.mapper.CreditRecordMapper;
+import com.dictation.mapper.UnlockMapper;
 import com.dictation.mapper.UserMapper;
 import com.dictation.user.entity.CreditRecord;
 import com.dictation.user.entity.ReasonEnum;
+import com.dictation.user.entity.Unlock;
 import com.dictation.user.entity.User;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
@@ -12,7 +16,6 @@ import com.dictation.util.TimeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +40,17 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
+    UnlockMapper unlockMapper;
+
+    @Autowired
     RedisUtil redisUtil;
 
     @Autowired
     CreditRecordMapper creditRecordMapper;
+
+    @Autowired
+    UnitService unitService;
+
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -633,6 +643,50 @@ public class UserServiceImpl implements UserService {
                 .eq("user_id",id);
         return creditRecordMapper.selectList(queryWrapper);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean unlockUnit(int id, int unitId) {
+        User user = userMapper.selectById(id);
+        Unit unit = unitService.findOneById(unitId);
+        if(user.getUserCredit() < unit.getCost()){
+            //积分不足
+            return false;
+        }
+        QueryWrapper<Unlock> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",id).eq("unit_id",unitId);
+        if(unlockMapper.selectOne(queryWrapper) == null){
+            //插入解锁记录
+            Unlock unlock = new Unlock();
+            unlock.setUserId(id).setUnitId(unitId);
+            unlockMapper.insert(unlock);
+            //修改用户的积分
+            user.setUserCredit(user.getUserCredit()-unit.getCost());
+            userMapper.updateById(user);
+            //插入积分修改记录
+            CreditRecord creditRecord = new CreditRecord();
+            creditRecord.setIncrement(unit.getCost() * -1).setReason("解锁单元").setUserId(user.getUid());
+            creditRecordMapper.insert(creditRecord);
+
+            //更新user缓存
+            try {
+                List<Unlock> unlocks = user.getUnlockList();
+                unlocks.add(unlock);
+                user.setUnlockList(unlocks);
+                redisUtil.set(redisUtil.getUserKey(id),new ObjectMapper().writeValueAsString(user),60*60);
+            } catch (JsonProcessingException e) {
+                logger.warn("userService中的unlockUnit方法更新redis缓存时json转换出错");
+                e.printStackTrace();
+            }
+        }else{
+            //已经存在了解锁数据
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 
 }

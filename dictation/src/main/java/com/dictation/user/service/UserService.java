@@ -83,6 +83,10 @@ public interface UserService {
     //获取用户积分记录
     List<CreditRecord> checkUserCreditRecord(int id);
 
+    //解锁单元
+    boolean unlockUnit(int id,int unitId);
+
+
 
 
 

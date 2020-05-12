@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dictation.mapper.UserMapper">
+
+
+    <resultMap id="userMap" type="com.dictation.user.entity.User">
+        <id property="uid" column="id"/>
+        <result property="uname" column="user_name"/>
+        <result property="ucity" column="user_city"/>
+        <result property="uphone" column="user_phone"/>
+        <result property="uheadPath" column="user_head_path"/>
+        <result property="upassword" column="user_password"/>
+        <result property="ubirth" column="user_birth"/>
+        <result property="vip" column="is_vip"/>
+        <result property="is_admin" column="is_admin"/>
+        <result property="usex" column="user_sex"/>
+        <result property="ugrade" column="user_grade"/>
+        <result property="userCredit" column="user_credit"/>
+        <result property="accumulateStudyTime" column="accumulate_study_time"/>
+        <result property="accumulateStudyWords" column="accumulate_study_words"/>
+        <result property="accumulateSignIn" column="accumulate_sign_in"/>
+        <result property="continuousSignIn" column="continuous_sign_in"/>
+        <result property="lastSignInTime" column="last_sign_in_time"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="unlockList" ofType="com.dictation.user.entity.Unlock" column="id" select="findUnlockByUser"/>
+
+    </resultMap>
+
+
+    <resultMap id="unlockMap" type="com.dictation.user.entity.Unlock">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="unitId" column="unit_id"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+    <select id="findUnlockByUser" resultType="com.dictation.user.entity.Unlock" resultMap="unlockMap">
+        select * from tbl_unit_unlock_record where user_id = #{id}
+    </select>
+
+
+
+
+</mapper>

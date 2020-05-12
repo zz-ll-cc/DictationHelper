@@ -323,6 +323,12 @@ public class UserController {
     }
 
 
+    @RequestMapping("/unlockUnit")
+    public String unlockUnit(@RequestParam("userId") Integer userId, @RequestParam("unitId") Integer unitId){
+        return userService.unlockUnit(userId,unitId) ? "成功" : "失败" ;
+
+    }
+
 
 
 

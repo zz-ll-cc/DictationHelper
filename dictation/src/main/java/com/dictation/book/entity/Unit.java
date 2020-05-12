@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName Unit
@@ -17,7 +18,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "tbl_unit")
+@TableName(value = "tbl_unit", resultMap = "unitMap")
 public class Unit {
 
     @TableId(type = IdType.AUTO,value = "id")
@@ -31,6 +32,8 @@ public class Unit {
 
     private Integer type;
 
+    private Integer cost;
+
     @Version
     private Integer version;
 
@@ -42,6 +45,10 @@ public class Unit {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    @TableField(exist = false)
+    private List<Word> wordList;
+
 
 
 }

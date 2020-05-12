@@ -1,17 +1,9 @@
 package com.dictation.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dictation.book.entity.Book;
+import com.dictation.user.entity.Unlock;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-
 @Component
-public interface BookMapper extends BaseMapper<Book> {
-
-
-
-
+public interface UnlockMapper extends BaseMapper<Unlock> {
 }

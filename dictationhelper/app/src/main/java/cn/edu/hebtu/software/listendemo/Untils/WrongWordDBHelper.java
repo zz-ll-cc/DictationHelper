@@ -17,9 +17,9 @@ public class WrongWordDBHelper extends SQLiteOpenHelper {
         //初始化数据库操作。并且是第一次打开数据库时调用
         String createSQL="CREATE TABLE TBL_WRONGWORD(" +
                 "WID INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "WENGLISH TEXT,WCHINESE TEXT,WIMGPATH TEXT,UNID INT,BID INT,TYPE INT,ISTRUE INT,ADDTIME DATE)";
+                "WENGLISH TEXT,WCHINESE TEXT,WIMGPATH TEXT," +
+                "UNID INT,BID INT,TYPE INT,ISTRUE INT,ADDTIME DATE)";
         db.execSQL(createSQL);
-        Log.e("WrongWordHelper","onCreate");
     }
 
     //更新数据库版本

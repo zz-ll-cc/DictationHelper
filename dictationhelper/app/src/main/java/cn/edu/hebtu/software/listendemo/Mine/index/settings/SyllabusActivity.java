@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -246,8 +247,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             }
                         } else {
                             title.get(0).put("tag", "false");
-                            title.get(0).put("task", "学习30分钟");
-                            title.get(0).put("add_credit", "+3积分");
+                            title.get(0).put("task", "学习10分钟");
+                            title.get(0).put("add_credit", "+1积分");
                         }
                     } else {
                         if (records.get("学习10分钟").equals("true")) {
@@ -503,7 +504,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 //签到框
                 //创建并显示自定义的dialog
-                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this);
+                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this,sp,calendarAdapter,tvCreditSum,tvSignDayContinue,tvSignDaySum,monthPager);
                 dialog.setCancelable(false);
                 dialog.show(getSupportFragmentManager(), "sign");
                 calendarAdapter.notifyDataChanged();
@@ -522,8 +523,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        monthPager.requestLayout();
         if (hasFocus && !initiated) {
-            //refreshMonthPager();
+//            refreshMonthPager();
             initiated = true;
         }
     }
@@ -535,6 +537,11 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        calendarAdapter.switchToWeek(monthPager.getRowIndex());
 //        refreshMonthPager();
         super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void refreshClickDate(CalendarDate date) {
@@ -554,12 +561,12 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         tvMonth.setText(today.getMonth() + "");
     }
 
-//    private void refreshSelectBackground() {
-//        ThemeDayView themeDayView = new ThemeDayView(context, R.layout.custom_day_focus);
-//        calendarAdapter.setCustomDayRenderer(themeDayView);
-//        calendarAdapter.notifyDataSetChanged();
-//        calendarAdapter.notifyDataChanged(new CalendarDate());
-//    }
+    public void refreshSelectBackground() {
+        ThemeDayView themeDayView = new ThemeDayView(context, R.layout.custom_day_focus);
+        calendarAdapter.setCustomDayRenderer(themeDayView);
+        calendarAdapter.notifyDataSetChanged();
+        calendarAdapter.notifyDataChanged(new CalendarDate());
+    }
 
     @SuppressWarnings("ResourceType")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

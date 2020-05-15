@@ -9,8 +9,9 @@
         android:id="@+id/tv_sign_content"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:gravity="center"
+       android:gravity="center"
         android:padding="10dp"
+        android:text="vvvvvvvvvvvvvvvvvvvv"
         android:textColor="#000"
         android:textSize="18dp" />
 

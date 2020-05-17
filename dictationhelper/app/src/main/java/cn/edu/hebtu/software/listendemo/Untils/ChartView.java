@@ -14,8 +14,8 @@ public class ChartView extends View {
     public int YPoint = Constant.point.y /3;     //原点的Y坐标
     public int XScale = 55;     //X的刻度长度
     public int YScale = 40;     //Y的刻度长度
-    public int XLength = Constant.point.x - 150;        //X轴的长度
-    public int YLength = Constant.point.y / 2 - 700;        //Y轴的长度
+    public int XLength = Constant.point.x - 130;        //X轴的长度
+    public int YLength = Constant.point.y / 2 - 450;        //Y轴的长度
     public String[] XLabel;    //X的刻度
     public String[] YLabel;    //Y的刻度
     public String[] Data;      //数据
@@ -52,9 +52,9 @@ public class ChartView extends View {
         Paint xyPaint = new Paint();
         xyPaint.setStyle(Paint.Style.STROKE);
         xyPaint.setAntiAlias(true);//去锯齿
-        xyPaint.setColor(Color.BLACK);//颜色
-        xyPaint.setTextSize(20);
-        xyPaint.setStrokeWidth(2);
+        xyPaint.setColor(getResources().getColor(R.color.gray));//颜色
+        xyPaint.setTextSize(25);
+        xyPaint.setStrokeWidth(3);
 
         //单位
         Paint dwPaint = new Paint();
@@ -69,7 +69,7 @@ public class ChartView extends View {
         textpaint.setStyle(Paint.Style.FILL_AND_STROKE);
         textpaint.setAntiAlias(true);//去锯齿
         textpaint.setColor(Color.BLACK);
-        textpaint.setTextSize(20);  //设置轴文字大小
+        textpaint.setTextSize(spToPx(12));  //设置轴文字大小
 
         //折线
         Paint linepaint = new Paint();
@@ -85,7 +85,7 @@ public class ChartView extends View {
         linepoint.setAntiAlias(true);//去锯齿
         linepoint.setColor(getResources().getColor(R.color.yellow_deep));//颜色
         linepoint.setTextSize(60);
-        linepoint.setStrokeWidth(25);
+        linepoint.setStrokeWidth(15);
 
         //设置Y轴
         canvas.drawLine(XPoint, YPoint - YLength, XPoint, YPoint, xyPaint);   //轴线
@@ -97,8 +97,8 @@ public class ChartView extends View {
                 e.printStackTrace();
             }
         }
-        canvas.drawLine(XPoint, YPoint - YLength, XPoint - 3, YPoint - YLength + 6, linepaint);  //箭头
-        canvas.drawLine(XPoint, YPoint - YLength, XPoint + 3, YPoint - YLength + 6, linepaint);
+        canvas.drawLine(XPoint, YPoint - YLength, XPoint - 3, YPoint - YLength + 6, xyPaint);  //箭头
+        canvas.drawLine(XPoint, YPoint - YLength, XPoint + 3, YPoint - YLength + 6, xyPaint);
        //设置字体的大小角度等
         drawText(canvas, danwei, XPoint - 50, YPoint - YLength + YScale - 100, dwPaint, -30);
 
@@ -150,5 +150,14 @@ public class ChartView extends View {
         }
         return y;
     }
-
+    /**
+     * sp转化为px
+     *
+     * @param sp
+     * @return
+     */
+    private int spToPx(int sp) {
+        float scaledDensity = getContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (scaledDensity * sp + 0.5f * (sp >= 0 ? 1 : -1));
+    }
 }

@@ -36,7 +36,7 @@ public class ThemeDayView extends DayView {
     @Override
     public void refreshContent() {
         CalendarDate date = day.getDate();
-        Log.e("tt3",date.getDay()+"");
+//        Log.e("tt3",date.getDay()+"");
         State state = day.getState();
         if (date != null) {
             if (date.equals(today)) {

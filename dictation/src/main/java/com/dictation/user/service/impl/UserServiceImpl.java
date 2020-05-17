@@ -613,6 +613,7 @@ public class UserServiceImpl implements UserService {
             logger.error("reSignIn：不能补签今天，或今天以后，传入的formatDate为：" + formatDate);
             return false;
         }
+
         String key = redisUtil.createUserSignInKey(id, String.valueOf(calendar.get(Calendar.YEAR)));
 
 
@@ -628,9 +629,6 @@ public class UserServiceImpl implements UserService {
             b = redisUtil.setBit(key,calendar.get(Calendar.DAY_OF_YEAR),false);
             logger.error("remedySignIn:失败了 , 缓存签到：" + a + " , 数据库修改：" + u + ", 缓存回滚：" + b);
         }
-
-
-
         return true;
     }
 

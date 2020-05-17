@@ -26,6 +26,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
@@ -93,6 +95,7 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
                     word.put("BID", w.getBid());
                     word.put("TYPE", w.getType());
                     word.put("ISTRUE", w.getIsTrue());
+                    word.put("ADDTIME",new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                     long row = database.insert("TBL_NEWWORD", null, word);
                     Log.e("插入生词的行号", row + "");
                     Toast.makeText(context, "添加成功", Toast.LENGTH_LONG).show();

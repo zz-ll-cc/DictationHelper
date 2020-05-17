@@ -95,7 +95,6 @@ public class ListenResultActivity extends AppCompatActivity {
         for (int i = 0; i < successList.size(); i++) {
             successList.get(i).setIsTrue(Constant.SPELL_TRUE);
             if (mineList.get(i).getWenglish().equals(successList.get(i).getWenglish())) {
-                Log.e("ccccccccccc",mineList.get(i)+"");
                 mineList.get(i).setIsTrue(Constant.SPELL_TRUE);
                 Word w1=successList.get(i);
                 Cursor cursor1 =currectdatabase.query("TBL_CURRECTWORD", null, "WENGLISH=?", new String[]{w1.getWenglish()}, null, null, null);

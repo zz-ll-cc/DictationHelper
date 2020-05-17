@@ -2,7 +2,6 @@ package cn.edu.hebtu.software.listendemo.Record.index;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +16,20 @@ import android.widget.TextView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
+
+import static cn.edu.hebtu.software.listendemo.Record.index.NewWordActivity.DELETE_FROM;
+import static cn.edu.hebtu.software.listendemo.Record.index.NewWordActivity.DELETE_FROM_NEW_WORD;
+import static cn.edu.hebtu.software.listendemo.Record.index.NewWordActivity.DELETE_ITEM_TIME;
+import static cn.edu.hebtu.software.listendemo.Record.index.WrongWordActivity.DELETE_FROM_WRONG_WORD;
 
 
 public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
@@ -32,14 +40,17 @@ public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
     private ImageView ivEmpty;
     private RelativeLayout rlEmpty;
     private LinearLayout llHave;
-
-    public NewWordRecyclerViewAdapter(Context context, List words, int itemId,ImageView ivEmpty,RelativeLayout rlEmpty,LinearLayout llHave) {
+    private String addTime;
+    private TextView tvCount;
+    public NewWordRecyclerViewAdapter(Context context, List words, int itemId, ImageView ivEmpty, RelativeLayout rlEmpty, LinearLayout llHave, String addTime,TextView tvCount) {
         this.context = context;
         this.itemId = itemId;
         this.words = words;
         this.rlEmpty = rlEmpty;
         this.ivEmpty = ivEmpty;
         this.llHave = llHave;
+        this.addTime = addTime;
+        this.tvCount = tvCount;
     }
 
     @NonNull
@@ -64,14 +75,12 @@ public class NewWordRecyclerViewAdapter extends RecyclerView.Adapter {
                 int row2 = database.delete("TBL_NEWWORD", "WENGLISH=?", new String[]{words.get(i).getWenglish()});
                 Log.e("删除了", words.get(i).getWenglish() + "即" + row2 + "条数据");
                 words.remove(i);
-                if (words.isEmpty()){
-                    rlEmpty.setVisibility(View.VISIBLE);
-                    ivEmpty.setImageResource(R.drawable.empty_new);
-                    rlEmpty.setBackgroundColor(Color.parseColor("#C6DBDE"));
-                    llHave.setVisibility(View.GONE);
-                }else{
-                    rlEmpty.setVisibility(View.GONE);
-                    llHave.setVisibility(View.VISIBLE);
+                tvCount.setText(words.size()+"");
+                if (words.isEmpty()) {
+                    Map<String, Object> deleteMap = new HashMap<>();
+                    deleteMap.put(DELETE_FROM, DELETE_FROM_WRONG_WORD);
+                    deleteMap.put(DELETE_ITEM_TIME, addTime);
+                    EventBus.getDefault().post(deleteMap);
                 }
                 notifyDataSetChanged();
             }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_record_item_header"
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+
+        <ImageView android:layout_height="2.5dp"
+            android:layout_width="2.5dp"
+            android:src="@drawable/cricle"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="11dp"
+            />
+        <TextView
+            android:id="@+id/tv_record_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:text="2020年4月5日"
+            android:gravity="bottom"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_record_item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/tv_record_item_time"
+            android:text="2"
+            android:gravity="bottom"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/tv_record_item_count"
+            android:text="词"
+            android:gravity="bottom"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="5dp"
+        android:id="@+id/rcv_record_item_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_record_item_header"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+</RelativeLayout>

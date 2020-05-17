@@ -228,23 +228,10 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 if (canDownMap.get(unit.getUnid())) {
                     myViewHolder.ivShowAll.setEnabled(false);
                     canDownMap.put(unit.getUnid(), false);
-                    /*
-                        TODO:   在这里显示和隐藏
-                     */
-//                    ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(
-//                            myViewHolder.ivShowAll, "rotationX", 180.0f, 360.0f
-//                    );
-////                    rotateAnimator.setDuration(500);
-//                    rotateAnimator.start();
                     myViewHolder.ivShowAll.setEnabled(true);
                 } else {
                     myViewHolder.ivShowAll.setEnabled(false);
                     canDownMap.put(unit.getUnid(), true);
-//                    ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(
-//                            myViewHolder.ivShowAll, "rotationX", 0.0f, 180.0f
-//                    );
-////                    rotateAnimator.setDuration(500);
-//                    rotateAnimator.start();
                     myViewHolder.ivShowAll.setEnabled(true);
                 }
                 notifyDataSetChanged();
@@ -272,20 +259,10 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 if (canDownMap.get(unit.getUnid())) {
                     myViewHolder.ivShowAll.setEnabled(false);
                     canDownMap.put(unit.getUnid(), false);
-//                    ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(
-//                            myViewHolder.ivShowAll, "rotationX", 180.0f, 360.0f
-//                    );
-////                    rotateAnimator.setDuration(500);
-//                    rotateAnimator.start();
                     myViewHolder.ivShowAll.setEnabled(true);
                 } else {
                     myViewHolder.ivShowAll.setEnabled(false);
                     canDownMap.put(unit.getUnid(), true);
-//                    ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(
-//                            myViewHolder.ivShowAll, "rotationX", 0.0f, 180.0f
-//                    );
-////                    rotateAnimator.setDuration(500);
-//                    rotateAnimator.start();
                     myViewHolder.ivShowAll.setEnabled(true);
                 }
                 notifyDataSetChanged();

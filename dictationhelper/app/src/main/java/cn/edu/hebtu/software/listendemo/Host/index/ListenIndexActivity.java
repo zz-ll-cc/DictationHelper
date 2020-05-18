@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -111,7 +113,7 @@ public class ListenIndexActivity extends AppCompatActivity {
         rlOut.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         posX = event.getX();
                         posY = event.getY();
@@ -121,12 +123,11 @@ public class ListenIndexActivity extends AppCompatActivity {
                         curPosY = event.getY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        if ((curPosY - posY > 0) && (Math.abs(curPosY - posY) > 50)){
-                            if (curFragment instanceof HostFragment){
+                        if ((curPosY - posY > 0) && (Math.abs(curPosY - posY) > 50)) {
+                            if (curFragment instanceof HostFragment) {
                                 Intent intent = new Intent(ListenIndexActivity.this, SearchWordActivity.class);
                                 startActivity(intent);
-                                // todo: 修改进入样式
-                                overridePendingTransition(R.anim.out_search_to_up,R.anim.in_search_from_down);
+                                overridePendingTransition(R.anim.out_search_to_up, R.anim.in_search_from_down);
                             }
                         }
                         break;
@@ -145,9 +146,34 @@ public class ListenIndexActivity extends AppCompatActivity {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        }
         StatusBarUtil.statusBarLightMode(this);
-
+//        getUserUnLockMsg(user.getUid());
         updateUser(user.getUid());
-        Log.e("updateUser","更新lastLoginTime然后存入缓存");
+        Log.e("updateUser", "更新lastLoginTime然后存入缓存");
+    }
+
+    private void getUserUnLockMsg(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("updateUser", "" + json);
+            }
+        });
     }
 
 
@@ -283,6 +309,4 @@ public class ListenIndexActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

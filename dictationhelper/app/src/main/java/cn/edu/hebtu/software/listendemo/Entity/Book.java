@@ -1,7 +1,8 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Book implements Serializable {
     private int bid;
@@ -12,13 +13,8 @@ public class Book implements Serializable {
     private int bunitAccount;
     private int bookWordVersion;
 
-    public int getBookWordVersion() {
-        return bookWordVersion;
-    }
+    private List<Unit> units = new ArrayList<>();
 
-    public void setBookWordVersion(int bookWordVersion) {
-        this.bookWordVersion = bookWordVersion;
-    }
 
     private int deleted;
     private int version;
@@ -63,6 +59,22 @@ public class Book implements Serializable {
 
     public void setBunitAccount(int bunitAccount) {
         this.bunitAccount = bunitAccount;
+    }
+
+    public List<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<Unit> units) {
+        this.units = units;
+    }
+
+    public int getBookWordVersion() {
+        return bookWordVersion;
+    }
+
+    public void setBookWordVersion(int bookWordVersion) {
+        this.bookWordVersion = bookWordVersion;
     }
 
     @Override

@@ -44,11 +44,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.edu.hebtu.software.listendemo.Entity.Book;
+import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.Host.searchBook.SearchBookActivity;
@@ -66,16 +66,18 @@ import okhttp3.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity.POST_FROM_BOOK_DETAIL;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_BOOK;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_UNIT;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
 
 public class HostFragment extends Fragment {
     private static final int GET_WORDS = 2000;
+    private static final int GET_UNITS = 2001;
     private LinearLayout llFindBooks;
     private LinearLayout llContinueStudy;
     private List<Book> res = new ArrayList<>();
-    private List<Word> initWords ;
+    private List<Word> initWords;
     private HostRecyclerAdapter adapter = null;
     private RecyclerView recyclerView = null;
     private SharedPreferences sp = ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
@@ -110,15 +112,38 @@ public class HostFragment extends Fragment {
                     initData();
                     initRecyView();
                     setListener();
+                    break;
+                case GET_UNITS:
+                    makeUnitData2DB((List<Unit>) msg.obj);
+                    initData();
+                    initRecyView();
+                    setListener();
+                    break;
             }
         }
     };
+
+    private void makeUnitData2DB(List<Unit> units) {
+        for (Unit unit : units) {
+            ContentValues cv = new ContentValues();
+            cv.put("bid",unit.getBid());
+            cv.put("unid",unit.getUnid());
+            cv.put("type",unit.getType());
+            cv.put("cost",unit.getCost());
+            cv.put("unName",unit.getUnName());
+            cv.put("deleted",unit.getDeleted());
+            cv.put("version",unit.getVersion());
+            cv.put("createTime", unit.getCreateTime());
+            cv.put("updateTime", unit.getUpdateTime());
+            bookDB.insert(TBL_UNIT,null,cv);
+        }
+    }
 
     /**
      * 将单词初始数据写入sqlite
      */
     private void makeWordData2DB() {
-        for (Word word:initWords){
+        for (Word word : initWords) {
             ContentValues cv = new ContentValues();
             cv.put("wid", word.getWid());
             cv.put("bid", word.getBid());
@@ -139,22 +164,22 @@ public class HostFragment extends Fragment {
      * 将相关数据写入db
      */
     private void makeBookData2DB() {
-        for (Book book : res){
+        for (Book book : res) {
             ContentValues cv = new ContentValues();
-            cv.put("bid",book.getBid());
-            cv.put("bvid",book.getBvid());
-            cv.put("bimgPath",book.getBimgPath());
-            cv.put("gid",book.getGid());
-            cv.put("bname",book.getBname());
-            cv.put("bookWordVersion",book.getBookWordVersion());
-            cv.put("bunitAccount",book.getBunitAccount());
-            cv.put("createTime",book.getCreateTime());
-            cv.put("updateTime",book.getUpdateTime());
-            cv.put("version",book.getVersion());
-            cv.put("deleted",book.getDeleted());
-            int exists = bookDB.update(TBL_BOOK,cv,"bid = ?",new String[]{book+""});
-            if (exists == 0){
-                bookDB.insert(TBL_BOOK,null,cv);
+            cv.put("bid", book.getBid());
+            cv.put("bvid", book.getBvid());
+            cv.put("bimgPath", book.getBimgPath());
+            cv.put("gid", book.getGid());
+            cv.put("bname", book.getBname());
+            cv.put("bookWordVersion", book.getBookWordVersion());
+            cv.put("bunitAccount", book.getBunitAccount());
+            cv.put("createTime", book.getCreateTime());
+            cv.put("updateTime", book.getUpdateTime());
+            cv.put("version", book.getVersion());
+            cv.put("deleted", book.getDeleted());
+            int exists = bookDB.update(TBL_BOOK, cv, "bid = ?", new String[]{book + ""});
+            if (exists == 0) {
+                bookDB.insert(TBL_BOOK, null, cv);
             }
         }
     }
@@ -165,7 +190,7 @@ public class HostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_host, container, false);
-        bookDBHelper = new BookUnitWordDBHelper(ListenIndexActivity.activity,BOOK_UNIT_WORD_DBNAME,1);
+        bookDBHelper = new BookUnitWordDBHelper(ListenIndexActivity.activity, BOOK_UNIT_WORD_DBNAME, 1);
         bookDB = bookDBHelper.getWritableDatabase();
         EventBus.getDefault().register(this);
         ButterKnife.bind(this, view);
@@ -182,13 +207,13 @@ public class HostFragment extends Fragment {
 
     private void getInitWords() {
         long wordCount = -1;
-        Cursor cursor = bookDB.query(TBL_WORD,new String[]{"count(wid) wordCount"},null,null,null,null,null);
-        if (cursor.moveToFirst()){
+        Cursor cursor = bookDB.query(TBL_WORD, new String[]{"count(wid) wordCount"}, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
             wordCount = cursor.getLong(cursor.getColumnIndex("wordCount"));
         }
         if (wordCount == 0) {
             FormBody fb = new FormBody.Builder().build();
-            Request request = new Request.Builder().url(Constant.GET_INIT_ALL_WORD).build();
+            Request request = new Request.Builder().url(Constant.URL_GET_INIT_ALL_WORD).build();
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
@@ -252,9 +277,10 @@ public class HostFragment extends Fragment {
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         // 先对本地数据库进行查询所有操作
-        Cursor cursor = bookDB.query(TBL_BOOK,null,null,null,null,null,null);
+        Cursor cursor = bookDB.query(TBL_BOOK, null, null, null, null, null, null);
+        Cursor cursor1 = bookDB.query(TBL_UNIT, null, null, null, null, null, null);
         // 此时有数据，不用去进行网络请求
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             res.clear();
             do {
                 Book book = new Book();
@@ -270,8 +296,8 @@ public class HostFragment extends Fragment {
                 book.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
                 book.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
                 res.add(book);
-            }while (cursor.moveToNext());
-        }else { // 此时数据库里边没有相关数据，需要发送网络请求获取
+            } while (cursor.moveToNext());
+        } else { // 此时数据库里边没有相关数据，需要发送网络请求获取
             FormBody fb = new FormBody.Builder().build();
             Request request = new Request.Builder().url(Constant.URL_BOOKS_FIND_ALL).build();
             Call call = client.newCall(request);
@@ -289,6 +315,28 @@ public class HostFragment extends Fragment {
                     Type type = new TypeToken<List<Book>>() {
                     }.getType();
                     res = gson.fromJson(jsonBooks, type);
+                    handler.sendMessage(message);
+                }
+            });
+        }
+        if (!cursor1.moveToFirst()) {    // 此时没有装填unit的数据
+            FormBody fb = new FormBody.Builder().build();
+            Request request = new Request.Builder().url(Constant.URL_GET_INIT_ALL_UNIT).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String jsonUnits = response.body().string();
+                    Message message = new Message();
+                    message.what = GET_UNITS;
+                    Type type = new TypeToken<List<Unit>>() {
+                    }.getType();
+                    message.obj = gson.fromJson(jsonUnits, type);
                     handler.sendMessage(message);
                 }
             });
@@ -313,13 +361,13 @@ public class HostFragment extends Fragment {
     public static final String CHANGE_FROM = "changeFrom";
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeBookWordVersionRes(Map<String,Object> map){
-        switch (map.get(CHANGE_FROM).toString()){
+    public void changeBookWordVersionRes(Map<String, Object> map) {
+        switch (map.get(CHANGE_FROM).toString()) {
             case POST_FROM_BOOK_DETAIL:
-                for(int i=0 ; i<res.size();i++){
+                for (int i = 0; i < res.size(); i++) {
                     Book book = res.get(i);
-                    if (book.getBid() == (int)map.get("bid")){
-                        book.setBookWordVersion((int)map.get("bookWordVersion"));
+                    if (book.getBid() == (int) map.get("bid")) {
+                        book.setBookWordVersion((int) map.get("bookWordVersion"));
                         adapter.notifyDataSetChanged();
                         break;
                     }
@@ -327,6 +375,7 @@ public class HostFragment extends Fragment {
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

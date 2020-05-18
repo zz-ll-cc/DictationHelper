@@ -104,10 +104,13 @@ public class Constant {
     // 搜索历史存放的数据库名称
     public static final String SEARCH_HISTORY_DBNAME = "search_history.db";
     // 获取初始化所有单词
-    public static final String GET_INIT_ALL_WORD = BASE_URL + "word/findallwords";
+    public static final String URL_GET_INIT_ALL_WORD = BASE_URL + "word/findallwords";
     // 打开书详情时，检测有没有更新
-    public static final String CHECK_BOOK_DETAIL_VERSION = BASE_URL + "book/checkbookversion";
-
+    public static final String URL_CHECK_BOOK_DETAIL_VERSION = BASE_URL + "book/checkbookversion";
+    // 获取单元信息
+    public static final String URL_GET_INIT_ALL_UNIT = BASE_URL + "unit/all";
+    // 解锁unit
+    public static final String URL_USER_UNLOCK_UNIT = BASE_URL + "user/unlockUnit";
     //积分
     public static final String URL_GET_SIGNDAY = BASE_URL + "/user/check";
     public static final String URL_SIGN_IN = BASE_URL + "/user/signIn";

@@ -2,20 +2,28 @@ package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Unit implements Serializable {
+    public static final int TYPE_LOCK = 1;
+    public static final int TYPE_UNLOCK = 0;
     private List<Word> words = new ArrayList<>();
     private int unid;
     private int bid;
     private int type;
     private String unName;
-    private String unTitle;
+    private Integer cost;
     private int deleted;
     private int version;
     private String createTime;
     private String updateTime;
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
 
     public int getDeleted() {
         return deleted;
@@ -57,7 +65,6 @@ public class Unit implements Serializable {
                 ", bid=" + bid +
                 ", type=" + type +
                 ", unName='" + unName + '\'' +
-                ", unTitle='" + unTitle + '\'' +
                 '}';
     }
 
@@ -83,14 +90,6 @@ public class Unit implements Serializable {
 
     public void setUnName(String unName) {
         this.unName = unName;
-    }
-
-    public String getUnTitle() {
-        return unTitle;
-    }
-
-    public void setUnTitle(String unTitle) {
-        this.unTitle = unTitle;
     }
 
     public int getBid() {

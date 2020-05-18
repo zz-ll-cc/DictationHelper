@@ -1,7 +1,9 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
     private int uid;
@@ -27,7 +29,7 @@ public class User implements Serializable {
     private Integer continuousSignIn;
     private String lastSignInTime;
     private String lastLoginTime;
-
+    private List<UnLock> unLockList = new ArrayList<>();
     @Override
     public String toString() {
         return "User{" +
@@ -234,5 +236,13 @@ public class User implements Serializable {
 
     public void setContinuousSignIn(Integer continuousSignIn) {
         this.continuousSignIn = continuousSignIn;
+    }
+
+    public List<UnLock> getUnLockList() {
+        return unLockList;
+    }
+
+    public void setUnLockList(List<UnLock> unLockList) {
+        this.unLockList = unLockList;
     }
 }

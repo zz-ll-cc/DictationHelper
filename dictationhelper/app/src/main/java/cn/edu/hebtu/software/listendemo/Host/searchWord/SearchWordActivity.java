@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -86,6 +87,10 @@ public class SearchWordActivity extends AppCompatActivity implements View.OnClic
 
     // 发音
     private ReadManager readManager = new ReadManager(SearchWordActivity.this,"");
+
+    // 点记录
+    private float posY;
+    private float curPosY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

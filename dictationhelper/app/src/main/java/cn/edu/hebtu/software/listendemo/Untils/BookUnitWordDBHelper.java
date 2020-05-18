@@ -40,7 +40,8 @@ public class BookUnitWordDBHelper extends SQLiteOpenHelper {
         String createUnitSql = "CREATE TABLE " + TBL_UNIT + " (" +
                 "unid INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "bid INTEGER,type INTEGER," +
-                "unName TEXT,unTitle TEXT," +
+                "unName TEXT," +
+                "cost INTEGER," +
                 "deleted INTEGER," +
                 "version INTEGER," +
                 "createTime TEXT," +

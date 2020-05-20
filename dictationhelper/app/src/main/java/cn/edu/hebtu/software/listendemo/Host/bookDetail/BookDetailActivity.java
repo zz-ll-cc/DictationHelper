@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -507,7 +508,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user);
+        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user,BookDetailActivity.this,getSupportFragmentManager());
         rvBookDetail.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);   // 默认设置垂直布局
         rvBookDetail.setLayoutManager(layoutManager);

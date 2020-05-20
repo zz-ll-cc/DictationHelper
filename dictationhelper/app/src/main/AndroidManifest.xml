@@ -51,6 +51,10 @@
             android:configChanges="orientation|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity android:name=".Host.listenWord.ListenWordPaperActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Host.listenWord.ListenResultSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Host.bookDetail.BookDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />

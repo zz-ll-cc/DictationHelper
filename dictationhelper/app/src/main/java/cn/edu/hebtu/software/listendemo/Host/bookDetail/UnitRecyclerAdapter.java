@@ -1,16 +1,20 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -38,6 +42,7 @@ import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
+import cn.edu.hebtu.software.listendemo.Host.listenWord.CustomDialogListenSelect;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -49,6 +54,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UnitRecyclerAdapter extends RecyclerView.Adapter {
+    private FragmentManager fragmentManager;
+    private Activity activity;
     private Context context;
     private int layout_item_id;
     private List<Unit> unitList;
@@ -67,7 +74,7 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
 
     public UnitRecyclerAdapter(Context context, int layout_item_id, List<Unit> unitList,
                                CheckBox cbChooseAll, LinearLayout llRecite, LinearLayout llDictation,
-                               User user) {
+                               User user, Activity activity, FragmentManager fragmentManager) {
         this.cbChooseAll = cbChooseAll;
         this.context = context;
         this.layout_item_id = layout_item_id;
@@ -75,6 +82,8 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         this.llRecite = llRecite;
         this.llDictation = llDictation;
         this.user = user;
+        this.activity=activity;
+        this.fragmentManager=fragmentManager;
         initData();
     }
 
@@ -178,16 +187,21 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 if (chooseWords.isEmpty()) {
                     Toast.makeText(context, "请选择默写单元", Toast.LENGTH_SHORT).show();
                 } else {
-                    // 只传递重点单词到背诵
-                    List<Word> dicWord = new ArrayList<>();
-                    for (Word word : chooseWords) {
-                        if (word.getType() == Word.TYPE_KEYNODE)
-                            dicWord.add(word);
-                    }
+//                    // 只传递重点单词到背诵
+//                    List<Word> dicWord = new ArrayList<>();
+//                    for (Word word : chooseWords) {
+//                        if (word.getType() == Word.TYPE_KEYNODE)
+//                            dicWord.add(word);
+//                    }
 
-                    Intent intent = new Intent(context, ListenWordActivity.class);
-                    intent.putExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION, new Gson().toJson(dicWord));
-                    context.startActivity(intent);
+
+//                    Intent intent = new Intent(context, ListenWordActivity.class);
+//                    intent.putExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION, new Gson().toJson(dicWord));
+//                    context.startActivity(intent);
+
+                    CustomDialogListenSelect dialog=new CustomDialogListenSelect(chooseWords,activity);
+                    dialog.setCancelable(false);
+                    dialog.show(fragmentManager,"listenSelect");
                 }
             }
         });

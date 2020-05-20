@@ -5,6 +5,7 @@ import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
 import com.dictation.util.TimeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -341,6 +342,9 @@ public class UserController {
         String result = null;
         try {
             result = new ObjectMapper().writeValueAsString(userService.findUserCreditRecordByPaging(userId,size,currentPage));
+            JavaType javaType = new ObjectMapper().getTypeFactory().constructCollectionType(List.class,CreditRecord.class);
+            List<CreditRecord> creditRecords = new ObjectMapper().readValue(result,javaType);
+            System.out.println(creditRecords);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

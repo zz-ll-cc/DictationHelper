@@ -1,6 +1,7 @@
 package com.dictation.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -65,8 +66,10 @@ public class User {
 
     private Integer continuousSignIn;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date lastSignInTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date lastLoginTime;
 
     @Version
@@ -76,9 +79,11 @@ public class User {
     private Integer deleted;    // 逻辑删除
 
     @TableField(fill = FieldFill.INSERT)    //插入时填充
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE) // 插入和修改时填充
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date updateTime;
 
 

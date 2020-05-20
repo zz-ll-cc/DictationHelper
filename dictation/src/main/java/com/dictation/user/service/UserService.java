@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @ClassName: UserService
  * @Description: TODO
- * @Author: szy
+ * @Author: szy, zlc
  * @Date 2020/4/14
  */
 public interface UserService {
@@ -86,7 +86,8 @@ public interface UserService {
     //解锁单元
     boolean unlockUnit(int id,int unitId);
 
-
+    //获取用户全部积分记录，分页
+    List<CreditRecord> findUserCreditRecordByPaging(Integer id, int pageSize, int pageNum);
 
 
 

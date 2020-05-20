@@ -80,13 +80,13 @@ class DictationApplicationTests {
 
         //signin:{uid}:{week_of_year}
         //activeuser:simpleDateFormat.format(date);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_YEAR,1);
-        Date date = calendar.getTime();
-
-        System.out.println(simpleDateFormat.format(date));
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.DAY_OF_YEAR,1);
+//        Date date = calendar.getTime();
+//
+//        System.out.println(simpleDateFormat.format(date));
 
 //        calendar.setTime(new Date());
 //        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -110,6 +110,6 @@ class DictationApplicationTests {
 
     @Test
     void name() {
-
+        System.out.println(userService.findUserCreditRecordByPaging(10124, 2, 1));
     }
 }

@@ -1,6 +1,7 @@
 package com.dictation.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dictation.book.entity.Unit;
 import com.dictation.book.service.UnitService;
 import com.dictation.mapper.CreditRecordMapper;
@@ -417,16 +418,22 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     * 这里会计算一下当前的连续签到，修改user的累计签到，保存
+     * 这里会计算一下当前的连续签到，修改user的累计签到，修改用户积分，保存(启用事务)
      *
      * @param id
      * @param accumulate_increment
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User updateUserSignIn(int id,int accumulate_increment) {
 
         User user = this.findUserByUid(id);
+
+        //修改用户积分
+        user.setUserCredit(user.getUserCredit() - 2);
+        creditRecordMapper.insert(new CreditRecord().setIncrement(ReasonEnum.BQ.getCreditNum()).setUserId(id).setReason(ReasonEnum.BQ.getReason()));
+
         user.setAccumulateSignIn(user.getAccumulateSignIn() + accumulate_increment);
 
         int total = 0;
@@ -632,6 +639,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * 获取用户今天的积分记录
+     * @param id
+     * @return
+     */
     @Override
     public List<CreditRecord> checkUserCreditRecord(int id) {
         QueryWrapper<CreditRecord> queryWrapper = new QueryWrapper<>();
@@ -684,7 +696,14 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
+    @Override
+    public List<CreditRecord> findUserCreditRecordByPaging(Integer id, int pageSize, int pageNum) {
+        Page<CreditRecord> creditRecordPage = new Page<>(pageNum,pageSize);
+        QueryWrapper<CreditRecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",id).orderByDesc("create_time");
+        creditRecordMapper.selectPage(creditRecordPage,queryWrapper);
+        return creditRecordPage.getRecords();
+    }
 
 
 }

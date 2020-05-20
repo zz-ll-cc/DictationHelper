@@ -290,7 +290,11 @@ public class UserController {
     }
 
 
-
+    /**
+     * 检查用户今天是否签到过
+     * @param id
+     * @return
+     */
     @RequestMapping("/checkCreditRecord")
     public String checkCreditRecord(@RequestParam("id") int id){
         ObjectMapper objectMapper = new ObjectMapper();
@@ -327,6 +331,20 @@ public class UserController {
     public String unlockUnit(@RequestParam("userId") Integer userId, @RequestParam("unitId") Integer unitId){
         return userService.unlockUnit(userId,unitId) ? "成功" : "失败" ;
 
+    }
+
+    @RequestMapping("/getUserCreditRecord")
+    public String getUserCreditRecord(@RequestParam("userId") Integer userId, @RequestParam(value = "pageSize", required = false) Integer size, @RequestParam(value = "currentPage",required = false) Integer currentPage){
+        //如果不传pageSize，默认的每页数据为10条
+        if(size == null) size = 10;
+        if(currentPage == null) currentPage = 1;
+        String result = null;
+        try {
+            result = new ObjectMapper().writeValueAsString(userService.findUserCreditRecordByPaging(userId,size,currentPage));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

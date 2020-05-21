@@ -1,5 +1,8 @@
 package com.dictation.user.controller;
 
+import com.dictation.message.entity.Message;
+import com.dictation.message.entity.MessageRecord;
+import com.dictation.message.service.MessageService;
 import com.dictation.user.entity.*;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
@@ -19,7 +22,7 @@ import java.util.*;
 /**
  * @ClassName: UserController
  * @Description: TODO
- * @Author: szy
+ * @Author: szy,zlc
  * @Date 2020/4/14
  */
 @RestController
@@ -27,7 +30,10 @@ import java.util.*;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    UserService userService;
+
+    @Autowired
+    MessageService messageService;
 
     @Autowired
     RedisUtil redisUtil;
@@ -349,6 +355,19 @@ public class UserController {
             e.printStackTrace();
         }
         return result;
+    }
+
+
+    @RequestMapping("/getUserReadRecord")
+    public List<Integer> getUserReadRecord(@RequestParam("userId") Integer uid){
+        List<MessageRecord> messageRecords = messageService.findUserRecord(uid);
+        List<Integer> res = new ArrayList<>();
+        if(messageRecords != null){
+            for(MessageRecord mr : messageRecords){
+                res.add(mr.getId());
+            }
+        }
+        return res;
     }
 
 

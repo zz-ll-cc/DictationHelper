@@ -42,6 +42,7 @@ public class Constant {
     public static final String HOST_CON_DETAIL_BOOK = "book";   // 在Host -> BookDetail 时传递 book Entity
     public static final String DETAIL_CON_RECITE_OR_DICTATION = "chooseWords";  // 在Detail -> 听写/背诵 时传递 List<Word> (jsonStr) 使用
     public static final String RECITE_CON_DICTATION = "wordlist";   // 在 背诵 -> 听写时使用
+    public static final String DETAIL_PAPER="paperlist";//纸质听写
     public static final String NEWWORD_CON_LEARNWORD_LEARN = "learnNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
     public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用

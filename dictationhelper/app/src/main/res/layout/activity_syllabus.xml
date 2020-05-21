@@ -38,8 +38,7 @@
             android:layout_marginRight="15dp"
             android:gravity="center_vertical"
             android:text="积分详情"
-            android:textColor="@color/colorAccent"
-            android:visibility="invisible" />
+            android:textColor="#000"
             android:textSize="17sp" />
     </RelativeLayout>
 

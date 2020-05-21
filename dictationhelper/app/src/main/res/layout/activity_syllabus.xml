@@ -15,16 +15,16 @@
             android:id="@+id/iv_my_credit_back"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/left_exit" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_centerInParent="true"
+            android:layout_weight="1"
             android:text="积分中心"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -35,26 +35,24 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:text="积分详情"
-            android:visibility="invisible"
             android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/linearlayout_corner">
+        android:background="@drawable/linearlayout_corner"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_gravity=""
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -62,75 +60,125 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/sign_logo1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
                         android:paddingLeft="5dp"
                         android:text="连续签到"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
-                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_sign_day_continue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="天"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    <TextView
+                        android:id="@+id/tv_sign_day_continue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="天"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+                </LinearLayout>
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:gravity="center_vertical">-->
+
+                <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/sign_logo1" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:text="连续签到"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="16dp" />-->
+                <!--</LinearLayout>-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_sign_day_continue"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="天"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="18dp" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="10dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/sign_logo2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
                         android:paddingLeft="5dp"
                         android:text="累计签到"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_sign_day_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="天"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_sign_day_sum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:text="天"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+
             </LinearLayout>
 
 
@@ -139,98 +187,107 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_gravity=""
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity=""
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp">
 
-                    android:gravity="center"
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/jifen" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical">
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="5dp"
+                        android:text="累计积分"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingRight="10dp"
-                            android:src="@drawable/jifen" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:text="累计积分"
-                            android:textColor="@color/black"
-                            android:textSize="16dp" />
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_sign_point_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text="天"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+            </LinearLayout>
 
-                    android:gravity="center"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/sum1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingRight="10dp"
-                            android:src="@drawable/sum1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:text="累计学习"
-                            android:textColor="@color/black"
-                            android:textSize="16dp" />
-                    </LinearLayout>
+                        android:layout_height="30dp"
+                        android:text="累计学习"
+                        android:paddingLeft="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tv_word_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:text="0词"
+                        android:text="词"
+                        android:paddingLeft="5dp"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
-
             </LinearLayout>
+
 
         </LinearLayout>
 
@@ -239,49 +296,49 @@
 
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:background="#ffffff"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:text="每日签到"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:textSize="14dp" />&ndash;&gt;-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:background="#ffffff"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="每日签到"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="14dp" />&ndash;&gt;-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="right"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingRight="10dp">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="right"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingRight="10dp">-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_my_credit_sign_remind"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@drawable/sign_remind" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_my_credit_sign_remind"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/sign_remind" />-->
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="15dp"-->
-                <!--android:text="开启每日签到提醒"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="14dp" />-->
-        <!--</LinearLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:text="开启每日签到提醒"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="14dp" />-->
+    <!--</LinearLayout>-->
     <!--</LinearLayout>-->
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">

@@ -85,6 +85,13 @@ public class Book implements Serializable {
                 ", bvid=" + bvid +
                 ", bname='" + bname + '\'' +
                 ", bimgPath='" + bimgPath + '\'' +
+                ", bunitAccount=" + bunitAccount +
+                ", bookWordVersion=" + bookWordVersion +
+                ", units=" + units +
+                ", deleted=" + deleted +
+                ", version=" + version +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
                 '}';
     }
 

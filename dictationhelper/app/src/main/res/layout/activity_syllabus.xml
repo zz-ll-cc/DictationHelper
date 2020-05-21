@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgray"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_syllabus_out">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,12 +33,14 @@
         <TextView
             android:id="@+id/tv_my_point_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
             android:text="积分详情"
             android:textColor="@color/colorAccent"
-            android:textSize="16dp"
             android:visibility="invisible" />
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <LinearLayout

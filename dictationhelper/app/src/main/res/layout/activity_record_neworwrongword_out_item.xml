@@ -49,5 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_record_item_header"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        ></android.support.v7.widget.RecyclerView>
 </RelativeLayout>

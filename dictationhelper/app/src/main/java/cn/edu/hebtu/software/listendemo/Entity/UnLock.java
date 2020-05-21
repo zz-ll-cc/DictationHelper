@@ -9,7 +9,7 @@ public class UnLock implements Serializable {
     private Integer unitId;
     private int version;
     private Integer deleted;
-    private Date createTime;
+    private String createTime;
 
     @Override
     public String toString() {
@@ -63,11 +63,11 @@ public class UnLock implements Serializable {
         this.deleted = deleted;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

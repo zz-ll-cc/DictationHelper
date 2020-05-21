@@ -314,6 +314,7 @@ public class HostFragment extends Fragment {
                     message.what = GET_BOOKS;
                     Type type = new TypeToken<List<Book>>() {
                     }.getType();
+                    Log.e("getBooks",gson.fromJson(jsonBooks,type).toString());
                     res = gson.fromJson(jsonBooks, type);
                     handler.sendMessage(message);
                 }
@@ -336,6 +337,7 @@ public class HostFragment extends Fragment {
                     message.what = GET_UNITS;
                     Type type = new TypeToken<List<Unit>>() {
                     }.getType();
+                    Log.e("getUnits",gson.fromJson(jsonUnits,type).toString());
                     message.obj = gson.fromJson(jsonUnits, type);
                     handler.sendMessage(message);
                 }

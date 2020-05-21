@@ -113,12 +113,13 @@ public class Constant {
     // 解锁unit
     public static final String URL_USER_UNLOCK_UNIT = BASE_URL + "user/unlockUnit";
     //积分
-    public static final String URL_GET_SIGNDAY = BASE_URL + "/user/check";
-    public static final String URL_SIGN_IN = BASE_URL + "/user/signIn";
-    public static final String URL_UPDATE_MYSELF = BASE_URL + "/user/updatemyself";
-    public static final String URL_UPDATE_CREDIT = BASE_URL + "/user/updateCredit";
-    public static final String URL_CREDIT_RECORD = BASE_URL + "/user/checkCreditRecord";
+    public static final String URL_GET_SIGNDAY = BASE_URL + "user/check";
+    public static final String URL_SIGN_IN = BASE_URL + "user/signIn";
+    public static final String URL_UPDATE_MYSELF = BASE_URL + "user/updatemyself";
+    public static final String URL_UPDATE_CREDIT = BASE_URL + "user/updateCredit";
+    public static final String URL_CREDIT_RECORD = BASE_URL + "user/checkCreditRecord";
     public static final String URL_GET_MAX_SCORE = BASE_URL + "record/getMaxScore";
-    public static final String URL_SIGN_RETROACTIVE = BASE_URL + "/user/reSignIn";
+    public static final String URL_SIGN_RETROACTIVE = BASE_URL + "user/reSignIn";
+    public static final String URL_GET_CREDIT_DETAIL = BASE_URL + "user/getUserCreditRecord";
 
 }

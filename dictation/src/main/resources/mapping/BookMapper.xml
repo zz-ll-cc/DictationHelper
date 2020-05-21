@@ -9,7 +9,7 @@
         <result property="bname" column="book_name"/>
         <result property="gid" column="grade_id"/>
         <result property="bimgPath" column="book_cover"/>
-        <result property="bookWordVersion" column="bookWordVersion"/>
+        <result property="bookWordVersion" column="book_word_version"/>
         <result property="bunitAccount" column="unit_num"/>
         <result property="version" column="version"/>
         <result property="deleted" column="deleted"/>

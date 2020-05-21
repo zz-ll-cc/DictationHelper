@@ -68,7 +68,6 @@ public class ListenResultSelectActivity extends AppCompatActivity {
     private int sum;
     private int error = 0;
     private int correct = 0;
-    private int correct1 = 0;
     private double score;
 
     @Override
@@ -96,13 +95,20 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     date = new Date(System.currentTimeMillis());
                     Log.e("tttttttttt", checkStatus.toString());
                     for (int i = 0; i < paperlist.size(); i++) {
+                        if(checkStatus.get(i)==true){
+                            correct++;
+                        }
+                        if(checkStatus.get(i)==false){
+                            error++;
+                        }
+                        score = (sum - error) / (sum * 1.0);
                         Word w1 = paperlist.get(i);
                         Word w = paperlist.get(i);
                         if (checkStatus.get(i) == true) {
                             Cursor cursor1 = currectdatabase.query("TBL_CURRECTWORD", null, "WENGLISH=?", new String[]{w1.getWenglish()}, null, null, null);
                             Log.e("currectnum", cursor1.getCount() + "");
                             if (cursor1.getCount() == 0) {
-                                //添加错词
+                                //添加
                                 ContentValues word = new ContentValues();
                                 word.put("WENGLISH", w1.getWenglish());
                                 word.put("WCHINESE", w1.getWchinese());
@@ -114,7 +120,6 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                                 word.put("ADDTIME", simpleDateFormat1.format(date));
                                 long row = currectdatabase.insert("TBL_CURRECTWORD", null, word);
                                 //                    Log.e("插入正确词的行号", row + "");
-                                correct++;
                             }
 
                             Cursor cursor2 = currectsumdatabase.query("TBL_CURRECTSUM", null, "ADDTIME=?", new String[]{simpleDateFormat1.format(date)}, null, null, null);
@@ -126,7 +131,6 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                                 word.put("ADDTIME", simpleDateFormat1.format(date));
                                 long row = currectsumdatabase.insert("TBL_CURRECTSUM", null, word);
                                 //                    Log.e("插入正确词总数的行号", row + "");
-                                correct++;
                             }
                             if (cursor2.getCount() == 1) {
                                 if (cursor2.moveToFirst()) {
@@ -143,17 +147,16 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                             if (cursor3.getCount() == 0) {
                                 //添加
                                 ContentValues word = new ContentValues();
-                                word.put("SUM", correct1);
+                                word.put("SUM", correct);
                                 word.put("ADDTIME", simpleDateFormat2.format(date));
                                 long row = currectsumMonthdatabase.insert("TBL_CURRECTSUMMONTH", null, word);
                                 Log.e("插入月正确词总数的行号", row + "");
-                                correct1++;
                             }
                             if (cursor3.getCount() == 1) {
                                 if (cursor3.moveToFirst()) {
-                                    int sum = cursor3.getInt(cursor3.getColumnIndex("SUM"));
+                                    int summ = cursor3.getInt(cursor3.getColumnIndex("SUM"));
                                     ContentValues word = new ContentValues();
-                                    word.put("SUM", correct1 + sum);
+                                    word.put("SUM", correct + summ);
                                     word.put("ADDTIME", simpleDateFormat2.format(date));
                                     currectsumMonthdatabase.update("TBL_CURRECTSUMMONTH", word, "ADDTIME=?", new String[]{simpleDateFormat2.format(date)});
                                 }
@@ -177,15 +180,13 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                                 //                    Log.e("插入错词的行号", row + "");
                             }
                             paperlist.get(i).setIsTrue(Constant.SPELL_FALSE);
-                            error++;
                         }
                     }
                     //传递测试数据
                     sendScore();
-                    score = (sum - error) / (sum * 1.0);
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(ListenResultSelectActivity.this);
                     adBuilder.setTitle("     本次听写成绩：");
-                    adBuilder.setMessage("            " + (int) score * 100 + "分");
+                    adBuilder.setMessage("            " + score * 100 + "分");
                     adBuilder.setPositiveButton("返回首页", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

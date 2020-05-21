@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_paper_listen_item_english"
@@ -23,7 +23,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="apple"
                 android:textColor="#000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_paper_listen_item_chinese"
@@ -31,8 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="苹果"
-                android:textColor="#000"
-                android:textSize="18dp" />
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
         </LinearLayout>
 
         <RadioGroup

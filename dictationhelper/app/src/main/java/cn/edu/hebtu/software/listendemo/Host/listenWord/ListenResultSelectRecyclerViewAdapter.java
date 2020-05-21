@@ -52,16 +52,17 @@ public class ListenResultSelectRecyclerViewAdapter extends RecyclerView.Adapter 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int count = group.getChildCount();
+                Log.e("tttttttttt",group.toString()+"---"+count);
                 for(int j = 0 ;j < count;j++){
                     RadioButton rb =(RadioButton) group.getChildAt(j);
                     if(rb.isChecked()){
                         if (rb.getText().equals("对")){
                             checkStatus.put(i,true);
-                            notifyDataSetChanged();
+//                            notifyDataSetChanged();
                         }
                         if (rb.getText().equals("错")){
                             checkStatus.put(i,false);
-                            notifyDataSetChanged();
+//                            notifyDataSetChanged();
                         }
                         Log.e("tttttttttt",i+" "+rb.getText()+"");
                         break;

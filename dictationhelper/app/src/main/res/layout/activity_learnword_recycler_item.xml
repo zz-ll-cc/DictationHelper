@@ -53,7 +53,7 @@
                     android:id="@+id/iv_wordImg"
                     android:src="@drawable/word"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="fitXY"
+
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
             </LinearLayout>

@@ -30,6 +30,7 @@ public class User implements Serializable {
     private String lastSignInTime;
     private String lastLoginTime;
     private List<UnLock> unLockList = new ArrayList<>();
+
     @Override
     public String toString() {
         return "User{" +
@@ -55,6 +56,7 @@ public class User implements Serializable {
                 ", continuousSignIn=" + continuousSignIn +
                 ", lastSignInTime='" + lastSignInTime + '\'' +
                 ", lastLoginTime='" + lastLoginTime + '\'' +
+                ", unLockList=" + unLockList +
                 '}';
     }
 

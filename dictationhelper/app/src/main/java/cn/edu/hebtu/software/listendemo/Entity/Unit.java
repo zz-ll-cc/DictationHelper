@@ -65,6 +65,11 @@ public class Unit implements Serializable {
                 ", bid=" + bid +
                 ", type=" + type +
                 ", unName='" + unName + '\'' +
+                ", cost=" + cost +
+                ", deleted=" + deleted +
+                ", version=" + version +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
                 '}';
     }
 

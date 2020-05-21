@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Host.searchWord.SearchWordActivity"></activity>
+        <activity android:name=".Mine.index.credit.CreditDetailActivity"></activity>
+        <activity android:name=".Host.searchWord.SearchWordActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity
             android:name=".Login.Splash"

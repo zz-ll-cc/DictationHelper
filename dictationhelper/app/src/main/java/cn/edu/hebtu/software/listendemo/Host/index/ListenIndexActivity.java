@@ -18,11 +18,18 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Host.searchWord.SearchWordActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.MyInfoFragment;
@@ -36,6 +43,9 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class ListenIndexActivity extends AppCompatActivity {
     //所需要的全部资源
@@ -136,7 +146,7 @@ public class ListenIndexActivity extends AppCompatActivity {
             }
         });
         Gson gson = new Gson();
-        SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
         User user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
 
 //        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
@@ -151,30 +161,6 @@ public class ListenIndexActivity extends AppCompatActivity {
         Log.e("updateUser", "更新lastLoginTime然后存入缓存");
     }
 
-    private void getUserUnLockMsg(int userId) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
-        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            /**
-             * 未完待续
-             * @param call
-             * @param response
-             * @throws IOException
-             */
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                Log.e("updateUser", "" + json);
-            }
-        });
-    }
 
 
     //设置TabHost点击事件
@@ -305,7 +291,18 @@ public class ListenIndexActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.e("updateUser", "" + json);
+                List<UnLock> unLocks = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    String unLockList = jsonObject.get("unlockList").toString();
+                    Type type = new TypeToken<List<UnLock>>(){}.getType();
+                     unLocks = new Gson().fromJson(unLockList,type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                User user = new Gson().fromJson(json,User.class);
+                user.setUnLockList(unLocks);
+                getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
             }
         });
     }

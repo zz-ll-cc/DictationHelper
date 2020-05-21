@@ -14,7 +14,7 @@ public class CreditRecord {
 
     private Integer version;
 
-    private Date createTime;
+    private String createTime;
 
     public Integer getId() {
         return id;
@@ -56,11 +56,11 @@ public class CreditRecord {
         this.version = version;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

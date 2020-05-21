@@ -42,6 +42,7 @@ public class Constant {
     public static final String HOST_CON_DETAIL_BOOK = "book";   // 在Host -> BookDetail 时传递 book Entity
     public static final String DETAIL_CON_RECITE_OR_DICTATION = "chooseWords";  // 在Detail -> 听写/背诵 时传递 List<Word> (jsonStr) 使用
     public static final String RECITE_CON_DICTATION = "wordlist";   // 在 背诵 -> 听写时使用
+    public static final String DETAIL_PAPER="paperlist";//纸质听写
     public static final String NEWWORD_CON_LEARNWORD_LEARN = "learnNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
     public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
@@ -112,12 +113,13 @@ public class Constant {
     // 解锁unit
     public static final String URL_USER_UNLOCK_UNIT = BASE_URL + "user/unlockUnit";
     //积分
-    public static final String URL_GET_SIGNDAY = BASE_URL + "/user/check";
-    public static final String URL_SIGN_IN = BASE_URL + "/user/signIn";
-    public static final String URL_UPDATE_MYSELF = BASE_URL + "/user/updatemyself";
-    public static final String URL_UPDATE_CREDIT = BASE_URL + "/user/updateCredit";
-    public static final String URL_CREDIT_RECORD = BASE_URL + "/user/checkCreditRecord";
+    public static final String URL_GET_SIGNDAY = BASE_URL + "user/check";
+    public static final String URL_SIGN_IN = BASE_URL + "user/signIn";
+    public static final String URL_UPDATE_MYSELF = BASE_URL + "user/updatemyself";
+    public static final String URL_UPDATE_CREDIT = BASE_URL + "user/updateCredit";
+    public static final String URL_CREDIT_RECORD = BASE_URL + "user/checkCreditRecord";
     public static final String URL_GET_MAX_SCORE = BASE_URL + "record/getMaxScore";
-    public static final String URL_SIGN_RETROACTIVE = BASE_URL + "/user/reSignIn";
+    public static final String URL_SIGN_RETROACTIVE = BASE_URL + "user/reSignIn";
+    public static final String URL_GET_CREDIT_DETAIL = BASE_URL + "user/getUserCreditRecord";
 
 }

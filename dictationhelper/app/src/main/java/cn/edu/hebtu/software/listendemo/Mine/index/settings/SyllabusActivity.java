@@ -19,7 +19,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -44,8 +47,10 @@ import java.util.Map;
 import cn.edu.hebtu.software.listendemo.Entity.Record;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.CreditDetailActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
@@ -71,6 +76,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvYear;
     private TextView tvMonth;
     private TextView backToday;
+    private LinearLayout llOut;
     private CoordinatorLayout content;
     private MonthPager monthPager;
     private RecyclerView rvToDoList;
@@ -292,6 +298,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllabus);
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
+        marginTopStateBar();
         context = this;
         findView();
 //        EventBus.getDefault().register(this);
@@ -324,7 +333,12 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        super.onDestroy();
 //        EventBus.getDefault().unregister(this);
 //    }
-
+    private void marginTopStateBar() {
+        llOut = findViewById(R.id.ll_syllabus_out);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
+        llOut.setLayoutParams(layoutParams);
+    }
     public void findView() {
         content = (CoordinatorLayout) findViewById(R.id.content);
         monthPager = (MonthPager) findViewById(R.id.calendar_view);
@@ -363,7 +377,9 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                }
 //                break;
             case R.id.tv_my_point_detail:
-
+                Intent intent = new Intent(this, CreditDetailActivity.class);
+                intent.putExtra("userId",user.getUid());
+                startActivity(intent);
                 break;
             case R.id.iv_my_credit_back:
                 finish();
@@ -537,6 +553,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        calendarAdapter.switchToWeek(monthPager.getRowIndex());
 //        refreshMonthPager();
         super.onResume();
+        StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
     }
 
     @Override

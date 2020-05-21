@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -345,7 +346,18 @@ public class BookDetailActivity extends AppCompatActivity {
         tvName.setText(book.getBname());
         tvName.setSelected(true);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        String userStr = sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER);
+        List<UnLock> unLocks = null;
+        try {
+            JSONObject jsonObject = new JSONObject(userStr);
+            String unLockList = jsonObject.get("unlockList").toString();
+            Type type = new TypeToken<List<UnLock>>(){}.getType();
+            unLocks = new Gson().fromJson(unLockList,type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user = gson.fromJson(userStr, User.class);
+        user.setUnLockList(unLocks);
         Type type = new TypeToken<Map<Integer, List<Integer>>>() {
         }.getType();
         colMap = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
@@ -383,6 +395,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 unit.setUnid(cursor.getInt(cursor.getColumnIndex("unid")));
                 unit.setType(cursor.getInt(cursor.getColumnIndex("type")));
                 unit.setCost(cursor.getInt(cursor.getColumnIndex("cost")));
+                Log.e("untiCost",unit.getCost()+"");
                 unit.setUnName(cursor.getString(cursor.getColumnIndex("unName")));
                 unit.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
                 unit.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
@@ -449,6 +462,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void checkBookDetailVersion() {
+        Log.e("bookVersion",book.getBookWordVersion()+"");
         FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("version", book.getBookWordVersion() + "").build();
         Request request = new Request.Builder().url(Constant.URL_CHECK_BOOK_DETAIL_VERSION).post(fb).build();
         Call call = client.newCall(request);
@@ -507,7 +521,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user);
+        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user,BookDetailActivity.this,getSupportFragmentManager());
         rvBookDetail.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);   // 默认设置垂直布局
         rvBookDetail.setLayoutManager(layoutManager);
@@ -621,12 +635,45 @@ public class BookDetailActivity extends AppCompatActivity {
                 Unit unit = (Unit) postMap.get("unit");
                 String result = postMap.get("result").toString();
                 Toast.makeText(this, "解锁" + result, Toast.LENGTH_SHORT).show();
-                UnLock unLock = new UnLock();
-                unLock.setUnitId(unit.getUnid());
-                user.getUnLockList().add(unLock);
-                adapter.notifyDataSetChanged();
-                getSharedPreferences(SP_NAME, MODE_PRIVATE).edit().putString(USER_KEEP_KEY, gson.toJson(user)).commit();
+                updateUser(user.getUid());
                 break;
         }
+    }
+    // 更新用户信息
+    private void updateUser(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                List<UnLock> unLocks = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    String unLockList = jsonObject.get("unlockList").toString();
+                    Type type = new TypeToken<List<UnLock>>(){}.getType();
+                    unLocks = new Gson().fromJson(unLockList,type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                user = gson.fromJson(json,User.class);
+                user.setUnLockList(unLocks);
+                getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

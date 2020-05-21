@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgray"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_syllabus_out">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,16 +16,16 @@
             android:id="@+id/iv_my_credit_back"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/left_exit" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_centerInParent="true"
+            android:layout_weight="1"
             android:text="积分中心"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -32,21 +33,22 @@
         <TextView
             android:id="@+id/tv_my_point_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
             android:text="积分详情"
-            android:visibility="invisible"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
+            android:textColor="#000"
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/linearlayout_corner">
+        android:background="@drawable/linearlayout_corner"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -239,49 +241,49 @@
 
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:background="#ffffff"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:text="每日签到"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:textSize="14dp" />&ndash;&gt;-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:background="#ffffff"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="每日签到"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="14dp" />&ndash;&gt;-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="right"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingRight="10dp">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="right"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingRight="10dp">-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_my_credit_sign_remind"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@drawable/sign_remind" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_my_credit_sign_remind"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/sign_remind" />-->
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="15dp"-->
-                <!--android:text="开启每日签到提醒"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="14dp" />-->
-        <!--</LinearLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:text="开启每日签到提醒"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="14dp" />-->
+    <!--</LinearLayout>-->
     <!--</LinearLayout>-->
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">

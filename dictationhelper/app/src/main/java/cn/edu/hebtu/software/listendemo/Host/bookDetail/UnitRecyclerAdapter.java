@@ -54,6 +54,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
+
 public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     private FragmentManager fragmentManager;
     private Activity activity;
@@ -255,7 +257,7 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         myViewHolder.rlDetailDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (unit.getCost() < user.getUserCredit()) {
+                if (unit.getCost() <= user.getUserCredit()) {
                     // 展示一个dialog
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(context);
                     adBuilder.setTitle("解锁此单元将消耗"+unit.getCost()+"积分");

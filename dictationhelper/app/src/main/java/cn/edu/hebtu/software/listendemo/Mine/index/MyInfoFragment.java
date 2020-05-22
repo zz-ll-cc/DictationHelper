@@ -21,16 +21,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.FalsifyHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EditMsgActivity;
 import cn.edu.hebtu.software.listendemo.R;
@@ -104,6 +110,18 @@ public class MyInfoFragment extends Fragment {
     private void initData() {
         sp = getContext().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        List<UnLock> unLocks = null;
+        try {
+            JSONObject jsonObject = new JSONObject(sp.getString(Constant.USER_KEEP_KEY,""));
+            String unLockList = jsonObject.get("unlockList").toString();
+            Type type = new TypeToken<List<UnLock>>(){}.getType();
+            unLocks = new Gson().fromJson(unLockList,type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user.setUnLockList(unLocks);
+
+
         List<Map<String, Object>> showRes = new ArrayList<>();
         Map<String, Object> mapIntegral = new HashMap<>();
         mapIntegral.put("imgBg", R.drawable.my_integral_border);

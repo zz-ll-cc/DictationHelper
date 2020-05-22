@@ -147,7 +147,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 case UPDATE_CRDICT:
                                                     Log.e("msg1", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
-                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        User user1 = gson.fromJson(msg.obj + "", User.class);
                                                         Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
                                                         title.get(position).put("task", "学习30分钟");
@@ -166,8 +166,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
+                                                        user1.setUnLockList(unLocks);
                                                         user.setUnLockList(unLocks);
-                                                        updateSp(user);
+                                                        user.setUserCredit(user1.getUserCredit());
+                                                        //updateSp(user);
                                                         context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
 //                                                EventBus.getDefault().post(user);
                                                     } else {
@@ -193,7 +195,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 case UPDATE_CRDICT:
                                                     Log.e("msg2", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
-                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        User user1 = gson.fromJson(msg.obj + "", User.class);
                                                         Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
 //                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
 //                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
@@ -213,8 +215,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
+                                                        user1.setUnLockList(unLocks);
                                                         user.setUnLockList(unLocks);
-                                                        updateSp(user);
+                                                        user.setUserCredit(user1.getUserCredit());
+                                                        //updateSp(user);
                                                         context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                                     } else {
                                                         Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
@@ -238,7 +242,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 case UPDATE_CRDICT:
                                                     Log.e("msg3", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
-                                                        User user = gson.fromJson(msg.obj + "", User.class);
+                                                        User user1 = gson.fromJson(msg.obj + "", User.class);
                                                         Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
                                                         title.get(position).put("task","学习60分钟");
@@ -257,8 +261,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
+                                                        user1.setUnLockList(unLocks);
                                                         user.setUnLockList(unLocks);
-                                                        updateSp(user);
+                                                        user.setUserCredit(user1.getUserCredit());
+//                                                        updateSp(user);
                                                         context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                                     } else {
                                                         Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
@@ -285,7 +291,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                         case UPDATE_CRDICT:
                                             Log.e("msg4", msg.obj + "");
                                             if (!msg.obj.equals("0")) {
-                                                User user = gson.fromJson(msg.obj + "", User.class);
+                                                User user1 = gson.fromJson(msg.obj + "", User.class);
                                                 Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                 holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                 holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
@@ -302,8 +308,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
+                                                user1.setUnLockList(unLocks);
                                                 user.setUnLockList(unLocks);
-                                                updateSp(user);
+                                                user.setUserCredit(user1.getUserCredit());
+//                                                updateSp(user);
                                                 context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                             } else {
                                                 Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();

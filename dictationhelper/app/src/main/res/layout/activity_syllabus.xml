@@ -1,47 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_syllabus_out"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgray"
-    android:orientation="vertical"
-    android:id="@+id/ll_syllabus_out">
+    android:orientation="vertical">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background1">
 
-        <ImageView
-            android:id="@+id/iv_my_credit_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/left_exit" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/backgray"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_weight="1"
-            android:text="积分中心"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/iv_my_credit_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/left_exit" />
 
-        <TextView
-            android:id="@+id/tv_my_point_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:gravity="center_vertical"
-            android:text="积分详情"
-            android:textColor="#000"
-            android:textSize="17sp" />
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:text="积分中心"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/tv_my_point_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:gravity="center_vertical"
+                android:text="积分详情"
+                android:textColor="#000"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:scaleType="fitXY"></LinearLayout>-->
+    </LinearLayout>
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_my_credit_back"-->
+    <!--android:layout_width="20dp"-->
+    <!--android:layout_height="20dp"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:src="@drawable/left_exit" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="积分中心"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="18sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_my_point_detail"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="积分详情"-->
+    <!--android:textColor="#000"-->
+    <!--android:textSize="17sp" />-->
+    <!--</RelativeLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" -->
+    <!--android:text="我的数据"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:textSize="20sp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:textColor="@color/black"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -256,9 +315,9 @@
                     android:layout_marginRight="10dp">
 
                     <ImageView
-                        android:layout_marginTop="20dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="10dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/sum1" />
@@ -270,11 +329,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="累计学习"
+                        android:layout_marginTop="20dp"
                         android:paddingLeft="5dp"
+                        android:text="累计学习"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
 
@@ -282,8 +341,8 @@
                         android:id="@+id/tv_word_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="词"
                         android:paddingLeft="5dp"
+                        android:text="词"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -342,8 +401,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"

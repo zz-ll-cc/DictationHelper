@@ -32,6 +32,8 @@ import com.google.gson.reflect.TypeToken;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -45,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Record;
+import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
 import cn.edu.hebtu.software.listendemo.Mine.index.credit.CreditDetailActivity;
@@ -68,6 +71,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 
@@ -178,6 +182,8 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     initCalendarView();
                     Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
                     calendarAdapter.switchToMonth();
+//                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+//                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
                     calendarAdapter.setMarkData(markData);
                     calendarAdapter.notifyDataChanged();
                     break;
@@ -210,6 +216,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
                         taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title, sp);
+//                        Log.e("userJson",user.toString()+"");
                         rvToDoList.setAdapter(taskAdapter);
                     } else {
                         task_content[1] = "未听写";
@@ -228,6 +235,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
+//                        Log.e("userJson",user.toString()+"");
                         taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title, sp);
                         rvToDoList.setAdapter(taskAdapter);
                     }
@@ -261,12 +269,12 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                             if (records.get("学习30分钟").equals("true")) {
                                 if (records.get("学习60分钟").equals("true")) {
                                     tag[0] = "true";
-                                }else {
+                                } else {
                                     tag[0] = "false";
                                 }
                                 task[0] = "学习60分钟";
                                 add_credit[0] = "+5积分";
-                            }else{
+                            } else {
                                 tag[0] = "false";
                                 task[0] = "学习30分钟";
                                 add_credit[0] = "+3积分";
@@ -306,10 +314,20 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        EventBus.getDefault().register(this);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         user = gson.fromJson(sp.getString(USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+//        Log.e("userJsonSyllabus1",sp.getString(Constant.USER_KEEP_KEY,""));
+        List<UnLock> unLocks = null;
+        try {
+            JSONObject jsonObject = new JSONObject(sp.getString(Constant.USER_KEEP_KEY,""));
+            String unLockList = jsonObject.get("unlockList").toString();
+            Type type = new TypeToken<List<UnLock>>(){}.getType();
+            unLocks = new Gson().fromJson(unLockList,type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user.setUnLockList(unLocks);
+//        Log.e("userJsonSyllabus2",user.toString());
         getCreditRecord(user.getUid());
-        Log.e("userInfo", user.toString());
         initMarkData();
-        //getSignInfo(user.getUid());
 //        ivSignRemind.setOnClickListener(this);
         tvCreditDetail.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -320,7 +338,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
 //        calendarAdapter.switchToMonth();
 //        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-        // calendarAdapter.switchToWeek(monthPager.getRowIndex());
+//        calendarAdapter.switchToWeek(monthPager.getRowIndex());
     }
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -333,12 +351,14 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        super.onDestroy();
 //        EventBus.getDefault().unregister(this);
 //    }
+
     private void marginTopStateBar() {
         llOut = findViewById(R.id.ll_syllabus_out);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.topMargin = StatusBarUtil.getStatusBarHeight(this);
         llOut.setLayoutParams(layoutParams);
     }
+
     public void findView() {
         content = (CoordinatorLayout) findViewById(R.id.content);
         monthPager = (MonthPager) findViewById(R.id.calendar_view);
@@ -378,7 +398,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //                break;
             case R.id.tv_my_point_detail:
                 Intent intent = new Intent(this, CreditDetailActivity.class);
-                intent.putExtra("userId",user.getUid());
+                intent.putExtra("userId", user.getUid());
                 startActivity(intent);
                 break;
             case R.id.iv_my_credit_back:
@@ -520,7 +540,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 //签到框
                 //创建并显示自定义的dialog
-                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this,sp,calendarAdapter,tvCreditSum,tvSignDayContinue,tvSignDaySum,monthPager);
+                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this, sp, calendarAdapter, tvCreditSum, tvSignDayContinue, tvSignDaySum, monthPager);
                 dialog.setCancelable(false);
                 dialog.show(getSupportFragmentManager(), "sign");
                 calendarAdapter.notifyDataChanged();
@@ -549,8 +569,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     //显示周日历
     @Override
     protected void onResume() {
-//        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-//        calendarAdapter.switchToWeek(monthPager.getRowIndex());
 //        refreshMonthPager();
         super.onResume();
         StatusBarUtil.statusBarLightMode(this);
@@ -677,12 +695,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.e("usersign", "" + json);
                 Message message0 = new Message();
                 message0.what = GET_MARKER_DATE;
                 message0.obj = json;
                 handler.sendMessage(message0);
-                User user = gson.fromJson(json, UserSignIn.class).getUser();
                 Message message = new Message();
                 message.what = GET_SIGN_DAY_CONTINUE;
                 int i1 = 0;
@@ -706,7 +722,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     i3 = user.getUserCredit();
                 }
                 message2.obj = i3 + "分";
-                sp.edit().putString(USER_KEEP_KEY, gson.toJson(user)).commit();
                 handler.sendMessage(message2);
 
             }
@@ -788,6 +803,43 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+//    // 更新用户信息
+//    private void updateUser(int userId) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+//        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            /**
+//             * 未完待续
+//             * @param call
+//             * @param response
+//             * @throws IOException
+//             */
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String json = response.body().string();
+//                List<UnLock> unLocks = null;
+//                try {
+//                    JSONObject jsonObject = new JSONObject(json);
+//                    String unLockList = jsonObject.get("unlockList").toString();
+//                    Type type = new TypeToken<List<UnLock>>(){}.getType();
+//                    unLocks = new Gson().fromJson(unLockList,type);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                user = gson.fromJson(json,User.class);
+//                user.setUnLockList(unLocks);
+//                getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+//            }
+//        });
+//    }
 
 }
 

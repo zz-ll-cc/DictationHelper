@@ -1,5 +1,6 @@
 package com.dictation.util;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -789,6 +790,20 @@ public class RedisUtil {
             return null;
         }
     }
+
+
+    //======================================消息通知=================================================
+
+    public static String getMessageKey(){
+        return "message";
+    }
+
+    public static String getMessageVersionKey(){
+        return "message:version";
+    }
+
+
+
 
 
     //==========================================Key=============================================

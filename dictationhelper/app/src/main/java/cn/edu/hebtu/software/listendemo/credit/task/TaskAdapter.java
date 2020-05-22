@@ -23,6 +23,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -35,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.CreditRecord;
+import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -45,7 +48,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.USAGE_STATS_SERVICE;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -152,7 +157,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
 //                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
 //                                                        holder.btn_add_credit.setEnabled(false);
+                                                        List<UnLock> unLocks = null;
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(msg.obj+"");
+                                                            String unLockList = jsonObject.get("unlockList").toString();
+                                                            Type type = new TypeToken<List<UnLock>>(){}.getType();
+                                                            unLocks = new Gson().fromJson(unLockList,type);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                        user.setUnLockList(unLocks);
                                                         updateSp(user);
+                                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
 //                                                EventBus.getDefault().post(user);
                                                     } else {
                                                         Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
@@ -187,8 +203,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         title.get(position).put("add_credit","+5积分");
                                                         notifyDataSetChanged();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
-                                                        updateSp(user);
 //                                                EventBus.getDefault().post(user);
+                                                        List<UnLock> unLocks = null;
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(msg.obj+"");
+                                                            String unLockList = jsonObject.get("unlockList").toString();
+                                                            Type type = new TypeToken<List<UnLock>>(){}.getType();
+                                                            unLocks = new Gson().fromJson(unLockList,type);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                        user.setUnLockList(unLocks);
+                                                        updateSp(user);
+                                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                                     } else {
                                                         Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
                                                     }
@@ -220,8 +247,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                         holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                         holder.btn_add_credit.setEnabled(false);
-                                                        updateSp(user);
 //                                                EventBus.getDefault().post(user);
+                                                        List<UnLock> unLocks = null;
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(msg.obj+"");
+                                                            String unLockList = jsonObject.get("unlockList").toString();
+                                                            Type type = new TypeToken<List<UnLock>>(){}.getType();
+                                                            unLocks = new Gson().fromJson(unLockList,type);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                        user.setUnLockList(unLocks);
+                                                        updateSp(user);
+                                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                                     } else {
                                                         Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
                                                     }
@@ -254,8 +292,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 holder.btn_add_credit.setEnabled(false);
                                                 tvCreditSum.setText(user.getUserCredit() + "分");
                                                 title.get(position).put("tag","true");
-                                                updateSp(user);
 //                                                EventBus.getDefault().post(user);
+                                                List<UnLock> unLocks = null;
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(msg.obj+"");
+                                                    String unLockList = jsonObject.get("unlockList").toString();
+                                                    Type type = new TypeToken<List<UnLock>>(){}.getType();
+                                                    unLocks = new Gson().fromJson(unLockList,type);
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                user.setUnLockList(unLocks);
+                                                updateSp(user);
+                                                context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                             } else {
                                                 Toast.makeText(context, "领取失败", Toast.LENGTH_LONG).show();
                                             }

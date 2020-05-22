@@ -68,7 +68,7 @@ public class RecordServiceImpl implements RecordService {
         int score=0;
         Record record=null;
         QueryWrapper<Record> recordQueryWrapper = new QueryWrapper<>();
-        recordQueryWrapper.eq("user_id",uid).eq("create_time",date).orderByAsc("accuracy");
+        recordQueryWrapper.eq("user_id",uid).eq("create_time",date).orderByDesc("accuracy");
         List<Record> records=recordMapper.selectList(recordQueryWrapper);
         if(records.size()>0){
 //            String s=records.get(0).getAccuracy()+"";

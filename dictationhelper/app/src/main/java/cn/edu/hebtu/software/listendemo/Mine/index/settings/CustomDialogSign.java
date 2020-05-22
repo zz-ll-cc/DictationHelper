@@ -141,7 +141,7 @@ public class CustomDialogSign extends DialogFragment {
                                             markData = new HashMap<>();
                                         }
                                         User user1 = new Gson().fromJson(msg.obj + "", User.class);
-                                        Log.e("user", user1.toString());
+//                                        Log.e("user", user1.toString());
                                         tvCreditSum.setText(user.getUserCredit() + "分");
                                         tvSignDaySum.setText(user.getAccumulateSignIn() + "天");
                                         tvSignDayContinue.setText(user.getContinuousSignIn() + "天");
@@ -159,7 +159,7 @@ public class CustomDialogSign extends DialogFragment {
 //                                        updateSp(user);
                                         user.setUserCredit(user1.getUserCredit());
                                         context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
-                                        Log.e("userSign", sp.getString(USER_KEEP_KEY, ""));
+//                                        Log.e("userSign", sp.getString(USER_KEEP_KEY, ""));
 //                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
                                         markData.put(signDate, "0");
                                         tvContent.setText("签到成功！");
@@ -212,7 +212,7 @@ public class CustomDialogSign extends DialogFragment {
                                                     markData.put(signDate, "0");
                                                     Toast.makeText(context, "补签成功", Toast.LENGTH_SHORT).show();
 //                                                    tvContent.setText("补签成功,消耗2积分");
-                                                    Log.e("userSign补签0", msg.obj + "");
+//                                                    Log.e("userSign补签0", msg.obj + "");
                                                     List<UnLock> unLocks = null;
                                                     try {
                                                         JSONObject jsonObject = new JSONObject(msg.obj + "");
@@ -225,11 +225,11 @@ public class CustomDialogSign extends DialogFragment {
                                                     User user1 = new Gson().fromJson(msg.obj + "", User.class);
                                                     user.setUserCredit(user1.getUserCredit());
                                                     user.setUnLockList(unLocks);
-                                                    Log.e("user补签", user.toString());
+//                                                    Log.e("user补签", user.toString());
                                                     context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
 //                                                    user1.setUnLockList(unLocks);
                                                     //updateSp(user);
-                                                    Log.e("userResign", sp.getString(USER_KEEP_KEY, ""));
+//                                                    Log.e("userResign", sp.getString(USER_KEEP_KEY, ""));
                                                     //user.setUnLockList(unLocks);
                                                     tvCreditSum.setText(user.getUserCredit() + "分");
                                                     tvSignDaySum.setText(user.getAccumulateSignIn() + "天");

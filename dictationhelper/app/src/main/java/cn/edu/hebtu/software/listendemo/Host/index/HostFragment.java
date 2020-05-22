@@ -70,6 +70,7 @@ import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_U
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_JSON;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 
 public class HostFragment extends Fragment {
     private static final int GET_WORDS = 2000;
@@ -80,7 +81,7 @@ public class HostFragment extends Fragment {
     private List<Word> initWords;
     private HostRecyclerAdapter adapter = null;
     private RecyclerView recyclerView = null;
-    private SharedPreferences sp = ListenIndexActivity.activity.getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
+    private SharedPreferences sp;
     ;
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private View view;
@@ -126,16 +127,16 @@ public class HostFragment extends Fragment {
     private void makeUnitData2DB(List<Unit> units) {
         for (Unit unit : units) {
             ContentValues cv = new ContentValues();
-            cv.put("bid",unit.getBid());
-            cv.put("unid",unit.getUnid());
-            cv.put("type",unit.getType());
-            cv.put("cost",unit.getCost());
-            cv.put("unName",unit.getUnName());
-            cv.put("deleted",unit.getDeleted());
-            cv.put("version",unit.getVersion());
+            cv.put("bid", unit.getBid());
+            cv.put("unid", unit.getUnid());
+            cv.put("type", unit.getType());
+            cv.put("cost", unit.getCost());
+            cv.put("unName", unit.getUnName());
+            cv.put("deleted", unit.getDeleted());
+            cv.put("version", unit.getVersion());
             cv.put("createTime", unit.getCreateTime());
             cv.put("updateTime", unit.getUpdateTime());
-            bookDB.insert(TBL_UNIT,null,cv);
+            bookDB.insert(TBL_UNIT, null, cv);
         }
     }
 
@@ -190,6 +191,7 @@ public class HostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_host, container, false);
+        sp = ListenIndexActivity.activity.getSharedPreferences(SP_NAME, MODE_PRIVATE);
         bookDBHelper = new BookUnitWordDBHelper(ListenIndexActivity.activity, BOOK_UNIT_WORD_DBNAME, 1);
         bookDB = bookDBHelper.getWritableDatabase();
         EventBus.getDefault().register(this);
@@ -314,7 +316,7 @@ public class HostFragment extends Fragment {
                     message.what = GET_BOOKS;
                     Type type = new TypeToken<List<Book>>() {
                     }.getType();
-                    Log.e("getBooks",gson.fromJson(jsonBooks,type).toString());
+                    Log.e("getBooks", gson.fromJson(jsonBooks, type).toString());
                     res = gson.fromJson(jsonBooks, type);
                     handler.sendMessage(message);
                 }
@@ -337,7 +339,7 @@ public class HostFragment extends Fragment {
                     message.what = GET_UNITS;
                     Type type = new TypeToken<List<Unit>>() {
                     }.getType();
-                    Log.e("getUnits",gson.fromJson(jsonUnits,type).toString());
+                    Log.e("getUnits", gson.fromJson(jsonUnits, type).toString());
                     message.obj = gson.fromJson(jsonUnits, type);
                     handler.sendMessage(message);
                 }

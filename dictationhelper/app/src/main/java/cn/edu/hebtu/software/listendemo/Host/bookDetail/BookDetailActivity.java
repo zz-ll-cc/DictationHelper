@@ -72,6 +72,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private static final int requestCount = 0;
     private static final int GET_VERSION_CHANGE = 10086;
     private static final int GET_VERSION_CHANGE_FALSE = 20086;
+    private static final int UPDATE_USER = 20000;
     private ImageView ivExit;
     private TextView tvName;
     private ImageView ivCollect;
@@ -125,6 +126,22 @@ public class BookDetailActivity extends AppCompatActivity {
                     keepNewWords(words0);
                     initView();
                     setListener();
+                    break;
+                case UPDATE_USER:
+                    String json = msg.obj.toString();
+                    List<UnLock> unLocks = null;
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String unLockList = jsonObject.get("unlockList").toString();
+                        Type type = new TypeToken<List<UnLock>>(){}.getType();
+                        unLocks = new Gson().fromJson(unLockList,type);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    user = gson.fromJson(json,User.class);
+                    user.setUnLockList(unLocks);
+                    getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+                    adapter.notifyDataSetChanged();
                     break;
             }
         }
@@ -661,19 +678,10 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                List<UnLock> unLocks = null;
-                try {
-                    JSONObject jsonObject = new JSONObject(json);
-                    String unLockList = jsonObject.get("unlockList").toString();
-                    Type type = new TypeToken<List<UnLock>>(){}.getType();
-                    unLocks = new Gson().fromJson(unLockList,type);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                user = gson.fromJson(json,User.class);
-                user.setUnLockList(unLocks);
-                getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
-                adapter.notifyDataSetChanged();
+                Message message = new Message();
+                message.what = UPDATE_USER;
+                message.obj = json;
+                handler.sendMessage(message);
             }
         });
     }

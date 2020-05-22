@@ -1,69 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:orientation="vertical">
+    android:layout_height="70dp"
+    android:id="@+id/rl_paper_listen_item_out"
+    android:background="#9AFFF5F1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_paper_listen_item_english"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:text="apple"
+        android:textColor="#000"
+        android:textSize="17dp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_paper_listen_item_chinese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_paper_listen_item_english"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="苹果"
+        android:textColor="#5F5F5F"
+        android:textSize="14dp" />
 
-            <TextView
-                android:id="@+id/tv_paper_listen_item_english"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="apple"
-                android:textColor="#000"
-                android:textSize="16dp" />
+    <ImageView
+        android:id="@+id/iv_page_listen_item_true"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/iv_page_listen_item_false"
+        android:src="@drawable/page_result_true" />
 
-            <TextView
-                android:id="@+id/tv_paper_listen_item_chinese"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="苹果"
-                android:textColor="@color/gray"
-                android:textSize="14dp" />
-        </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/rg_paper"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_t"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="对" />
-
-            <RadioButton
-                android:id="@+id/rb_f"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="错" />
-        </RadioGroup>
-    </LinearLayout>
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/iv_page_listen_item_false"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/page_result_false" />
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/dash_line" />
+</RelativeLayout>
 
-</LinearLayout>
+
+

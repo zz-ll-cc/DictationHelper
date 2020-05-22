@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
 import cn.edu.hebtu.software.listendemo.Login.LoginActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -51,7 +50,7 @@ public class EidtCenterActivity extends AppCompatActivity {
         initData();
         setListeners();
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.white);
+        StatusBarUtil.setStatusBarColor(this, R.color.white);
     }
 
     private void initData() {
@@ -100,7 +99,7 @@ public class EidtCenterActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.rl_edit_center_back_suggest:
                     Intent intent = new Intent(EidtCenterActivity.this, FeedbackActivity.class);
-                    intent.putExtra("user",user);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                     break;
                 case R.id.btn_safe_exit:
@@ -111,9 +110,9 @@ public class EidtCenterActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(EidtCenterActivity.this, LoginActivity.class);
                             cleanSp();
- 	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                           /* intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
-                           // ListenIndexActivity.activity.finish();
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            /* intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
+                            // ListenIndexActivity.activity.finish();
                             startActivity(intent);
                             Toast.makeText(getApplication(), "退出成功", Toast.LENGTH_SHORT).show();
                             //finish();

@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +77,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paper_listen_select);
         StatusBarUtil.statusBarLightMode(this);
+        StatusBarUtil.setStatusBarColor(this,R.color.bar_result_page);
         initView();
         initData();
         ListenResultSelectRecyclerViewAdapter listenResultSelectRecyclerViewAdapter = new ListenResultSelectRecyclerViewAdapter(this, paperlist, R.layout.activity_paper_listen_select_item, checkStatus);
@@ -185,6 +188,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     //传递测试数据
                     sendScore();
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(ListenResultSelectActivity.this);
+                    adBuilder.setCancelable(false);
                     adBuilder.setTitle("     本次听写成绩：");
                     adBuilder.setMessage("            " + score * 100 + "分");
                     adBuilder.setPositiveButton("返回首页", new DialogInterface.OnClickListener() {
@@ -204,7 +208,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     adBuilder.create().show();
                 }
                 else{
-                    Toast.makeText(ListenResultSelectActivity.this,"选项不可为空！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListenResultSelectActivity.this,"请把每个单词都标上√或×哦！",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -268,5 +272,29 @@ public class ListenResultSelectActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
+            adBuilder.setTitle("是否退出本次记录");
+            adBuilder.setMessage("退出后本次听写将不会生成记录");
+            adBuilder.setPositiveButton("确认退出", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // 选中“确定”按钮，解除绑定
+                    // 更改SharedP中数据
+                    finish();
+                }
+            });
+            adBuilder.setNegativeButton("我手滑了", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // 选中“取消”按钮，取消界面
 
+                }
+            });
+            adBuilder.create().show();
+        }
+        return false;
+    }
 }

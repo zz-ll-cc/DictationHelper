@@ -201,7 +201,7 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
 //                    context.startActivity(intent);
 
                     CustomDialogListenSelect dialog=new CustomDialogListenSelect(chooseWords,activity);
-                    dialog.setCancelable(false);
+                    dialog.setCancelable(true);
                     dialog.show(fragmentManager,"listenSelect");
                 }
             }

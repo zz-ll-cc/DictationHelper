@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +33,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -43,15 +42,19 @@ import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISCameraConfig;
 import com.yuyh.library.imgsel.config.ISListConfig;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.QiniuUtils.Auth;
 import cn.edu.hebtu.software.listendemo.R;
@@ -101,21 +104,9 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                     finish();
                     break;
                 case UPLOAD_HEADER:
-                    user = gson.fromJson(msg.obj + "", User.class);
-                    Log.e("editHeaderJSON", msg.obj + "");
-                    sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user)).commit();
-//                    RequestOptions ro = new RequestOptions().circleCrop();
-//                    Animation operatingAnim = AnimationUtils.loadAnimation(EditMsgActivity.this, R.anim.anim_upload_progress);
-//                    ivHeader.setImageResource(R.drawable.wait);
-//                    ivHeader.setAnimation(operatingAnim);
-                    //使用请求选项设置占位符
-//                    RequestOptions requestOptions = new RequestOptions()
-//                            .placeholder(R.drawable.wait);
-//                    Glide.with(getApplicationContext())
-//                            .load(user.getUheadPath())
-//                            .apply(ro)
-//                            .apply(requestOptions)
-//                            .into(ivHeader);
+                    String userStr = msg.obj + "";
+                    sp.edit().putString(Constant.USER_KEEP_KEY, userStr).commit();
+                    user = gson.fromJson(userStr,User.class);
                     //operatingAnim.cancel();
                     tvSetHeader.setText("上传成功");
                     refreshHeadImg();
@@ -152,8 +143,6 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                             handler.sendMessage(message);
                         }
                     });
-
-
                     break;
             }
 
@@ -191,7 +180,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         btnSave.setOnClickListener(this);
     }
 
-    private void refreshHeadImg(){
+    private void refreshHeadImg() {
         RequestOptions ro = new RequestOptions().circleCrop();
         if (null != user.getUheadPath() && !user.getUheadPath().equals(""))
             Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
@@ -257,7 +246,8 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        String json  = sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER);
+        user = gson.fromJson(json,User.class);
     }
 
     private void findViews() {

@@ -94,7 +94,6 @@ public class MyInfoFragment extends Fragment {
 
     private void setData() {
         rlEditMyMsg.setVisibility(View.VISIBLE);
-        Log.e("userJson",sp.getString(Constant.USER_KEEP_KEY,""));
         tvName.setText(user.getUname());
         RequestOptions ro = new RequestOptions().error(R.drawable.head_user).circleCrop();
         Glide.with(this).load(user.getUheadPath()).apply(ro).into(ivHeader);
@@ -151,7 +150,6 @@ public class MyInfoFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
-        Log.e("aaaaaaaaaaaaaaaaaaaaaa",user.toString());
         setData();
         setListener();
         StatusBarUtil.setStatusBarColor(getActivity(),R.color.backgray);

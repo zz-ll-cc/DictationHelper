@@ -69,6 +69,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
+
 //import static cn.edu.hebtu.software.listendemo.QiniuUtils.QiniuUtil.uploadImg2QiNiu;
 
 public class EditMsgActivity extends AppCompatActivity implements View.OnClickListener {
@@ -81,6 +84,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
     private Spinner spGrade;
     private TextView tvBirth;
     private Spinner spYear;
+    private List<UnLock> unLocks;
     private TextView tvChooseDate;
     private Button btnSave;
     private SharedPreferences sp;
@@ -98,8 +102,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             super.handleMessage(msg);
             switch (msg.what) {
                 case UPLOAD_FORM:
-                    sp.edit().putString(Constant.USER_KEEP_KEY, msg.obj + "").commit();
-                    Log.e("editMSGJSON", msg.obj + "");
+                    updateUser(user.getUid());
                     Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
@@ -246,8 +249,19 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        String json  = sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER);
-        user = gson.fromJson(json,User.class);
+        String userStr = sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER);
+        unLocks = null;
+        try {
+            JSONObject jsonObject = new JSONObject(userStr);
+            String unLockList = jsonObject.get("unlockList").toString();
+            Type type = new TypeToken<List<UnLock>>(){}.getType();
+            unLocks = new Gson().fromJson(unLockList,type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user = gson.fromJson(userStr, User.class);
+        user.setUnLockList(unLocks);
+        Log.e("getUesr1",gson.toJson(user));
     }
 
     private void findViews() {
@@ -334,10 +348,10 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 user.setUsex("女");
                 break;
         }
-        Log.e("usersssss", gson.toJson(user));
     }
 
     private void postForm() {
+        Log.e("getUesr2",gson.toJson(user));
         RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), gson.toJson(user));
         Request request = new Request.Builder().url(Constant.URL_UPDATE_USER).post(body).build();
         Call call = client.newCall(request);
@@ -496,5 +510,41 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
         tvSetHeader.setText("正在上传...");
         //上传到七牛
         this.headpicPath = uploadImg2QiNiu(path);
+    }
+    //发送自动登录信息
+    private void updateUser(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("id", userId + "").build();
+        Request request = new Request.Builder().url(Constant.URL_UPDATE_MYSELF).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                List<UnLock> unLocks = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    String unLockList = jsonObject.get("unlockList").toString();
+                    Type type = new TypeToken<List<UnLock>>(){}.getType();
+                    unLocks = new Gson().fromJson(unLockList,type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                User user = new Gson().fromJson(json,User.class);
+                user.setUnLockList(unLocks);
+                getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+            }
+        });
     }
 }

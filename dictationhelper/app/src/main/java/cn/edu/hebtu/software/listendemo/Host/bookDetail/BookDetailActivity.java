@@ -344,6 +344,7 @@ public class BookDetailActivity extends AppCompatActivity {
         book = (Book) getIntent().getSerializableExtra(Constant.HOST_CON_DETAIL_BOOK);
 //        checkVersion(book.getBid(),book.getVersion());
         tvName.setText(book.getBname());
+        Glide.with(this).load(book.getBimgPath()).into(ivCover);
         tvName.setSelected(true);
         sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         String userStr = sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER);

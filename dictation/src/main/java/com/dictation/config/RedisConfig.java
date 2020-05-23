@@ -13,8 +13,12 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.activation.DataSource;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 /**
  * @ClassName RedisConfig
@@ -51,9 +55,14 @@ public class RedisConfig {
 
         template.afterPropertiesSet();
 
+//        template.setEnableTransactionSupport(true);
+
 
         return template;
     }
+
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,13 +14,13 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.R;
-import cn.edu.hebtu.software.listendemo.Untils.Constant;
 
 public class ListenResultSelectRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
@@ -48,25 +49,35 @@ public class ListenResultSelectRecyclerViewAdapter extends RecyclerView.Adapter 
         MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
         itemViewHolder.tvChinese.setText(paperlist.get(i).getWchinese());
         itemViewHolder.tvEnglish.setText(paperlist.get(i).getWenglish());
-        itemViewHolder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        itemViewHolder.ivFalse.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int count = group.getChildCount();
-                Log.e("tttttttttt",group.toString()+"---"+count);
-                for(int j = 0 ;j < count;j++){
-                    RadioButton rb =(RadioButton) group.getChildAt(j);
-                    if(rb.isChecked()){
-                        if (rb.getText().equals("对")){
-                            checkStatus.put(i,true);
-//                            notifyDataSetChanged();
-                        }
-                        if (rb.getText().equals("错")){
-                            checkStatus.put(i,false);
-//                            notifyDataSetChanged();
-                        }
-                        Log.e("tttttttttt",i+" "+rb.getText()+"");
-                        break;
-                    }
+            public void onClick(View v) {
+                if (null == checkStatus.get(i)){    // 此时没有添加
+                    itemViewHolder.rlOut.setBackgroundColor(Color.parseColor("#9AFFE6B6"));
+                    Glide.with(context).load(R.drawable.page_result_false_choose).into(itemViewHolder.ivFalse);
+                    Glide.with(context).load(R.drawable.page_result_true).into(itemViewHolder.ivTrue);
+                    checkStatus.put(i,false);
+                }else if (null != checkStatus.get(i) && checkStatus.get(i) == true){
+                    itemViewHolder.rlOut.setBackgroundColor(Color.parseColor("#9AFFE6B6"));
+                    Glide.with(context).load(R.drawable.page_result_false_choose).into(itemViewHolder.ivFalse);
+                    Glide.with(context).load(R.drawable.page_result_true).into(itemViewHolder.ivTrue);
+                    checkStatus.put(i,false);
+                }
+            }
+        });
+        itemViewHolder.ivTrue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null == checkStatus.get(i)){    // 此时没有添加
+                    itemViewHolder.rlOut.setBackgroundColor(Color.parseColor("#9AFFF5F1"));
+                    Glide.with(context).load(R.drawable.page_result_false).into(itemViewHolder.ivFalse);
+                    Glide.with(context).load(R.drawable.page_result_true_choose).into(itemViewHolder.ivTrue);
+                    checkStatus.put(i,true);
+                }else if (null != checkStatus.get(i) && checkStatus.get(i) == false){
+                    itemViewHolder.rlOut.setBackgroundColor(Color.parseColor("#9AFFF5F1"));
+                    Glide.with(context).load(R.drawable.page_result_false).into(itemViewHolder.ivFalse);
+                    Glide.with(context).load(R.drawable.page_result_true_choose).into(itemViewHolder.ivTrue);
+                    checkStatus.put(i,true);
                 }
             }
         });
@@ -84,17 +95,17 @@ public class ListenResultSelectRecyclerViewAdapter extends RecyclerView.Adapter 
     private class MyItemViewHolder extends RecyclerView.ViewHolder {
         public TextView tvChinese;
         public TextView tvEnglish;
-        public RadioGroup radioGroup;
-        public RadioButton rbt;
-        public RadioButton rbf;
+        public ImageView ivTrue;
+        public ImageView ivFalse;
+        public RelativeLayout rlOut;
 
         public MyItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvChinese = itemView.findViewById(R.id.tv_paper_listen_item_chinese);
             tvEnglish = itemView.findViewById(R.id.tv_paper_listen_item_english);
-            radioGroup = itemView.findViewById(R.id.rg_paper);
-            rbt = itemView.findViewById(R.id.rb_t);
-            rbf = itemView.findViewById(R.id.rb_f);
+            ivTrue = itemView.findViewById(R.id.iv_page_listen_item_true);
+            ivFalse = itemView.findViewById(R.id.iv_page_listen_item_false);
+            rlOut = itemView.findViewById(R.id.rl_paper_listen_item_out);
         }
     }
 

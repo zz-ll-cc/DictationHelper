@@ -10,6 +10,6 @@
         android:color="#ff8c00"
         android:dashGap="4dp" />
     <!--android:color="#4eb621"-->
-    <!--android:dashWidth="8dp"-->
+    <!--android:dashWidth="8dp" #ff8c00  #ff5949-->
 
 </shape>

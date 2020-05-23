@@ -83,9 +83,7 @@ public class RecyclerViewBehavior extends CoordinatorLayout.Behavior<RecyclerVie
         showingTop = dy < 0 && !ViewCompat.canScrollVertically(target, -1);
 
         if (hidingTop || showingTop) {
-            consumed[1] = Utils.scroll(child, dy,
-                    getMonthPager(coordinatorLayout).getCellHeight(),
-                    getMonthPager(coordinatorLayout).getViewHeight());
+            consumed[1] = Utils.scroll(child, dy, getMonthPager(coordinatorLayout).getCellHeight(), getMonthPager(coordinatorLayout).getViewHeight());
             saveTop(child.getTop());
         }
     }

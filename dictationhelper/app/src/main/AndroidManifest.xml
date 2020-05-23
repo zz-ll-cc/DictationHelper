@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Mine.index.credit.CreditDetailActivity"></activity>
+        <activity android:name=".Mine.index.shopping.ShoppingActivity"></activity>
+        <activity android:name=".Mine.index.credit.CreditDetailActivity" />
         <activity android:name=".Host.searchWord.SearchWordActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity
@@ -52,10 +53,12 @@
             android:configChanges="orientation|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".Host.listenWord.ListenWordPaperActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Host.listenWord.ListenResultSelectActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Host.listenWord.ListenWordPaperActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Host.listenWord.ListenResultSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Host.bookDetail.BookDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -77,7 +80,9 @@
         <activity android:name=".Mine.index.settings.MyCreditActivity" />
         <activity
             android:name=".Mine.index.settings.SyllabusActivity"
-            android:theme="@style/Theme" />
+            android:theme="@style/Theme"/>
+        <activity android:name=".Mine.index.settings.SignActivity"
+            android:theme="@style/Theme"/>
     </application>
 
 </manifest>

@@ -111,10 +111,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                     try {
                         JSONObject obj = new JSONObject(msg.obj.toString());
                         if (obj.getInt("register_type") != 0 ) {
-                            Log.e("messagesss2",msg.obj.toString());
-                            // 更改成功
-                            User user2 = gson.fromJson(obj.getString("user"), User.class);
-                            sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user2)).commit();
+                            sp.edit().putString(Constant.USER_KEEP_KEY, obj.getString("user")).commit();
                             Toast.makeText(EditPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
@@ -131,9 +128,7 @@ public class EditPwdActivity extends AppCompatActivity implements View.OnClickLi
                     try{
                         JSONObject obj = new JSONObject(msg.obj.toString());
                         if (obj.getInt("register_type") != 0 ) {
-                            // 更改成功
-                            User user2 = gson.fromJson(obj.getString("user"), User.class);
-                            sp.edit().putString(Constant.USER_KEEP_KEY, gson.toJson(user2)).commit();
+                            sp.edit().putString(Constant.USER_KEEP_KEY, obj.getString("user")).commit();
                             Toast.makeText(EditPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                             finish();
                         }else{

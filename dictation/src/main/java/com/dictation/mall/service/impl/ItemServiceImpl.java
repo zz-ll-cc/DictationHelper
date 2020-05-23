@@ -201,7 +201,8 @@ public class ItemServiceImpl implements ItemService {
         ItemType itemType = item.getItemType();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.SECOND, Math.toIntExact(itemType.getDurationTime()));
+        //商品的有效期都是7天
+        calendar.add(Calendar.HOUR, 24*7);
         inventory.setApproachOfAchieving("积分兑换")
                 .setExpiryTime(calendar.getTime())
                 .setItemId(itemId)

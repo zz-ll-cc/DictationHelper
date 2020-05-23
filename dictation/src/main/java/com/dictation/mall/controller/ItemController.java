@@ -117,6 +117,33 @@ public class ItemController {
         return null;
     }
 
+    //获取所有商品
+    @RequestMapping("/getItems")
+    @ResponseBody
+    public List<Item> getItems(@RequestParam(value = "pageSize",required = false) Integer pageSize,
+                               @RequestParam(value = "pageNum",required = false) Integer pageNum){
+        if(pageNum == null || pageNum < 1){
+            pageNum = 1;
+        }
+        if(pageSize == null || pageSize < 1){
+            pageSize = 10;
+        }
+        return itemService.findAllItemByPaging(pageSize, pageNum);
+    }
+
+
+    @RequestMapping("/getItemLeftInCache")
+    @ResponseBody
+    public String getItemLeftInCache(@RequestParam("itemId") Integer itemId){
+        int res;
+        if((res = itemService.findQuantityInCache(itemId)) == -1){
+            return "0";
+        }
+        return res+"";
+
+    }
+
+
 
 
 }

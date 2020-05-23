@@ -31,10 +31,10 @@ public class InventoryController {
 
     @RequestMapping("/getMyInventory")
     public List<Inventory> getMyInventory(@RequestParam("userId") Integer userId, @RequestParam(value = "pageSize",required = false) Integer pageSize, @RequestParam(value = "pageNum",required = false) Integer pageNum){
-        if(pageNum == null && pageNum < 1){
+        if(pageNum == null || pageNum < 1){
             pageNum = 1;
         }
-        if(pageSize == null && pageSize < 1){
+        if(pageSize == null || pageSize < 1){
             pageSize = 10;
         }
         return inventoryService.findAllByUserId(userId, pageSize, pageNum);

@@ -80,7 +80,9 @@
         <activity android:name=".Mine.index.settings.MyCreditActivity" />
         <activity
             android:name=".Mine.index.settings.SyllabusActivity"
-            android:theme="@style/Theme" />
+            android:theme="@style/Theme"/>
+        <activity android:name=".Mine.index.settings.SignActivity"
+            android:theme="@style/Theme"/>
     </application>
 
 </manifest>

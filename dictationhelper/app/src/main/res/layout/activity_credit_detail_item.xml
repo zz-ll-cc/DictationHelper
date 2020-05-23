@@ -14,8 +14,9 @@
         android:layout_marginTop="@dimen/dp_10"
         android:maxLines="1"
         android:text="签到"
-        android:textColor="#000"
+        android:textColor="#7fc524"
         android:textSize="15sp" />
+    <!--android:textColor="#a5a38f"-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
         android:layout_marginBottom="@dimen/dp_10"
         android:maxLines="1"
         android:id="@+id/tv_credit_detail_item_cretime"
+        android:textColor="#7fc524"
         android:text="2012.5.8"
         android:textSize="15sp" />
     <TextView
@@ -33,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="+5"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/blue"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:textSize="20sp"

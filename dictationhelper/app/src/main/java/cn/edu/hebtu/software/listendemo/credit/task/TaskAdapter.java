@@ -120,6 +120,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
             holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
             holder.btn_add_credit.setEnabled(false);
+            holder.btn_add_credit.setText("已领取");
         } else {
             holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_normal));
             holder.btn_add_credit.setTextColor(Color.parseColor("#ff8c00"));
@@ -251,6 +252,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                         holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                         holder.btn_add_credit.setEnabled(false);
+                                                        holder.btn_add_credit.setText("已领取");
 //                                                EventBus.getDefault().post(user);
                                                         List<UnLock> unLocks = null;
                                                         try {
@@ -296,6 +298,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                 holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                 holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                 holder.btn_add_credit.setEnabled(false);
+                                                holder.btn_add_credit.setText("已领取");
                                                 tvCreditSum.setText(user.getUserCredit() + "分");
                                                 title.get(position).put("tag","true");
 //                                                EventBus.getDefault().post(user);

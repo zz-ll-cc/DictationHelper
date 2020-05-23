@@ -92,24 +92,24 @@ public class CalendarRenderer {
         int day = currentWeekLastDay.day;
         for (int i = Const.TOTAL_COL - 1; i >= 0; i--) {
             CalendarDate date = currentWeekLastDay.modifyDay(day);
-            if (weeks[rowIndex] == null) {
-                weeks[rowIndex] = new Week(rowIndex);
-            }
-            if (weeks[rowIndex].days[i] != null) {
-                if (date.equals(CalendarViewAdapter.loadSelectedDate())) {
-                    weeks[rowIndex].days[i].setState(State.SELECT);
-                    weeks[rowIndex].days[i].setDate(date);
-                } else {
-                    weeks[rowIndex].days[i].setState(State.CURRENT_MONTH);
-                    weeks[rowIndex].days[i].setDate(date);
-                }
-            } else {
-                if (date.equals(CalendarViewAdapter.loadSelectedDate())) {
-                    weeks[rowIndex].days[i] = new Day(State.SELECT, date, rowIndex, i);
-                } else {
-                    weeks[rowIndex].days[i] = new Day(State.CURRENT_MONTH, date, rowIndex, i);
-                }
-            }
+//            if (weeks[rowIndex] == null) {
+//                weeks[rowIndex] = new Week(rowIndex);
+//            }
+//            if (weeks[rowIndex].days[i] != null) {
+//                if (date.equals(CalendarViewAdapter.loadSelectedDate())) {
+//                    weeks[rowIndex].days[i].setState(State.SELECT);
+//                    weeks[rowIndex].days[i].setDate(date);
+//                } else {
+//                    weeks[rowIndex].days[i].setState(State.CURRENT_MONTH);
+//                    weeks[rowIndex].days[i].setDate(date);
+//                }
+//            } else {
+//                if (date.equals(CalendarViewAdapter.loadSelectedDate())) {
+//                    weeks[rowIndex].days[i] = new Day(State.SELECT, date, rowIndex, i);
+//                } else {
+//                    weeks[rowIndex].days[i] = new Day(State.CURRENT_MONTH, date, rowIndex, i);
+//                }
+//            }
             day--;
         }
     }

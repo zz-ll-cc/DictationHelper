@@ -23,4 +23,11 @@
     <color name="holo_red_light">#ffff4444</color>
     <color name="holo_red_dark">#ffcc0000</color>
     <color name="backgray">#FFFAFAFA</color>
+    <color name="green">#2bc39a</color>
+    <color name="green1">#a8dfcf</color>
+    <color name="green2">#a4edcf</color>
+    <color name="orange">#fd790d</color>
+   <color name="blue">#a0e3fd</color>
+    <color name="blue2">#d1f0f3</color>
+    <color name="red1">#ff5a49</color>
 </resources>

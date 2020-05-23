@@ -29,9 +29,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,16 +78,16 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvMonth;
     private TextView backToday;
     private LinearLayout llOut;
-    private CoordinatorLayout content;
-    private MonthPager monthPager;
+    //    private CoordinatorLayout content;
+//    private MonthPager monthPager;
     private RecyclerView rvToDoList;
-    private TextView scrollSwitch;
+    //    private TextView scrollSwitch;
     //  TextView themeSwitch;
-    private TextView nextMonthBtn;
-    private TextView lastMonthBtn;
+//    private TextView nextMonthBtn;
+//    private TextView lastMonthBtn;
     //    private ImageView ivSignRemind;
-    private TextView tvSignDayContinue;
-    private TextView tvSignDaySum;
+//    private TextView tvSignDayContinue;
+//    private TextView tvSignDaySum;
     private TextView tvCreditSum;
     private TextView dateTv;
     private TextView tvCreditDetail;
@@ -132,61 +129,62 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     private static final int GET_CREDIT_SUM = 300;
     private static final int GET_WORD_SUM = 400;
     private static final int UPDATE_USER = 500;
-    private static final int GET_MARKER_DATE = 600;
+    //    private static final int GET_MARKER_DATE = 600;
     private static final int GET_MAX_RECORD = 700;
     private static final int GET_CREDICT_RECORD = 1000;
+    private ImageView tvSign;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case GET_SIGN_DAY_CONTINUE:
-                    tvSignDayContinue.setText(msg.obj + "");
-                    break;
-                case GET_SIGN_DAY_SUM:
-                    tvSignDaySum.setText(msg.obj + "");
-                    break;
-                case GET_CREDIT_SUM:
-                    tvCreditSum.setText(msg.obj + "");
-                    break;
-                case GET_MARKER_DATE:
-                    if (msg.obj != null) {
-                        Map<String, String> markData1 = new HashMap<>();
-                        UserSignIn userSignIns = gson.fromJson(msg.obj + "", UserSignIn.class);
-                        CalendarDate date = new CalendarDate();
-                        markData1 = userSignIns.getYearRecord().get(date.getYear() + "");
-                        if (markData1 != null) {
-                            for (int i = 0; i < markData1.size(); i++) {
-                                if (markData1.size() != 0) {
-                                    Iterator<String> iter = markData1.keySet().iterator();
-                                    while (iter.hasNext()) {
-                                        String key = iter.next();
-                                        String[] str = key.split("-");
-                                        int month = Integer.parseInt(str[1]);
-                                        int day = Integer.parseInt(str[2]);
-                                        String d = str[0] + "-" + month + "-" + day;
-                                        String value = markData1.get(key);
-                                        if (markData == null)
-                                            markData = new HashMap<>();
-                                        if (value.equals("false")) {
-                                            markData.put(d, "1");//1表示未签到   0表示已签到
-                                        } else {
-                                            markData.put(d, "0");//1表示未签到   0表示已签到
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    initCalendarView();
-                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
-                    calendarAdapter.switchToMonth();
-//                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-//                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
-                    calendarAdapter.setMarkData(markData);
-                    calendarAdapter.notifyDataChanged();
-                    break;
+//                case GET_SIGN_DAY_CONTINUE:
+//                    tvSignDayContinue.setText(msg.obj + "");
+//                    break;
+//                case GET_SIGN_DAY_SUM:
+//                    tvSignDaySum.setText(msg.obj + "");
+//                    break;
+//                case GET_CREDIT_SUM:
+//                    tvCreditSum.setText(msg.obj + "");
+//                    break;
+//                case GET_MARKER_DATE:
+//                    if (msg.obj != null) {
+//                        Map<String, String> markData1 = new HashMap<>();
+//                        UserSignIn userSignIns = gson.fromJson(msg.obj + "", UserSignIn.class);
+//                        CalendarDate date = new CalendarDate();
+//                        markData1 = userSignIns.getYearRecord().get(date.getYear() + "");
+//                        if (markData1 != null) {
+//                            for (int i = 0; i < markData1.size(); i++) {
+//                                if (markData1.size() != 0) {
+//                                    Iterator<String> iter = markData1.keySet().iterator();
+//                                    while (iter.hasNext()) {
+//                                        String key = iter.next();
+//                                        String[] str = key.split("-");
+//                                        int month = Integer.parseInt(str[1]);
+//                                        int day = Integer.parseInt(str[2]);
+//                                        String d = str[0] + "-" + month + "-" + day;
+//                                        String value = markData1.get(key);
+//                                        if (markData == null)
+//                                            markData = new HashMap<>();
+//                                        if (value.equals("false")) {
+//                                            markData.put(d, "1");//1表示未签到   0表示已签到
+//                                        } else {
+//                                            markData.put(d, "0");//1表示未签到   0表示已签到
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    initCalendarView();
+//                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+//                    calendarAdapter.switchToMonth();
+////                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+////                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
+//                    calendarAdapter.setMarkData(markData);
+//                    calendarAdapter.notifyDataChanged();
+//                    break;
                 case GET_MAX_RECORD:
                     if (!msg.obj.equals("0")) {
                         Record record = gson.fromJson(msg.obj + "", Record.class);
@@ -307,7 +305,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllabus);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.red1);
         marginTopStateBar();
         context = this;
         findView();
@@ -317,24 +315,42 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        Log.e("userJsonSyllabus1",sp.getString(Constant.USER_KEEP_KEY,""));
         List<UnLock> unLocks = null;
         try {
-            JSONObject jsonObject = new JSONObject(sp.getString(Constant.USER_KEEP_KEY,""));
+            JSONObject jsonObject = new JSONObject(sp.getString(Constant.USER_KEEP_KEY, ""));
             String unLockList = jsonObject.get("unlockList").toString();
-            Type type = new TypeToken<List<UnLock>>(){}.getType();
-            unLocks = new Gson().fromJson(unLockList,type);
+            Type type = new TypeToken<List<UnLock>>() {
+            }.getType();
+            unLocks = new Gson().fromJson(unLockList, type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         user.setUnLockList(unLocks);
 //        Log.e("userJsonSyllabus2",user.toString());
         getCreditRecord(user.getUid());
-        initMarkData();
+//        initMarkData();
 //        ivSignRemind.setOnClickListener(this);
         tvCreditDetail.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         initRecycleView();
-        initCurrentDate();
+
+        int i1 = 0;
+        if (user.getContinuousSignIn() != null) {
+            i1 = user.getContinuousSignIn();
+        }
+        int i2 = 0;
+        if (user.getAccumulateSignIn() != null) {
+            i2 = user.getAccumulateSignIn();
+        }
+        int i3 = 0;
+        if (user.getUserCredit() != null) {
+            i3 = user.getUserCredit();
+        }
+//        tvSignDayContinue.setText(i1+ "天");
+//        tvSignDaySum.setText(i2+ "天");
+        tvCreditSum.setText(i3+ "分");
+
+//        initCurrentDate();
         //initCalendarView();
-        initToolbarClickListener();
+//        initToolbarClickListener();
 //        Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
 //        calendarAdapter.switchToMonth();
 //        Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
@@ -360,27 +376,36 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void findView() {
-        content = (CoordinatorLayout) findViewById(R.id.content);
-        monthPager = (MonthPager) findViewById(R.id.calendar_view);
-        //此处强行setViewHeight，毕竟你知道你的日历牌的高度
-        monthPager.setViewHeight(Utils.dpi2px(context, 270));
+//        content = (CoordinatorLayout) findViewById(R.id.content);
+//        monthPager = (MonthPager) findViewById(R.id.calendar_view);
+//        //此处强行setViewHeight，毕竟你知道你的日历牌的高度
+//        monthPager.setViewHeight(Utils.dpi2px(context, 270));
         tvYear = (TextView) findViewById(R.id.show_year_view);
         tvMonth = (TextView) findViewById(R.id.show_month_view);
-        backToday = (TextView) findViewById(R.id.back_today_button);
-        scrollSwitch = (TextView) findViewById(R.id.scroll_switch);
+//        backToday = (TextView) findViewById(R.id.back_today_button);
+//        scrollSwitch = (TextView) findViewById(R.id.scroll_switch);
 //      themeSwitch = (TextView) findViewById(R.id.theme_switch);
-        nextMonthBtn = (TextView) findViewById(R.id.next_month);
-        lastMonthBtn = (TextView) findViewById(R.id.last_month);
+//        nextMonthBtn = (TextView) findViewById(R.id.next_month);
+//        lastMonthBtn = (TextView) findViewById(R.id.last_month);
         rvToDoList = (RecyclerView) findViewById(R.id.list);
 //        ivSignRemind = (ImageView) findViewById(R.id.iv_my_credit_sign_remind);
-        tvSignDayContinue = (TextView) findViewById(R.id.tv_sign_day_continue);
-        tvSignDaySum = (TextView) findViewById(R.id.tv_sign_day_sum);
+//        tvSignDayContinue = (TextView) findViewById(R.id.tv_sign_day_continue);
+//        tvSignDaySum = (TextView) findViewById(R.id.tv_sign_day_sum);
         themeDayView = new ThemeDayView(context, R.layout.custom_day);
         tvCreditSum = (TextView) findViewById(R.id.tv_sign_point_sum);
         tvCreditDetail = (TextView) findViewById(R.id.tv_my_point_detail);
         tvWordSum = (TextView) findViewById(R.id.tv_word_sum);
         btnBack = (ImageView) findViewById(R.id.iv_my_credit_back);
         dateTv = themeDayView.findViewById(R.id.date);
+        tvSign = (ImageView) findViewById(R.id.tv_sign);
+        tvSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SyllabusActivity.this, SignActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -429,142 +454,142 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    //初始化currentDate
-    private void initCurrentDate() {
-        currentDate = new CalendarDate();
-        tvYear.setText(currentDate.getYear() + "年");
-        tvMonth.setText(currentDate.getMonth() + "");
-    }
+//    //初始化currentDate
+//    private void initCurrentDate() {
+//        currentDate = new CalendarDate();
+//        tvYear.setText(currentDate.getYear() + "年");
+//        tvMonth.setText(currentDate.getMonth() + "");
+//    }
 
-    //初始化CustomDayView，并作为CalendarViewAdapter的参数传入
-    private void initCalendarView() {
-        initListener();
-        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day, markData);
-        calendarAdapter = new CalendarViewAdapter(context, onSelectDateListener, CalendarAttr.WeekArrayType.Monday, customDayView);
-        calendarAdapter.setOnCalendarTypeChangedListener(new CalendarViewAdapter.OnCalendarTypeChanged() {
-            @Override
-            public void onCalendarTypeChanged(CalendarAttr.CalendarType type) {
-                rvToDoList.scrollToPosition(0);
-            }
-        });
-//        initMarkData();
-        initMonthPager();
-    }
-
-    //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
-    private void initMarkData() {
-        getMarkData(user.getUid());
-    }
-
-    //初始化monthPager，MonthPager继承自ViewPager
-    private void initMonthPager() {
-        monthPager.setAdapter(calendarAdapter);
-        monthPager.setCurrentItem(MonthPager.CURRENT_DAY_INDEX);
-        monthPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-                position = (float) Math.sqrt(1 - Math.abs(position));
-                page.setAlpha(position);
-            }
-        });
-        monthPager.addOnPageChangeListener(new MonthPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mCurrentPage = position;
-                currentCalendars = calendarAdapter.getPagers();
-                Log.e("currentCalendars", currentCalendars.size() + "");
-                if (currentCalendars.get(position % currentCalendars.size()) != null) {
-                    CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
-                    currentDate = date;
-                    tvYear.setText(date.getYear() + "年");
-                    tvMonth.setText(date.getMonth() + "");
-                    Log.e("currentCalendars", date.getMonth() + "");
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-    }
-
-    //初始化对应功能的listener
-    private void initToolbarClickListener() {
-        backToday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickBackToDayBtn();
-            }
-        });
-        scrollSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (calendarAdapter.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
-                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
-                    calendarAdapter.switchToMonth();
-                } else {
-                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
-                }
-            }
-        });
-//        themeSwitch.setOnClickListener(new View.OnClickListener() {
+//    //初始化CustomDayView，并作为CalendarViewAdapter的参数传入
+//    private void initCalendarView() {
+//        initListener();
+//        CustomDayView customDayView = new CustomDayView(context, R.layout.custom_day, markData);
+//        calendarAdapter = new CalendarViewAdapter(context, onSelectDateListener, CalendarAttr.WeekArrayType.Monday, customDayView);
+//        calendarAdapter.setOnCalendarTypeChangedListener(new CalendarViewAdapter.OnCalendarTypeChanged() {
 //            @Override
-//            public void onClick(View view) {
-//                refreshSelectBackground();
+//            public void onCalendarTypeChanged(CalendarAttr.CalendarType type) {
+//                rvToDoList.scrollToPosition(0);
 //            }
 //        });
-        nextMonthBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                monthPager.setCurrentItem(monthPager.getCurrentPosition() + 1);
-            }
-        });
-        lastMonthBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                monthPager.setCurrentItem(monthPager.getCurrentPosition() - 1);
-            }
-        });
-    }
+////        initMarkData();
+//        initMonthPager();
+//    }
 
-    private void initListener() {
-        //日期被点击
-        onSelectDateListener = new OnSelectDateListener() {
-            @Override
-            public void onSelectDate(CalendarDate date) {
-                String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                //签到框
-                //创建并显示自定义的dialog
-                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this, sp, calendarAdapter, tvCreditSum, tvSignDayContinue, tvSignDaySum, monthPager);
-                dialog.setCancelable(false);
-                dialog.show(getSupportFragmentManager(), "sign");
-                calendarAdapter.notifyDataChanged();
-                refreshClickDate(date);
-            }
+//    //初始化标记数据，HashMap的形式，可自定义如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
+//    private void initMarkData() {
+//        getMarkData(user.getUid());
+//    }
 
-            @Override
-            public void onSelectOtherMonth(int offset) {
-                //偏移量 -1表示刷新成上一个月数据 ， 1表示刷新成下一个月数据
-                monthPager.selectOtherMonth(offset);
-            }
-        };
-    }
+//    //初始化monthPager，MonthPager继承自ViewPager
+//    private void initMonthPager() {
+//        monthPager.setAdapter(calendarAdapter);
+//        monthPager.setCurrentItem(MonthPager.CURRENT_DAY_INDEX);
+//        monthPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+//            @Override
+//            public void transformPage(View page, float position) {
+//                position = (float) Math.sqrt(1 - Math.abs(position));
+//                page.setAlpha(position);
+//            }
+//        });
+//        monthPager.addOnPageChangeListener(new MonthPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                mCurrentPage = position;
+//                currentCalendars = calendarAdapter.getPagers();
+//                Log.e("currentCalendars", currentCalendars.size() + "");
+//                if (currentCalendars.get(position % currentCalendars.size()) != null) {
+//                    CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
+//                    currentDate = date;
+//                    tvYear.setText(date.getYear() + "年");
+//                    tvMonth.setText(date.getMonth() + "");
+//                    Log.e("currentCalendars", date.getMonth() + "");
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//            }
+//        });
+//    }
 
-    //onWindowFocusChanged回调时，将当前月的种子日期修改为今天
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        monthPager.requestLayout();
-        if (hasFocus && !initiated) {
-//            refreshMonthPager();
-            initiated = true;
-        }
-    }
+//    //初始化对应功能的listener
+//    private void initToolbarClickListener() {
+//        backToday.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onClickBackToDayBtn();
+//            }
+//        });
+////        scrollSwitch.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                if (calendarAdapter.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
+////                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+////                    calendarAdapter.switchToMonth();
+////                } else {
+////                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+////                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
+////                }
+////            }
+////        });
+////        themeSwitch.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                refreshSelectBackground();
+////            }
+////        });
+//        nextMonthBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                monthPager.setCurrentItem(monthPager.getCurrentPosition() + 1);
+//            }
+//        });
+//        lastMonthBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                monthPager.setCurrentItem(monthPager.getCurrentPosition() - 1);
+//            }
+//        });
+//    }
+//
+//    private void initListener() {
+//        //日期被点击
+//        onSelectDateListener = new OnSelectDateListener() {
+//            @Override
+//            public void onSelectDate(CalendarDate date) {
+////                String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+////                //签到框
+////                //创建并显示自定义的dialog
+////                CustomDialogSign dialog = new CustomDialogSign(user, themeDayView, date, markData, SyllabusActivity.this, sp, calendarAdapter, tvCreditSum, tvSignDayContinue, tvSignDaySum, monthPager);
+////                dialog.setCancelable(false);
+////                dialog.show(getSupportFragmentManager(), "sign");
+////                calendarAdapter.notifyDataChanged();
+////                refreshClickDate(date);
+//            }
+//
+//            @Override
+//            public void onSelectOtherMonth(int offset) {
+//                //偏移量 -1表示刷新成上一个月数据 ， 1表示刷新成下一个月数据
+//                monthPager.selectOtherMonth(offset);
+//            }
+//        };
+//    }
+//
+//    //onWindowFocusChanged回调时，将当前月的种子日期修改为今天
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        monthPager.requestLayout();
+//        if (hasFocus && !initiated) {
+////            refreshMonthPager();
+//            initiated = true;
+//        }
+//    }
 
     //显示周日历
     @Override
@@ -572,7 +597,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        refreshMonthPager();
         super.onResume();
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.red1);
     }
 
     @Override
@@ -672,61 +697,61 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         return mEventList;
     }
 
-    //获取签到信息
-    private void getMarkData(int userId) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        CalendarDate date = new CalendarDate();
-        FormBody fb = new FormBody.Builder().add("id", userId + "").add("year", date.getYear() + "").build();
-        Request request = new Request.Builder().url(Constant.URL_GET_SIGNDAY).post(fb).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            /**
-             * 未完待续
-             *
-             * @param call
-             * @param response
-             * @throws IOException
-             */
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                Message message0 = new Message();
-                message0.what = GET_MARKER_DATE;
-                message0.obj = json;
-                handler.sendMessage(message0);
-                Message message = new Message();
-                message.what = GET_SIGN_DAY_CONTINUE;
-                int i1 = 0;
-                if (user.getContinuousSignIn() != null) {
-                    i1 = user.getContinuousSignIn();
-                }
-                message.obj = i1 + "天";
-                handler.sendMessage(message);
-                Message message1 = new Message();
-                message1.what = GET_SIGN_DAY_SUM;
-                int i2 = 0;
-                if (user.getAccumulateSignIn() != null) {
-                    i2 = user.getAccumulateSignIn();
-                }
-                message1.obj = i2 + "天";
-                handler.sendMessage(message1);
-                Message message2 = new Message();
-                message2.what = GET_CREDIT_SUM;
-                int i3 = 0;
-                if (user.getUserCredit() != null) {
-                    i3 = user.getUserCredit();
-                }
-                message2.obj = i3 + "分";
-                handler.sendMessage(message2);
-
-            }
-        });
-    }
+//    //获取签到信息
+//    private void getMarkData(int userId) {
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        CalendarDate date = new CalendarDate();
+//        FormBody fb = new FormBody.Builder().add("id", userId + "").add("year", date.getYear() + "").build();
+//        Request request = new Request.Builder().url(Constant.URL_GET_SIGNDAY).post(fb).build();
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            /**
+//             * 未完待续
+//             *
+//             * @param call
+//             * @param response
+//             * @throws IOException
+//             */
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String json = response.body().string();
+////                Message message0 = new Message();
+////                message0.what = GET_MARKER_DATE;
+////                message0.obj = json;
+////                handler.sendMessage(message0);
+//                Message message = new Message();
+//                message.what = GET_SIGN_DAY_CONTINUE;
+//                int i1 = 0;
+//                if (user.getContinuousSignIn() != null) {
+//                    i1 = user.getContinuousSignIn();
+//                }
+//                message.obj = i1 + "天";
+//                handler.sendMessage(message);
+//                Message message1 = new Message();
+//                message1.what = GET_SIGN_DAY_SUM;
+//                int i2 = 0;
+//                if (user.getAccumulateSignIn() != null) {
+//                    i2 = user.getAccumulateSignIn();
+//                }
+//                message1.obj = i2 + "天";
+//                handler.sendMessage(message1);
+//                Message message2 = new Message();
+//                message2.what = GET_CREDIT_SUM;
+//                int i3 = 0;
+//                if (user.getUserCredit() != null) {
+//                    i3 = user.getUserCredit();
+//                }
+//                message2.obj = i3 + "分";
+//                handler.sendMessage(message2);
+//
+//            }
+//        });
+//    }
 
     //获取当天听写记录最高分
     private void getListenerRecordData(int userId) {

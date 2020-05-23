@@ -292,20 +292,20 @@ public final class Utils {
     public static void scrollTo(final CoordinatorLayout parent, final RecyclerView child, final int y, int duration) {
         final Scroller scroller = new Scroller(parent.getContext());
         scroller.startScroll(0, top, 0, y - top, duration);   //设置scroller的滚动偏移量
-        ViewCompat.postOnAnimation(child, new Runnable() {
-            @Override
-            public void run() {
-                //返回值为boolean，true说明滚动尚未完成，false说明滚动已经完成。
-                // 这是一个很重要的方法，通常放在View.computeScroll()中，用来判断是否滚动是否结束。
-                if (scroller.computeScrollOffset()) {
-                    int delta = scroller.getCurrY() - child.getTop();
-                    child.offsetTopAndBottom(delta);
-                    saveTop(child.getTop());
-                    parent.dispatchDependentViewsChanged(child);
-                    ViewCompat.postOnAnimation(child, this);
-                }
-            }
-        });
+//        ViewCompat.postOnAnimation(child, new Runnable() {
+//                @Override
+//            public void run() {
+//                //返回值为boolean，true说明滚动尚未完成，false说明滚动已经完成。
+//                // 这是一个很重要的方法，通常放在View.computeScroll()中，用来判断是否滚动是否结束。
+//                if (scroller.computeScrollOffset()) {
+//                    int delta = scroller.getCurrY() - child.getTop();
+//                    child.offsetTopAndBottom(delta);
+//                    saveTop(child.getTop());
+//                    parent.dispatchDependentViewsChanged(child);
+//                    ViewCompat.postOnAnimation(child, this);
+//                }
+//            }
+//        });
     }
 
     public static void saveTop(int y) {

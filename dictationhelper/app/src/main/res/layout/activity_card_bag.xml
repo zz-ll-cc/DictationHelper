@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_syllabus_out"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgray"
@@ -11,7 +12,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/iv_credit_detail_exit"
+            android:id="@+id/iv_credit_bag_exit"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
@@ -23,13 +24,13 @@
             android:layout_centerInParent="true"
             android:text="卡卷包"
             android:textColor="#000"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11"
+        android:layout_weight="9"
         android:orientation="vertical">
 
         <LinearLayout
@@ -78,6 +79,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/enter_gery" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -90,7 +92,7 @@
             <LinearLayout
                 android:id="@+id/ll_above"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
@@ -112,8 +114,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="*提示 "
-                android:textSize="20sp" />
+                android:text="* 优惠卷可用于解锁相关付费单元"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"/>
 
         </RelativeLayout>
 

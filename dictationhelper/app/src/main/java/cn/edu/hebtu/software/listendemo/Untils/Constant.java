@@ -47,6 +47,7 @@ public class Constant {
     public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
     public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_DICTATION = "listenWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
+    public static final String CARD_BAG_DETAIL="inventories";
 
     // 拼写
     public static final String NO_STYLE = "未拼写";           // 默写时，输入值为空时默认值
@@ -121,5 +122,11 @@ public class Constant {
     public static final String URL_GET_MAX_SCORE = BASE_URL + "record/getMaxScore";
     public static final String URL_SIGN_RETROACTIVE = BASE_URL + "user/reSignIn";
     public static final String URL_GET_CREDIT_DETAIL = BASE_URL + "user/getUserCreditRecord";
+
+    //卡卷
+    public static final String URL_GET_ITEM=BASE_URL+"item/getItems";
+
+    public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
+
 
 }

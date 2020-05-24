@@ -55,9 +55,6 @@ import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 //自定义的Dialog需要继承DialogFragment
 public class CustomDialogSignSuccess extends DialogFragment {
     private Activity context;
-    private TextView tvSignSucessCreditRe;
-    private TextView tvSignSucessCredit;
-    private Button btnSignSucessKnow;
     private String signal;
     private int credit;
     private String reason;

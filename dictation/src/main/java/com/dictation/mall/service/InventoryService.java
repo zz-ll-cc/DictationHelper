@@ -32,7 +32,7 @@ public interface InventoryService {
 
     List<Inventory> findAllByUserIdOrderByExpiryTimeAsc(Integer userId);
 
-
+    Inventory useInventory(Integer id,Integer userId);
 
 
 

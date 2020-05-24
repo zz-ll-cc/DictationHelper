@@ -4,7 +4,7 @@
     android:id="@+id/ll_syllabus_out"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
+    android:background="@drawable/background_sign"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,8 +15,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#ff5949"
             android:orientation="horizontal">
+            <!--android:background="#ff5949"-->
 
             <ImageView
                 android:id="@+id/iv_my_credit_back"
@@ -44,107 +44,43 @@
                 android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:text="积分详情"
-                android:textColor="#000"
+                android:textColor="#b89564"
                 android:textSize="17sp" />
         </RelativeLayout>
 
     </LinearLayout>
 
     <LinearLayout
-
-
+        android:id="@+id/iv_1"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/linearlayout_corner2"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:id="@+id/tv_sign"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:scaleType="fitXY"
-            android:src="@drawable/signb1"/>
+            android:src="@drawable/signbtn" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="签到得积分"
-            android:textSize="18dp"
-            android:background="#ff5949"
-            android:textColor="@color/gray"/>
+            android:text="签到得积分哦！"
+            android:textColor="#ff921d"
+            android:textSize="18dp" />
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="11"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/iv_1"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_alignParentTop="true"
-            android:background="#ff5949"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginTop="-10dp"
-                android:id="@+id/tv_sign"
-                android:background="#ff5949"
-                android:layout_width="150dp"
-                android:layout_height="140dp"
-                android:src="@drawable/signbtn" />
-        </LinearLayout>
-
-        <!--android:background="@drawable/linearlayout_corner"-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="120dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:background="@drawable/linearlayout_corner1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text=" 做任务 挣积分"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/list"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="#fff"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -153,12 +89,12 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="match_parent"
+                android:layout_height="65dp"
                 android:layout_marginRight="50dp"
                 android:background="@drawable/linearlayout_corner"
                 android:orientation="horizontal">
@@ -207,7 +143,7 @@
 
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="match_parent"
+                android:layout_height="65dp"
                 android:background="@drawable/linearlayout_corner"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -255,8 +191,263 @@
             </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/linearlayout_corner1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 做任务 挣积分"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="190dp"-->
+    <!--android:orientation="vertical">-->
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:scaleType="fitXY" />-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="签到得积分哦！"-->
+    <!--android:textSize="18dp"-->
+    <!--android:textColor="#ff921d"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="9"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/iv_1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="180dp"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_marginTop="0dp"-->
+    <!--android:background="@drawable/linearlayout_corner2"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/tv_sign"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="140dp"-->
+    <!--android:layout_marginTop="-10dp"-->
+    <!--android:src="@drawable/signbtn" />-->
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;android:background="@drawable/linearlayout_corner"&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="280dp"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:layout_marginTop="120dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/linearlayout_corner1">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="250dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:gravity="center">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:text=" 做任务 挣积分"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="22sp" />-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/list"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="#fff"-->
+    <!--android:clipChildren="false"-->
+    <!--android:clipToPadding="false"-->
+    <!--app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="3"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:gravity="center">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="130dp"-->
+    <!--android:layout_height="65dp"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:background="@drawable/linearlayout_corner"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/jifen" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="25dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="累计积分"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="16dp" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_sign_point_sum"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="天"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="18dp" />-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="130dp"-->
+    <!--android:layout_height="65dp"-->
+    <!--android:background="@drawable/linearlayout_corner"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/sum1" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="25dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:paddingRight="5dp"-->
+    <!--android:text="累计学习"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="16dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_word_sum"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="词"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="18dp" />-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
 
 
 </LinearLayout>

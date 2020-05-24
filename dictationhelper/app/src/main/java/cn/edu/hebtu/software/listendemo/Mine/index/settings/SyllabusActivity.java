@@ -213,7 +213,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("tagg", title.toString());
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
-                        taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title, sp);
+                        taskAdapter = new TaskAdapter(SyllabusActivity.this,getSupportFragmentManager(),tag, studyMinute, tvCreditSum, score1, user, SyllabusActivity.this, title, sp);
 //                        Log.e("userJson",user.toString()+"");
                         rvToDoList.setAdapter(taskAdapter);
                     } else {
@@ -234,7 +234,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         rvToDoList.setHasFixedSize(true);
                         rvToDoList.setLayoutManager(new LinearLayoutManager(SyllabusActivity.this));//recycleView线性显示
 //                        Log.e("userJson",user.toString()+"");
-                        taskAdapter = new TaskAdapter(tag, studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title, sp);
+                        taskAdapter = new TaskAdapter(SyllabusActivity.this,getSupportFragmentManager(),tag, studyMinute, tvCreditSum, score, user, SyllabusActivity.this, title, sp);
                         rvToDoList.setAdapter(taskAdapter);
                     }
                     break;
@@ -286,8 +286,10 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                     if (records.get("有效听写").equals("true")) {
                         if (title.size() > 0) {
                             title.get(1).put("tag", "true");
+                            title.get(1).put("add_credit","已领取");
                         }
                         tag[1] = "true";
+                        add_credit[1]="已领取";
                     }
                     if (taskAdapter != null) {
                         taskAdapter.notifyDataSetChanged();
@@ -305,7 +307,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllabus);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.red1);
+        StatusBarUtil.setStatusBarColor(this, R.color.green3);
         marginTopStateBar();
         context = this;
         findView();
@@ -597,7 +599,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
 //        refreshMonthPager();
         super.onResume();
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.red1);
+        StatusBarUtil.setStatusBarColor(this, R.color.green3);
     }
 
     @Override

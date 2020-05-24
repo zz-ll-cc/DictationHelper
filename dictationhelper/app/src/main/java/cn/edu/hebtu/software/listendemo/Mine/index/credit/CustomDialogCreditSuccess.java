@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.Mine.index.settings;
+package cn.edu.hebtu.software.listendemo.Mine.index.credit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

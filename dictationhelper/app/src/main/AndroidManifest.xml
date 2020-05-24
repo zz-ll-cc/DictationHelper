@@ -79,9 +79,9 @@
         <activity android:name=".Mine.index.settings.EidtCenterActivity" />
         <activity android:name=".Mine.index.settings.MyCreditActivity" />
         <activity
-            android:name=".Mine.index.settings.SyllabusActivity"
+            android:name=".Mine.index.credit.SyllabusActivity"
             android:theme="@style/Theme"/>
-        <activity android:name=".Mine.index.settings.SignActivity"
+        <activity android:name=".Mine.index.credit.SignActivity"
             android:theme="@style/Theme"/>
     </application>
 

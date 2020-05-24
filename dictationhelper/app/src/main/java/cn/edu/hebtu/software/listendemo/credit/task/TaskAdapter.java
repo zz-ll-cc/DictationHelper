@@ -1,13 +1,9 @@
 package cn.edu.hebtu.software.listendemo.credit.task;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.usage.UsageEvents;
-import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -24,25 +20,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.Entity.CreditRecord;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Mine.index.settings.CustomDialogCreditSuccess;
-import cn.edu.hebtu.software.listendemo.Mine.index.settings.CustomDialogSignSuccess;
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.CustomDialogCreditSuccess;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import okhttp3.Call;
@@ -53,7 +42,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.content.Context.USAGE_STATS_SERVICE;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 

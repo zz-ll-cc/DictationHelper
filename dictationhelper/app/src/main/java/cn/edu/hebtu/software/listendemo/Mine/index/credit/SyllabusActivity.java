@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.Mine.index.settings;
+package cn.edu.hebtu.software.listendemo.Mine.index.credit;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,27 +37,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Record;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Entity.UserSignIn;
-import cn.edu.hebtu.software.listendemo.Mine.index.credit.CreditDetailActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
-import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
-import cn.edu.hebtu.software.listendemo.credit.component.CalendarAttr;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -68,7 +60,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 

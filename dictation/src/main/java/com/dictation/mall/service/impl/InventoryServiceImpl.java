@@ -103,7 +103,21 @@ public class InventoryServiceImpl implements InventoryService {
 
 
 
-
+    @Override
+    public Inventory useInventory(Integer id,Integer userId) {
+        Inventory inventory = inventoryMapper.selectById(id);
+        Date date = new Date();
+        if(inventory.getUserId() != userId){
+            logger.error("用户库存与用户id不匹配，传入参数为：" + id + ",userId" + userId + "，时间：" + date);
+            return null;
+        }
+        inventory.setIsUsed(1).setExpendTime(date);
+        if(inventoryMapper.updateById(inventory) == 1){
+            return inventory;
+        }
+        logger.error("用户库存使用失败，传入参数为：" + id + ",userId" + userId + "，时间：" + date);
+        return null;
+    }
 
 
 }

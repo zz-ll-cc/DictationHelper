@@ -139,7 +139,7 @@ public class MyInfoFragment extends Fragment {
         mapShop.put("imgBg", R.drawable.my_shopping_border);
         mapShop.put("img", R.drawable.shop);
         mapShop.put("name", "积分商城");
-        mapShop.put("content", "正在开发");
+        mapShop.put("content", "正在营业");
 
         Map<String, Object> mapSetting = new HashMap<>();
         mapSetting.put("imgBg", R.drawable.my_setting_border);

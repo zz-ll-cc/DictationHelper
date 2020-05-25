@@ -131,4 +131,8 @@ public class Inventory {
                 ", item=" + item +
                 '}';
     }
+
+    public Inventory(){
+
+    }
 }

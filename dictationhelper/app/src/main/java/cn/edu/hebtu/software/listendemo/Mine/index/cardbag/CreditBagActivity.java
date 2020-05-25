@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +37,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,6 @@ import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
 import cn.edu.hebtu.software.listendemo.credit.interf.OnSelectDateListener;
 import cn.edu.hebtu.software.listendemo.credit.task.TaskAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
@@ -93,18 +94,34 @@ public class CreditBagActivity extends AppCompatActivity implements View.OnClick
             switch (msg.what) {
                 case GET_MY_INVENTORY:
                     if (msg.obj != null) {
-                        Type type = new TypeToken<List<Inventory>>() {
+                        Type inventoryType = new TypeToken<List<Inventory>>() {
                         }.getType();
-                        inventories = gson.fromJson(msg.obj + "", type);
-                        CreditBagMineRecyclerAdapter creditBagMineRecyclerAdapter = new CreditBagMineRecyclerAdapter(inventories, CreditBagActivity.this, R.layout.activity_card_bag_mine_recycler_item);
-                        rcCardTag.setAdapter(creditBagMineRecyclerAdapter);
-                    }
-                    break;
-                case GET_ITEM:
-                    if (msg.obj != null) {
-                        Type type = new TypeToken<List<Item>>() {
-                        }.getType();
-                        List<Item> items = gson.fromJson(msg.obj + "", type);
+                        inventories = gson.fromJson(msg.obj + "", inventoryType);
+                        List<Inventory> inventories1=new ArrayList<>();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String time = format.format(Calendar.getInstance().getTime());
+                        try {
+                            Date nowDate = format.parse(time);
+                            for (int i = 0; i < inventories.size(); i++) {
+                                String expendTime = inventories.get(i).getExpiryTime();
+                                String[] arr = expendTime.split("T");
+                                String[] tarr = arr[1].split(".000");
+                                String dd = arr[0]+" "+tarr[0];
+                                Date expiryDate = format.parse(dd);
+                                if (inventories.get(i).getIsUsed() == 0 && nowDate.getTime()<expiryDate.getTime()) {
+                                    inventories1.add(inventories.get(i));
+                                }
+                            }
+                            tvSum.setText(inventories1.size()+"");
+                            CreditBagMineRecyclerAdapter creditBagMineRecyclerAdapter = new CreditBagMineRecyclerAdapter(inventories1, CreditBagActivity.this, R.layout.activity_card_bag_mine_recycler_item);
+                            rcCardTag.setAdapter(creditBagMineRecyclerAdapter);
+                            RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(CreditBagActivity.this, LinearLayoutManager.VERTICAL,false);
+                            rcCardTag.setLayoutManager(layoutManager);//必须调用，设置布局管理器
+//                       rcCardTag.setLayoutManager(new GridLayoutManager(CreditBagActivity.this, 3));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                     break;
             }
@@ -208,35 +225,5 @@ public class CreditBagActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    //获取所有优惠卷
-    private void getItems(int userId) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("uid", userId + "").build();
-        Request request = new Request.Builder().url(Constant.URL_GET_ITEM).post(fb).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            /**
-             * 未完待续
-             *
-             * @param call
-             * @param response
-             * @throws IOException
-             */
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                Log.e("itemjson", json);
-                Message message = new Message();
-                message.what = GET_ITEM;
-                message.obj = json;
-                handler.sendMessage(message);
-            }
-        });
-    }
 }
 

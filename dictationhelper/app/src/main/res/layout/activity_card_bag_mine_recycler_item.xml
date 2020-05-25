@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="130dp"
-    android:orientation="horizontal"
     android:id="@+id/ll_background"
-    android:background="@drawable/coupon1">
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/coupon1"
+    android:orientation="horizontal"
+    android:layout_marginBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="10dp"
         android:orientation="horizontal">
 
@@ -17,51 +18,56 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="30dp">
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
                 android:background="#fff"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
                 <TextView
-                    android:paddingTop="10dp"
-                    android:paddingLeft="8dp"
                     android:id="@+id/tv_card_bag_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
                     android:text="畅读卷"
-                    android:textSize="30sp"
-                    android:textColor="#FF931F"/>
+                    android:textColor="#FF931F"
+                    android:textSize="25sp" />
+
                 <TextView
-                    android:paddingLeft="8dp"
-                    android:layout_marginTop="5dp"
                     android:id="@+id/tv_card_bag_item_descripe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="可以不受限制的查看单词"
-                    android:textSize="14sp"
-                    android:textColor="#414141"/>
-                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="5dp"
                     android:paddingLeft="8dp"
-                    android:paddingBottom="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:text="可以不受限制的查看单词"
+                    android:textColor="#414141"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="3dp"
                     android:orientation="horizontal"
-                    android:layout_marginTop="15dp">
+                    android:paddingLeft="8dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="过期时间: "/>
+                        android:text="过期时间: "
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_card_bag_expiration_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2020-06-23"/>
+                        android:text="2020-06-23"
+                        android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -74,31 +80,31 @@
             android:orientation="vertical">
 
             <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_card_bag_card_sum"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="5"-->
-                    <!--android:textColor="#fff"-->
-                    <!--android:textSize="25sp"/>-->
-                <!--<TextView-->
-                    <!--android:textColor="#fff"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="张"/>-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_card_bag_card_sum"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="5"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="25sp"/>-->
+            <!--<TextView-->
+            <!--android:textColor="#fff"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="张"/>-->
             <!--</LinearLayout>-->
 
             <TextView
                 android:id="@+id/tv_credit_bag_usetv_credit_bag_use"
-                android:textColor="#fff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="去使用"
-                android:textSize="20sp"/>
+                android:textColor="#fff"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>

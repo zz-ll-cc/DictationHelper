@@ -8,8 +8,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +31,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.Inventory;
@@ -64,10 +70,8 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
     private TextView tvCardExpiry;
     private RecyclerView rcCardTagDetail;
     private List<Inventory> inventories;
-    private List<Inventory> inventories1=new ArrayList<>();
+    private List<Inventory> inventories1 = new ArrayList<>();
     private CreditBagDetailRecyclerAdapter creditBagDetailRecyclerAdapter;
-    private static final int GET_ITEM = 100;
-    private static final int GET_MY_INVENTORY = 200;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,16 +100,17 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
     }
 
     private void initData() {
-        Intent intent=getIntent();
-        String str=intent.getStringExtra(Constant.CARD_BAG_DETAIL);
-        if(str!=null && !str.equals("")){
-            Log.e("inventory",str);
+        Intent intent = getIntent();
+        String str = intent.getStringExtra(Constant.CARD_BAG_DETAIL);
+        if (str != null && !str.equals("")) {
             Type type = new TypeToken<List<Inventory>>() {
             }.getType();
             inventories = gson.fromJson(str + "", type);
         }
-        creditBagDetailRecyclerAdapter=new CreditBagDetailRecyclerAdapter(inventories,CreditBagDetailActivity.this,R.layout.activity_card_bag_detail_recycler_item);
+        creditBagDetailRecyclerAdapter = new CreditBagDetailRecyclerAdapter(inventories, CreditBagDetailActivity.this, R.layout.activity_card_bag_detail_recycler_item);
         rcCardTagDetail.setAdapter(creditBagDetailRecyclerAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreditBagDetailActivity.this, LinearLayoutManager.VERTICAL, false);
+        rcCardTagDetail.setLayoutManager(layoutManager);//必须调用，设置布局管理器
     }
 
     private void marginTopStateBar() {
@@ -126,7 +131,7 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
         tvCardUse.setOnClickListener(this);
         tvCardExpiry = findViewById(R.id.tv_card_expiry);
         tvCardExpiry.setOnClickListener(this);
-        rcCardTagDetail=findViewById(R.id.rc_card_tag_detail);
+        rcCardTagDetail = findViewById(R.id.rc_card_tag_detail);
     }
 
     @Override
@@ -148,7 +153,7 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
                 tvCardNotUse.setTextColor(Color.parseColor("#c9c9c9"));
                 tvCardExpiry.setTextColor(Color.parseColor("#c9c9c9"));
                 inventories1.clear();
-                for(int i=0;i<inventories.size();i++){
+                for (int i = 0; i < inventories.size(); i++) {
                     inventories1.add(inventories.get(i));
                 }
                 creditBagDetailRecyclerAdapter.changeDataSource(inventories1);
@@ -159,12 +164,25 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
                 tvCardAll.setTextColor(Color.parseColor("#c9c9c9"));
                 tvCardExpiry.setTextColor(Color.parseColor("#c9c9c9"));
                 inventories1.clear();
-                for(int i=0;i<inventories.size();i++){
-                    if(inventories.get(i).getIsUsed()==0) {
-                        inventories1.add(inventories.get(i));
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time1 = format1.format(Calendar.getInstance().getTime());
+                try {
+                    Date nowDate = format1.parse(time1);
+                    System.out.println("完整的时间和日期： " + time1);
+                    for (int i = 0; i < inventories.size(); i++) {
+                        String expendTime = inventories.get(i).getExpiryTime();
+                        String[] arr = expendTime.split("T");
+                        String[] tarr = arr[1].split(".000");
+                        String dd = arr[0]+" "+tarr[0];
+                        Date expiryDate = format1.parse(dd);
+                        if (inventories.get(i).getIsUsed() == 0 && nowDate.getTime()<expiryDate.getTime()) {
+                            inventories1.add(inventories.get(i));
+                        }
                     }
+                    creditBagDetailRecyclerAdapter.changeDataSource(inventories1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                creditBagDetailRecyclerAdapter.changeDataSource(inventories1);
                 break;
             case R.id.tv_card_use:
                 tvCardUse.setTextColor(Color.parseColor("#ff5511"));
@@ -172,8 +190,8 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
                 tvCardNotUse.setTextColor(Color.parseColor("#c9c9c9"));
                 tvCardExpiry.setTextColor(Color.parseColor("#c9c9c9"));
                 inventories1.clear();
-                for(int i=0;i<inventories.size();i++){
-                    if(inventories.get(i).getIsUsed()==1) {
+                for (int i = 0; i < inventories.size(); i++) {
+                    if (inventories.get(i).getIsUsed() == 1) {
                         inventories1.add(inventories.get(i));
                     }
                 }
@@ -185,12 +203,25 @@ public class CreditBagDetailActivity extends AppCompatActivity implements View.O
                 tvCardNotUse.setTextColor(Color.parseColor("#c9c9c9"));
                 tvCardAll.setTextColor(Color.parseColor("#c9c9c9"));
                 inventories1.clear();
-                for(int i=0;i<inventories.size();i++){
-                    if(inventories.get(i).getIsUsed()==0) {
-                        inventories1.add(inventories.get(i));
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time = format.format(Calendar.getInstance().getTime());
+                try {
+                    Date nowDate = format.parse(time);
+                    System.out.println("完整的时间和日期： " + time);
+                    for (int i = 0; i < inventories.size(); i++) {
+                        String expendTime = inventories.get(i).getExpiryTime();
+                        String[] arr = expendTime.split("T");
+                        String[] tarr = arr[1].split(".000");
+                        String dd = arr[0]+" "+tarr[0];
+                        Date expiryDate = format.parse(dd);
+                        if (inventories.get(i).getIsUsed() == 0 && nowDate.getTime()>expiryDate.getTime()) {
+                            inventories1.add(inventories.get(i));
+                        }
                     }
+                    creditBagDetailRecyclerAdapter.changeDataSource(inventories1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                creditBagDetailRecyclerAdapter.changeDataSource(inventories1);
                 break;
 
         }

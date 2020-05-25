@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#fff">
 
         <ImageView
             android:id="@+id/iv_credit_bag_detail_exit"
@@ -37,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="#fff">
 
             <TextView
                 android:id="@+id/tv_card_all"

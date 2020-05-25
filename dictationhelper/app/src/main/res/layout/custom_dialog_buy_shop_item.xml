@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_bg_shop_item">
+
+    <ImageView
+        android:id="@+id/iv_buy_item_cover"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/book" />
+
+    <TextView
+        android:id="@+id/tv_buy_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/iv_buy_item_cover"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="数搜索式"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_buy_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_buy_item_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_buy_item_cover"
+        android:maxEms="9"
+        android:maxLines="2"
+        android:text="啊实打实"
+        android:textColor="#6D6D6D"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_buy_item_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_buy_item_description"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_buy_item_cover"
+        android:maxEms="9"
+        android:maxLines="2"
+        android:text="100 剩余"
+        android:textColor="#FF2B80"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_buy_item_my_credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@id/iv_buy_item_cover"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="积分余额：12138"
+        android:textColor="#1976D2"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_shopping_item_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_below="@id/iv_buy_item_cover"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bg_shop_buy">
+
+        <TextView
+            android:id="@+id/tv_shop_item_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
+            android:text="75 积分兑换"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

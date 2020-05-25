@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_shopping_item_out"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_bg_shop_item">
+
+
+    <ImageView
+        android:id="@+id/iv_shopping_item_cover"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/book" />
+
+    <RelativeLayout
+        android:id="@+id/rl_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_shopping_item_cover"
+        android:layout_marginTop="5dp">
+
+        <ProgressBar
+            android:id="@+id/progress_shop_item_surplus"
+            style="@style/MyProgressBar"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:progress="100" />
+
+        <TextView
+            android:id="@+id/tv_shop_item_surplus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/progress_shop_item_surplus"
+            android:layout_centerInParent="true"
+            android:text="剩余:"
+            android:textColor="#000000"
+            android:textSize="6sp" />
+
+        <TextView
+            android:id="@+id/tv_shop_item_surplus_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/progress_shop_item_surplus"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/tv_shop_item_surplus"
+            android:textColor="#000000"
+            android:textSize="6sp" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_shop_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_progressbar"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:lines="1"
+        android:maxEms="10"
+        android:maxLines="1"
+        android:text="三年级"
+        android:textColor="#FA8585"
+        android:textSize="10sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_shopping_item_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_below="@id/tv_shop_item_name"
+        android:background="@drawable/btn_bg_shop_buy">
+
+        <TextView
+            android:id="@+id/tv_shop_item_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
+            android:text="75 积分兑换"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

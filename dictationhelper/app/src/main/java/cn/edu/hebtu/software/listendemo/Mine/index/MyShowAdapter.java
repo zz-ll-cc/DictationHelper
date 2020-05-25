@@ -18,6 +18,7 @@ import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.SyllabusActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.shopping.ShoppingActivity;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class MyShowAdapter extends RecyclerView.Adapter {
@@ -66,12 +67,15 @@ public class MyShowAdapter extends RecyclerView.Adapter {
                         context.startActivity(intent1);
                         break;
                     case "消息通知":
+                        Intent intent2 = new Intent();
                         break;
                     case "积分商城":
+                        Intent intent3 = new Intent(context, ShoppingActivity.class);
+                        context.startActivity(intent3);
                         break;
                     case "设置中心":
-                        Intent intent = new Intent(context, EidtCenterActivity.class);
-                        context.startActivity(intent);
+                        Intent intent4 = new Intent(context, EidtCenterActivity.class);
+                        context.startActivity(intent4);
                         break;
                 }
             }

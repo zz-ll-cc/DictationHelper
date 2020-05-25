@@ -32,6 +32,7 @@ import cn.edu.hebtu.software.listendemo.Entity.NewOrWrongTimeWord;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.SpacesItemDecoration;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;

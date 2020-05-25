@@ -14,6 +14,7 @@ import com.dictation.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -248,6 +249,37 @@ public class ItemServiceImpl implements ItemService {
 
         return selt;
     }
+
+    @Override
+    @Scheduled(cron = "0 0 0 * * ? ")
+    public boolean updateItemQuantityInCacheScheduled() {
+        Integer sold = (Integer) redisUtil.get(redisUtil.createItemKey(1));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR,-1);
+        logger.warn("畅读券在：" + simpleDateFormat.format(calendar.getTime()) + ",卖出了：" + (10-sold) + "张");
+
+
+        redisUtil.set(redisUtil.createItemKey(1),10,60*60*24);
+        logger.warn("畅读券缓存更新成功");
+
+        return true;
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 0 * * ? ")
+    public boolean updateItemQuantityScheduled() {
+        Item item = new Item();
+        item.setQuantity(9999);
+        QueryWrapper<Item> wrapper = new QueryWrapper<>();
+        wrapper.ne("id",1);
+        Integer updateRes = itemMapper.update(item,wrapper);
+        System.out.println(updateRes);
+        return true;
+    }
+
+
 
 
 }

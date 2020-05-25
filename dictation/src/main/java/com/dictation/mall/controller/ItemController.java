@@ -78,7 +78,7 @@ public class ItemController {
     @RequestMapping("/cacheItem")
     @ResponseBody
     public String cacheItem(@RequestParam("itemId") Integer itemId,@RequestParam(value = "time",required = false) Long time){
-        long expire_time = 60*60*1;//默认一小时
+        long expire_time = 60*60*24;//默认一小时
         if(time != null){
             expire_time = time;
         }

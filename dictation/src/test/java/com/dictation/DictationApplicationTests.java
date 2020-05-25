@@ -1,12 +1,17 @@
 package com.dictation;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dictation.back.service.BackService;
 import com.dictation.book.service.BookService;
 import com.dictation.book.service.VersionService;
 import com.dictation.book.service.WordService;
 import com.dictation.mall.entity.Item;
+import com.dictation.mapper.CreditRecordMapper;
 import com.dictation.mapper.InventoryMapper;
+import com.dictation.mapper.UnlockMapper;
 import com.dictation.record.service.DayRecordService;
+import com.dictation.user.entity.CreditRecord;
+import com.dictation.user.entity.Unlock;
 import com.dictation.user.service.UserService;
 import com.dictation.util.RedisUtil;
 import org.junit.jupiter.api.Test;
@@ -46,14 +51,29 @@ class DictationApplicationTests {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CreditRecordMapper creditRecordMapper;
+
+    @Autowired
+    UnlockMapper unlockMapper;
 
     @Autowired
     InventoryMapper inventoryMapper;
 
     @Test
     void contextLoads() throws MessagingException, IOException, ParseException {
+        QueryWrapper<Unlock> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",10124);
+        unlockMapper.delete(queryWrapper);
 
-        System.out.println(inventoryMapper.selectList(null));
+
+//        QueryWrapper<CreditRecord> wrapper = new QueryWrapper<>();
+//        wrapper.eq("user_id",10124).eq("reason","解锁单元");
+//        creditRecordMapper.delete(wrapper);
+
+
+
+//        System.out.println(inventoryMapper.selectList(null));
 
 
 //        wordService.updatePic(10005,"sss");

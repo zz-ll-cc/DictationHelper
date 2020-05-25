@@ -877,7 +877,8 @@ public class RedisUtil {
     }
     //用户购买缓存的商品之后的一个记录
     public String createItemPurchaseKey(Integer userId,Integer itemId){
-        return "purchase:" + itemId + ":" + userId;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        return "purchase:" + itemId + ":" + simpleDateFormat.format(new Date()) + ":" + userId;
     }
 
 

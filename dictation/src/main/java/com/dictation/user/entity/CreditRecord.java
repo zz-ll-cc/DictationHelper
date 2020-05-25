@@ -32,6 +32,9 @@ public class CreditRecord {
 
     private Integer increment;
 
+    @TableLogic
+    private Integer deleted;
+
     @Version
     private Integer version;
 

@@ -39,6 +39,12 @@ public interface ItemService {
     //获取当前商品在缓存中的库存并持久化到数据库,返回差量
     int findQuantityInCacheAndPersist(Integer itemId);
 
+    //定时任务每天晚上0点更新畅读券的缓存
+    boolean updateItemQuantityInCacheScheduled();
+
+    //定时任务每天晚上0点更新畅读券的缓存
+    boolean updateItemQuantityScheduled();
+
 
 
 }

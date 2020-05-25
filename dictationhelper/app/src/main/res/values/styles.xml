@@ -23,6 +23,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <!--白色主题样式，，注意每一项都不能少-->
     <style name="picture.white.style" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -212,12 +213,13 @@
         <item name="android:windowExitAnimation">@anim/shop_item_dismiss</item>
     </style>
     <style name="weekIndicatorStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">3dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">#ff25adff</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">@drawable/linearlayout_corner_week</item>
     </style>
 
     <style name="Theme" parent="AppTheme">

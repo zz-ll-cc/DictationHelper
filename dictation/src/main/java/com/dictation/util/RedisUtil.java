@@ -3,8 +3,13 @@ package com.dictation.util;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 
@@ -24,6 +29,9 @@ public class RedisUtil {
 
     @Autowired
     RedisTemplate<String,Object> redisTemplate;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
 
 
@@ -805,6 +813,35 @@ public class RedisUtil {
 
 
 
+    //=====================================商品秒杀============================================
+
+
+    public int purchaseItem(Integer userId,Integer itemId){
+        String key = this.createItemKey(itemId);
+        String purchaseKey = this.createItemPurchaseKey(userId, itemId);
+        if((int)this.get(key) == 0){
+            return -1;
+        }
+        return (int)redisTemplate.execute(new SessionCallback<Object>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> redisOperations) throws DataAccessException {
+                redisOperations.watch((K) key);
+                redisOperations.multi();
+                redisTemplate.opsForValue().decrement(key,1);
+                redisTemplate.opsForValue().set(purchaseKey,"1",60*60*24);
+                if(redisOperations.exec().size() == 0){
+                    System.out.println("error");
+                    return 0;
+                }
+                return 1;
+            }
+        });
+
+
+    }
+
+
+
 
     //==========================================Key=============================================
 
@@ -832,6 +869,17 @@ public class RedisUtil {
     public static String createUserContinusSignInKey(int id){
         return "user:continuous:signIn:" + id;
     }
+
+
+    //生成item商品对应的key
+    public String createItemKey(Integer itemId){
+        return "item:" + itemId;
+    }
+    //用户购买缓存的商品之后的一个记录
+    public String createItemPurchaseKey(Integer userId,Integer itemId){
+        return "purchase:" + itemId + ":" + userId;
+    }
+
 
 
     /**

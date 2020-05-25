@@ -1,14 +1,5 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
-
-import java.util.Date;
-
-/**
- * @ClassName ItemType
- * @Description
- * @Author zlc
- * @Date 2020-05-23 17:45
- */
 public class ItemType {
 
     private Integer id;

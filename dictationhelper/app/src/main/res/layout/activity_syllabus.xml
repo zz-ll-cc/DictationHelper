@@ -4,22 +4,19 @@
     android:id="@+id/ll_syllabus_out"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgray"
+    android:background="@drawable/background_sign"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background1">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/backgray"
             android:orientation="horizontal">
+            <!--android:background="#ff5949"-->
 
             <ImageView
                 android:id="@+id/iv_my_credit_back"
@@ -47,242 +44,85 @@
                 android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:text="积分详情"
-                android:textColor="#000"
+                android:textColor="#b89564"
                 android:textSize="17sp" />
         </RelativeLayout>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:scaleType="fitXY"></LinearLayout>-->
     </LinearLayout>
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="40dp"-->
-    <!--android:orientation="horizontal">-->
 
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_my_credit_back"-->
-    <!--android:layout_width="20dp"-->
-    <!--android:layout_height="20dp"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginLeft="15dp"-->
-    <!--android:src="@drawable/left_exit" />-->
+    <LinearLayout
+        android:id="@+id/iv_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/linearlayout_corner2"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="积分中心"-->
-    <!--android:textColor="@color/black"-->
-    <!--android:textSize="18sp" />-->
+        <ImageView
+            android:id="@+id/tv_sign"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/signbtn" />
 
-    <!--<TextView-->
-    <!--android:id="@+id/tv_my_point_detail"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_marginRight="15dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="积分详情"-->
-    <!--android:textColor="#000"-->
-    <!--android:textSize="17sp" />-->
-    <!--</RelativeLayout>-->
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content" -->
-    <!--android:text="我的数据"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:layout_marginBottom="5dp"-->
-    <!--android:textSize="20sp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:textColor="@color/black"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="签到得积分哦！"
+            android:textColor="#ff921d"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/linearlayout_corner"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="130dp"
+                android:layout_height="65dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/linearlayout_corner"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/sign_logo1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:paddingLeft="5dp"
-                        android:text="连续签到"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/tv_sign_day_continue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:text="天"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-                </LinearLayout>
-                <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:gravity="center_vertical">-->
-
-                <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:scaleType="fitXY"-->
-                <!--android:src="@drawable/sign_logo1" />-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingLeft="5dp"-->
-                <!--android:text="连续签到"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="16dp" />-->
-                <!--</LinearLayout>-->
-
-                <!--<TextView-->
-                <!--android:id="@+id/tv_sign_day_continue"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="天"-->
-                <!--android:paddingLeft="5dp"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="18dp" />-->
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/sign_logo2" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
-                        android:paddingLeft="5dp"
-                        android:text="累计签到"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-
-                    <TextView
-                        android:id="@+id/tv_sign_day_sum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:text="天"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/jifen" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
                         android:paddingLeft="5dp"
                         android:text="累计积分"
                         android:textColor="@color/black"
@@ -302,9 +142,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="130dp"
+                android:layout_height="65dp"
+                android:background="@drawable/linearlayout_corner"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -312,27 +152,28 @@
                 <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/sum1" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="20dp"
-                        android:paddingLeft="5dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingRight="5dp"
                         android:text="累计学习"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
@@ -349,234 +190,264 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
-
-
     </LinearLayout>
 
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp">
+            android:layout_height="280dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/linearlayout_corner1"
+            android:gravity="center">
 
             <LinearLayout
-                android:id="@+id/choose_date_view"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/show_month_view"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom|center"
-                    android:maxLines="1"
-                    android:text="17"
-                    android:textColor="#ff25adff"
-                    android:textSize="19.3sp" />
+                android:layout_height="250dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="bottom"
-                    android:maxLines="1"
-                    android:text="月"
-                    android:textColor="#ff25adff"
-                    android:textSize="19.3sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text=" 做任务 挣积分"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/show_year_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="2014年"
-                    android:textColor="#ff25adff"
-                    android:textSize="13sp" />
-
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/back_today_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="bottom"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:text="今天"
-                        android:textColor="#ff9c0e"
-                        android:textSize="14sp" />
-                    <!--android:background="@drawable/button_bg"-->
-
-                    <TextView
-                        android:id="@+id/scroll_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/back_today_button"
-                        android:gravity="center"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:text="切换周月"
-                        android:textColor="#ff9c0e"
-                        android:textSize="14sp" />
-                    <!--android:background="@drawable/button_bg"-->
-
-                    <!--<TextView-->
-                    <!--android:id="@+id/theme_switch"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="24dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginRight="8dp"-->
-                    <!--android:layout_toLeftOf="@id/scroll_switch"-->
-                    <!--android:background="@drawable/button_bg"-->
-                    <!--android:gravity="center"-->
-                    <!--android:paddingLeft="4dp"-->
-                    <!--android:paddingRight="4dp"-->
-                    <!--android:text="更改效果"-->
-                    <!--android:textColor="#ff9c0e"-->
-                    <!--android:textSize="14sp" />-->
-
-                    <TextView
-                        android:id="@+id/next_month"
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/scroll_switch"
-                        android:gravity="center"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:text="下一月"
-                        android:textColor="#ff9c0e"
-                        android:textSize="14sp" />
-                    <!--android:background="@drawable/button_bg"
-                     android:layout_marginRight="8dp"-->
-
-                    <TextView
-                        android:id="@+id/last_month"
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/scroll_switch"
-                        android:gravity="center"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:text="上一月"
-                        android:textColor="#ff9c0e"
-                        android:textSize="14sp" />
-                    <!--android:background="@drawable/button_bg"-->
-                </LinearLayout>
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="12dp"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:orientation="horizontal">-->
-            <!--<TextView-->
-            <!--android:id="@+id/theme_switch"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="24dp"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toLeftOf="@id/scroll_switch"-->
-            <!--android:background="@drawable/button_bg"-->
-            <!--android:gravity="center"-->
-            <!--android:paddingLeft="4dp"-->
-            <!--android:paddingRight="4dp"-->
-            <!--android:text="更改效果"-->
-            <!--android:textColor="#ff9c0e"-->
-            <!--android:textSize="14sp" />-->
-            <!--</LinearLayout>-->
-
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:background="#fff"
-            android:orientation="horizontal">
+    </RelativeLayout>
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="一" />
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="二" />
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="三" />
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="四" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="190dp"-->
+    <!--android:orientation="vertical">-->
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:scaleType="fitXY" />-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="签到得积分哦！"-->
+    <!--android:textSize="18dp"-->
+    <!--android:textColor="#ff921d"/>-->
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="五" />
+    <!--</LinearLayout>-->
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="六" />
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="9"-->
+    <!--android:orientation="vertical">-->
 
-            <TextView
-                style="@style/weekIndicatorStyle"
-                android:text="日" />
-        </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/iv_1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="180dp"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_marginTop="0dp"-->
+    <!--android:background="@drawable/linearlayout_corner2"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:orientation="vertical">-->
 
-        <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+    <!--<ImageView-->
+    <!--android:id="@+id/tv_sign"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="140dp"-->
+    <!--android:layout_marginTop="-10dp"-->
+    <!--android:src="@drawable/signbtn" />-->
+    <!--</LinearLayout>-->
 
-            <cn.edu.hebtu.software.listendemo.credit.component.MonthPager
-                android:id="@+id/calendar_view"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:background="#fff"></cn.edu.hebtu.software.listendemo.credit.component.MonthPager>
+    <!--&lt;!&ndash;android:background="@drawable/linearlayout_corner"&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="280dp"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:layout_marginTop="120dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/linearlayout_corner1">-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="45dp"
-                android:background="#fff"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />
-            <!-- paddingBottom或者magin距离必须是MonthPager高度的1/6-->
-            <!-- RecyclerView的高度必须是MatchParent-->
-            <!-- RecyclerView的background必须是非透明-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-        </android.support.design.widget.CoordinatorLayout>
-    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="250dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:gravity="center">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:text=" 做任务 挣积分"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="22sp" />-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/list"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="#fff"-->
+    <!--android:clipChildren="false"-->
+    <!--android:clipToPadding="false"-->
+    <!--app:layout_behavior="cn.edu.hebtu.software.listendemo.credit.task.RecyclerViewBehavior" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="3"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="15dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:gravity="center">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="130dp"-->
+    <!--android:layout_height="65dp"-->
+    <!--android:layout_marginRight="50dp"-->
+    <!--android:background="@drawable/linearlayout_corner"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/jifen" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="25dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="累计积分"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="16dp" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_sign_point_sum"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="天"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="18dp" />-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="130dp"-->
+    <!--android:layout_height="65dp"-->
+    <!--android:background="@drawable/linearlayout_corner"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal">-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/sum1" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="25dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:paddingRight="5dp"-->
+    <!--android:text="累计学习"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="16dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_word_sum"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="词"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="18dp" />-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
 
 </LinearLayout>

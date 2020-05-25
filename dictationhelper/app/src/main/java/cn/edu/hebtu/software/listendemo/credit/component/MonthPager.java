@@ -11,7 +11,7 @@ import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
 
 
 //月
-@CoordinatorLayout.DefaultBehavior(MonthPagerBehavior.class)
+//@CoordinatorLayout.DefaultBehavior(MonthPagerBehavior.class)
 public class MonthPager extends ViewPager {
 
     public static int CURRENT_DAY_INDEX = 1000;

@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
+<<<<<<< HEAD
 import java.util.Date;
 
 /**
@@ -8,6 +9,11 @@ import java.util.Date;
  * @Author zlc
  * @Date 2020-05-22 18:40
  */
+=======
+
+import java.util.Date;
+
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
 public class Inventory {
 
     private Integer id;
@@ -22,13 +28,21 @@ public class Inventory {
 
     private Integer isUsed;//是否使用了,0未使用，1使用过了
 
+<<<<<<< HEAD
     private Date expendTime;//什么时候使用的
+=======
+    private String expendTime;//什么时候使用的
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
 
     private Integer deleted;//逻辑删除
 
     private String purchaseTime;//购买时间
 
+<<<<<<< HEAD
     private String expiryTime;//到期时间
+=======
+    private String  expiryTime;//到期时间
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
 
     private Item item;//这个库存的name应该由他所对应的item的type来决定
 
@@ -80,11 +94,19 @@ public class Inventory {
         this.isUsed = isUsed;
     }
 
+<<<<<<< HEAD
     public Date getExpendTime() {
         return expendTime;
     }
 
     public void setExpendTime(Date expendTime) {
+=======
+    public String getExpendTime() {
+        return expendTime;
+    }
+
+    public void setExpendTime(String expendTime) {
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
         this.expendTime = expendTime;
     }
 
@@ -129,11 +151,22 @@ public class Inventory {
                 ", userId=" + userId +
                 ", itemId=" + itemId +
                 ", isUsed=" + isUsed +
+<<<<<<< HEAD
                 ", expendTime=" + expendTime +
+=======
+                ", expendTime='" + expendTime + '\'' +
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
                 ", deleted=" + deleted +
                 ", purchaseTime='" + purchaseTime + '\'' +
                 ", expiryTime='" + expiryTime + '\'' +
                 ", item=" + item +
                 '}';
     }
+<<<<<<< HEAD
+=======
+
+    public Inventory(){
+
+    }
+>>>>>>> b941ce6fb8f4ce5a5cc91d688ee90190b421ccce
 }

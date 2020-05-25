@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="380dp"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:paddingBottom="20dp">
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:src="@drawable/sign1"/>
+        <TextView
+            android:id="@+id/tv_sign_sucess_credit_re"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签到成功"
+            android:textSize="25sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tv_sign_sucess_credit"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分+5"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/btn_sign_sucess_know"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="我知道了"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/linearlayout_corner_know"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

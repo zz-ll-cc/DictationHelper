@@ -11,7 +11,7 @@
         android:paddingLeft="10dp"
         android:gravity="bottom"
         android:text="2020年4月5日"
-        android:textColor="#000"
+        android:textColor="#5ad497"
         android:layout_marginTop="3dp"
         android:textSize="18sp" />
 

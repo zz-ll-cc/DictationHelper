@@ -1,14 +1,12 @@
 package cn.edu.hebtu.software.listendemo.credit.task;
 
-import android.annotation.TargetApi;
-import android.app.usage.UsageEvents;
-import android.app.usage.UsageStatsManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,23 +20,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.hebtu.software.listendemo.Entity.CreditRecord;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.CustomDialogCreditSuccess;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import okhttp3.Call;
@@ -49,11 +42,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.content.Context.USAGE_STATS_SERVICE;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+    private FragmentManager fragmentActivity;
     private TextView tvCreditSum;
     private int score;
     private User user;
@@ -74,8 +67,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private long time2 = 0;
     private int state = 0;
     private String[] tag;
+    private Activity activity;
 
-    public TaskAdapter(String[] tag,long studyMinute, TextView tvCreditSum, int score, User user, Context context, List<Map<String, String>> title, SharedPreferences sp) {
+    public TaskAdapter(Activity activity, FragmentManager fragmentActivity, String[] tag, long studyMinute, TextView tvCreditSum, int score, User user, Context context, List<Map<String, String>> title, SharedPreferences sp) {
         this.tvCreditSum = tvCreditSum;
         this.score = score;
         this.user = user;
@@ -85,6 +79,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         this.studyMinute = studyMinute;
         this.sp = sp;
         this.tag=tag;
+        this.fragmentActivity=fragmentActivity;
+        this.activity=activity;
     }
 
     @Override
@@ -120,6 +116,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
             holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
             holder.btn_add_credit.setEnabled(false);
+            holder.btn_add_credit.setText("已领取");
         } else {
             holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_normal));
             holder.btn_add_credit.setTextColor(Color.parseColor("#ff8c00"));
@@ -148,11 +145,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                     Log.e("msg1", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
                                                         User user1 = gson.fromJson(msg.obj + "", User.class);
-                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                        //Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
                                                         title.get(position).put("task", "学习30分钟");
                                                         title.get(position).put("add_credit","+3积分");
                                                         title.get(position).put("tag", "false");
+                                                        CustomDialogCreditSuccess dialog = new CustomDialogCreditSuccess(activity, "+",5);
+                                                        dialog.setCancelable(false);
+                                                        dialog.show(fragmentActivity, "signSuccess");
                                                          notifyDataSetChanged();
 //                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
 //                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
@@ -196,7 +196,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                     Log.e("msg2", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
                                                         User user1 = gson.fromJson(msg.obj + "", User.class);
-                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                        //Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
 //                                                        holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
 //                                                        holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
 //                                                        holder.btn_add_credit.setEnabled(false);
@@ -205,6 +205,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         title.get(position).put("add_credit","+5积分");
                                                         notifyDataSetChanged();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
+                                                        CustomDialogCreditSuccess dialog = new CustomDialogCreditSuccess(activity, "+",3);
+                                                        dialog.setCancelable(false);
+                                                        dialog.show(fragmentActivity, "signSuccess");
 //                                                EventBus.getDefault().post(user);
                                                         List<UnLock> unLocks = null;
                                                         try {
@@ -243,7 +246,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                     Log.e("msg3", msg.obj + "");
                                                     if (!msg.obj.equals("0")) {
                                                         User user1 = gson.fromJson(msg.obj + "", User.class);
-                                                        Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                        //Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                         tvCreditSum.setText(user.getUserCredit() + "分");
                                                         title.get(position).put("task","学习60分钟");
                                                         title.get(position).put("add_credit","+5积分");
@@ -251,6 +254,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                                         holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                         holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                         holder.btn_add_credit.setEnabled(false);
+                                                        holder.btn_add_credit.setText("已领取");
+                                                        CustomDialogCreditSuccess dialog = new CustomDialogCreditSuccess(activity, "+",5);
+                                                        dialog.setCancelable(false);
+                                                        dialog.show(fragmentActivity, "signSuccess");
 //                                                EventBus.getDefault().post(user);
                                                         List<UnLock> unLocks = null;
                                                         try {
@@ -292,10 +299,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                             Log.e("msg4", msg.obj + "");
                                             if (!msg.obj.equals("0")) {
                                                 User user1 = gson.fromJson(msg.obj + "", User.class);
-                                                Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(context, "领取成功", Toast.LENGTH_LONG).show();
                                                 holder.btn_add_credit.setBackground(context.getResources().getDrawable(R.drawable.btn_bg_pressed));
                                                 holder.btn_add_credit.setTextColor(context.getResources().getColor(R.color.black));
                                                 holder.btn_add_credit.setEnabled(false);
+                                                holder.btn_add_credit.setText("已领取");
+                                                CustomDialogCreditSuccess dialog = new CustomDialogCreditSuccess(activity, "+",5);
+                                                dialog.setCancelable(false);
+                                                dialog.show(fragmentActivity, "signSuccess");
                                                 tvCreditSum.setText(user.getUserCredit() + "分");
                                                 title.get(position).put("tag","true");
 //                                                EventBus.getDefault().post(user);

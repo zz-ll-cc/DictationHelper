@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dictation.mapper.InventoryMapper">
+
+
+    <resultMap id="inventoryMap" type="com.dictation.mall.entity.Inventory">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="approachOfAchieving" column="approach_of_achieving"/>
+        <result property="userId" column="user_id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="isUsed" column="is_used"/>
+        <result property="expendTime" column="expend_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="purchaseTime" column="purchase_time"/>
+        <result property="expiryTime" column="expiry_time"/>
+        <collection property="item" ofType="com.dictation.mall.entity.Item" column="id" select="findItemByInventory"/>
+    </resultMap>
+
+
+
+
+    <resultMap id="itemMap" type="com.dictation.mall.entity.Item">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="cover" column="cover"/>
+        <result property="description" column="description"/>
+        <result property="quantity" column="quantity"/>
+        <result property="itemTypeId" column="item_type_id"/>
+        <result property="price" column="price"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="itemType" ofType="com.dictation.mall.entity.ItemType" column="id" select="findItemTypeByItem"/>
+    </resultMap>
+
+    <resultMap id="itemTypeMap" type="com.dictation.mall.entity.ItemType">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="bookId" column="book_id"/>
+        <result property="bookVersionId" column="book_version_id"/>
+        <result property="gradeId" column="grade_id"/>
+        <result property="version" column="version"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="findItemByInventory" resultType="com.dictation.mall.entity.Item" resultMap="itemMap">
+        select * from tbl_item where id = #{itemId}
+    </select>
+
+    <select id="findItemTypeByItem" resultType="com.dictation.mall.entity.ItemType" resultMap="itemTypeMap">
+        select * from tbl_item_type where id = #{itemTypeId}
+    </select>
+
+
+
+
+</mapper>

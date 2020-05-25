@@ -8,9 +8,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/green">
 
         <ImageView
             android:id="@+id/iv_credit_detail_exit"
@@ -31,12 +31,15 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/smart_credit_detail">
+        android:id="@+id/smart_credit_detail"
+        android:background="#b0f8d3">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcv_credit_detail_item_out"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
         </android.support.v7.widget.RecyclerView>

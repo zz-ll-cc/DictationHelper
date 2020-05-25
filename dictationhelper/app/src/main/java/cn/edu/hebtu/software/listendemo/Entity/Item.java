@@ -1,13 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Entity;
 
-import java.util.Date;
 
-/**
- * @ClassName Item
- * @Description
- * @Author zlc
- * @Date 2020-05-22 17:12
- */
 public class Item {
 
     private Integer id;
@@ -43,6 +36,8 @@ public class Item {
     public void setLeft(int left) {
         this.left = left;
     }
+
+    private ItemType itemType;
 
     public Integer getId() {
         return id;

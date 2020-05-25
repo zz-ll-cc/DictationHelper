@@ -47,6 +47,7 @@ public class Constant {
     public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
     public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_DICTATION = "listenWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
+    public static final String CARD_BAG_DETAIL="inventories";
 
     // 拼写
     public static final String NO_STYLE = "未拼写";           // 默写时，输入值为空时默认值
@@ -130,5 +131,10 @@ public class Constant {
     public static final String TYPE_BUY_TYPE_12 = "库存不足，无法购买";
     public static final String TYPE_BUY_TYPE_13 = "抢购失败";
     public static final String TYPE_BUY_TYPE_14 = "积分不足";
+    //卡卷
+    public static final String URL_GET_ITEM=BASE_URL+"item/getItems";
+
+    public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
+
 
 }

@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.Mine.index.settings;
+package cn.edu.hebtu.software.listendemo.Mine.index.credit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,13 +11,12 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,18 +32,13 @@ import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenResultSelectActivity;
-import cn.edu.hebtu.software.listendemo.QiniuUtils.Json;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarRenderer;
-import cn.edu.hebtu.software.listendemo.credit.component.Day;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
-import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,6 +53,7 @@ import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 //自定义的Dialog需要继承DialogFragment
 public class CustomDialogSign extends DialogFragment {
+    private FragmentManager fragmentActivity;
     private ThemeDayView themeDayView;
     private CalendarDate date;
     private HashMap<String, String> markData;
@@ -72,7 +67,7 @@ public class CustomDialogSign extends DialogFragment {
     private SharedPreferences sp;
     private Gson gson = new GsonBuilder().serializeNulls().create();
     private CalendarViewAdapter calendarAdapter;
-    private TextView tvCreditSum;
+    //    private TextView tvCreditSum;
     private TextView tvSignDayContinue;
     private TextView tvSignDaySum;
     private MonthPager monthPager;
@@ -81,14 +76,15 @@ public class CustomDialogSign extends DialogFragment {
     }
 
     @SuppressLint("ValidFragment")
-    public CustomDialogSign(User user, ThemeDayView themeDayView, CalendarDate date, HashMap<String, String> markData, Activity context, SharedPreferences sp, CalendarViewAdapter calendarAdapter, TextView tvCreditSum, TextView tvSignDayContinue, TextView tvSignDaySum, MonthPager monthPager) {
+    public CustomDialogSign(FragmentManager fragmentActivity, User user, ThemeDayView themeDayView, CalendarDate date, HashMap<String, String> markData, Activity context, SharedPreferences sp, CalendarViewAdapter calendarAdapter, TextView tvSignDayContinue, TextView tvSignDaySum, MonthPager monthPager) {
+        this.fragmentActivity = fragmentActivity;
         this.themeDayView = themeDayView;
         this.date = date;
         this.markData = markData;
         this.context = context;
         this.calendarAdapter = calendarAdapter;
         this.sp = sp;
-        this.tvCreditSum = tvCreditSum;
+//        this.tvCreditSum = tvCreditSum;
         this.tvSignDayContinue = tvSignDayContinue;
         this.tvSignDaySum = tvSignDaySum;
         this.monthPager = monthPager;
@@ -142,7 +138,7 @@ public class CustomDialogSign extends DialogFragment {
                                         }
                                         User user1 = new Gson().fromJson(msg.obj + "", User.class);
 //                                        Log.e("user", user1.toString());
-                                        tvCreditSum.setText(user.getUserCredit() + "分");
+//                                        tvCreditSum.setText(user.getUserCredit() + "分");
                                         tvSignDaySum.setText(user.getAccumulateSignIn() + "天");
                                         tvSignDayContinue.setText(user.getContinuousSignIn() + "天");
                                         List<UnLock> unLocks = null;
@@ -158,16 +154,14 @@ public class CustomDialogSign extends DialogFragment {
                                         user.setUnLockList(unLocks);
 //                                        updateSp(user);
                                         user.setUserCredit(user1.getUserCredit());
-                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
-//                                        Log.e("userSign", sp.getString(USER_KEEP_KEY, ""));
-//                                        context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
+                                        context.getSharedPreferences(SP_NAME, MODE_PRIVATE).edit().putString(USER_KEEP_KEY, msg.obj + "").commit();
                                         markData.put(signDate, "0");
-                                        tvContent.setText("签到成功！");
+                                        dismissAllowingStateLoss();
+                                        getDialog().dismiss();
+                                        CustomDialogSignSuccess dialog = new CustomDialogSignSuccess(context, "+",5,"签到成功");
+                                        dialog.setCancelable(false);
+                                        dialog.show(fragmentActivity, "signSuccess");
                                         dateTv.setText("签");
-//                                        context.finish();
-//                                        Intent intent = new Intent(context, SyllabusActivity.class);
-//                                        startActivity(intent);
-//                                        Log.e("ttttttttttttt", dateTv.getText() + "");
                                     } else {
                                         tvContent.setText("签到失败！");
                                     }
@@ -188,6 +182,7 @@ public class CustomDialogSign extends DialogFragment {
                 String signDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
                 if (null == markData || markData.get(signDate).equals("1")) {
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(context);
+                    adBuilder.setIcon(R.drawable.resign);
                     adBuilder.setTitle("补签");
                     if (user.getUserCredit() >= 2) {
                         adBuilder.setMessage("补签将消耗2积分，是否补签？");
@@ -210,14 +205,15 @@ public class CustomDialogSign extends DialogFragment {
                                                 }
                                                 if (msg.obj != null) {
                                                     markData.put(signDate, "0");
-                                                    Toast.makeText(context, "补签成功", Toast.LENGTH_SHORT).show();
-//                                                    tvContent.setText("补签成功,消耗2积分");
-//                                                    Log.e("userSign补签0", msg.obj + "");
+                                                    CustomDialogSignSuccess dialog = new CustomDialogSignSuccess(context, "-",2,"补签成功");
+                                                    dialog.setCancelable(false);
+                                                    dialog.show(fragmentActivity, "signSuccess");
                                                     List<UnLock> unLocks = null;
                                                     try {
                                                         JSONObject jsonObject = new JSONObject(msg.obj + "");
                                                         String unLockList = jsonObject.get("unlockList").toString();
-                                                        Type type = new TypeToken<List<UnLock>>() {}.getType();
+                                                        Type type = new TypeToken<List<UnLock>>() {
+                                                        }.getType();
                                                         unLocks = new Gson().fromJson(unLockList, type);
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
@@ -226,12 +222,12 @@ public class CustomDialogSign extends DialogFragment {
                                                     user.setUserCredit(user1.getUserCredit());
                                                     user.setUnLockList(unLocks);
 //                                                    Log.e("user补签", user.toString());
-                                                    context.getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,msg.obj+"").commit();
+                                                    context.getSharedPreferences(SP_NAME, MODE_PRIVATE).edit().putString(USER_KEEP_KEY, msg.obj + "").commit();
 //                                                    user1.setUnLockList(unLocks);
                                                     //updateSp(user);
 //                                                    Log.e("userResign", sp.getString(USER_KEEP_KEY, ""));
                                                     //user.setUnLockList(unLocks);
-                                                    tvCreditSum.setText(user.getUserCredit() + "分");
+//                                                    tvCreditSum.setText(user.getUserCredit() + "分");
                                                     tvSignDaySum.setText(user.getAccumulateSignIn() + "天");
                                                     tvSignDayContinue.setText(user.getContinuousSignIn() + "天");
 //                                                    Intent intent = new Intent(context, SyllabusActivity.class);

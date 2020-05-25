@@ -79,7 +79,7 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_detail);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.gray);
+        StatusBarUtil.setStatusBarColor(this, R.color.green);
         initDatas();
         findViews();
         smart.setRefreshHeader(new BezierRadarHeader(this));
@@ -268,7 +268,7 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
     protected void onResume() {
         super.onResume();
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.white);
+        StatusBarUtil.setStatusBarColor(this, R.color.green);
     }
 
     private void findViews() {

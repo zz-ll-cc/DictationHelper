@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Mine.index.shopping;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import cn.edu.hebtu.software.listendemo.Entity.Item;
 import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CreditBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class ShowBuyAchieveDialog {
@@ -71,8 +73,8 @@ public class ShowBuyAchieveDialog {
         Window window = dialog.getWindow();
         //设置弹出位置
         window.setGravity(Gravity.CENTER);
-        dialog.setCancelable(true);
         window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
         ImageView ivCover = dialog.findViewById(R.id.iv_buy_achieve_cover);
         TextView tvName = dialog.findViewById(R.id.tv_buy_achieve_name);
         TextView tvTypeDes = dialog.findViewById(R.id.tv_buy_achieve_type_name_dura);
@@ -87,6 +89,9 @@ public class ShowBuyAchieveDialog {
             @Override
             public void onClick(View v) {
                 // todo:跳转至卡券
+                Intent intent = new Intent(context, CreditBagActivity.class);
+                context.startActivity(intent);
+                dialog.dismiss();
             }
         });
         tvClose.setOnClickListener(new View.OnClickListener() {

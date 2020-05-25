@@ -1,10 +1,10 @@
 package cn.edu.hebtu.software.listendemo.Host.searchBook;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,8 +40,8 @@ import okhttp3.Response;
 
 public class SearchBookActivity extends AppCompatActivity {
 
-    private String gid= Constant.GRADE_ALL+"";
-    private String bvid=Constant.VERSION_ALL+"";
+    private String gid = Constant.GRADE_ALL + "";
+    private String bvid = Constant.VERSION_ALL + "";
     private GradeRecyclerViewAdapter gradeRecyclerViewAdapter;
     private VersionRecyclerViewAdapter versionRecyclerViewAdapter;
     private BookRecyclerViewAdapter bookRecyclerViewAdapter;
@@ -51,11 +50,11 @@ public class SearchBookActivity extends AppCompatActivity {
     private RecyclerView recyclerViewBook;
     private OkHttpClient client = new OkHttpClient();
     private List<Grade> gradeList;
-    private List<Version>  versionList;
-    private List<Book>  bookList;
+    private List<Version> versionList;
+    private List<Book> bookList;
     private ImageView ivExit;
     private Gson gson = new Gson();
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -79,19 +78,19 @@ public class SearchBookActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
     }
 
     @Override
@@ -100,32 +99,34 @@ public class SearchBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_book);
         EventBus.getDefault().register(this);
         initData();
-        initBook(gid,bvid);
+        initBook(gid, bvid);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.backgray);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
     }
+
     // 实现消息处理方法
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onMsgReceived(String e){
-        HashMap<String,Object> map=new HashMap<>();
-        Type type = new TypeToken<HashMap<String,Object>>() {}.getType();
-        map=new Gson().fromJson(e,type);
-        if(map.get("tag").equals(Constant.GRADE)){
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMsgReceived(String e) {
+        HashMap<String, Object> map = new HashMap<>();
+        Type type = new TypeToken<HashMap<String, Object>>() {
+        }.getType();
+        map = new Gson().fromJson(e, type);
+        if (map.get("tag").equals(Constant.GRADE)) {
             gradeRecyclerViewAdapter.setmPosition(map.get("position").toString());
-            gid=map.get("m").toString();
-            initBook(gid,bvid);
+            gid = map.get("m").toString();
+            initBook(gid, bvid);
             gradeRecyclerViewAdapter.notifyDataSetChanged();
         }
-        if(map.get("tag").equals(Constant.VERSION)){
+        if (map.get("tag").equals(Constant.VERSION)) {
             versionRecyclerViewAdapter.setmPosition(map.get("position").toString());
-            bvid=map.get("m").toString();
-            initBook(gid,bvid);
+            bvid = map.get("m").toString();
+            initBook(gid, bvid);
             versionRecyclerViewAdapter.notifyDataSetChanged();
         }
         bookRecyclerViewAdapter.notifyDataSetChanged();
     }
 
-    private void initGradeView(){
+    private void initGradeView() {
         tvAllGrade = findViewById(R.id.tv_search_book_all_grade);
         tvAllGrade.setTextColor(Color.RED);
         ivExit = findViewById(R.id.iv_search_book_exit);
@@ -135,26 +136,26 @@ public class SearchBookActivity extends AppCompatActivity {
                 finish();
             }
         });
-        recyclerViewGrade=findViewById(R.id.rv_grade);
-        gradeRecyclerViewAdapter=new GradeRecyclerViewAdapter(this,gradeList,R.layout.activity_grade_version_recycler_item,tvAllGrade);
+        recyclerViewGrade = findViewById(R.id.rv_grade);
+        gradeRecyclerViewAdapter = new GradeRecyclerViewAdapter(this, gradeList, R.layout.activity_grade_version_recycler_item, tvAllGrade);
         recyclerViewGrade.setAdapter(gradeRecyclerViewAdapter);//设置适配器
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewGrade.setLayoutManager(layoutManager);//必须调用，设置布局管理器
     }
 
-    private void initVersionView(){
+    private void initVersionView() {
         tvAllVersion = findViewById(R.id.tv_search_book_all_version);
         tvAllVersion.setTextColor(Color.RED);
-        recyclerViewVersion=findViewById(R.id.rv_version);
-        versionRecyclerViewAdapter=new VersionRecyclerViewAdapter(this,versionList,R.layout.activity_grade_version_recycler_item,tvAllVersion);
+        recyclerViewVersion = findViewById(R.id.rv_version);
+        versionRecyclerViewAdapter = new VersionRecyclerViewAdapter(this, versionList, R.layout.activity_grade_version_recycler_item, tvAllVersion);
         recyclerViewVersion.setAdapter(versionRecyclerViewAdapter);
-        RecyclerView.LayoutManager layoutManager1=new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewVersion.setLayoutManager(layoutManager1);
     }
 
-    private void initBookView(){
-        recyclerViewBook=findViewById(R.id.rv_book);
-        bookRecyclerViewAdapter=new BookRecyclerViewAdapter(this,bookList,R.layout.activity_book_recycler_item,SearchBookActivity.this);
+    private void initBookView() {
+        recyclerViewBook = findViewById(R.id.rv_book);
+        bookRecyclerViewAdapter = new BookRecyclerViewAdapter(this, bookList, R.layout.activity_book_recycler_item, SearchBookActivity.this);
         recyclerViewBook.setAdapter(bookRecyclerViewAdapter);
         recyclerViewBook.setLayoutManager(new GridLayoutManager(this, 3));
     }
@@ -180,7 +181,8 @@ public class SearchBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String getJson = response.body().string();
-                Type type = new TypeToken<List<Grade>>() {}.getType();
+                Type type = new TypeToken<List<Grade>>() {
+                }.getType();
                 gradeList = gson.fromJson(getJson, type);
                 Message message = new Message();
                 message.what = 1;
@@ -196,7 +198,8 @@ public class SearchBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String getJson = response.body().string();
-                Type type = new TypeToken<List<Version>>() {}.getType();
+                Type type = new TypeToken<List<Version>>() {
+                }.getType();
                 versionList = gson.fromJson(getJson, type);
                 Message message = new Message();
                 message.what = 2;
@@ -205,8 +208,8 @@ public class SearchBookActivity extends AppCompatActivity {
         });
     }
 
-    public void initBook(String gid,String bvid){
-        FormBody fb1 = new FormBody.Builder().add("gid",gid).add("bvid",bvid).build();
+    public void initBook(String gid, String bvid) {
+        FormBody fb1 = new FormBody.Builder().add("gid", gid).add("bvid", bvid).build();
         Request request2 = new Request.Builder()
                 .url(Constant.URL_BOOKS_FIND_BY_VER_AND_GRA)
                 .post(fb1)
@@ -221,7 +224,8 @@ public class SearchBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String getJson = response.body().string();
-                Type type = new TypeToken<List<Book>>() {}.getType();
+                Type type = new TypeToken<List<Book>>() {
+                }.getType();
                 bookList = gson.fromJson(getJson, type);
                 Message message = new Message();
                 message.what = 3;

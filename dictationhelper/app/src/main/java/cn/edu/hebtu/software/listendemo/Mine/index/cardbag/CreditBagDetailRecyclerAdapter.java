@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 import cn.edu.hebtu.software.listendemo.Entity.Inventory;
+import cn.edu.hebtu.software.listendemo.Entity.Item;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class CreditBagDetailRecyclerAdapter extends RecyclerView.Adapter {
@@ -74,9 +75,11 @@ public class CreditBagDetailRecyclerAdapter extends RecyclerView.Adapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        Item item = inventory.getItem();
         holder.tvCardTagName.setText(inventory.getName());
-        holder.tvCardBagItemDescripe.setText(inventory.getItem().getDescription());
+        if(null != item) {
+            holder.tvCardBagItemDescripe.setText(item.getDescription());
+        }
         String date = inventory.getExpiryTime();
         String[] arr = date.split("T");
         String[] tarr = arr[1].split(".000");

@@ -1,9 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.cardbag;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.usage.UsageEvents;
-import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -202,7 +199,8 @@ public class CreditBagActivity extends AppCompatActivity implements View.OnClick
     //获取我的优惠卷
     private void getMyInventory(int userId) {
         OkHttpClient okHttpClient = new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("userId", userId + "").build();
+        FormBody fb = new FormBody.Builder().add("userId", userId + "")
+                .add("pageSize",9999+"").build();
         Request request = new Request.Builder().url(Constant.URL_GET_MY_INVENTORY).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

@@ -43,8 +43,12 @@ public class CreditBagMineRecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MyViewHolder holder = (MyViewHolder) viewHolder;
         Inventory inventory = inventories.get(i);
+        Item item = inventory.getItem();
+
         holder.tvCardTagName.setText(inventory.getName());
-        holder.tvCardBagItemDescripe.setText(inventory.getItem().getDescription());
+        if (item != null) {
+            holder.tvCardBagItemDescripe.setText(item.getDescription());
+        }
         String date = inventory.getExpiryTime();
         String[] arr = date.split("T");
         String[] tarr = arr[1].split(".000");

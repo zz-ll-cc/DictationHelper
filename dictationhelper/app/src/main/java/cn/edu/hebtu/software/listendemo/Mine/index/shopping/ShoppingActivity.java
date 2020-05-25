@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.shopping;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -10,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -45,6 +45,7 @@ import java.util.Map;
 import cn.edu.hebtu.software.listendemo.Entity.Item;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
+import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CreditBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BlurTransformation;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -157,26 +158,23 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            for (int i = 0; i < items.size(); i++) {
-                FormBody.Builder builder = new FormBody.Builder().add("itemId", items.get(i).getId() + "");
-                FormBody fb = builder.build();
-                Request request = new Request.Builder()
-                        .url(Constant.URL_GET_SHOPPING_ITEM_LEFT_IN_CACHE)
-                        .post(fb).build();
-                Call call = client.newCall(request);
-                int finalI = i;
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                    }
+            FormBody.Builder builder = new FormBody.Builder().add("itemId", items.get(0).getId() + "");
+            FormBody fb = builder.build();
+            Request request = new Request.Builder()
+                    .url(Constant.URL_GET_SHOPPING_ITEM_LEFT_IN_CACHE)
+                    .post(fb).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String jsonStr = response.body().string();
-                        items.get(finalI).setLeft(Integer.parseInt(jsonStr));
-                    }
-                });
-            }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String jsonStr = response.body().string();
+                    items.get(0).setLeft(Integer.parseInt(jsonStr));
+                }
+            });
             return null;
         }
 
@@ -191,7 +189,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         adapter.changeDataSource(items);
                     }
-                    getItems(false,TYPE_LOADMORE);
+                    getItems(false, TYPE_LOADMORE);
                     break;
                 case TYPE_LOADMORE:
                     if (adapter == null) {
@@ -209,7 +207,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         adapter.changeDataSource(items);
                     }
-                    getItems(false,TYPE_LOADMORE);
+                    getItems(false, TYPE_LOADMORE);
                     smart.finishRefresh();
                     break;
             }
@@ -341,6 +339,13 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         } else {
             Toast.makeText(this, buyType, Toast.LENGTH_SHORT).show();
         }
+        getItems(true, TYPE_INIT);     // 获取商品数据
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getItems(true, TYPE_INIT);     // 获取商品数据
     }
 
     @Override
@@ -348,6 +353,8 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.tv_shopping_to_card:
                 // 进入卡券包
+                Intent intent = new Intent(this, CreditBagActivity.class);
+                startActivity(intent);
                 break;
         }
     }

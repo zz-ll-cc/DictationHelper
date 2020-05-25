@@ -2,7 +2,6 @@ package cn.edu.hebtu.software.listendemo.Mine.index.shopping;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +102,11 @@ public class ShowBuyDialog {
         Glide.with(context).load(item.getCover()).into(ivCover);
         tvName.setText(item.getName());
         tvDescription.setText(item.getItemType().getDescription());
-        tvLeft.setText(item.getLeft() + " 剩余");
+        if (item.getId() == 0)
+            tvLeft.setText(item.getLeft() + " 剩余");
+        else{
+            tvLeft.setText(item.getQuantity()+" 剩余");
+        }
         tvMyCredit.setText("积分余额：" + user.getUserCredit());
         tvCost.setText(item.getPrice() + " 积分兑换");
         rlBuy.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +115,8 @@ public class ShowBuyDialog {
                 if (user.getUserCredit() >= item.getPrice()) {
                     buyItem(user.getUid(), item.getId(), item.getPrice());
                     dialog.dismiss();
-                }else{
-                    Toast.makeText(context,"积分不够哦~",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "积分不够哦~", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
@@ -141,8 +144,8 @@ public class ShowBuyDialog {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String strings = response.body().string();
-                Map<String,Object> buyMap = new HashMap<>();
-                buyMap.put("buyType",strings);
+                Map<String, Object> buyMap = new HashMap<>();
+                buyMap.put("buyType", strings);
                 if (strings.equals(TYPE_BUY_TYPE_1)) {
                     buyMap.put("item", item);
                 }

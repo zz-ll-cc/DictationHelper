@@ -37,7 +37,7 @@ public class Item {
         this.left = left;
     }
 
-    private ItemType itemType;
+
 
     public Integer getId() {
         return id;

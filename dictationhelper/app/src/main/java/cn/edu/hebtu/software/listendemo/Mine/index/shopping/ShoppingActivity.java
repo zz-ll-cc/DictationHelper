@@ -146,7 +146,6 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         findViews();
         marginTopStateBar();
         setListeners();
-        getItems(true, TYPE_INIT);     // 获取商品数据
     }
 
     class GetLeftTask extends AsyncTask {

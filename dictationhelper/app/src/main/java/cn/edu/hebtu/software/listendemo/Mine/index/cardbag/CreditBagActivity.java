@@ -24,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -171,6 +172,7 @@ public class CreditBagActivity extends AppCompatActivity implements View.OnClick
         rcCardTag = findViewById(R.id.rc_card_tag);
         etCardBagChange = findViewById(R.id.et_card_bag_change);
         tvCardBagChange = findViewById(R.id.tv_card_bag_change);
+        tvCardBagChange.setOnClickListener(this);
     }
 
     @Override
@@ -190,6 +192,9 @@ public class CreditBagActivity extends AppCompatActivity implements View.OnClick
                 Intent intent=new Intent(CreditBagActivity.this,CreditBagDetailActivity.class);
                 intent.putExtra(Constant.CARD_BAG_DETAIL,gson.toJson(inventories));
                 startActivity(intent);
+                break;
+            case R.id.tv_card_bag_change:
+                Toast.makeText(context, etCardBagChange.getText()+"  "+"兑换", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

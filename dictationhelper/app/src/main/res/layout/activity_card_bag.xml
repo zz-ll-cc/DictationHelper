@@ -143,16 +143,18 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="4"
-                android:background="@drawable/linearlayout_corner_change"
+
                 android:gravity="center_vertical">
+                <!--android:background="@drawable/linearlayout_corner_change"-->
 
                 <EditText
                     android:id="@+id/et_card_bag_change"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/white"
-                    android:hint="输入兑换码" />
+                    android:hint="输入兑换码"
+                    android:singleLine="true"/>
+                <!--android:background="@color/white"-->
             </LinearLayout>
         </LinearLayout>
 

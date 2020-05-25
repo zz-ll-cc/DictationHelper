@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -33,9 +32,9 @@ import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.NewOrWrongTimeWord;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
-import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
 import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.SpacesItemDecoration;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
@@ -56,6 +55,7 @@ public class WrongWordActivity extends AppCompatActivity {
     private List<Word> wordkList = new ArrayList<>();
     private List<NewOrWrongTimeWord> wrongWordList = new ArrayList<>();
     private ImageView ivExit;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_neworwrongword);
@@ -95,14 +95,16 @@ public class WrongWordActivity extends AppCompatActivity {
             }
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void deleteNewWord(Map<String, Object> deleteMap) {
-        Log.e("wrong_word",DELETE_FROM_WRONG_WORD);
+        Log.e("wrong_word", DELETE_FROM_WRONG_WORD);
         String deleteType = deleteMap.get(DELETE_FROM).toString();
         if (deleteType.equals(DELETE_FROM_WRONG_WORD)) {
             adapter.deleteItem(deleteMap.get(DELETE_ITEM_TIME).toString());
         }
     }
+
     private void initView() {
         tvNewTiltle = findViewById(R.id.tv_neworwrong);
         btnStudy = findViewById(R.id.btn_study);
@@ -112,18 +114,17 @@ public class WrongWordActivity extends AppCompatActivity {
         ivEmpty = findViewById(R.id.iv_empty);
         llHave = findViewById(R.id.ll_have_record);
         recyclerViewNewOrWrong = findViewById(R.id.rc_neworwrong);
-
-        if (wordkList.isEmpty()){
+        if (wordkList.isEmpty()) {
             rlNewEmpty.setVisibility(View.VISIBLE);
             ivEmpty.setImageResource(R.drawable.empty_wrong);
             rlNewEmpty.setBackgroundColor(Color.parseColor("#FFFFFF"));
             llHave.setVisibility(View.GONE);
-        }else{
+        } else {
             rlNewEmpty.setVisibility(View.GONE);
             llHave.setVisibility(View.VISIBLE);
         }
 
-        adapter = new WrongWordRecyclerTimeAdapter(wrongWordList,this, R.layout.activity_record_neworwrongword_out_item,ivEmpty,rlNewEmpty,llHave);
+        adapter = new WrongWordRecyclerTimeAdapter(wrongWordList, this, R.layout.activity_record_neworwrongword_out_item, ivEmpty, rlNewEmpty, llHave);
         recyclerViewNewOrWrong.setAdapter(adapter);
     }
 
@@ -166,29 +167,30 @@ public class WrongWordActivity extends AppCompatActivity {
                 word.setIsTrue(isTrue);
 
                 wordkList.add(word);
-                addWordIntoNewWordList(word,addTime);
+                addWordIntoNewWordList(word, addTime);
             } while (cursor.moveToNext());
         }
     }
+
     private void addWordIntoNewWordList(Word word, String addTime) {
-        if (wrongWordList.size() == 0){ // 此时一个数据都没有
+        if (wrongWordList.size() == 0) { // 此时一个数据都没有
             List<Word> words = new ArrayList<>();
             words.add(word);
             NewOrWrongTimeWord timeWord = new NewOrWrongTimeWord();
             timeWord.setTime(addTime);
             timeWord.setWords(words);
             wrongWordList.add(timeWord);
-        }else{  // 此时newWordList不为空
+        } else {  // 此时newWordList不为空
             boolean haveWords = false;
-            for (int i = 0;i<wrongWordList.size();i++){
+            for (int i = 0; i < wrongWordList.size(); i++) {
                 NewOrWrongTimeWord timeWord = wrongWordList.get(i);
-                if (timeWord.getTime().equals(addTime)){
+                if (timeWord.getTime().equals(addTime)) {
                     timeWord.getWords().add(word);
                     haveWords = true;
                     break;
                 }
             }
-            if (!haveWords){
+            if (!haveWords) {
                 List<Word> words = new ArrayList<>();
                 words.add(word);
                 NewOrWrongTimeWord timeWord = new NewOrWrongTimeWord();

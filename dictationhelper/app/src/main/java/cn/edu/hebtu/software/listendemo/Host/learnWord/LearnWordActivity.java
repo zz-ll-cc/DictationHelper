@@ -128,6 +128,7 @@ public class LearnWordActivity extends AppCompatActivity {
                     Log.e("firstItemPosition", firstItemPosition + "");
                     if (firstItemPosition > 0) {
                         recyclerViewLearnWord.scrollToPosition(firstItemPosition - 1);
+                        btnNext.setText("上一个");
                     } else {
                         Toast.makeText(LearnWordActivity.this, "已经是第一个了", Toast.LENGTH_LONG).show();
                     }

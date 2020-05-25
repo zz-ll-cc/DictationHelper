@@ -1,4 +1,4 @@
-package cn.edu.hebtu.software.listendemo.Mine.index.settings;
+package cn.edu.hebtu.software.listendemo.Mine.index.credit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,15 +11,12 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,18 +32,13 @@ import java.util.List;
 
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenResultSelectActivity;
-import cn.edu.hebtu.software.listendemo.QiniuUtils.Json;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.credit.Utils.Utils;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarDate;
 import cn.edu.hebtu.software.listendemo.credit.component.CalendarRenderer;
-import cn.edu.hebtu.software.listendemo.credit.component.Day;
 import cn.edu.hebtu.software.listendemo.credit.component.MonthPager;
-import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import cn.edu.hebtu.software.listendemo.credit.view.CalendarViewAdapter;
-import cn.edu.hebtu.software.listendemo.credit.view.CustomDayView;
 import cn.edu.hebtu.software.listendemo.credit.view.ThemeDayView;
 import okhttp3.Call;
 import okhttp3.Callback;

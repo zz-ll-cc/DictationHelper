@@ -42,7 +42,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
             android:text="版本"
-            android:textSize="20dp" />
+            android:textSize="15sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_version"
@@ -70,7 +70,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
             android:text="年级"
-            android:textSize="20dp" />
+            android:textSize="15sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_grade"

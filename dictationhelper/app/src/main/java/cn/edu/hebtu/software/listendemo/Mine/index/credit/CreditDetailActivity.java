@@ -18,8 +18,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.header.FalsifyHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -79,8 +82,8 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
         StatusBarUtil.setStatusBarColor(this, R.color.green);
         initDatas();
         findViews();
-        smart.setRefreshHeader(new ClassicsHeader(this));
-        smart.setRefreshFooter(new ClassicsFooter(this));
+        smart.setRefreshHeader(new BezierRadarHeader(this));
+        smart.setRefreshFooter(new BallPulseFooter(this));
         rcvOut.addItemDecoration(new SpacesItemDecoration(10));
         marginTopStateBar();
         setListeners();
@@ -125,7 +128,7 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(CreditDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+
                 Message message = new Message();
                 if (type == TYPE_LOADMORE) {
                     message.what = TYPE_LOADMORE_FALSE;
@@ -143,7 +146,6 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
                 Message message = new Message();
                 message.what = type;
                 message.obj = jsonStr;
-                Log.e("aaaaaaaaaaa",pageNum +"," +jsonStr);
                 handler.sendMessage(message);
             }
         });
@@ -209,9 +211,11 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
                     smart.finishRefresh();
                     break;
                 case TYPE_LOADMORE_FALSE:
+                    Toast.makeText(CreditDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     smart.finishLoadMore();
                     break;
                 case TYPE_REFRESH_FALSE:
+                    Toast.makeText(CreditDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     smart.finishRefresh();
                     break;
             }

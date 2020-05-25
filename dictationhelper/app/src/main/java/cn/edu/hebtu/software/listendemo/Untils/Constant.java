@@ -42,11 +42,12 @@ public class Constant {
     public static final String HOST_CON_DETAIL_BOOK = "book";   // 在Host -> BookDetail 时传递 book Entity
     public static final String DETAIL_CON_RECITE_OR_DICTATION = "chooseWords";  // 在Detail -> 听写/背诵 时传递 List<Word> (jsonStr) 使用
     public static final String RECITE_CON_DICTATION = "wordlist";   // 在 背诵 -> 听写时使用
-    public static final String DETAIL_PAPER="paperlist";//纸质听写
+    public static final String DETAIL_PAPER = "paperlist";//纸质听写
     public static final String NEWWORD_CON_LEARNWORD_LEARN = "learnNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_LEARN = "learnWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
     public static final String NEWWORD_CON_LEARNWORD_DICTATION = "listenNewWord";//在NewWordActivity——LearnWordActivity传递List<Word>使用
     public static final String WRONGWORD_CON_LEARNWORD_DICTATION = "listenWrongWord";//在WrongWordActivity——LearnWordActicity传递list<WrongWord>使用
+    public static final String CARD_BAG_DETAIL="inventories";
 
     // 拼写
     public static final String NO_STYLE = "未拼写";           // 默写时，输入值为空时默认值
@@ -99,7 +100,6 @@ public class Constant {
     public static final String FEEDBACK_POST_KEEP_TYPE_KEY = "typeKeep";
     public static final String CON_POST_FEEDBACK_IP = BASE_URL + "mail/report";
 
-
     // book、unit、word存放数据库名称
     public static final String BOOK_UNIT_WORD_DBNAME = "book_unit_word.db";
     // 搜索历史存放的数据库名称
@@ -121,5 +121,20 @@ public class Constant {
     public static final String URL_GET_MAX_SCORE = BASE_URL + "record/getMaxScore";
     public static final String URL_SIGN_RETROACTIVE = BASE_URL + "user/reSignIn";
     public static final String URL_GET_CREDIT_DETAIL = BASE_URL + "user/getUserCreditRecord";
+
+    // 积分商城
+    public static final String URL_GET_SHOPPING_ITEM = BASE_URL + "item/getItems";   // 获取商品列表
+    public static final String URL_GET_SHOPPING_ITEM_LEFT_IN_CACHE = BASE_URL + "item/getItemLeftInCache";   // 获取秒杀券数量
+    public static final String URL_BUY_SHOP_ITEM = BASE_URL + "item/purchase";   // 购买商品
+    public static final String TYPE_BUY_TYPE_1 = "购买成功";
+    public static final String TYPE_BUY_TYPE_11 = "已经抢购过了，不能重复抢购";
+    public static final String TYPE_BUY_TYPE_12 = "库存不足，无法购买";
+    public static final String TYPE_BUY_TYPE_13 = "抢购失败";
+    public static final String TYPE_BUY_TYPE_14 = "积分不足";
+    //卡卷
+    public static final String URL_GET_ITEM=BASE_URL+"item/getItems";
+
+    public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
+
 
 }

@@ -15,8 +15,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.hebtu.software.listendemo.Mine.index.credit.SyllabusActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.settings.EidtCenterActivity;
-import cn.edu.hebtu.software.listendemo.Mine.index.settings.SyllabusActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.shopping.ShoppingActivity;
 import cn.edu.hebtu.software.listendemo.R;
 

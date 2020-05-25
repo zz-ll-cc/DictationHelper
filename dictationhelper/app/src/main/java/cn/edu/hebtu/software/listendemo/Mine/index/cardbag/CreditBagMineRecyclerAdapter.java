@@ -54,7 +54,7 @@ public class CreditBagMineRecyclerAdapter extends RecyclerView.Adapter {
         holder.tvCreditBagUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "去使用", Toast.LENGTH_SHORT).show();
             }
         });
     }

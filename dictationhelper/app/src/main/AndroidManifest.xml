@@ -33,11 +33,11 @@
         <activity
             android:name=".Login.Splash"
             android:theme="@style/AppTheme.Start">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Host.index.ListenIndexActivity"
@@ -85,11 +85,6 @@
             android:name=".Mine.index.credit.SignActivity"
             android:theme="@style/Theme" />
         <activity android:name=".Mine.index.cardbag.CreditBagActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Mine.index.cardbag.CreditBagDetailActivity" />
     </application>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +58,6 @@ public class CreditBagDetailRecyclerAdapter extends RecyclerView.Adapter {
 //            Log.e("tttttttttt2", nowDate.getTime() + "   " + expiryDate.getTime());
             if (inventory.getIsUsed() == 0) {
                 if (nowDate.getTime() > expiryDate.getTime()) {
-                    Log.e("tttttttttt", "已过期");
                     holder.llBackground.setBackground(context.getResources().getDrawable(R.drawable.coupon_gray));
                     holder.tvCreditBagUse.setText("已过期");
                 }
@@ -85,6 +85,9 @@ public class CreditBagDetailRecyclerAdapter extends RecyclerView.Adapter {
         holder.tvCreditBagUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(holder.tvCreditBagUse.getText().equals("去使用")){
+                    Toast.makeText(context, holder.tvCreditBagUse.getText(), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

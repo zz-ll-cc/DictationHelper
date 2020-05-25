@@ -35,6 +35,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
@@ -104,7 +105,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="#fff"
                     android:clipChildren="false"
                     android:clipToPadding="false" />
 

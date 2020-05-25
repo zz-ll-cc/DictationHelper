@@ -120,7 +120,7 @@ public class MyInfoFragment extends Fragment {
             e.printStackTrace();
         }
         user.setUnLockList(unLocks);
-
+        Log.e("userGETName",user.getUname());
 
         List<Map<String, Object>> showRes = new ArrayList<>();
         Map<String, Object> mapIntegral = new HashMap<>();

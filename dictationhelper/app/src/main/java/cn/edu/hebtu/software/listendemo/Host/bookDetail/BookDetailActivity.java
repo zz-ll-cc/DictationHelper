@@ -141,7 +141,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     user = gson.fromJson(json,User.class);
                     user.setUnLockList(unLocks);
                     getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
-                    adapter.notifyDataSetChanged();
+                    adapter.updateUser(user);
                     break;
             }
         }

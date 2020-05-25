@@ -104,7 +104,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 case UPLOAD_FORM:
                     updateUser(user.getUid());
                     Toast.makeText(EditMsgActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                    finish();
+
                     break;
                 case UPLOAD_HEADER:
                     String userStr = msg.obj + "";
@@ -544,6 +544,7 @@ public class EditMsgActivity extends AppCompatActivity implements View.OnClickLi
                 User user = new Gson().fromJson(json,User.class);
                 user.setUnLockList(unLocks);
                 getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+                finish();
             }
         });
     }

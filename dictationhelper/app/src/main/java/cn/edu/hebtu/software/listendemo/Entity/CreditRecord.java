@@ -14,6 +14,8 @@ public class CreditRecord {
 
     private Integer version;
 
+    private Integer deleted;
+
     private String createTime;
 
     public Integer getId() {
@@ -62,5 +64,13 @@ public class CreditRecord {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

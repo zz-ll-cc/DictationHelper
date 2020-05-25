@@ -252,6 +252,10 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
 
     }
 
+    public void updateUser(User user){
+        this.user = user;
+        notifyDataSetChanged();
+    }
     private void initLockItem(MyViewHolder myViewHolder, Unit unit, int i){
         myViewHolder.tvUnit.setText(unit.getUnName());
         myViewHolder.rlDetailDown.setOnClickListener(new View.OnClickListener() {

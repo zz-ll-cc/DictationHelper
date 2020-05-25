@@ -37,8 +37,6 @@ public class Item {
         this.left = left;
     }
 
-
-
     public Integer getId() {
         return id;
     }

@@ -31,7 +31,7 @@ public class Inventory {
 
     private String purchaseTime;//购买时间
 
-    private String expiryTime;//到期时间
+    private String  expiryTime;//到期时间
 
     private Item item;//这个库存的name应该由他所对应的item的type来决定
 
@@ -82,7 +82,6 @@ public class Inventory {
     public void setIsUsed(Integer isUsed) {
         this.isUsed = isUsed;
     }
-
 
     public String getExpendTime() {
         return expendTime;

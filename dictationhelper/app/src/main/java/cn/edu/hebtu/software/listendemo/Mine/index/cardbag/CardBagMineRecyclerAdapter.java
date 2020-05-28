@@ -79,6 +79,7 @@ public class CardBagMineRecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         MyViewHolder holder = (MyViewHolder) viewHolder;
         Inventory inventory = inventories.get(i);
+        Log.e("ttttttttMyInventoryjson", inventory.toString());
         Item item = inventory.getItem();
         holder.tvCardTagName.setText(inventory.getName());
         llbackground(holder,inventory);
@@ -96,7 +97,8 @@ public class CardBagMineRecyclerAdapter extends RecyclerView.Adapter {
                 AlertDialog.Builder adBuilder = new AlertDialog.Builder(context);
                 adBuilder.setIcon(R.drawable.cardbag);
                 adBuilder.setTitle("卡卷包");
-                adBuilder.setMessage("是否使用该"+inventory.getName()+"("+item.getItemType().getDescription()+")");
+//                adBuilder.setMessage("是否使用该"+inventory.getName()+"("+item.getItemType().getDescription()+")");
+                adBuilder.setMessage("是否使用该"+inventory.getName());
                 adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -188,4 +190,11 @@ public class CardBagMineRecyclerAdapter extends RecyclerView.Adapter {
                 break;
         }
     }
+
+    public void changeDataSource(List<Inventory> inventories) {
+        this.inventories = inventories;
+        notifyDataSetChanged();
+    }
+
+
 }

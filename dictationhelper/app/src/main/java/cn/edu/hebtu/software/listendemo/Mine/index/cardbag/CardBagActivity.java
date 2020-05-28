@@ -83,7 +83,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvCardBagChange;
     private List<Inventory> inventories;
     private SmartRefreshLayout smart;
-    private static final int EXCHANGE_CODE=1000;
+    private static final int EXCHANGE_CODE = 1000;
     private static final int TYPE_INIT = 101;
     private static final int TYPE_REFRESH = 102;
     private static final int TYPE_REFRESH_FALSE = 104;
@@ -129,7 +129,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CardBagActivity.this, LinearLayoutManager.VERTICAL, false);
                                 rcCardTag.setLayoutManager(layoutManager);//必须调用，设置布局管理器
                             } else {
-                                cardBagMineRecyclerAdapter.notifyDataSetChanged();
+                                cardBagMineRecyclerAdapter.changeDataSource(inventories);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -179,7 +179,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CardBagActivity.this, LinearLayoutManager.VERTICAL, false);
                                 rcCardTag.setLayoutManager(layoutManager);//必须调用，设置布局管理器
                             } else {
-                                cardBagMineRecyclerAdapter.notifyDataSetChanged();
+                                cardBagMineRecyclerAdapter.changeDataSource(inventories);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -226,7 +226,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CardBagActivity.this, LinearLayoutManager.VERTICAL, false);
                                 rcCardTag.setLayoutManager(layoutManager);//必须调用，设置布局管理器
                             } else {
-                                cardBagMineRecyclerAdapter.notifyDataSetChanged();
+                                cardBagMineRecyclerAdapter.changeDataSource(inventories);
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -239,6 +239,14 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                 case TYPE_REFRESH_FALSE:
                     Toast.makeText(CardBagActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     smart.finishRefresh();
+                    break;
+                case EXCHANGE_CODE:
+                    etCardBagChange.setText("");
+                    Toast.makeText(context,msg.obj+"", Toast.LENGTH_SHORT).show();
+                    String result=msg.obj+"";
+                    if(result.equals("兑换码使用成功，获取畅读券一张")){
+                        getMyInventory(user.getUid(),true,TYPE_INIT);
+                    }
                     break;
             }
         }
@@ -345,8 +353,11 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_card_bag_change:
                 String code = etCardBagChange.getText().toString();
-                exchangeCode(1,code,user.getUid());
-                Toast.makeText(context, etCardBagChange.getText() + "  " + "兑换", Toast.LENGTH_SHORT).show();
+                if(code==null){
+                    Toast.makeText(context, "兑换码为空", Toast.LENGTH_SHORT).show();
+                }else {
+                    exchangeCode(1, code, user.getUid());
+                }
                 break;
         }
     }
@@ -408,9 +419,9 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
     private void exchangeCode(int typeId, String redeemString, int userId) {
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody fb = new FormBody.Builder().add("userId", userId + "")
-                    .add("isRefresh", redeemString + "")
-                    .add("type", typeId + "").build();
-        Request request = new Request.Builder().url(Constant.URL_GET_MY_INVENTORY).post(fb).build();
+                .add("redeemString", redeemString + "")
+                .add("typeId", typeId + "").build();
+        Request request = new Request.Builder().url(Constant. URL_REDEEM_VERIFY).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -428,9 +439,9 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.e("ttttttttMyInventoryjson", json);
+                Log.e("ttttttttExchangeCode", json);
                 Message message = new Message();
-                message.what =EXCHANGE_CODE ;
+                message.what = EXCHANGE_CODE;
                 message.obj = json;
                 handler.sendMessage(message);
             }

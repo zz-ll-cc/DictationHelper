@@ -22,3 +22,239 @@ java.io.IOException: 远程主机强迫关闭了一个现有的连接。
 2020-05-28 07:59:40.136  INFO 4880 --- [lettuce-eventExecutorLoop-1-4] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was /114.55.101.120:6379
 2020-05-28 07:59:40.810  INFO 4880 --- [lettuce-nioEventLoop-4-4] i.l.core.protocol.ReconnectionHandler    : Reconnected to 114.55.101.120:6379
 2020-05-28 07:59:49.452  WARN 4880 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h17m20s834ms968µs600ns).
+2020-05-28 08:39:28.779  INFO 12940 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 12940 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
+2020-05-28 08:39:28.791  INFO 12940 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-05-28 08:39:30.011  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.012  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.012  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.012  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.013  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.013  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.014  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.014  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.014  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.014  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.015  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.015  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.015  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemMapper' and 'com.dictation.mapper.RedeemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.016  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemTypeMapper' and 'com.dictation.mapper.RedeemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.016  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.017  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.017  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.018  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.018  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 08:39:30.018  WARN 12940 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
+2020-05-28 08:39:30.261  INFO 12940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-28 08:39:30.265  INFO 12940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-05-28 08:39:30.375  INFO 12940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80ms. Found 0 Redis repository interfaces.
+2020-05-28 08:39:31.684  INFO 12940 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-28 08:39:31.693  INFO 12940 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-28 08:39:31.694  INFO 12940 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-05-28 08:39:32.068  INFO 12940 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-05-28 08:39:32.083  INFO 12940 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-28 08:39:32.084  INFO 12940 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3204 ms
+2020-05-28 08:39:32.506  INFO 12940 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-28 08:39:34.535  INFO 12940 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-28 08:39:37.529  INFO 12940 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-28 08:39:37.530  INFO 12940 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-05-28 08:39:38.455  INFO 12940 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-05-28 08:39:38.543  INFO 12940 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-28 08:39:38.546  INFO 12940 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 10.369 seconds (JVM running for 11.907)
+2020-05-28 08:39:53.708  INFO 12940 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-28 08:39:53.709  INFO 12940 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-28 08:39:53.729  INFO 12940 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+2020-05-28 08:39:54.077  INFO 12940 --- [http-nio-8080-exec-1] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-05-28 08:39:54.079  INFO 12940 --- [http-nio-8080-exec-1] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-05-28 11:58:18.062  INFO 21788 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 21788 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
+2020-05-28 11:58:18.077  INFO 21788 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-05-28 11:58:22.601  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.601  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.602  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.602  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.602  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.602  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.603  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.603  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.603  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.604  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.604  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.604  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.604  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemMapper' and 'com.dictation.mapper.RedeemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.604  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemTypeMapper' and 'com.dictation.mapper.RedeemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 11:58:22.605  WARN 21788 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
+2020-05-28 11:58:23.242  INFO 21788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-28 11:58:23.255  INFO 21788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-05-28 11:58:23.381  INFO 21788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56ms. Found 0 Redis repository interfaces.
+2020-05-28 11:58:25.460  INFO 21788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-28 11:58:25.508  INFO 21788 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-28 11:58:25.509  INFO 21788 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-05-28 11:58:27.289  INFO 21788 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-05-28 11:58:27.392  INFO 21788 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-28 11:58:27.392  INFO 21788 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9008 ms
+2020-05-28 11:58:28.212  INFO 21788 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-28 11:58:32.028  INFO 21788 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-28 11:58:34.924  INFO 21788 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-28 11:58:34.926  INFO 21788 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-05-28 11:58:35.869  INFO 21788 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-05-28 11:58:36.243  INFO 21788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-28 11:58:36.247  INFO 21788 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 24.791 seconds (JVM running for 41.96)
+2020-05-28 11:58:58.488  INFO 21788 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-28 11:58:58.489  INFO 21788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-28 11:58:58.501  INFO 21788 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-28 11:59:39.065  INFO 21788 --- [http-nio-8080-exec-4] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-05-28 11:59:39.067  INFO 21788 --- [http-nio-8080-exec-4] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-05-28 12:08:04.785  INFO 21788 --- [http-nio-8080-exec-4] com.dictation.aspect.ExecutionAspect     : 方法全限定类名：com.dictation.util.RedeemUtil.VerifyCode,花费时间：68ms
+2020-05-28 12:26:56.377  INFO 21788 --- [http-nio-8080-exec-9] com.dictation.aspect.ExecutionAspect     : 方法全限定类名：com.dictation.util.RedeemUtil.VerifyCode,花费时间：1ms
+2020-05-28 13:03:47.969  INFO 4148 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 4148 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
+2020-05-28 13:03:47.972  INFO 4148 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-05-28 13:03:49.921  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.921  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.922  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemMapper' and 'com.dictation.mapper.RedeemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemTypeMapper' and 'com.dictation.mapper.RedeemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.923  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.924  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.924  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.924  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:03:49.924  WARN 4148 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
+2020-05-28 13:03:50.256  INFO 4148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-28 13:03:50.258  INFO 4148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-05-28 13:03:50.350  INFO 4148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 0 Redis repository interfaces.
+2020-05-28 13:03:51.363  INFO 4148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-28 13:03:51.374  INFO 4148 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-28 13:03:51.375  INFO 4148 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-05-28 13:03:51.778  INFO 4148 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-05-28 13:03:51.784  INFO 4148 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-28 13:03:51.784  INFO 4148 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3611 ms
+2020-05-28 13:03:52.167  INFO 4148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-28 13:03:55.188  INFO 4148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-28 13:03:56.567  INFO 4148 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-28 13:03:56.568  INFO 4148 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-05-28 13:03:57.253  INFO 4148 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-05-28 13:03:57.371  INFO 4148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-28 13:03:57.374  INFO 4148 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 10.499 seconds (JVM running for 13.609)
+2020-05-28 13:04:21.814  INFO 4148 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-28 13:04:21.814  INFO 4148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-28 13:04:21.824  INFO 4148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2020-05-28 13:22:01.898  INFO 20864 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 20864 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
+2020-05-28 13:22:01.901  INFO 20864 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-05-28 13:22:02.629  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.630  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.630  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.630  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.630  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.630  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemMapper' and 'com.dictation.mapper.RedeemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.631  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemTypeMapper' and 'com.dictation.mapper.RedeemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:02.632  WARN 20864 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
+2020-05-28 13:22:02.776  INFO 20864 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-28 13:22:02.778  INFO 20864 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-05-28 13:22:02.846  INFO 20864 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54ms. Found 0 Redis repository interfaces.
+2020-05-28 13:22:03.537  INFO 20864 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-28 13:22:03.546  INFO 20864 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-28 13:22:03.547  INFO 20864 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-05-28 13:22:03.892  INFO 20864 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-05-28 13:22:03.898  INFO 20864 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-28 13:22:03.899  INFO 20864 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1939 ms
+2020-05-28 13:22:04.249  INFO 20864 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-28 13:22:05.677  INFO 20864 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-28 13:22:06.699  INFO 20864 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-28 13:22:06.700  INFO 20864 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-05-28 13:22:07.203  INFO 20864 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-05-28 13:22:07.280  INFO 20864 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-28 13:22:07.283  INFO 20864 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 5.926 seconds (JVM running for 7.335)
+2020-05-28 13:22:11.899  INFO 20864 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-28 13:22:11.900  INFO 20864 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-28 13:22:11.912  INFO 20864 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-28 13:22:59.030  INFO 14288 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 14288 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
+2020-05-28 13:22:59.036  INFO 14288 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
+2020-05-28 13:22:59.894  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.895  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.895  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.895  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.895  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.895  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.896  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.896  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.896  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.896  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.897  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.897  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.897  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemMapper' and 'com.dictation.mapper.RedeemMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.897  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'redeemTypeMapper' and 'com.dictation.mapper.RedeemTypeMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
+2020-05-28 13:22:59.898  WARN 14288 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
+2020-05-28 13:23:00.064  INFO 14288 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-28 13:23:00.066  INFO 14288 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-05-28 13:23:00.153  INFO 14288 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73ms. Found 0 Redis repository interfaces.
+2020-05-28 13:23:00.976  INFO 14288 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-28 13:23:00.985  INFO 14288 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-28 13:23:00.985  INFO 14288 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-05-28 13:23:01.322  INFO 14288 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-05-28 13:23:01.328  INFO 14288 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-28 13:23:01.329  INFO 14288 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2141 ms
+2020-05-28 13:23:01.629  INFO 14288 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-28 13:23:02.895  INFO 14288 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-28 13:23:03.860  INFO 14288 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-28 13:23:03.861  INFO 14288 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
+2020-05-28 13:23:04.387  INFO 14288 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-05-28 13:23:04.464  INFO 14288 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-28 13:23:04.467  INFO 14288 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 5.992 seconds (JVM running for 7.466)
+2020-05-28 13:23:10.037  INFO 14288 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-28 13:23:10.037  INFO 14288 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-28 13:23:10.049  INFO 14288 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-05-28 13:24:41.335  INFO 14288 --- [http-nio-8080-exec-4] io.lettuce.core.EpollProvider            : Starting without optional epoll library
+2020-05-28 13:24:41.342  INFO 14288 --- [http-nio-8080-exec-4] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-05-28 13:31:51.411 ERROR 14288 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.data.redis.RedisSystemException: Redis exception; nested exception is io.lettuce.core.RedisException: java.io.IOException: 远程主机强迫关闭了一个现有的连接。] with root cause
+
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[na:1.8.0_181]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[na:1.8.0_181]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[na:1.8.0_181]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192) ~[na:1.8.0_181]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[na:1.8.0_181]
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:253) ~[netty-buffer-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1133) ~[netty-buffer-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:350) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:148) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:714) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:650) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:576) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:493) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:989) ~[netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+
+2020-05-28 13:31:51.441  INFO 14288 --- [lettuce-eventExecutorLoop-1-3] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was /114.55.101.120:6379
+2020-05-28 13:31:51.606  INFO 14288 --- [lettuce-nioEventLoop-4-4] i.l.core.protocol.ReconnectionHandler    : Reconnected to 114.55.101.120:6379

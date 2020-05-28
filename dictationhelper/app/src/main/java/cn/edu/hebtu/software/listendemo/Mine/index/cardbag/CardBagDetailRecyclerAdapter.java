@@ -98,13 +98,19 @@ public class CardBagDetailRecyclerAdapter extends RecyclerView.Adapter {
                 }
                 if (inventory.getIsUsed() == 1) {
                     //holder.llBackground.setBackground(context.getResources().getDrawable(R.drawable.coupon1));
-                    holder.tvCardBagExpirationName.setText("过期时间");
+//                    holder.tvCardBagExpirationName.setText("截止时间");
                     holder.tvCreditBagUse.setText("已使用");
-//                    String dateExpend = inventory.getExpendTime();
-//                    String[] arrExpend = dateExpend.split("T");
-//                    String[] tarrExpend = arrExpend[1].split(".000");
-//                    String ddExpend = arrExpend[0] + " " + tarrExpend[0];
-                    holder.tvCardBagExpirationTime.setText(dd);
+                    if(inventory.getItem()!=null){
+                        holder.tvCardBagExpirationName.setText("截止时间");
+                        String dateExpend = inventory.getExpendTime()+inventory.getItem().getItemType().getDurationTime();
+                        String[] arrExpend = dateExpend.split("T");
+                        String[] tarrExpend = arrExpend[1].split(".000");
+                        String ddExpend = arrExpend[0] + " " + tarrExpend[0];
+                        holder.tvCardBagExpirationTime.setText(dd);
+                    }else {
+                        holder.tvCardBagExpirationName.setText("过期时间");
+                        holder.tvCardBagExpirationTime.setText(dd);
+                    }
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

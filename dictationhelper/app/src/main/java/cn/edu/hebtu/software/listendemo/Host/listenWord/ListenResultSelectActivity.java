@@ -190,7 +190,8 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(ListenResultSelectActivity.this);
                     adBuilder.setCancelable(false);
                     adBuilder.setTitle("     本次听写成绩：");
-                    adBuilder.setMessage("            " + score * 100 + "分");
+                    int s=(int)(score*100);
+                    adBuilder.setMessage("            " + s + "分");
                     adBuilder.setPositiveButton("返回首页", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

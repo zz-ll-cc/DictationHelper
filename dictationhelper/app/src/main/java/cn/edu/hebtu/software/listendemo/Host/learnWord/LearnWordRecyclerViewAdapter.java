@@ -62,6 +62,9 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
         final MyItemViewHolder itemViewHolder = (MyItemViewHolder) viewHolder;
 
         itemViewHolder.tvWordChinese.setText(learnWords.get(i).getWchinese().toString());
+        if(learnWords.get(i).getType()==0){
+            itemViewHolder.ivImport.setVisibility(View.GONE);
+        }
         itemViewHolder.tvWordEnglish.setText(learnWords.get(i).getWenglish().toString());
         itemViewHolder.tvSum.setText(learnWords.size() + "");
         itemViewHolder.tvCurrent.setText(i + 1 + "");
@@ -125,6 +128,7 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
         public TextView tvSum;
         public ImageView ivTrumpet;
         public ImageView ivAddNewWord;
+        public ImageView ivImport;
 
         public MyItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,6 +140,7 @@ public class LearnWordRecyclerViewAdapter extends RecyclerView.Adapter {
             tvSum = itemView.findViewById(R.id.tv_sum);
             ivTrumpet = itemView.findViewById(R.id.iv_trumpet);
             ivAddNewWord = itemView.findViewById(R.id.iv_addNewWord);
+            ivImport=itemView.findViewById(R.id.iv_import);
         }
     }
 

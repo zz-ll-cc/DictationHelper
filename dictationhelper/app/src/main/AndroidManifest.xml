@@ -84,9 +84,9 @@
         <activity
             android:name=".Mine.index.credit.SignActivity"
             android:theme="@style/Theme" />
-        <activity android:name=".Mine.index.cardbag.CreditBagActivity">
+        <activity android:name=".Mine.index.cardbag.CardBagActivity">
         </activity>
-        <activity android:name=".Mine.index.cardbag.CreditBagDetailActivity" />
+        <activity android:name=".Mine.index.cardbag.CardBagDetailActivity" />
     </application>
 
 </manifest>

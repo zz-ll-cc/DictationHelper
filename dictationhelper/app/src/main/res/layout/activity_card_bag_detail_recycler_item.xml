@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:layout_marginBottom="15dp"
-    android:background="@drawable/coupon1"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -35,9 +34,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:text="畅读卷"
-                    android:textColor="#FF931F"
-                    android:textSize="25sp" />
+                    android:text="人教版通券（新起点）"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tv_card_bag_item_descripe"
@@ -57,6 +55,7 @@
                     android:paddingLeft="8dp">
 
                     <TextView
+                        android:id="@+id/tv_card_bag_expiration_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="过期时间: "

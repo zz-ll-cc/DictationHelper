@@ -34,13 +34,19 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.EventInfo;
+import cn.edu.hebtu.software.listendemo.Entity.Inventory;
+import cn.edu.hebtu.software.listendemo.Entity.ItemType;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
@@ -67,6 +73,7 @@ import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class BookDetailActivity extends AppCompatActivity {
+    public static final int GET_MY_INVENTORY = 15000;
     public static final String POST_FROM_BOOK_DETAIL = "fromBookDetail";
     private static final int nowCount = 100;
     private static final int requestCount = 0;
@@ -99,6 +106,11 @@ public class BookDetailActivity extends AppCompatActivity {
     // 记录单词以及单元信息
     private BookUnitWordDBHelper dbHelper;
     private SQLiteDatabase wordDB;
+
+    //是否有卡卷可使用
+    private boolean isHaveCardBag = false;
+    private List<Inventory> inventories;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -133,15 +145,92 @@ public class BookDetailActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         String unLockList = jsonObject.get("unlockList").toString();
-                        Type type = new TypeToken<List<UnLock>>(){}.getType();
-                        unLocks = new Gson().fromJson(unLockList,type);
+                        Type type = new TypeToken<List<UnLock>>() {
+                        }.getType();
+                        unLocks = new Gson().fromJson(unLockList, type);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    user = gson.fromJson(json,User.class);
+                    user = gson.fromJson(json, User.class);
                     user.setUnLockList(unLocks);
-                    getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+                    getSharedPreferences(SP_NAME, MODE_PRIVATE).edit().putString(USER_KEEP_KEY, json).commit();
                     adapter.updateUser(user);
+                    break;
+                case GET_MY_INVENTORY:
+                    if (msg.obj != null) {
+                        Type inventoryType = new TypeToken<List<Inventory>>() {
+                        }.getType();
+                        inventories = gson.fromJson(msg.obj + "", inventoryType);
+                        //未使用
+                        List<Inventory> inventoriesNOTUSE=new ArrayList<>();
+                        //正在使用
+                        List<Inventory> inventoriesUSE=new ArrayList<>();
+                        try {
+                            for (int i = 0; i < inventories.size(); i++) {
+                                Inventory inventory = inventories.get(i);
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String time = format.format(Calendar.getInstance().getTime());
+                                Date nowDate = format.parse(time);
+                                String expendTime = inventory.getExpendTime();
+                                if (expendTime != null) {
+                                    String[] arr = expendTime.split("T");
+                                    String[] tarr = arr[1].split(".000");
+                                    String dd = arr[0] + " " + tarr[0];
+                                    Date expiryDate = format.parse(dd);
+                                    if ( inventory.getIsUsed()==0 && nowDate.getTime() < expiryDate.getTime()) {
+                                        inventoriesNOTUSE.add(inventory);
+                                    }
+//                                    if(inventory.getIsUsed()==1 && nowDate.getTime()){
+//                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+//                            if (inventories.size() > 0) {
+//                                isCardBag = true;
+//                            }
+//                            Log.e("YYYYYYYYYYYYY", inventories.toString());
+//                            if (isCardBag == true) {
+//                                for (Inventory inventory : inventories) {
+//
+//                                    ItemType itemType = inventory.getItem().getItemType();
+//                                    int bookId = itemType.getBookId();
+//                                    int bookVersionId = itemType.getBookVersionId();
+//                                    int gradeId = itemType.getGradeId();
+//                                    if (bookId == 0) {
+//                                        if (bookVersionId == 0) {
+//                                            if (gradeId == 0) {
+//                                                //解锁全部单元
+//                                            } else {
+//                                                //解锁一个年级
+//                                            }
+//                                        } else {
+//                                            //解锁一个版本
+//                                        }
+//                                    } else {
+//                                        //解锁一本书
+//                                    }
+
+
+//                                    User user = gson.fromJson(sp.getString(USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+//                                    List<UnLock> unLockList = user.getUnLockList();
+//                                    if (unLockList != null) {
+//                                        UnLock unLock = new UnLock();
+//                                        unLock.setUserId();
+//                                        unLock.setUnitId();
+//                                        unLock.setVersion();
+//                                        unLockList.add(unLock);
+//                                    } else {
+//                                        unLockList = new ArrayList<>();
+//                                    }
+//                    }
+//            }
+
+
+                    }
                     break;
             }
         }
@@ -184,7 +273,6 @@ public class BookDetailActivity extends AppCompatActivity {
             wordDB.insert(TBL_WORD, null, cv);
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,6 +419,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     break;
             }
         }
+
     }
 
     private List<Word> getDataFromLocal(Unit unit) {
@@ -369,8 +458,9 @@ public class BookDetailActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(userStr);
             String unLockList = jsonObject.get("unlockList").toString();
-            Type type = new TypeToken<List<UnLock>>(){}.getType();
-            unLocks = new Gson().fromJson(unLockList,type);
+            Type type = new TypeToken<List<UnLock>>() {
+            }.getType();
+            unLocks = new Gson().fromJson(unLockList, type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -413,7 +503,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 unit.setUnid(cursor.getInt(cursor.getColumnIndex("unid")));
                 unit.setType(cursor.getInt(cursor.getColumnIndex("type")));
                 unit.setCost(cursor.getInt(cursor.getColumnIndex("cost")));
-                Log.e("untiCost",unit.getCost()+"");
+                Log.e("untiCost", unit.getCost() + "");
                 unit.setUnName(cursor.getString(cursor.getColumnIndex("unName")));
                 unit.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
                 unit.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
@@ -480,7 +570,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void checkBookDetailVersion() {
-        Log.e("bookVersion",book.getBookWordVersion()+"");
+        Log.e("bookVersion", book.getBookWordVersion() + "");
         FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("version", book.getBookWordVersion() + "").build();
         Request request = new Request.Builder().url(Constant.URL_CHECK_BOOK_DETAIL_VERSION).post(fb).build();
         Call call = client.newCall(request);
@@ -539,7 +629,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user,BookDetailActivity.this,getSupportFragmentManager());
+        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user, BookDetailActivity.this, getSupportFragmentManager());
         rvBookDetail.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);   // 默认设置垂直布局
         rvBookDetail.setLayoutManager(layoutManager);
@@ -623,6 +713,7 @@ public class BookDetailActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -630,7 +721,6 @@ public class BookDetailActivity extends AppCompatActivity {
         dbHelper.close();
         wordDB.close();
     }
-
 
     public int getListenProgress() {
         CorrectWordDBHelper currectWordDBHelper = new CorrectWordDBHelper(this, "tbl_correctWord.db", 1);
@@ -657,6 +747,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 break;
         }
     }
+
     // 更新用户信息
     private void updateUser(int userId) {
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -685,4 +776,37 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    //获取我的优惠卷
+    private void getMyInventory(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("userId", userId + "")
+                .add("pageSize", 9999 + "").build();
+        Request request = new Request.Builder().url(Constant.URL_GET_MY_INVENTORY).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("MyInventoryjson", json);
+                Message message = new Message();
+                message.what = GET_MY_INVENTORY;
+                message.obj = json;
+                handler.sendMessage(message);
+            }
+        });
+    }
+
 }

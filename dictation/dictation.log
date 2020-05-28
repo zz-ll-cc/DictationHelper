@@ -1,41 +1,24 @@
-2020-05-25 08:00:34.756  INFO 10524 --- [main] com.dictation.DictationApplication       : Starting DictationApplication on LAPTOP-VJN04BRP with PID 10524 (D:\Three\github\DictationHelper\dictation\target\classes started by hp1111 in D:\Three\github\DictationHelper\dictation)
-2020-05-25 08:00:34.763  INFO 10524 --- [main] com.dictation.DictationApplication       : The following profiles are active: dev
-2020-05-25 08:00:37.058  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'backMapper' and 'com.dictation.mapper.BackMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.059  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'bookMapper' and 'com.dictation.mapper.BookMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.060  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'creditRecordMapper' and 'com.dictation.mapper.CreditRecordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.061  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'dayRecordMapper' and 'com.dictation.mapper.DayRecordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.061  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'gradeMapper' and 'com.dictation.mapper.GradeMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.062  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'inventoryMapper' and 'com.dictation.mapper.InventoryMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.062  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemMapper' and 'com.dictation.mapper.ItemMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.062  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'itemTypeMapper' and 'com.dictation.mapper.ItemTypeMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.062  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageMapper' and 'com.dictation.mapper.MessageMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.063  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'messageRecordMapper' and 'com.dictation.mapper.MessageRecordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.063  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'monthRecordMapper' and 'com.dictation.mapper.MonthRecordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.063  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'recordMapper' and 'com.dictation.mapper.RecordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.064  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unitMapper' and 'com.dictation.mapper.UnitMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.064  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'unlockMapper' and 'com.dictation.mapper.UnlockMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.064  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.dictation.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.064  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'versionMapper' and 'com.dictation.mapper.VersionMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.065  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'wordMapper' and 'com.dictation.mapper.WordMapper' mapperInterface. Bean already defined with the same name!
-2020-05-25 08:00:37.065  WARN 10524 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.dictation.mapper]' package. Please check your configuration.
-2020-05-25 08:00:37.709  INFO 10524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-05-25 08:00:37.719  INFO 10524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2020-05-25 08:00:37.851  INFO 10524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78ms. Found 0 Redis repository interfaces.
-2020-05-25 08:00:38.945  INFO 10524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-05-25 08:00:38.962  INFO 10524 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-05-25 08:00:38.963  INFO 10524 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.33]
-2020-05-25 08:00:39.450  INFO 10524 --- [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2020-05-25 08:00:39.464  INFO 10524 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-05-25 08:00:39.465  INFO 10524 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4439 ms
-2020-05-25 08:00:39.884  INFO 10524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-05-25 08:00:41.474  INFO 10524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-05-25 08:00:43.257  INFO 10524 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
-2020-05-25 08:00:43.260  INFO 10524 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncServiceExecutor'
-2020-05-25 08:00:44.121  INFO 10524 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2020-05-25 08:00:44.233  INFO 10524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-05-25 08:00:44.236  INFO 10524 --- [main] com.dictation.DictationApplication       : Started DictationApplication in 10.645 seconds (JVM running for 13.267)
-2020-05-25 08:02:42.176  INFO 10524 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-05-25 08:02:42.176  INFO 10524 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-05-25 08:02:42.184  INFO 10524 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-2020-05-25 08:02:42.662  INFO 10524 --- [http-nio-8080-exec-2] io.lettuce.core.EpollProvider            : Starting without optional epoll library
-2020-05-25 08:02:42.663  INFO 10524 --- [http-nio-8080-exec-2] io.lettuce.core.KqueueProvider           : Starting without optional kqueue library
+2020-05-28 07:59:39.633  INFO 4880 --- [lettuce-nioEventLoop-4-2] io.lettuce.core.protocol.CommandHandler  : null Unexpected exception during request: java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[na:1.8.0_181]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[na:1.8.0_181]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[na:1.8.0_181]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192) ~[na:1.8.0_181]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[na:1.8.0_181]
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:253) ~[netty-buffer-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1133) ~[netty-buffer-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:350) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:148) ~[netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:714) [netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:650) [netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:576) [netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:493) [netty-transport-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:989) [netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) [netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) [netty-common-4.1.48.Final.jar:4.1.48.Final]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_181]
+
+2020-05-28 07:59:40.136  INFO 4880 --- [lettuce-eventExecutorLoop-1-4] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was /114.55.101.120:6379
+2020-05-28 07:59:40.810  INFO 4880 --- [lettuce-nioEventLoop-4-4] i.l.core.protocol.ReconnectionHandler    : Reconnected to 114.55.101.120:6379
+2020-05-28 07:59:49.452  WARN 4880 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h17m20s834ms968µs600ns).

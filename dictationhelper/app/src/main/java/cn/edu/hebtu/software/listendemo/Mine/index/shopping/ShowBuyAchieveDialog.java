@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 
 import cn.edu.hebtu.software.listendemo.Entity.Item;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CreditBagActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CardBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 
 public class ShowBuyAchieveDialog {
@@ -89,7 +89,7 @@ public class ShowBuyAchieveDialog {
             @Override
             public void onClick(View v) {
                 // todo:跳转至卡券
-                Intent intent = new Intent(context, CreditBagActivity.class);
+                Intent intent = new Intent(context, CardBagActivity.class);
                 context.startActivity(intent);
                 dialog.dismiss();
             }

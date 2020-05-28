@@ -32,4 +32,9 @@
    <color name="blue">#a0e3fd</color>
     <color name="blue2">#d1f0f3</color>
     <color name="red1">#ff5a49</color>
+
+    <color name="coupon1">#FF931F</color>
+    <color name="coupon3">#1497DB</color>
+    <color name="coupon4">#1CFA2B</color>
+    <color name="coupon5">#D4257B</color>
 </resources>

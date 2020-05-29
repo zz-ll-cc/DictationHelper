@@ -41,13 +41,14 @@
         android:textColor="#000"
         android:textSize="10sp" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_buy_achieve_to_use"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/tv_buy_achieve_type_name_dura"
         android:layout_marginTop="5dp"
         android:background="@drawable/btn_bg_buy_to_use"
+        android:gravity="center"
         android:text="去使用"
         android:textColor="#fff"
         android:textSize="16sp" />
@@ -55,11 +56,11 @@
     <TextView
         android:id="@+id/tv_buy_achieve_close"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@id/btn_buy_achieve_to_use"
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="关闭"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginBottom="5dp"
         android:textColor="#000" />
 </RelativeLayout>

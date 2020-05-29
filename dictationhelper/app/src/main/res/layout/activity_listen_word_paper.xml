@@ -3,19 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_listen_paper"
+        style="@style/MyPaperProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:max="100"
+        android:progress="100" />
+
     <LinearLayout
         android:id="@+id/ll_paper_bottom"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
         <Button
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_selector"
             android:id="@+id/btn_next_paper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_selector"
             android:gravity="center"
             android:text="下一个"
             android:textColor="#000" />
@@ -25,14 +35,15 @@
         android:id="@+id/ll_above"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_above="@id/ll_paper_bottom"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/rv_listenword_paper"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
         </android.support.v7.widget.RecyclerView>
 

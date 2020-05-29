@@ -226,7 +226,6 @@ public class BookDetailActivity extends AppCompatActivity {
                                 }
                             }
                         } catch (Exception e) {
-                            Log.e("EEEEEEEEEEEEEEE1", e.getMessage() + "  " + e.getCause());
                             e.printStackTrace();
                         }
 

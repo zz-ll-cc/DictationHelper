@@ -313,7 +313,7 @@ public class NotifyActivity extends AppCompatActivity implements View.OnClickLis
         rcvMessage = findViewById(R.id.rcv_notify);
         smart.setEnableLoadMore(false); // 禁用获取更多
         smart.setRefreshHeader(new MaterialHeader(this));
-        rcvMessage.addItemDecoration(new SpacesItemDecoration(20));
+        rcvMessage.addItemDecoration(new SpacesItemDecoration(30));
     }
 
     @Override

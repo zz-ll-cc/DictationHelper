@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,9 +32,12 @@ public class ListenWordPaperActivity extends AppCompatActivity {
 
     private ListenWordPaperRecyclerViewAdapter listenWordPaperRecyclerViewAdapter;
     private RecyclerView recyclerViewListenWord;
-    private List<Word>  listenWordlist = new ArrayList<>();
-    private ReadManager readManager = new ReadManager(ListenWordPaperActivity.this,"");
-
+    private List<Word> listenWordlist = new ArrayList<>();
+    private ReadManager readManager = new ReadManager(ListenWordPaperActivity.this, "");
+    private ProgressBar progressBar;
+    private Button btnNext;
+    private boolean flag = true;        // 是否开始重新计数
+    private AutoChangeTask task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,19 +45,62 @@ public class ListenWordPaperActivity extends AppCompatActivity {
         setTitle("听写单词");
         initData();
         initView();
+        setAutoChange();
         StatusBarUtil.statusBarLightMode(this);
-        Log.e("ListenWordPaperActivity","start");
-
     }
 
+    private void setAutoChange() {
+        task = new AutoChangeTask();
+        task.execute();
+    }
 
+    class AutoChangeTask extends AsyncTask {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            flag = true;
+            progressBar.setMax(100);
+            progressBar.setProgress(100);
+        }
 
-    private void initView(){
-        recyclerViewListenWord=findViewById(R.id.rv_listenword_paper);
-        listenWordPaperRecyclerViewAdapter=new ListenWordPaperRecyclerViewAdapter(this,listenWordlist,R.layout.activity_listenword_paper_recycler_item);
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            for (int i = 100; i >= 0; --i) {
+                if (isCancelled())return null;  //标记为取消状态时，返回null,终止任务
+                try {
+                    Thread.sleep(50);
+                    publishProgress(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (flag = false) {
+                    break;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            super.onProgressUpdate(values);
+            int nowProgress = (int) values[0];
+            progressBar.setProgress(nowProgress);
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            flag = false;
+            btnNext.performClick();
+        }
+    }
+
+    private void initView() {
+        recyclerViewListenWord = findViewById(R.id.rv_listenword_paper);
+        listenWordPaperRecyclerViewAdapter = new ListenWordPaperRecyclerViewAdapter(this, listenWordlist, R.layout.activity_listenword_paper_recycler_item);
         recyclerViewListenWord.setAdapter(listenWordPaperRecyclerViewAdapter);
-
-        SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(ListenWordPaperActivity.this){
+        progressBar = findViewById(R.id.progress_listen_paper);
+        SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(ListenWordPaperActivity.this) {
 
             @Override
             public boolean canScrollHorizontally() {
@@ -109,32 +156,42 @@ public class ListenWordPaperActivity extends AppCompatActivity {
         });
 
 
-        final Button btnNext=findViewById(R.id.btn_next_paper);
+        btnNext = findViewById(R.id.btn_next_paper);
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("firstVisible",""+layoutManager.findFirstCompletelyVisibleItemPosition());
+
                 int positionToSave = layoutManager.findFirstVisibleItemPosition();
-//                layoutManager.smoothScrollToPosition(recyclerViewListenWord,new RecyclerView.State(),positionToSave+1);
-                Log.e("positionToSave",positionToSave+"");
-                layoutManager.scrollToPosition(positionToSave+1);
+                layoutManager.scrollToPosition(positionToSave + 1);
                 View view = recyclerViewListenWord.getChildAt(0);
-                if(positionToSave == listenWordlist.size()-2){
+                if (positionToSave == listenWordlist.size() - 2) {
                     btnNext.setText("交卷");
-                    new Thread(){
+                    // 关闭原任务，开启新任务
+                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                        task.cancel(true);
+                    }
+                    flag = false;
+                    task = new AutoChangeTask();
+                    task.execute();
+                    new Thread() {
                         @Override
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                readManager.pronounce(listenWordlist.get(positionToSave+1).getWenglish());
-                                Log.e("text","pronounce");
+                                int i = (int) (Math.random() * 10);
+                                if (i < 5) {
+                                    readManager.pronounce(listenWordlist.get(positionToSave + 1).getWenglish());
+                                } else {
+                                    readManager.pronounce(listenWordlist.get(positionToSave + 1).getWchinese());
+                                }
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
                     }.start();
-                }else if(positionToSave == listenWordlist.size()-1){
-                    Intent intent=new Intent(ListenWordPaperActivity.this,ListenResultSelectActivity.class);
+                } else if (positionToSave == listenWordlist.size() - 1) {
+                    Intent intent = new Intent(ListenWordPaperActivity.this, ListenResultSelectActivity.class);
                     intent.putExtra(Constant.DETAIL_PAPER, new Gson().toJson(listenWordlist));
                     startActivity(intent);
                     finish();
@@ -142,20 +199,31 @@ public class ListenWordPaperActivity extends AppCompatActivity {
 //                    CustomDialogListenWord dialog=new CustomDialogListenWord(listenWordlist,mineWordlist, ListenWordPaperActivity.this);
 //                    dialog.setCancelable(false);
 //                    dialog.show(getSupportFragmentManager(),"listen");
-                }else{
+                } else {
+                    // 关闭原任务，开启新任务
+                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                        task.cancel(true);
+                    }
+                    flag = false;
+                    task = new AutoChangeTask();
+                    task.execute();
                     //延迟播放
-                        new Thread(){
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(1000);
-                                    readManager.pronounce(listenWordlist.get(positionToSave+1).getWenglish());
-                                    Log.e("text","pronounce");
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                                int i = (int) (Math.random() * 10);
+                                if (i < 5) {
+                                    readManager.pronounce(listenWordlist.get(positionToSave + 1).getWenglish());
+                                } else {
+                                    readManager.pronounce(listenWordlist.get(positionToSave + 1).getWchinese());
                                 }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
-                        }.start();
+                        }
+                    }.start();
                 }
             }
         });
@@ -165,26 +233,37 @@ public class ListenWordPaperActivity extends AppCompatActivity {
 
 
     private void initData() {
-        Intent intent=getIntent();
-        String str=intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
-        if(str!=null && !str.equals("")){
-            Log.e("tt",str);
-            Type listType=new TypeToken< List<Word> >(){}.getType();
-            listenWordlist=new Gson().fromJson(str,listType);
+        Intent intent = getIntent();
+        String str = intent.getStringExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION);
+        if (str != null && !str.equals("")) {
+            Log.e("tt", str);
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+            listenWordlist = new Gson().fromJson(str, listType);
         }
-        String str1=intent.getStringExtra(Constant.RECITE_CON_DICTATION);
-        if(str1!=null && !str1.equals("")){
-            Type listType=new TypeToken<List<Word>>(){}.getType();
-            Log.e("tt",str1);
-            listenWordlist=new Gson().fromJson(str1,listType);
+        String str1 = intent.getStringExtra(Constant.RECITE_CON_DICTATION);
+        if (str1 != null && !str1.equals("")) {
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+            Log.e("tt", str1);
+            listenWordlist = new Gson().fromJson(str1, listType);
         }
-        String str2=intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_DICTATION);
-        if(str2!=null){
-            Type listType=new TypeToken< List<Word> >(){}.getType();
-            listenWordlist=new Gson().fromJson(str2,listType);
-            str1=null;
+        String str2 = intent.getStringExtra(Constant.NEWWORD_CON_LEARNWORD_DICTATION);
+        if (str2 != null) {
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+            listenWordlist = new Gson().fromJson(str2, listType);
+            str1 = null;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+            task.cancel(true);
+        }
     }
 
     @Override
@@ -199,6 +278,9 @@ public class ListenWordPaperActivity extends AppCompatActivity {
                     // 选中“确定”按钮，解除绑定
                     // 更改SharedP中数据
                     finish();
+                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                        task.cancel(true);
+                    }
                 }
             });
             adBuilder.setNegativeButton("我手滑了", new DialogInterface.OnClickListener() {

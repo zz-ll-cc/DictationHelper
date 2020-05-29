@@ -78,7 +78,7 @@ public class ShowBuyAchieveDialog {
         ImageView ivCover = dialog.findViewById(R.id.iv_buy_achieve_cover);
         TextView tvName = dialog.findViewById(R.id.tv_buy_achieve_name);
         TextView tvTypeDes = dialog.findViewById(R.id.tv_buy_achieve_type_name_dura);
-        Button btnUse = dialog.findViewById(R.id.btn_buy_achieve_to_use);
+        TextView btnUse = dialog.findViewById(R.id.btn_buy_achieve_to_use);
         TextView tvClose = dialog.findViewById(R.id.tv_buy_achieve_close);
 
         Glide.with(context).load(item.getCover()).into(ivCover);

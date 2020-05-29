@@ -122,6 +122,12 @@ public class Constant {
     public static final String URL_SIGN_RETROACTIVE = BASE_URL + "user/reSignIn";
     public static final String URL_GET_CREDIT_DETAIL = BASE_URL + "user/getUserCreditRecord";
 
+    // 消息通知
+    public static final String URL_GET_UPD_NOTIFY = BASE_URL + "message/all";   // 更新/获取消息列表
+    public static final String URL_CLICK_NOTIFY_ITEM = BASE_URL + "message/readMessage";   // 点击消息
+    public static final String URL_GET_READ_RECORD = BASE_URL + "user/getUserReadRecord";   // 阅读列表
+    public static final String MESSAGE_VERSION_KEEP = "MESSAGE_VERSION";
+    public static final String MESSAGE_DB_NAME = "MESSAGE.db";
     // 积分商城
     public static final String URL_GET_SHOPPING_ITEM = BASE_URL + "item/getItems";   // 获取商品列表
     public static final String URL_GET_SHOPPING_ITEM_LEFT_IN_CACHE = BASE_URL + "item/getItemLeftInCache";   // 获取秒杀券数量

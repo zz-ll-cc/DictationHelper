@@ -24,6 +24,8 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.scwang.smartrefresh.header.DeliveryHeader;
+import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -141,7 +143,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_shopping);
         EventBus.getDefault().register(this);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.bg_shop);
+        StatusBarUtil.setStatusBarColor(this, R.color.gray);
         initDatas();
         findViews();
         marginTopStateBar();
@@ -287,19 +289,19 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         tvCard = findViewById(R.id.tv_shopping_to_card);
         rcvShop = findViewById(R.id.rcv_shopping);
         smart = findViewById(R.id.smart_shop);
-        // 模糊处理背景
-        Glide.with(this)
-                .load(R.drawable.bg_shop)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 4)))
-                // .apply(RequestOptions.bitmapTransform( new BlurTransformation(context, 20)))
-                .into(new ViewTarget<RelativeLayout, Drawable>(rlOut) {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Drawable current = resource.getCurrent();
-                        rlOut.setBackground(current);
-                    }
-                });
-        smart.setRefreshHeader(new BezierRadarHeader(this));
+//        // 模糊处理背景
+//        Glide.with(this)
+//                .load(R.drawable.bg_shop)
+//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 4)))
+//                // .apply(RequestOptions.bitmapTransform( new BlurTransformation(context, 20)))
+//                .into(new ViewTarget<RelativeLayout, Drawable>(rlOut) {
+//                    @Override
+//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                        Drawable current = resource.getCurrent();
+//                        rlOut.setBackground(current);
+//                    }
+//                });
+        smart.setRefreshHeader(new DeliveryHeader(this));
         smart.setRefreshFooter(new BallPulseFooter(this));
         int spanCount = 2; // 3 columns
         int spacing = 10; // 50px

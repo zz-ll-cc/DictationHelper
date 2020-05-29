@@ -195,7 +195,7 @@ public class BookDetailActivity extends AppCompatActivity {
         wordDB = dbHelper.getWritableDatabase();
         findView();
         initData();
-
+        askForAccount();
         StatusBarUtil.statusBarLightMode(this);
     }
 
@@ -559,7 +559,7 @@ public class BookDetailActivity extends AppCompatActivity {
         pbLearn.setProgress(0);
         pbListen.setMax(100);
         pbListen.setProgress(0);
-        askForAccount();
+
 
 
     }
@@ -631,6 +631,12 @@ public class BookDetailActivity extends AppCompatActivity {
         wordDB.close();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        askForAccount();
+    }
 
     public int getListenProgress() {
         CorrectWordDBHelper currectWordDBHelper = new CorrectWordDBHelper(this, "tbl_correctWord.db", 1);

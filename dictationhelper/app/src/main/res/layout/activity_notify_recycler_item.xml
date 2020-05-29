@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_message_item"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+
+        <ImageView
+            android:id="@+id/iv_notify_item_hited"
+            android:layout_width="2.5dp"
+            android:layout_height="2.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_notify_item_time"
+            android:src="@drawable/cricle" />
+
+        <TextView
+            android:id="@+id/tv_notify_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="bottom"
+            android:text="2020年4月5日"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_notify_item_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/bg_message_item">
+
+        <ImageView
+            android:id="@+id/iv_notify_item_cover"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_notify_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_notify_item_cover"
+            android:layout_marginTop="5dp"
+            android:lines="1"
+            android:maxLines="2"
+            android:paddingLeft="15dp"
+            android:text="啊你电脑四点"
+            android:textColor="#7C7C7C"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_notify_item_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_notify_item_title"
+            android:layout_marginTop="5dp"
+            android:lines="1"
+            android:maxLines="2"
+            android:paddingLeft="15dp"
+            android:text="啊你电脑四点"
+            android:textColor="#929292"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_notify_item_type_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_notify_item_subtitle"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="right"
+            android:lines="1"
+            android:maxLines="2"
+            android:paddingRight="15dp"
+            android:text="啊你电脑四点"
+            android:textColor="#0288D1"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</RelativeLayout>

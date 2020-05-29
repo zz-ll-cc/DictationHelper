@@ -26,7 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Mine.index.shopping.ShoppingActivity"></activity>
+        <activity android:name=".Mine.index.notify.NotifyDetailActivity"></activity>
+        <activity android:name=".Mine.index.notify.NotifyActivity" />
+        <activity android:name=".Mine.index.shopping.ShoppingActivity" />
         <activity android:name=".Mine.index.credit.CreditDetailActivity" />
         <activity android:name=".Host.searchWord.SearchWordActivity" />
         <activity android:name=".Login.LoginActivity" />
@@ -84,8 +86,7 @@
         <activity
             android:name=".Mine.index.credit.SignActivity"
             android:theme="@style/Theme" />
-        <activity android:name=".Mine.index.cardbag.CreditBagActivity">
-        </activity>
+        <activity android:name=".Mine.index.cardbag.CreditBagActivity" />
         <activity android:name=".Mine.index.cardbag.CreditBagDetailActivity" />
     </application>
 

@@ -83,7 +83,9 @@ dependencies {
     //进度
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     // Smart
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
+//    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.2'  //没有使用特殊Header，可以不加这行
     //Qiniu
     implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
     implementation 'com.qiniu:happy-dns:0.2.13'

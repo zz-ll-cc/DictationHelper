@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -82,7 +83,7 @@ public class CreditDetailActivity extends AppCompatActivity implements View.OnCl
         StatusBarUtil.setStatusBarColor(this, R.color.green);
         initDatas();
         findViews();
-        smart.setRefreshHeader(new BezierRadarHeader(this));
+        smart.setRefreshHeader(new MaterialHeader(this));
         smart.setRefreshFooter(new BallPulseFooter(this));
         rcvOut.addItemDecoration(new SpacesItemDecoration(10));
         marginTopStateBar();

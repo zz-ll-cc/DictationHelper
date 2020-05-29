@@ -59,6 +59,7 @@ public class NotifyActivity extends AppCompatActivity implements View.OnClickLis
     // 常量
     private static final int GET_NEW_UPD_MESSAGE = 100;
     private static final int GET_READ_LIST = 101;
+    private static final int GET_NEW_UPD_MESSAGE_FALSE = 102;
     // 控件
     private ImageView ivExit;
     private SmartRefreshLayout smart;
@@ -124,6 +125,12 @@ public class NotifyActivity extends AppCompatActivity implements View.OnClickLis
                             }
                         }
                     }
+                    adapter = new NotifyRecyclerAdapter(messageList, NotifyActivity.this, R.layout.activity_notify_recycler_item, user);
+                    rcvMessage.setAdapter(adapter);
+                    smart.finishRefresh();
+                    break;
+                case GET_NEW_UPD_MESSAGE_FALSE:
+                    getDatasFromDB();
                     adapter = new NotifyRecyclerAdapter(messageList, NotifyActivity.this, R.layout.activity_notify_recycler_item, user);
                     rcvMessage.setAdapter(adapter);
                     smart.finishRefresh();
@@ -282,6 +289,9 @@ public class NotifyActivity extends AppCompatActivity implements View.OnClickLis
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                android.os.Message message = new android.os.Message();
+                message.what = GET_NEW_UPD_MESSAGE_FALSE;
+                handler.sendMessage(message);
             }
 
             @Override

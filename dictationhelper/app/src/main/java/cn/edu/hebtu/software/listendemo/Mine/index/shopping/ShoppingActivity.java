@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -86,6 +87,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
     private static final int TYPE_REFRESH_FALSE = 104;
     private static final int TYPE_LOADMORE = 103;
     private static final int TYPE_LOADMORE_FALSE = 105;
+    private static final int GET_CACHE = 106;
     // 适配器
     private ShopRecyclerAdapter adapter;
 
@@ -133,6 +135,11 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(ShoppingActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     smart.finishRefresh();
                     break;
+                case GET_CACHE:
+                    String jsonStr = (String) msg.obj;
+//                    items.get(0).setQuantity(Integer.parseInt(jsonStr));
+//                    adapter.notifyDataSetChanged();
+                    break;
             }
         }
     };
@@ -142,8 +149,8 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
         EventBus.getDefault().register(this);
+        StatusBarUtil.setStatusBarColor(this, R.color.backgray);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this, R.color.gray);
         initDatas();
         findViews();
         marginTopStateBar();
@@ -173,7 +180,10 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String jsonStr = response.body().string();
-                    items.get(0).setLeft(Integer.parseInt(jsonStr));
+                    Message message = new Message();
+                    message.what = GET_CACHE;
+                    message.obj = jsonStr;
+                    handler.sendMessage(message);
                 }
             });
             return null;
@@ -304,7 +314,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         smart.setRefreshHeader(new DeliveryHeader(this));
         smart.setRefreshFooter(new BallPulseFooter(this));
         int spanCount = 2; // 3 columns
-        int spacing = 10; // 50px
+        int spacing = 20; // 50px
         boolean includeEdge = true;
         rcvShop.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
     }

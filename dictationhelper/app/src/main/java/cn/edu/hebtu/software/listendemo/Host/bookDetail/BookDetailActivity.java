@@ -163,6 +163,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     adapter.updateUser(user);
                     break;
                 case GET_MY_INVENTORY:
+                    setListener();
                     if (msg.obj != null) {
                         Type inventoryType = new TypeToken<List<Inventory>>() {
                         }.getType();
@@ -273,6 +274,7 @@ public class BookDetailActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -282,7 +284,7 @@ public class BookDetailActivity extends AppCompatActivity {
         wordDB = dbHelper.getWritableDatabase();
         findView();
         initData();
-        askForAccount();
+
         StatusBarUtil.statusBarLightMode(this);
     }
 
@@ -651,10 +653,6 @@ public class BookDetailActivity extends AppCompatActivity {
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collected));
         else
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
-        pbLearn.setMax(100);
-        pbLearn.setProgress(0);
-        pbListen.setMax(100);
-        pbListen.setProgress(0);
 
 
 
@@ -705,6 +703,7 @@ public class BookDetailActivity extends AppCompatActivity {
             int correct = getListenProgress();
             double result = correct * 1.0 / accout * 100;
             Log.e("1,2", "" + result);
+            pbListen.setMax(accout);
             pbListen.setProgress((int) Math.round(result));
         }
     }

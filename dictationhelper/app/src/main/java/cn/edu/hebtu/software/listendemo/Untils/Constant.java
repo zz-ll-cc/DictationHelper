@@ -22,7 +22,7 @@ public class Constant {
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
     public static final String BOOK_JSON = "";//最近读过的一本书
 
-    public static final String BASE_URL = "http://192.168.0.104:8080/";//"http://192.168.43.26:8080/";  // http://114.55.101.120:80/
+    public static final String BASE_URL = "http://114.55.101.120:80/";//"http://192.168.43.26:8080/";  // http://114.55.101.120:80/
 
     // URL 链接部分
     public static final String URL_BOOKS_FIND_ALL = BASE_URL + "book/all";   // 获取全部书的信息

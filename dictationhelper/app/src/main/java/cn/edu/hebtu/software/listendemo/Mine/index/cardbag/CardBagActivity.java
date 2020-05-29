@@ -25,10 +25,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -45,14 +45,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Inventory;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Mine.index.credit.CreditDetailActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
@@ -242,10 +240,10 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                     break;
                 case EXCHANGE_CODE:
                     etCardBagChange.setText("");
-                    Toast.makeText(context,msg.obj+"", Toast.LENGTH_SHORT).show();
-                    String result=msg.obj+"";
-                    if(result.equals("兑换码使用成功，获取畅读券一张")){
-                        getMyInventory(user.getUid(),true,TYPE_INIT);
+                    Toast.makeText(context, msg.obj + "", Toast.LENGTH_SHORT).show();
+                    String result = msg.obj + "";
+                    if (result.equals("兑换码使用成功，获取畅读券一张")) {
+                        getMyInventory(user.getUid(), true, TYPE_INIT);
                     }
                     break;
             }
@@ -299,7 +297,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
         tvCardBagChange.setOnClickListener(this);
         llNoCard = findViewById(R.id.ll_no_card);
         smart = findViewById(R.id.smart_mine_card);
-        smart.setRefreshHeader(new BezierRadarHeader(this));
+        smart.setRefreshHeader(new MaterialHeader(this));
         smart.setRefreshFooter(new BallPulseFooter(this));
     }
 
@@ -353,9 +351,9 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_card_bag_change:
                 String code = etCardBagChange.getText().toString();
-                if(code==null){
+                if (code == null) {
                     Toast.makeText(context, "兑换码为空", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     exchangeCode(1, code, user.getUid());
                 }
                 break;
@@ -421,7 +419,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
         FormBody fb = new FormBody.Builder().add("userId", userId + "")
                 .add("redeemString", redeemString + "")
                 .add("typeId", typeId + "").build();
-        Request request = new Request.Builder().url(Constant. URL_REDEEM_VERIFY).post(fb).build();
+        Request request = new Request.Builder().url(Constant.URL_REDEEM_VERIFY).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override

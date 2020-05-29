@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +58,9 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter {
         Glide.with(context).load(item.getCover()).into(holder.ivCover);
         holder.tvName.setText(item.getName());
         if (i == 0) {
-            holder.pbLeft.setMax(item.getQuantity());
-            holder.pbLeft.setProgress(item.getLeft());
-            holder.tvLeftCount.setText(item.getLeft() + "");
+            holder.pbLeft.setMax(12);
+            holder.pbLeft.setProgress(item.getQuantity());
+            holder.tvLeftCount.setText(item.getQuantity() + "");
         } else {
             holder.pbLeft.setMax(10000);
             holder.pbLeft.setProgress(item.getQuantity());
@@ -76,7 +77,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter {
                 dialog.showDialog();
             }
         });
-        if (item.getLeft() != 0 || item.getQuantity() != 0) {
+        if (item.getQuantity() != 0) {
             holder.rlBuy.setEnabled(true);
             holder.rlBuy.setBackgroundResource(R.drawable.btn_bg_shop_buy);
             holder.tvCost.setTextColor(Color.parseColor("#ffffff"));

@@ -133,7 +133,8 @@ public class MyInfoFragment extends Fragment {
         mapMessage.put("imgBg", R.drawable.my_message_border);
         mapMessage.put("img", R.drawable.message);
         mapMessage.put("name", "消息通知");
-        mapMessage.put("content", "0");
+        mapMessage.put("content", " ");
+        mapMessage.put("nameMargin",35);
 
         Map<String, Object> mapShop = new HashMap<>();
         mapShop.put("imgBg", R.drawable.my_shopping_border);

@@ -56,7 +56,8 @@ public class ListenResultActivity extends AppCompatActivity {
     private  int sum;
     private int error=0;
     private int correct=0;
-    private int correct1=0;
+    private int errorSum=0;
+    private int correctSum=0;
     private  double score;
     public Date date;
     public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
@@ -96,6 +97,7 @@ public class ListenResultActivity extends AppCompatActivity {
             successList.get(i).setIsTrue(Constant.SPELL_TRUE);
             if (mineList.get(i).getWenglish().equals(successList.get(i).getWenglish())) {
                 mineList.get(i).setIsTrue(Constant.SPELL_TRUE);
+                correctSum++;
                 Word w1=successList.get(i);
                 Cursor cursor1 =currectdatabase.query("TBL_CURRECTWORD", null, "WENGLISH=?", new String[]{w1.getWenglish()}, null, null, null);
                 Log.e("currectnum",cursor1.getCount()+"");
@@ -115,48 +117,8 @@ public class ListenResultActivity extends AppCompatActivity {
                     correct++;
                 }
 
-                Cursor cursor2 =currectsumdatabase.query("TBL_CURRECTSUM", null, "ADDTIME=?",new String[]{simpleDateFormat1.format(date)}, null, null, null);
-                Log.e("currectsumnum",cursor2.getCount()+"");
-                if(cursor2.getCount()==0) {
-                    //添加
-                    ContentValues word = new ContentValues();
-                    word.put("SUM", correct);
-                    word.put("ADDTIME", simpleDateFormat1.format(date));
-                    long row = currectsumdatabase.insert("TBL_CURRECTSUM", null, word);
-//                    Log.e("插入正确词总数的行号", row + "");
-                    correct++;
-                }
-                if(cursor2.getCount()==1){
-                    if(cursor2.moveToFirst()){
-                        int sum=cursor2.getInt(cursor2.getColumnIndex("SUM"));
-                        ContentValues word = new ContentValues();
-                        word.put("SUM", correct+sum);
-                        word.put("ADDTIME", simpleDateFormat1.format(date));
-                        currectsumdatabase.update("TBL_CURRECTSUM",word,"ADDTIME=?",new String[]{simpleDateFormat1.format(date)});
-                    }while(cursor2.moveToNext());
-                }
-
-                Cursor cursor3 =currectsumMonthdatabase.query("TBL_CURRECTSUMMONTH", null, "ADDTIME=?",new String[]{simpleDateFormat2.format(date)}, null, null, null);
-                if(cursor3.getCount()==0) {
-                    //添加
-                    ContentValues word = new ContentValues();
-                    word.put("SUM", correct1);
-                    word.put("ADDTIME", simpleDateFormat2.format(date));
-                    long row = currectsumMonthdatabase.insert("TBL_CURRECTSUMMONTH", null, word);
-                    Log.e("插入月正确词总数的行号", row + "");
-                    correct1++;
-                }
-                if(cursor3.getCount()==1){
-                    if(cursor3.moveToFirst()){
-                        int sum=cursor3.getInt(cursor3.getColumnIndex("SUM"));
-                        ContentValues word = new ContentValues();
-                        word.put("SUM", correct1+sum);
-                        word.put("ADDTIME", simpleDateFormat2.format(date));
-                        currectsumMonthdatabase.update("TBL_CURRECTSUMMONTH",word,"ADDTIME=?",new String[]{simpleDateFormat2.format(date)});
-                    }while(cursor3.moveToNext());
-                }
-
             }else{
+                errorSum++;
                 Word w=successList.get(i);
                 Cursor cursor =database .query("TBL_WRONGWORD", null, "WENGLISH=?", new String[]{w.getWenglish()}, null, null, null);
 //                Log.e("errornum",cursor.getCount()+"");
@@ -173,15 +135,54 @@ public class ListenResultActivity extends AppCompatActivity {
                     word.put("ADDTIME", simpleDateFormat.format(date));
                     long row = database.insert("TBL_WRONGWORD", null, word);
 //                    Log.e("插入错词的行号", row + "");
+                    error++;
                 }
                 mineList.get(i).setIsTrue(Constant.SPELL_FALSE);
-                error++;
             }
+        }
+        //天
+        Cursor cursor2 =currectsumdatabase.query("TBL_CURRECTSUM", null, "ADDTIME=?",new String[]{simpleDateFormat1.format(date)}, null, null, null);
+        Log.e("currectsumnum",cursor2.getCount()+"");
+        if(cursor2.getCount()==0) {
+            //添加
+            ContentValues word = new ContentValues();
+            word.put("SUM", correct);
+            word.put("ADDTIME", simpleDateFormat1.format(date));
+            long row = currectsumdatabase.insert("TBL_CURRECTSUM", null, word);
+//                    Log.e("插入正确词总数的行号", row + "");
+        }
+        if(cursor2.getCount()==1){
+            if(cursor2.moveToFirst()){
+                int sum=cursor2.getInt(cursor2.getColumnIndex("SUM"));
+                ContentValues word = new ContentValues();
+                word.put("SUM", correct+sum);
+                word.put("ADDTIME", simpleDateFormat1.format(date));
+                currectsumdatabase.update("TBL_CURRECTSUM",word,"ADDTIME=?",new String[]{simpleDateFormat1.format(date)});
+            }while(cursor2.moveToNext());
+        }
+        //月
+        Cursor cursor3 =currectsumMonthdatabase.query("TBL_CURRECTSUMMONTH", null, "ADDTIME=?",new String[]{simpleDateFormat2.format(date)}, null, null, null);
+        if(cursor3.getCount()==0) {
+            //添加
+            ContentValues word = new ContentValues();
+            word.put("SUM", correct);
+            word.put("ADDTIME", simpleDateFormat2.format(date));
+            long row = currectsumMonthdatabase.insert("TBL_CURRECTSUMMONTH", null, word);
+            Log.e("插入月正确词总数的行号", row + "");
+        }
+        if(cursor3.getCount()==1){
+            if(cursor3.moveToFirst()){
+                int sum=cursor3.getInt(cursor3.getColumnIndex("SUM"));
+                ContentValues word = new ContentValues();
+                word.put("SUM", correct+sum);
+                word.put("ADDTIME", simpleDateFormat2.format(date));
+                currectsumMonthdatabase.update("TBL_CURRECTSUMMONTH",word,"ADDTIME=?",new String[]{simpleDateFormat2.format(date)});
+            }while(cursor3.moveToNext());
         }
         //传递测试数据
         sendScore();
         final LeanTextView mText = findViewById(R.id.lean);
-        score = (sum - error) / (sum * 1.0);
+        score = (sum - errorSum) / (sum * 1.0);
         mText.setText(Html.fromHtml("<u>" + Math.round(score * 100) + "</u>"));
 //        Log.e("sum", "" + sum + "erro:" + error);
         mText.setmDegrees(20);
@@ -211,7 +212,7 @@ public class ListenResultActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
         User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         OkHttpClient okHttpClient = new OkHttpClient();
-        FormBody fb = new FormBody.Builder().add("sum", sum + "").add("error", error + "").add("right", sum - error + "").add("time", simpleDateFormat.format(date)).add("uid", user.getUid() + "").build();
+        FormBody fb = new FormBody.Builder().add("sum", sum + "").add("error", errorSum + "").add("right", correctSum + "").add("time", simpleDateFormat.format(date)).add("uid", user.getUid() + "").build();
         Request request = new Request.Builder().url(Constant.URL_SAVE_RECORD).post(fb).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

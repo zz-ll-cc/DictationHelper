@@ -238,7 +238,7 @@ public class ScrollChartView extends View {
         //绘制节点对应的原点
         for (int i = 0; i < xValue.size(); i++) {
             float x = xInit + interval * i;
-            float y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(i)) / yValue.get(yValue.size() - 1);
+            float y = yOri - yOri * (1 - 0.15f) * value.get(xValue.get(i)) / yValue.get(yValue.size() - 1);
             //绘制选中的点
             if (i == selectIndex - 1) {
                 linePaint.setStyle(Paint.Style.FILL);
@@ -305,11 +305,11 @@ public class ScrollChartView extends View {
         //绘制折线
         Path path = new Path();
         float x = xInit + interval * 0;
-        float y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(0)) / yValue.get(yValue.size() - 1);
+        float y = yOri - yOri * (1 - 0.15f) * value.get(xValue.get(0)) / yValue.get(yValue.size() - 1);
         path.moveTo(x, y);
         for (int i = 1; i < xValue.size(); i++) {
             x = xInit + interval * i;
-            y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(i)) / yValue.get(yValue.size() - 1);
+            y = yOri - yOri * (1 - 0.15f) * value.get(xValue.get(i)) / yValue.get(yValue.size() - 1);
             path.lineTo(x, y);
         }
         canvas.drawPath(path, linePaint);
@@ -332,7 +332,7 @@ public class ScrollChartView extends View {
         path.lineTo(xOri - xylinewidth / 2 + dpToPx(5), dpToPx(12));
         canvas.drawPath(path, xyPaint);
         //绘制y轴刻度
-        int yLength = (int) (yOri * (1 - 0.1f) / (yValue.size() - 1));//y轴上面空出10%,计算出y轴刻度间距
+        int yLength = (int) (yOri * (1 - 0.15f) / (yValue.size() - 1));//y轴上面空出10%,计算出y轴刻度间距
         for (int i = 0; i < yValue.size(); i++) {
             //绘制Y轴刻度
             canvas.drawLine(xOri, yOri - yLength * i + xylinewidth / 2, xOri + length, yOri - yLength * i + xylinewidth / 2, xyPaint);
@@ -497,6 +497,7 @@ public class ScrollChartView extends View {
         Log.e("tt1",xInit+"");
 
     }
+
     /**
      * 获取速度
      *

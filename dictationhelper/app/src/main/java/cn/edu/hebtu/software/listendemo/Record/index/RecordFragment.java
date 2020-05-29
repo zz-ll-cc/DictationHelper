@@ -189,7 +189,7 @@ public class RecordFragment extends Fragment {
                         select++;
                     }
                     for (int i = 0; i < 6; i++) {
-                        yValue.add(i * 60);
+                        yValue.add(i * 20);
                     }
 //                    Log.e("ttttttttttt",xlist1.toString());
 //                    Log.e("ttttttttttt",datalist1.toString());
@@ -401,7 +401,12 @@ public class RecordFragment extends Fragment {
                 String str = response.body().string();
                 Type listType = new TypeToken<List<DayRecord>>() {
                 }.getType();
-                recordList = new Gson().fromJson(str, listType);
+                List<DayRecord> recordList1 = new Gson().fromJson(str, listType);
+                if(recordList1.size()>5){
+                    recordList=recordList1.subList(recordList1.size()-5,recordList1.size());
+                }else{
+                    recordList=recordList1;
+                }
                 Message message = new Message();
                 message.what = Constant.ACCURENCY_FIVE;
                 handler.sendMessage(message);
@@ -428,7 +433,13 @@ public class RecordFragment extends Fragment {
                 String str = response.body().string();
                 Type listType = new TypeToken<List<MonthRecord>>() {
                 }.getType();
-                monthRecordList = new Gson().fromJson(str, listType);
+                List<MonthRecord> monthRecordList1 = new Gson().fromJson(str, listType);
+                if(monthRecordList1.size()>12){
+                    int i=monthRecordList1.size();
+                    monthRecordList.subList(i-12,i);
+                }else{
+                    monthRecordList=monthRecordList1;
+                }
                 Message message = new Message();
                 message.what = Constant.ACCURENCY_MONTH;
                 handler.sendMessage(message);
@@ -457,8 +468,8 @@ public class RecordFragment extends Fragment {
         }
         while (cursor2.moveToNext()) ;
         if (datalist.size() > 5) {
-            sumlist.subList(0, 5);
-            datalist.subList(0, 5);
+            sumlist.subList(datalist.size()-5, datalist.size());
+            datalist.subList(datalist.size()-5, datalist.size() );
         }
         String[] strSum = (String[]) sumlist.toArray(new String[sumlist.size()]);
         String[] strDate = (String[]) datalist.toArray(new String[datalist.size()]);
@@ -511,8 +522,8 @@ public class RecordFragment extends Fragment {
         }
         while (cursor2.moveToNext()) ;
         if (datalist.size() > 5) {
-            sumlist.subList(0, 5);
-            datalist.subList(0, 5);
+            sumlist.subList(datalist.size()-5, datalist.size());
+            datalist.subList(datalist.size()-5, datalist.size());
         }
         String[] strSum = (String[]) sumlist.toArray(new String[sumlist.size()]);
         String[] strDate = (String[]) datalist.toArray(new String[datalist.size()]);
@@ -619,7 +630,7 @@ public class RecordFragment extends Fragment {
 //        }
 
         for (int j = 0; j < 6; j++) {
-            yValue.add(j * 60);
+            yValue.add(j * 30);
         }
 
 //        ScrollChartView chartView = (ScrollChartView) findViewById(R.id.chartview);

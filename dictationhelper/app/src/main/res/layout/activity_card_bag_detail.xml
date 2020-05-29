@@ -9,8 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:background="#fff">
+        android:background="#fff"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_credit_bag_detail_exit"
@@ -37,9 +37,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="#fff"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:background="#fff">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_card_all"
@@ -93,16 +93,42 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rc_card_tag_detail"
+                <LinearLayout
+                    android:id="@+id/ll_no_card_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/no_card2"/>
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="还没有哦~"/>
+                </LinearLayout>
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/smart_detail_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rc_card_tag_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false" />
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
             </LinearLayout>

@@ -14,7 +14,7 @@
         <result property="deleted" column="deleted"/>
         <result property="purchaseTime" column="purchase_time"/>
         <result property="expiryTime" column="expiry_time"/>
-        <collection property="item" ofType="com.dictation.mall.entity.Item" column="id" select="findItemByInventory"/>
+        <collection property="item" ofType="com.dictation.mall.entity.Item" column="item_id" select="findItemByInventory"/>
     </resultMap>
 
 
@@ -32,7 +32,7 @@
         <result property="deleted" column="deleted"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <collection property="itemType" ofType="com.dictation.mall.entity.ItemType" column="id" select="findItemTypeByItem"/>
+        <collection property="itemType" ofType="com.dictation.mall.entity.ItemType" column="item_type_id" select="findItemTypeByItem"/>
     </resultMap>
 
     <resultMap id="itemTypeMap" type="com.dictation.mall.entity.ItemType">

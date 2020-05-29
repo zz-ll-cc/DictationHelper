@@ -107,7 +107,7 @@ public class InventoryServiceImpl implements InventoryService {
     public Inventory useInventory(Integer id,Integer userId) {
         Inventory inventory = inventoryMapper.selectById(id);
         Date date = new Date();
-        if(inventory.getUserId() != userId){
+        if(!inventory.getUserId().equals(userId)){
             logger.error("用户库存与用户id不匹配，传入参数为：" + id + ",userId" + userId + "，时间：" + date);
             return null;
         }

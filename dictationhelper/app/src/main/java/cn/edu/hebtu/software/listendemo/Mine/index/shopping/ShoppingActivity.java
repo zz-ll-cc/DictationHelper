@@ -47,7 +47,7 @@ import java.util.Map;
 import cn.edu.hebtu.software.listendemo.Entity.Item;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CreditBagActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CardBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BlurTransformation;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -323,24 +323,26 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showBuyResult(Map<String, Object> buyMap) {
-        String buyType = buyMap.get("buyType").toString();
-        if (buyType.equals(TYPE_BUY_TYPE_1)) {
-            Item item = (Item) buyMap.get("item");
-            // 修改user属性
-            user.setUserCredit(user.getUserCredit() - item.getPrice());
-            user.setUnLockList(unLocks);
-            sp.edit().putString(USER_KEEP_KEY, gson.toJson(user)).commit();
-            adapter.updateUser(user);
-            // 显示成功的dialog
-            ShowBuyAchieveDialog dialog = ShowBuyAchieveDialog.getDialog();
-            dialog.setContext(this);
-            dialog.setItem(item);
-            dialog.setUser(user);
-            dialog.showDialog();
-        } else {
-            Toast.makeText(this, buyType, Toast.LENGTH_SHORT).show();
+        if(buyMap.get("buyType")!=null) {
+            String buyType = buyMap.get("buyType").toString();
+            if (buyType.equals(TYPE_BUY_TYPE_1)) {
+                Item item = (Item) buyMap.get("item");
+                // 修改user属性
+                user.setUserCredit(user.getUserCredit() - item.getPrice());
+                user.setUnLockList(unLocks);
+                sp.edit().putString(USER_KEEP_KEY, gson.toJson(user)).commit();
+                adapter.updateUser(user);
+                // 显示成功的dialog
+                ShowBuyAchieveDialog dialog = ShowBuyAchieveDialog.getDialog();
+                dialog.setContext(this);
+                dialog.setItem(item);
+                dialog.setUser(user);
+                dialog.showDialog();
+            } else {
+                Toast.makeText(this, buyType, Toast.LENGTH_SHORT).show();
+            }
+            getItems(true, TYPE_INIT);     // 获取商品数据
         }
-        getItems(true, TYPE_INIT);     // 获取商品数据
     }
 
     @Override
@@ -354,7 +356,7 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.tv_shopping_to_card:
                 // 进入卡券包
-                Intent intent = new Intent(this, CreditBagActivity.class);
+                Intent intent = new Intent(this, CardBagActivity.class);
                 startActivity(intent);
                 break;
         }

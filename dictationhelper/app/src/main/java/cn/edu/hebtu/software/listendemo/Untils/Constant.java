@@ -22,7 +22,7 @@ public class Constant {
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
     public static final String BOOK_JSON = "";//最近读过的一本书
 
-    public static final String BASE_URL = "http://114.55.101.120:80/";//"http://192.168.43.26:8080/";//
+    public static final String BASE_URL = "http://192.168.0.104:8080/";//"http://192.168.43.26:8080/";  // http://114.55.101.120:80/
 
     // URL 链接部分
     public static final String URL_BOOKS_FIND_ALL = BASE_URL + "book/all";   // 获取全部书的信息
@@ -139,8 +139,10 @@ public class Constant {
     public static final String TYPE_BUY_TYPE_14 = "积分不足";
     //卡卷
     public static final String URL_GET_ITEM=BASE_URL+"item/getItems";
-
     public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
+    public static final String URL_USE_INVENTORY=BASE_URL+"inventory/useInventory";//使用库存
+    public static final String URL_REDEEM_VERIFY=BASE_URL+"/redeem/verify";
+
 
 
 }

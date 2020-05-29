@@ -34,13 +34,19 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.EventInfo;
+import cn.edu.hebtu.software.listendemo.Entity.Inventory;
+import cn.edu.hebtu.software.listendemo.Entity.ItemType;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
@@ -67,6 +73,7 @@ import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class BookDetailActivity extends AppCompatActivity {
+    public static final int GET_MY_INVENTORY = 15000;
     public static final String POST_FROM_BOOK_DETAIL = "fromBookDetail";
     private static final int nowCount = 100;
     private static final int requestCount = 0;
@@ -99,6 +106,17 @@ public class BookDetailActivity extends AppCompatActivity {
     // 记录单词以及单元信息
     private BookUnitWordDBHelper dbHelper;
     private SQLiteDatabase wordDB;
+
+    //是否有卡卷可使用
+    private boolean isUnlockALL = false;
+    private int unlockBook = -1;
+    private int unlockBookVersion = -1;
+    private int unlockGrade = -1;
+    private boolean isHaveCardBag = false;
+    private List<Inventory> inventories;
+    //未使用
+    List<Inventory> inventoriesNOTUSE = new ArrayList<>();
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -133,15 +151,85 @@ public class BookDetailActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         String unLockList = jsonObject.get("unlockList").toString();
-                        Type type = new TypeToken<List<UnLock>>(){}.getType();
-                        unLocks = new Gson().fromJson(unLockList,type);
+                        Type type = new TypeToken<List<UnLock>>() {
+                        }.getType();
+                        unLocks = new Gson().fromJson(unLockList, type);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    user = gson.fromJson(json,User.class);
+                    user = gson.fromJson(json, User.class);
                     user.setUnLockList(unLocks);
-                    getSharedPreferences(SP_NAME,MODE_PRIVATE).edit().putString(USER_KEEP_KEY,json).commit();
+                    getSharedPreferences(SP_NAME, MODE_PRIVATE).edit().putString(USER_KEEP_KEY, json).commit();
                     adapter.updateUser(user);
+                    break;
+                case GET_MY_INVENTORY:
+                    if (msg.obj != null) {
+                        Type inventoryType = new TypeToken<List<Inventory>>() {
+                        }.getType();
+                        inventories = gson.fromJson(msg.obj + "", inventoryType);
+                        try {
+                            for (int i = 0; i < inventories.size(); i++) {
+                                Inventory inventory = inventories.get(i);
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String time = format.format(Calendar.getInstance().getTime());
+                                Date nowDate = format.parse(time);
+                                String expendTime = inventory.getExpendTime();
+                                String expiryTime = inventory.getExpiryTime();
+                                if (expendTime != null) {
+                                    String[] arr = expendTime.split("T");
+                                    String[] tarr = arr[1].split(".000");
+                                    String dd = arr[0] + " " + tarr[0];
+                                    Date expendDate = format.parse(dd);
+
+                                    String[] arr1 = expiryTime.split("T");
+                                    String[] tarr1 = arr1[1].split(".000");
+                                    String dd1 = arr1[0] + " " + tarr1[0];
+                                    Date expiryDate = format.parse(dd1);
+                                    if (inventory.getItem() != null) {
+                                        ItemType itemType = inventory.getItem().getItemType();
+                                        long duration=itemType.getDurationTime();
+                                        long endtime=expendDate.getTime()+duration*1000;
+                                        String dateString = format.format(new Date(endtime));
+                                        Date endDate=format.parse(dateString);
+                                        if (inventory.getIsUsed() == 1 && nowDate.getTime() < endDate.getTime()) {
+                                            //Log.e("EEEEEEEEEEEEEEE1",itemType.toString());
+                                            if (itemType.getBookId()==null) {
+                                                if (itemType.getBookVersionId()==null) {
+                                                    if (itemType.getGradeId()== null) {
+                                                        //解锁全部单元
+                                                        isUnlockALL = true;
+                                                    } else {
+                                                        //解锁一个年级
+                                                        int gradeId = itemType.getGradeId();
+                                                        unlockGrade = gradeId;
+                                                    }
+                                                } else {
+                                                    //解锁一个版本
+                                                    int bookVersionId = itemType.getBookVersionId();
+                                                    unlockBookVersion = bookVersionId;
+                                                }
+                                            } else {
+                                                //解锁一本书
+                                                int bookId = itemType.getBookId();
+                                                unlockBook = bookId;
+                                            }
+                                        }
+                                        //Log.e("EEEEEEEEEEEEEEE1", "isUnlockALL:" + isUnlockALL + "  unlockBook:" + unlockBook + " unlockBookVersion:" + unlockBookVersion + "  unlockGrade:" + unlockGrade);
+                                        if (inventory.getIsUsed() == 0 && nowDate.getTime() < expiryDate.getTime()) {
+                                            isHaveCardBag = true;
+                                            inventoriesNOTUSE.add(inventory);
+
+                                        }
+                                        initView();
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("EEEEEEEEEEEEEEE1", e.getMessage() + "  " + e.getCause());
+                            e.printStackTrace();
+                        }
+
+                    }
                     break;
             }
         }
@@ -184,7 +272,6 @@ public class BookDetailActivity extends AppCompatActivity {
             wordDB.insert(TBL_WORD, null, cv);
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,6 +418,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     break;
             }
         }
+
     }
 
     private List<Word> getDataFromLocal(Unit unit) {
@@ -369,12 +457,15 @@ public class BookDetailActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(userStr);
             String unLockList = jsonObject.get("unlockList").toString();
-            Type type = new TypeToken<List<UnLock>>(){}.getType();
-            unLocks = new Gson().fromJson(unLockList,type);
+            Type type = new TypeToken<List<UnLock>>() {
+            }.getType();
+            unLocks = new Gson().fromJson(unLockList, type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         user = gson.fromJson(userStr, User.class);
+        //获取卡卷包
+        getMyInventory(user.getUid());
         user.setUnLockList(unLocks);
         Type type = new TypeToken<Map<Integer, List<Integer>>>() {
         }.getType();
@@ -413,7 +504,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 unit.setUnid(cursor.getInt(cursor.getColumnIndex("unid")));
                 unit.setType(cursor.getInt(cursor.getColumnIndex("type")));
                 unit.setCost(cursor.getInt(cursor.getColumnIndex("cost")));
-                Log.e("untiCost",unit.getCost()+"");
+                Log.e("untiCost", unit.getCost() + "");
                 unit.setUnName(cursor.getString(cursor.getColumnIndex("unName")));
                 unit.setDeleted(cursor.getInt(cursor.getColumnIndex("deleted")));
                 unit.setVersion(cursor.getInt(cursor.getColumnIndex("version")));
@@ -480,7 +571,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void checkBookDetailVersion() {
-        Log.e("bookVersion",book.getBookWordVersion()+"");
+        Log.e("bookVersion", book.getBookWordVersion() + "");
         FormBody fb = new FormBody.Builder().add("bid", book.getBid() + "").add("version", book.getBookWordVersion() + "").build();
         Request request = new Request.Builder().url(Constant.URL_CHECK_BOOK_DETAIL_VERSION).post(fb).build();
         Call call = client.newCall(request);
@@ -539,7 +630,12 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user,BookDetailActivity.this,getSupportFragmentManager());
+        adapter = new UnitRecyclerAdapter(this, R.layout.fragment_book_detail_item, units, cbChooseAll, llRecite, llDictation, user, BookDetailActivity.this, getSupportFragmentManager(), isUnlockALL, unlockBook, unlockBookVersion, unlockGrade, book, isHaveCardBag);
+//        unlockBook = -1;
+//        unlockBookVersion = -1;
+//        unlockGrade = -1;
+//        isHaveCardBag = false;
+//        isHaveCardBag = false;
         rvBookDetail.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);   // 默认设置垂直布局
         rvBookDetail.setLayoutManager(layoutManager);
@@ -631,7 +727,6 @@ public class BookDetailActivity extends AppCompatActivity {
         wordDB.close();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -663,6 +758,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 break;
         }
     }
+
     // 更新用户信息
     private void updateUser(int userId) {
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -691,4 +787,53 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    //获取我的优惠卷
+    private void getMyInventory(int userId) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("userId", userId + "")
+                .add("pageSize", 9999 + "").build();
+        Request request = new Request.Builder().url(Constant.URL_GET_MY_INVENTORY).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            /**
+             * 未完待续
+             *
+             * @param call
+             * @param response
+             * @throws IOException
+             */
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.e("MyInventoryjson", json);
+                Message message = new Message();
+                message.what = GET_MY_INVENTORY;
+                message.obj = json;
+                handler.sendMessage(message);
+            }
+        });
+    }
+
+    /**
+     * 秒转换为指定格式的日期
+     * @param second
+     * @param patten
+     * @return
+     */
+    private String secondToDate(long second,String patten) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(second * 1000);//转换为毫秒
+        Date date = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat(patten);
+        String dateString = format.format(date);
+        return dateString;
+    }
+
+
 }

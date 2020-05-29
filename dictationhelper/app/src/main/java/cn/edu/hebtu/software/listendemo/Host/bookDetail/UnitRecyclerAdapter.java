@@ -37,7 +37,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.ChooseUnitItem;
+import cn.edu.hebtu.software.listendemo.Entity.Inventory;
+import cn.edu.hebtu.software.listendemo.Entity.ItemType;
 import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
@@ -45,6 +48,7 @@ import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.CustomDialogListenSelect;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CardBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import okhttp3.Call;
@@ -74,10 +78,18 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     private int[] colorUsed;
     private int randStart;
     private OkHttpClient client = new OkHttpClient();
+    private boolean isUnlockALL;
+    private int unlockBook;
+    private int unlockBookVersion;
+    private int unlockGrade;
+    private Book book;
+    private boolean isHaveCardBag;
+    List<Inventory> inventoriesNOTUSE=new ArrayList<>();
 
     public UnitRecyclerAdapter(Context context, int layout_item_id, List<Unit> unitList,
                                CheckBox cbChooseAll, LinearLayout llRecite, LinearLayout llDictation,
-                               User user, Activity activity, FragmentManager fragmentManager) {
+                               User user, Activity activity, FragmentManager fragmentManager,
+                               boolean isUnlockALL, int unlockBook, int unlockBookVersion, int unlockGrade, Book book, boolean isHaveCardBag) {
         this.cbChooseAll = cbChooseAll;
         this.context = context;
         this.layout_item_id = layout_item_id;
@@ -85,8 +97,14 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
         this.llRecite = llRecite;
         this.llDictation = llDictation;
         this.user = user;
-        this.activity=activity;
-        this.fragmentManager=fragmentManager;
+        this.activity = activity;
+        this.fragmentManager = fragmentManager;
+        this.isUnlockALL = isUnlockALL;
+        this.unlockBook = unlockBook;
+        this.unlockBookVersion = unlockBookVersion;
+        this.unlockGrade = unlockGrade;
+        this.book = book;
+        this.isHaveCardBag = isHaveCardBag;
         initData();
     }
 
@@ -202,9 +220,9 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
 //                    intent.putExtra(Constant.DETAIL_CON_RECITE_OR_DICTATION, new Gson().toJson(dicWord));
 //                    context.startActivity(intent);
 
-                    CustomDialogListenSelect dialog=new CustomDialogListenSelect(chooseWords,activity);
+                    CustomDialogListenSelect dialog = new CustomDialogListenSelect(chooseWords, activity);
                     dialog.setCancelable(true);
-                    dialog.show(fragmentManager,"listenSelect");
+                    dialog.show(fragmentManager, "listenSelect");
                 }
             }
         });
@@ -248,50 +266,73 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 }
             }
         }
+        Log.e("EEEEEEEEEEEEEEE1",book.toString());
+        Log.e("EEEEEEEEEEEEEEE1", "isUnlockALL:" + isUnlockALL + "  unlockBook:" + unlockBook + " unlockBookVersion:" + unlockBookVersion + "  unlockGrade:" + unlockGrade);
+
+        if (isUnlockALL == true) {
+            myViewHolder.ivClock.setVisibility(View.GONE);
+            myViewHolder.ivChoose.setVisibility(View.VISIBLE);
+            myViewHolder.tvUnitName.setVisibility(View.VISIBLE);
+            myViewHolder.ivShowAll.setVisibility(View.VISIBLE);
+            myViewHolder.rvWords.setVisibility(View.VISIBLE);
+            initUnLockItem(myViewHolder, unit, i);
+        }
+
+        if (unlockBook != -1) {
+            if (unit.getBid() == unlockBook) {
+                myViewHolder.ivClock.setVisibility(View.GONE);
+                myViewHolder.ivChoose.setVisibility(View.VISIBLE);
+                myViewHolder.tvUnitName.setVisibility(View.VISIBLE);
+                myViewHolder.ivShowAll.setVisibility(View.VISIBLE);
+                myViewHolder.rvWords.setVisibility(View.VISIBLE);
+                initUnLockItem(myViewHolder, unit, i);
+            }
+        }
+
+        if (unlockBookVersion != -1) {
+            if (book.getBookWordVersion() == unlockBookVersion) {
+                myViewHolder.ivClock.setVisibility(View.GONE);
+                myViewHolder.ivChoose.setVisibility(View.VISIBLE);
+                myViewHolder.tvUnitName.setVisibility(View.VISIBLE);
+                myViewHolder.ivShowAll.setVisibility(View.VISIBLE);
+                myViewHolder.rvWords.setVisibility(View.VISIBLE);
+                initUnLockItem(myViewHolder, unit, i);
+            }
+        }
+
+        if (unlockGrade != -1) {
+            if (book.getGid() == unlockGrade) {
+                myViewHolder.ivClock.setVisibility(View.GONE);
+                myViewHolder.ivChoose.setVisibility(View.VISIBLE);
+                myViewHolder.tvUnitName.setVisibility(View.VISIBLE);
+                myViewHolder.ivShowAll.setVisibility(View.VISIBLE);
+                myViewHolder.rvWords.setVisibility(View.VISIBLE);
+                initUnLockItem(myViewHolder, unit, i);
+            }
+
+        }
 
 
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         this.user = user;
         notifyDataSetChanged();
     }
-    private void initLockItem(MyViewHolder myViewHolder, Unit unit, int i){
+
+    private void initLockItem(MyViewHolder myViewHolder, Unit unit, int i) {
         myViewHolder.tvUnit.setText(unit.getUnName());
         myViewHolder.rlDetailDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (unit.getCost() <= user.getUserCredit()) {
-                    // 展示一个dialog
-                    AlertDialog.Builder adBuilder = new AlertDialog.Builder(context);
-                    adBuilder.setTitle("解锁此单元将消耗"+unit.getCost()+"积分");
-
-                    adBuilder.setPositiveButton("确认解锁", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // 选中“确定”按钮，解除绑定
-                            tryToUnLockThis(unit);
-                        }
-                    });
-                    adBuilder.setNegativeButton("我再想想", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // 选中“取消”按钮，取消界面
-
-                        }
-                    });
-                    adBuilder.create().show();
-                }
-                else{
-                    Toast.makeText(context,"积分不足，快去赚取积分吧",Toast.LENGTH_SHORT).show();
-                }
+                showSingDialog(unit);
             }
         });
     }
 
     private void tryToUnLockThis(Unit unit) {
-        FormBody fb = new FormBody.Builder().add("userId", user.getUid()+"")
-                .add("unitId", unit.getUnid()+"").build();
+        FormBody fb = new FormBody.Builder().add("userId", user.getUid() + "")
+                .add("unitId", unit.getUnid() + "").build();
         Request request = new Request.Builder().url(Constant.URL_USER_UNLOCK_UNIT).post(fb).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -303,10 +344,10 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonWords = response.body().string();
-                Map<String,Object> postMap = new HashMap<>();
-                postMap.put("type","fromUnLockUnit");
-                postMap.put("result",jsonWords);
-                postMap.put("unit",unit);
+                Map<String, Object> postMap = new HashMap<>();
+                postMap.put("type", "fromUnLockUnit");
+                postMap.put("result", jsonWords);
+                postMap.put("unit", unit);
                 if (jsonWords.equals("成功")) {
                     EventBus.getDefault().post(postMap);
                 }
@@ -451,4 +492,92 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
             this.randColor = randColor;
         }
     }
+
+    /**
+     * 单选Dialog
+     */
+    int choice;
+
+    private void showSingDialog(Unit unit) {
+        String[] items = {"使用积分", "使用优惠卷", "使用兑换码"};
+        if (isHaveCardBag = true) {
+
+        }
+        AlertDialog.Builder singleChoiceDialog = new AlertDialog.Builder(context);
+        singleChoiceDialog.setIcon(R.drawable.clocked);
+        singleChoiceDialog.setTitle("解锁单元");
+        //第二个参数是默认的选项
+        singleChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                choice = which;
+            }
+        });
+        singleChoiceDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (choice != -1) {
+                    switch (items[choice]) {
+                        case "使用积分":
+                            if (unit.getCost() <= user.getUserCredit()) {
+                                // 展示一个dialog
+                                AlertDialog.Builder adBuilder = new AlertDialog.Builder(context);
+                                adBuilder.setTitle("解锁此单元将消耗" + unit.getCost() + "积分");
+
+                                adBuilder.setPositiveButton("确认解锁", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 选中“确定”按钮，解除绑定
+                                        tryToUnLockThis(unit);
+                                    }
+                                });
+                                adBuilder.setNegativeButton("我再想想", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 选中“取消”按钮，取消界面
+
+                                    }
+                                });
+                                adBuilder.create().show();
+                            } else {
+                                Toast.makeText(context, "积分不足，快去赚取积分吧", Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case "使用优惠卷":
+//                            boolean isHave=false;
+//                            if(inventoriesNOTUSE.size()>0){
+//                                for(Inventory inventory:inventoriesNOTUSE){
+//                                    ItemType itemType=inventory.getItem().getItemType();
+//                                    int bookId = itemType.getBookId();
+//                                    int bookVersionId = itemType.getBookVersionId();
+//                                    int gradeId = itemType.getGradeId();
+//                                    if(bookId==book.getBid() ||  bookVersionId==book.getBvid() || gradeId==book.getGid() || (bookId==0 && bookVersionId==0 && gradeId==0)){
+//                                        isHave=true;
+//                                    }else{
+//                                        isHave=false;
+//                                    }
+//
+//
+//                                }
+//                            }
+                            if(isHaveCardBag==true) {
+//                            if(isHaveCardBag==true && isHave==true) {
+                                Intent intent = new Intent(context, CardBagActivity.class);
+                                context.startActivity(intent);
+                            }else{
+                                Toast.makeText(context, "没有相应优惠券，请选择其他解锁方式", Toast.LENGTH_SHORT).show();
+                                showSingDialog(unit);
+                            }
+                            break;
+                        case "使用兑换码":
+                            Intent intent1=new Intent(context,CardBagActivity.class);
+                            context.startActivity(intent1);
+                            break;
+                    }
+                }
+            }
+        });
+        singleChoiceDialog.show();
+    }
+
 }

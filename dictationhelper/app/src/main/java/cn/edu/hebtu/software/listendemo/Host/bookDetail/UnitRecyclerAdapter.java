@@ -4,18 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -25,12 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,14 +35,11 @@ import java.util.Random;
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.ChooseUnitItem;
 import cn.edu.hebtu.software.listendemo.Entity.Inventory;
-import cn.edu.hebtu.software.listendemo.Entity.ItemType;
-import cn.edu.hebtu.software.listendemo.Entity.UnLock;
 import cn.edu.hebtu.software.listendemo.Entity.Unit;
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.learnWord.LearnWordActivity;
 import cn.edu.hebtu.software.listendemo.Host.listenWord.CustomDialogListenSelect;
-import cn.edu.hebtu.software.listendemo.Host.listenWord.ListenWordActivity;
 import cn.edu.hebtu.software.listendemo.Mine.index.cardbag.CardBagActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
@@ -57,8 +49,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
 
 public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     private FragmentManager fragmentManager;
@@ -84,7 +74,7 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     private int unlockGrade;
     private Book book;
     private boolean isHaveCardBag;
-    List<Inventory> inventoriesNOTUSE=new ArrayList<>();
+    List<Inventory> inventoriesNOTUSE = new ArrayList<>();
 
     public UnitRecyclerAdapter(Context context, int layout_item_id, List<Unit> unitList,
                                CheckBox cbChooseAll, LinearLayout llRecite, LinearLayout llDictation,
@@ -232,6 +222,8 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(layout_item_id, viewGroup, false);
+        setCbChooseAllListener();
+        setStartLearnOrDictateListener();
         return new MyViewHolder(view);
     }
 
@@ -266,7 +258,7 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
                 }
             }
         }
-        Log.e("EEEEEEEEEEEEEEE1",book.toString());
+        Log.e("EEEEEEEEEEEEEEE1", book.toString());
         Log.e("EEEEEEEEEEEEEEE1", "isUnlockALL:" + isUnlockALL + "  unlockBook:" + unlockBook + " unlockBookVersion:" + unlockBookVersion + "  unlockGrade:" + unlockGrade);
 
         if (isUnlockALL == true) {
@@ -560,17 +552,17 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
 //
 //                                }
 //                            }
-                            if(isHaveCardBag==true) {
+                            if (isHaveCardBag == true) {
 //                            if(isHaveCardBag==true && isHave==true) {
                                 Intent intent = new Intent(context, CardBagActivity.class);
                                 context.startActivity(intent);
-                            }else{
+                            } else {
                                 Toast.makeText(context, "没有相应优惠券，请选择其他解锁方式", Toast.LENGTH_SHORT).show();
                                 showSingDialog(unit);
                             }
                             break;
                         case "使用兑换码":
-                            Intent intent1=new Intent(context,CardBagActivity.class);
+                            Intent intent1 = new Intent(context, CardBagActivity.class);
                             context.startActivity(intent1);
                             break;
                     }

@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.settings;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,7 +8,10 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,10 +22,14 @@ import com.google.gson.Gson;
 
 import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Login.LoginActivity;
+import cn.edu.hebtu.software.listendemo.Mine.index.notify.NotifyActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.DataCleanManager;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
+
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.DEFAULT_SLEEP_TIME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.KEEP_SLEEP_TIME;
 
 public class EidtCenterActivity extends AppCompatActivity {
     private User user;
@@ -41,6 +49,10 @@ public class EidtCenterActivity extends AppCompatActivity {
     private TextView tvCacheSize;
     private RelativeLayout rlCleanCache;
     private Button btnSafeOut;
+    private RelativeLayout rlChangeSleep;
+    private TextView tvSleepTime;
+    private int sleepTime;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +75,8 @@ public class EidtCenterActivity extends AppCompatActivity {
         } else {
             tvPwdShow.setText("修改密码");
         }
+        sleepTime = sp.getInt(KEEP_SLEEP_TIME, DEFAULT_SLEEP_TIME);
+        tvSleepTime.setText(sleepTime + "秒");
     }
 
     private void setListeners() {
@@ -73,6 +87,8 @@ public class EidtCenterActivity extends AppCompatActivity {
         rlChangeMsg.setOnClickListener(listener);
         rlChangePwd.setOnClickListener(listener);
         rlSuggest.setOnClickListener(listener);
+        rlManageMsg.setOnClickListener(listener);
+        rlChangeSleep.setOnClickListener(listener);
     }
 
     private void findViews() {
@@ -90,6 +106,8 @@ public class EidtCenterActivity extends AppCompatActivity {
         tvCacheSize = findViewById(R.id.tv_size_cache);
         rlCleanCache = findViewById(R.id.rl_edit_center_clean_cache);
         tvPwdShow = findViewById(R.id.tv_judge_have_pwd);
+        rlChangeSleep = findViewById(R.id.rl_edit_center_change_my_sleep_time);
+        tvSleepTime = findViewById(R.id.tv_edit_center_default_sleep_time);
     }
 
     private class EidtCenterListener implements View.OnClickListener {
@@ -97,6 +115,10 @@ public class EidtCenterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.rl_edit_center_manage_msg:
+                    Intent intent5 = new Intent(EidtCenterActivity.this, NotifyActivity.class);
+                    startActivity(intent5);
+                    break;
                 case R.id.rl_edit_center_back_suggest:
                     Intent intent = new Intent(EidtCenterActivity.this, FeedbackActivity.class);
                     intent.putExtra("user", user);
@@ -164,9 +186,79 @@ public class EidtCenterActivity extends AppCompatActivity {
                     });
                     adBuilder.create().show();
                     break;
-
+                case R.id.rl_edit_center_change_my_sleep_time:
+                    showBottomDialog();
+                    break;
             }
         }
+    }
+
+    private void showBottomDialog() {
+        //1、使用Dialog、设置style
+        dialog = new Dialog(this, R.style.DialogTheme);
+        //2、设置布局
+        View view = View.inflate(this, R.layout.custom_dialog_choose_sleep_time, null);
+        dialog.setContentView(view);
+
+        Window window = dialog.getWindow();
+        //设置弹出位置
+        window.setGravity(Gravity.BOTTOM);
+        //设置弹出动画
+        window.setWindowAnimations(R.style.main_menu_animStyle);
+        //设置对话框大小
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+        RelativeLayout rlEight = dialog.findViewById(R.id.rl_choose_sleep_eight);
+        RelativeLayout rlTen = dialog.findViewById(R.id.rl_choose_sleep_ten);
+        RelativeLayout rlFifteen = dialog.findViewById(R.id.rl_choose_sleep_fifteen);
+        ImageView ivEight = dialog.findViewById(R.id.iv_choose_sleep_eight);
+        ImageView ivTen = dialog.findViewById(R.id.iv_choose_sleep_ten);
+        ImageView ivFifteen = dialog.findViewById(R.id.iv_choose_sleep_fifteen);
+        switch (sleepTime){
+            case 8:
+                ivEight.setVisibility(View.VISIBLE);
+                ivTen.setVisibility(View.GONE);
+                ivFifteen.setVisibility(View.GONE);
+                break;
+            case 10:
+                ivEight.setVisibility(View.GONE);
+                ivTen.setVisibility(View.VISIBLE);
+                ivFifteen.setVisibility(View.GONE);
+                break;
+            case 15:
+                ivEight.setVisibility(View.GONE);
+                ivTen.setVisibility(View.GONE);
+                ivFifteen.setVisibility(View.VISIBLE);
+                break;
+        }
+        rlEight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSleepTime(8);
+                dialog.dismiss();
+            }
+        });
+        rlTen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSleepTime(10);
+                dialog.dismiss();
+            }
+        });
+        rlFifteen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSleepTime(15);
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+    private void changeSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
+        tvSleepTime.setText(sleepTime + "秒");
+        sp.edit().putInt(KEEP_SLEEP_TIME, sleepTime).commit();
     }
 
     //获取缓存大小

@@ -2,6 +2,7 @@ package cn.edu.hebtu.software.listendemo.Host.listenWord;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +29,10 @@ import cn.edu.hebtu.software.listendemo.Untils.ReadManager;
 import cn.edu.hebtu.software.listendemo.Untils.SmoothScrollLayoutManager;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.DEFAULT_SLEEP_TIME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.KEEP_SLEEP_TIME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
+
 public class ListenWordPaperActivity extends AppCompatActivity {
 
     private ListenWordPaperRecyclerViewAdapter listenWordPaperRecyclerViewAdapter;
@@ -38,6 +43,10 @@ public class ListenWordPaperActivity extends AppCompatActivity {
     private Button btnNext;
     private boolean flag = true;        // 是否开始重新计数
     private AutoChangeTask task;
+    private int sleepTime;
+    private SharedPreferences sp;
+    private int trueSleepTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +75,9 @@ public class ListenWordPaperActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] objects) {
             for (int i = 100; i >= 0; --i) {
-                if (isCancelled())return null;  //标记为取消状态时，返回null,终止任务
+                if (isCancelled()) return null;  //标记为取消状态时，返回null,终止任务
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(trueSleepTime);  // 50 - 10s , 100 - 15s , 30 - 8s
                     publishProgress(i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -168,7 +177,7 @@ public class ListenWordPaperActivity extends AppCompatActivity {
                 if (positionToSave == listenWordlist.size() - 2) {
                     btnNext.setText("交卷");
                     // 关闭原任务，开启新任务
-                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                    if (task.getStatus() != null && task.getStatus() == AsyncTask.Status.RUNNING) {
                         task.cancel(true);
                     }
                     flag = false;
@@ -201,7 +210,7 @@ public class ListenWordPaperActivity extends AppCompatActivity {
 //                    dialog.show(getSupportFragmentManager(),"listen");
                 } else {
                     // 关闭原任务，开启新任务
-                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                    if (task.getStatus() != null && task.getStatus() == AsyncTask.Status.RUNNING) {
                         task.cancel(true);
                     }
                     flag = false;
@@ -255,13 +264,25 @@ public class ListenWordPaperActivity extends AppCompatActivity {
             listenWordlist = new Gson().fromJson(str2, listType);
             str1 = null;
         }
-
+        sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        sleepTime = sp.getInt(KEEP_SLEEP_TIME, DEFAULT_SLEEP_TIME);
+        switch (sleepTime) {
+            case 8:
+                trueSleepTime = 30;
+                break;
+            case 10:
+                trueSleepTime = 50;
+                break;
+            case 15:
+                trueSleepTime = 100;
+                break;
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+        if (task.getStatus() != null && task.getStatus() == AsyncTask.Status.RUNNING) {
             task.cancel(true);
         }
     }
@@ -278,7 +299,7 @@ public class ListenWordPaperActivity extends AppCompatActivity {
                     // 选中“确定”按钮，解除绑定
                     // 更改SharedP中数据
                     finish();
-                    if(task.getStatus() != null && task.getStatus() ==AsyncTask.Status.RUNNING){
+                    if (task.getStatus() != null && task.getStatus() == AsyncTask.Status.RUNNING) {
                         task.cancel(true);
                     }
                 }

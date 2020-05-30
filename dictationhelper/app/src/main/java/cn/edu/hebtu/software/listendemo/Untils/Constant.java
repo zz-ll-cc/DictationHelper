@@ -21,7 +21,8 @@ public class Constant {
     public static final String AUTO_LOGIN_KEY = "autoLogin";    // 存放自动登陆 key
     public static final boolean DEFAULT_LOGIN_KEY = false;      // 自动登陆的默认值
     public static final String BOOK_JSON = "";//最近读过的一本书
-
+    public static final String KEEP_SLEEP_TIME = "SLEEP_TIME";     // 选择的一个单词的等待时间
+    public static final int DEFAULT_SLEEP_TIME = 10;                // 默认等待时间
     public static final String BASE_URL = "http://114.55.101.120:80/";//"http://192.168.43.26:8080/";  // http://114.55.101.120:80/
 
     // URL 链接部分

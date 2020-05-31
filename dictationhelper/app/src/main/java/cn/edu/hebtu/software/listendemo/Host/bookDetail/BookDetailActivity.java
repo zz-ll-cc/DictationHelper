@@ -1,6 +1,5 @@
 package cn.edu.hebtu.software.listendemo.Host.bookDetail;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -34,7 +33,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +53,7 @@ import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.LearnWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -68,9 +67,11 @@ import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_B
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_UNIT;
 import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.BOOK_UNIT_WORD_DBNAME;
+import static cn.edu.hebtu.software.listendemo.Untils.Constant.LEARN_DB_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.SP_NAME;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.URL_GET_ACCOUNT;
 import static cn.edu.hebtu.software.listendemo.Untils.Constant.USER_KEEP_KEY;
+import static cn.edu.hebtu.software.listendemo.Untils.LearnWordDBHelper.TABLE_LEARN;
 
 public class BookDetailActivity extends AppCompatActivity {
     public static final int GET_MY_INVENTORY = 15000;
@@ -106,7 +107,8 @@ public class BookDetailActivity extends AppCompatActivity {
     // 记录单词以及单元信息
     private BookUnitWordDBHelper dbHelper;
     private SQLiteDatabase wordDB;
-
+    private LearnWordDBHelper learnWordDBHelper;
+    private SQLiteDatabase learnDB;
     //是否有卡卷可使用
     private boolean isUnlockALL = false;
     private int unlockBook = -1;
@@ -188,15 +190,15 @@ public class BookDetailActivity extends AppCompatActivity {
                                     Date expiryDate = format.parse(dd1);
                                     if (inventory.getItem() != null) {
                                         ItemType itemType = inventory.getItem().getItemType();
-                                        long duration=itemType.getDurationTime();
-                                        long endtime=expendDate.getTime()+duration*1000;
+                                        long duration = itemType.getDurationTime();
+                                        long endtime = expendDate.getTime() + duration * 1000;
                                         String dateString = format.format(new Date(endtime));
-                                        Date endDate=format.parse(dateString);
+                                        Date endDate = format.parse(dateString);
                                         if (inventory.getIsUsed() == 1 && nowDate.getTime() < endDate.getTime()) {
                                             //Log.e("EEEEEEEEEEEEEEE1",itemType.toString());
-                                            if (itemType.getBookId()==null) {
-                                                if (itemType.getBookVersionId()==null) {
-                                                    if (itemType.getGradeId()== null) {
+                                            if (itemType.getBookId() == null) {
+                                                if (itemType.getBookVersionId() == null) {
+                                                    if (itemType.getGradeId() == null) {
                                                         //解锁全部单元
                                                         isUnlockALL = true;
                                                     } else {
@@ -654,7 +656,6 @@ public class BookDetailActivity extends AppCompatActivity {
             ivCollect.setImageDrawable(getResources().getDrawable(R.drawable.collect_no));
 
 
-
     }
 
     private void findView() {
@@ -704,7 +705,22 @@ public class BookDetailActivity extends AppCompatActivity {
             Log.e("1,2", "" + result);
             pbListen.setMax(accout);
             pbListen.setProgress((int) Math.round(result));
+            pbLearn.setMax(accout);
+            setPbLearnProgress();
         }
+    }
+
+    // 获取学习进度
+    private void setPbLearnProgress() {
+        if (learnWordDBHelper == null) {
+            learnWordDBHelper = new LearnWordDBHelper(this, LEARN_DB_NAME, 1);
+        }
+        if (learnDB == null) {
+            learnDB = learnWordDBHelper.getReadableDatabase();
+        }
+        Cursor cursor = learnDB.query(TABLE_LEARN, null, "BOOKID = ?", new String[]{book.getBid() + ""}, null, null, null);
+        if (null != cursor)
+            pbLearn.setProgress(cursor.getCount());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -723,6 +739,9 @@ public class BookDetailActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         dbHelper.close();
         wordDB.close();
+
+        learnWordDBHelper.close();
+        learnDB.close();
     }
 
     @Override
@@ -820,11 +839,12 @@ public class BookDetailActivity extends AppCompatActivity {
 
     /**
      * 秒转换为指定格式的日期
+     *
      * @param second
      * @param patten
      * @return
      */
-    private String secondToDate(long second,String patten) {
+    private String secondToDate(long second, String patten) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(second * 1000);//转换为毫秒
         Date date = calendar.getTime();

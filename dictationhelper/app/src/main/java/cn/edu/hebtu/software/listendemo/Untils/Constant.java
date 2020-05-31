@@ -134,16 +134,14 @@ public class Constant {
     public static final String URL_GET_SHOPPING_ITEM_LEFT_IN_CACHE = BASE_URL + "item/getItemLeftInCache";   // 获取秒杀券数量
     public static final String URL_BUY_SHOP_ITEM = BASE_URL + "item/purchase";   // 购买商品
     public static final String TYPE_BUY_TYPE_1 = "购买成功";
-    public static final String TYPE_BUY_TYPE_11 = "已经抢购过了，不能重复抢购";
-    public static final String TYPE_BUY_TYPE_12 = "库存不足，无法购买";
-    public static final String TYPE_BUY_TYPE_13 = "抢购失败";
-    public static final String TYPE_BUY_TYPE_14 = "积分不足";
+
     //卡卷
     public static final String URL_GET_ITEM=BASE_URL+"item/getItems";
     public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
     public static final String URL_USE_INVENTORY=BASE_URL+"inventory/useInventory";//使用库存
     public static final String URL_REDEEM_VERIFY=BASE_URL+"/redeem/verify";
 
-
+    // 已学单词
+    public static final String LEARN_DB_NAME = "LEARN.db";
 
 }

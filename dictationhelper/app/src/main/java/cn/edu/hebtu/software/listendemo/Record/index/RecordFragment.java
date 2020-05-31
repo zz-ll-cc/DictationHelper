@@ -3,7 +3,6 @@ package cn.edu.hebtu.software.listendemo.Record.index;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,12 +40,11 @@ import cn.edu.hebtu.software.listendemo.Untils.ChartView;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumMonthDBHelper;
+import cn.edu.hebtu.software.listendemo.Untils.CustomScrollBar;
 import cn.edu.hebtu.software.listendemo.Untils.NewWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.ScrollChartView;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
-import cn.edu.hebtu.software.listendemo.Untils.CustomScrollBar;
-import cn.edu.hebtu.software.listendemo.credit.view.Calendar;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -62,6 +60,7 @@ public class RecordFragment extends Fragment {
     private RecyclerView rvPrecision;
     private ImageView imageView;
     private CustomScrollBar csb;
+    private User user;
     //传过来图片的url
     private List<String> urlList;
     private List<Map<String, Object>> showResources = new ArrayList<>();
@@ -153,11 +152,11 @@ public class RecordFragment extends Fragment {
                     List<Integer> yValue = new ArrayList<>();
                     //折线对应的数据
                     Map<String, Integer> value = new HashMap<>();
-                    int select=0;
+                    int select = 0;
                     int month = Integer.parseInt(strX1[0]);
                     java.util.Calendar date = java.util.Calendar.getInstance();
                     int year = date.get(java.util.Calendar.YEAR);
-                    if(xlist1.size()<12) {
+                    if (xlist1.size() < 12) {
                         if (month > 1) {
                             for (int i = month + 1; i < 13; i++) {
                                 String m = null;
@@ -193,8 +192,8 @@ public class RecordFragment extends Fragment {
                     }
 //                    Log.e("ttttttttttt",xlist1.toString());
 //                    Log.e("ttttttttttt",datalist1.toString());
-                    scrollaccrencyMonthView.setValue(value, xValue, yValue,select);
-                    if(select>7) {
+                    scrollaccrencyMonthView.setValue(value, xValue, yValue, select);
+                    if (select > 7) {
                         scrollaccrencyMonthView.scroll();
                     }
                     llaccurrencyChart.removeAllViews();
@@ -225,7 +224,7 @@ public class RecordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_record, null, false);
         SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_NAME, MODE_PRIVATE);
-        User user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        user = new Gson().fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
         Constant.point = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(Constant.point);//获取屏幕分辨率
         initView(view);
@@ -380,7 +379,7 @@ public class RecordFragment extends Fragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Constant.point.y / 3 + 50);
         llaccurrencyChart.setLayoutParams(params);
         llwordChart.setLayoutParams(params);
-        csb.setText("");
+        csb.setText("你已连续学习"+user.getAccumulateSignIn()+"天，要继续保持哦");
     }
 
     private void getAccurencyFiveRecord() {
@@ -402,10 +401,10 @@ public class RecordFragment extends Fragment {
                 Type listType = new TypeToken<List<DayRecord>>() {
                 }.getType();
                 List<DayRecord> recordList1 = new Gson().fromJson(str, listType);
-                if(recordList1.size()>5){
-                    recordList=recordList1.subList(recordList1.size()-5,recordList1.size());
-                }else{
-                    recordList=recordList1;
+                if (recordList1.size() > 5) {
+                    recordList = recordList1.subList(recordList1.size() - 5, recordList1.size());
+                } else {
+                    recordList = recordList1;
                 }
                 Message message = new Message();
                 message.what = Constant.ACCURENCY_FIVE;
@@ -434,11 +433,11 @@ public class RecordFragment extends Fragment {
                 Type listType = new TypeToken<List<MonthRecord>>() {
                 }.getType();
                 List<MonthRecord> monthRecordList1 = new Gson().fromJson(str, listType);
-                if(monthRecordList1.size()>12){
-                    int i=monthRecordList1.size();
-                    monthRecordList.subList(i-12,i);
-                }else{
-                    monthRecordList=monthRecordList1;
+                if (monthRecordList1.size() > 12) {
+                    int i = monthRecordList1.size();
+                    monthRecordList.subList(i - 12, i);
+                } else {
+                    monthRecordList = monthRecordList1;
                 }
                 Message message = new Message();
                 message.what = Constant.ACCURENCY_MONTH;
@@ -455,21 +454,24 @@ public class RecordFragment extends Fragment {
         currectsumdatabase = correctSumDBHelper.getWritableDatabase();
         Cursor cursor2 = currectsumdatabase.query("TBL_CURRECTSUM", null, null, null, null, null, null);
         if (cursor2.moveToFirst()) {
-            sumlist.add(cursor2.getInt(cursor2.getColumnIndex("SUM")) + "");
-            Date date = null;
-            try {
-                date = new Date(simpleDateFormatt.parse(cursor2.getString(cursor2.getColumnIndex("ADDTIME"))).toString());
-                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
-                String sDate = simpleDateFormat1.format(date);
-                datalist.add(sDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            do {
+                sumlist.add(cursor2.getInt(cursor2.getColumnIndex("SUM")) + "");
+                Date date = null;
+                try {
+                    date = new Date(simpleDateFormatt.parse(cursor2.getString(cursor2.getColumnIndex("ADDTIME"))).toString());
+                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                    String sDate = simpleDateFormat1.format(date);
+                    String showDate = sDate.substring(5);
+                    datalist.add(showDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } while (cursor2.moveToNext());
         }
-        while (cursor2.moveToNext()) ;
+
         if (datalist.size() > 5) {
-            sumlist.subList(datalist.size()-5, datalist.size());
-            datalist.subList(datalist.size()-5, datalist.size() );
+            sumlist.subList(datalist.size() - 5, datalist.size());
+            datalist.subList(datalist.size() - 5, datalist.size());
         }
         String[] strSum = (String[]) sumlist.toArray(new String[sumlist.size()]);
         String[] strDate = (String[]) datalist.toArray(new String[datalist.size()]);
@@ -522,8 +524,8 @@ public class RecordFragment extends Fragment {
         }
         while (cursor2.moveToNext()) ;
         if (datalist.size() > 5) {
-            sumlist.subList(datalist.size()-5, datalist.size());
-            datalist.subList(datalist.size()-5, datalist.size());
+            sumlist.subList(datalist.size() - 5, datalist.size());
+            datalist.subList(datalist.size() - 5, datalist.size());
         }
         String[] strSum = (String[]) sumlist.toArray(new String[sumlist.size()]);
         String[] strDate = (String[]) datalist.toArray(new String[datalist.size()]);
@@ -549,29 +551,15 @@ public class RecordFragment extends Fragment {
         currectsumMonthdatabase = correctSumMonthDBHelper.getWritableDatabase();
         Cursor cursor2 = currectsumMonthdatabase.query("TBL_CURRECTSUMMONTH", null, null, null, null, null, null);
         if (cursor2.moveToFirst()) {
-            sumlist.add(cursor2.getInt(cursor2.getColumnIndex("SUM")) + "");
-            Date date = null;
+            do {
+                sumlist.add(cursor2.getInt(cursor2.getColumnIndex("SUM")) + "");
+                Date date = null;
 //            try {
-            String str = cursor2.getString(cursor2.getColumnIndex("ADDTIME"));
-            String[] s = str.split("-");
-//            Log.e("ssssssssssssssssss", str+ "   "+s[1]);
-//            datalist.add(s[1]);
-            datalist.add(str);
-//                date = new Date(simpleDateFormattt.parse(cursor2.getString(cursor2.getColumnIndex("ADDTIME"))).toString());
-//                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM");
-//                String sDate = simpleDateFormat1.format(date.getMonth());
-//                String sDate=null;
-//                if(date.getMonth()<10){
-//                    sDate="0"+date.getMonth();
-//                }else{
-//                    sDate=date.getMonth()+"";
-//                }
-//                datalist.add(sDate);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
+                String str = cursor2.getString(cursor2.getColumnIndex("ADDTIME"));
+                String[] s = str.split("-");
+                datalist.add(str);
+            } while (cursor2.moveToNext());
         }
-        while (cursor2.moveToNext()) ;
 //        if (datalist.size() > 5) {
 //            sumlist.subList(0, 5);
 //            datalist.subList(0, 5);
@@ -582,9 +570,9 @@ public class RecordFragment extends Fragment {
         List<Integer> yValue = new ArrayList<>();
         //折线对应的数据
         Map<String, Integer> value = new HashMap<>();
-        int select=0;
+        int select = 0;
         String[] data = (String[]) datalist.toArray(new String[datalist.size()]);
-        if(datalist.size()<12) {
+        if (datalist.size() < 12) {
             if (data[0] != null) {
                 String[] s = data[0].split("-");
                 int month = Integer.parseInt(s[1]);
@@ -634,8 +622,8 @@ public class RecordFragment extends Fragment {
         }
 
 //        ScrollChartView chartView = (ScrollChartView) findViewById(R.id.chartview);
-        scrollwordMonthView.setValue(value, xValue, yValue,select);
-        if(select>7) {
+        scrollwordMonthView.setValue(value, xValue, yValue, select);
+        if (select > 7) {
             scrollwordMonthView.scroll();
         }
         llwordChart.removeAllViews();

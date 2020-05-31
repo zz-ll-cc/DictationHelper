@@ -272,7 +272,7 @@ public class HostFragment extends Fragment {
     }
 
     private void initRecyView() {
-        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext(), sp);
+        adapter = new HostRecyclerAdapter(R.layout.fragment_host_recycler_item, res, getContext(), sp, bookDB, bookDBHelper);
         recyclerView.setAdapter(adapter);
     }
 

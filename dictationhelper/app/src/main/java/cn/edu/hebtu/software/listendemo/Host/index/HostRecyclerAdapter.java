@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,50 +23,59 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import cn.edu.hebtu.software.listendemo.Entity.Book;
 import cn.edu.hebtu.software.listendemo.Entity.User;
-import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Host.bookDetail.BookDetailActivity;
 import cn.edu.hebtu.software.listendemo.R;
+import cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
+
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_UNIT;
+import static cn.edu.hebtu.software.listendemo.Untils.BookUnitWordDBHelper.TBL_WORD;
 
 
 public class HostRecyclerAdapter extends RecyclerView.Adapter {
     private int layout_item_id;
     private List<Book> res = null;
     private List<Book> orginalRes = null;
-    private Map<Integer,List<Integer>> colMap;
+    private Map<Integer, List<Integer>> colMap;
     private Context context;
     private int bindId;
     private List<Integer> collectRes = null;
-    private SharedPreferences sp ;
+    private SharedPreferences sp;
     private Gson gson = new Gson();
     private User user;
-    public HostRecyclerAdapter(int layout_item_id, List<Book> res, Context context,SharedPreferences sp) {
+    private BookUnitWordDBHelper dbHelper;
+    private SQLiteDatabase bookDB;
+
+    public HostRecyclerAdapter(int layout_item_id, List<Book> res, Context context
+            , SharedPreferences sp, SQLiteDatabase bookDB, BookUnitWordDBHelper dbHelper) {
         this.layout_item_id = layout_item_id;
         this.res = res;
         this.context = context;
         this.orginalRes = res;
         this.sp = sp;
-        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY,Constant.DEFAULT_KEEP_USER),User.class);
+        user = gson.fromJson(sp.getString(Constant.USER_KEEP_KEY, Constant.DEFAULT_KEEP_USER), User.class);
+        this.dbHelper = dbHelper;
+        this.bookDB = bookDB;
         changeRes();
     }
 
     private void changeRes() {
-        Type type = new TypeToken<Map<Integer,List<Integer>>>() {}.getType();
+        Type type = new TypeToken<Map<Integer, List<Integer>>>() {
+        }.getType();
         colMap = gson.fromJson(sp.getString(Constant.COLLECT_KEY, Constant.DEFAULT_COLLECT_LIST), type);
         if (colMap.containsKey(user.getUid()))
             collectRes = colMap.get(user.getUid());
         else
             collectRes = new ArrayList<>();
-        Type type1 = new TypeToken<Map<Integer,Integer>>(){}.getType();
-        Map<Integer,Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY,Constant.DEFAULT_BING_MAP),type1);
+        Type type1 = new TypeToken<Map<Integer, Integer>>() {
+        }.getType();
+        Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type1);
         if (bindMap.containsKey(user.getUid()))
             bindId = bindMap.get(user.getUid());
         else
@@ -128,9 +138,9 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         View view = LayoutInflater.from(context).inflate(layout_item_id, viewGroup, false);
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
         int width = (widthPixels - 20) / 3 - 20;
-        int height = width * 8 / 5 ;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width,height);
-        layoutParams.setMargins(5,5,5,5);
+        int height = width * 8 / 5;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        layoutParams.setMargins(5, 5, 5, 5);
         view.setLayoutParams(layoutParams);
         return new MyViewHolder(view);
     }
@@ -140,7 +150,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder1 = (MyViewHolder) viewHolder;
         final Book book = res.get(i);
         viewHolder1.tvName.setText(book.getBname());
-        if (null == book.getBimgPath() || !book.getBimgPath().equals("")){
+        if (null == book.getBimgPath() || !book.getBimgPath().equals("")) {
             Glide.with(context).load(book.getBimgPath()).into(viewHolder1.ivCover);
         }
 
@@ -162,11 +172,15 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
         viewHolder1.llOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, BookDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, res.get(i));
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                if (getBookWordCount(book.getBid()) > 0) {
+                    Intent intent = new Intent(context, BookDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constant.HOST_CON_DETAIL_BOOK, res.get(i));
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else{
+                    Toast.makeText(context,"这本书是空滴～",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         viewHolder1.ivCollect.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +203,7 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                 }
                 // 2. 将新的数据放入SharedP
                 SharedPreferences.Editor editor = sp.edit();
-                colMap.put(user.getUid(),collectRes);
+                colMap.put(user.getUid(), collectRes);
                 editor.putString(Constant.COLLECT_KEY, gson.toJson(colMap));
                 editor.commit();
                 // 3. 修改显示样式
@@ -212,10 +226,10 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                         Type type = new TypeToken<Map<Integer, Integer>>() {
                         }.getType();
                         Map<Integer, Integer> bindMap = gson.fromJson(sp.getString(Constant.BIND_KEY, Constant.DEFAULT_BING_MAP), type);
-                        bindMap.put(user.getUid(),Constant.DEFAULT_BIND_ID);
+                        bindMap.put(user.getUid(), Constant.DEFAULT_BIND_ID);
 
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putString(Constant.BIND_KEY,gson.toJson(bindMap));
+                        editor.putString(Constant.BIND_KEY, gson.toJson(bindMap));
                         editor.commit();
                         // 修改显示样式
                         changeRes();
@@ -232,6 +246,11 @@ public class HostRecyclerAdapter extends RecyclerView.Adapter {
                 adBuilder.create().show();
             }
         });
+    }
+
+    private int getBookWordCount(int bookId) {
+        Cursor cursor = bookDB.query(TBL_UNIT,null,"bid = ?",new String[]{bookId+""},null,null,null);
+        return cursor.getCount();
     }
 
     @Override

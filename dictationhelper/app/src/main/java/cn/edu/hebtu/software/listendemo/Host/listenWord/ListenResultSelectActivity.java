@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +34,6 @@ import cn.edu.hebtu.software.listendemo.Entity.User;
 import cn.edu.hebtu.software.listendemo.Entity.Word;
 import cn.edu.hebtu.software.listendemo.Entity.WrongWord;
 import cn.edu.hebtu.software.listendemo.Host.index.ListenIndexActivity;
-import cn.edu.hebtu.software.listendemo.Host.listenResult.ListenResultActivity;
 import cn.edu.hebtu.software.listendemo.R;
 import cn.edu.hebtu.software.listendemo.Untils.Constant;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectSumDBHelper;
@@ -43,7 +41,6 @@ import cn.edu.hebtu.software.listendemo.Untils.CorrectSumMonthDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.CorrectWordDBHelper;
 import cn.edu.hebtu.software.listendemo.Untils.StatusBarUtil;
 import cn.edu.hebtu.software.listendemo.Untils.WrongWordDBHelper;
-import cn.edu.hebtu.software.listendemo.credit.Utils.Const;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -79,7 +76,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paper_listen_select);
         StatusBarUtil.statusBarLightMode(this);
-        StatusBarUtil.setStatusBarColor(this,R.color.bar_result_page);
+        StatusBarUtil.setStatusBarColor(this, R.color.bar_result_page);
         initView();
         initData();
         ListenResultSelectRecyclerViewAdapter listenResultSelectRecyclerViewAdapter = new ListenResultSelectRecyclerViewAdapter(this, paperlist, R.layout.activity_paper_listen_select_item, checkStatus);
@@ -102,7 +99,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     //获得本次听写正确与错误单词数
                     for (int i = 0; i < paperlist.size(); i++) {
                         if (checkStatus.get(i) == true) {
-                           correctsum++;
+                            correctsum++;
                         }
                         if (checkStatus.get(i) == false) {
                             errorsum++;
@@ -156,7 +153,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
 
                     //天
                     Cursor cursor2 = currectsumdatabase.query("TBL_CURRECTSUM", null, "ADDTIME=?", new String[]{simpleDateFormat1.format(date)}, null, null, null);
-                    Log.e("currectsumnum", cursor2.getCount() + "");
+                    Log.e("currectsumnum", cursor2.getCount() + "" + simpleDateFormat1.format(date));
                     if (cursor2.getCount() == 0) {
                         //添加
                         ContentValues word = new ContentValues();
@@ -202,7 +199,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(ListenResultSelectActivity.this);
                     adBuilder.setCancelable(false);
                     adBuilder.setTitle("     本次听写成绩：");
-                    int s=(int)(score*100);
+                    int s = (int) (score * 100);
                     adBuilder.setMessage("            " + s + "分");
                     adBuilder.setPositiveButton("返回首页", new DialogInterface.OnClickListener() {
                         @Override
@@ -219,9 +216,8 @@ public class ListenResultSelectActivity extends AppCompatActivity {
                         }
                     });
                     adBuilder.create().show();
-                }
-                else{
-                    Toast.makeText(ListenResultSelectActivity.this,"请把每个单词都标上√或×哦！",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ListenResultSelectActivity.this, "请把每个单词都标上√或×哦！", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -287,7 +283,7 @@ public class ListenResultSelectActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
             adBuilder.setTitle("是否退出本次记录");
             adBuilder.setMessage("退出后本次听写将不会生成记录");

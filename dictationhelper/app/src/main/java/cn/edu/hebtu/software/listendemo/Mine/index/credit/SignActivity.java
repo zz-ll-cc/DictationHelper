@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -184,6 +185,17 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         tvSignDayContinue = (TextView) findViewById(R.id.tv_sign_day_continue);
         tvSignDaySum = (TextView) findViewById(R.id.tv_sign_day_sum);
         themeDayView = new ThemeDayView(context, R.layout.custom_day);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            //TODO something
+            finish();
+            Intent intent1 = new Intent(context, SyllabusActivity.class);
+            startActivity(intent1);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

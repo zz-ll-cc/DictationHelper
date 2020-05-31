@@ -120,10 +120,11 @@
         <TextView
             android:id="@+id/tv_edit_center_default_sleep_time"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
+            android:textSize="16dp"
             android:text="10秒" />
     </RelativeLayout>
 

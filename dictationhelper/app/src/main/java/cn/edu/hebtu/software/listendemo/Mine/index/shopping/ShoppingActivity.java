@@ -1,5 +1,6 @@
 package cn.edu.hebtu.software.listendemo.Mine.index.shopping;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -12,9 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +76,8 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
     private TextView tvCard;
     private RecyclerView rcvShop;
     private SmartRefreshLayout smart;
+    private ImageView ivExit;
+    private ImageView ivMessage;
     // 数据源
     private List<Item> items;
     private User user;
@@ -280,6 +286,8 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
 
     private void setListeners() {
         tvCard.setOnClickListener(this::onClick);
+        ivExit.setOnClickListener(this::onClick);
+        ivMessage.setOnClickListener(this::onClick);
         smart.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -299,18 +307,8 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
         tvCard = findViewById(R.id.tv_shopping_to_card);
         rcvShop = findViewById(R.id.rcv_shopping);
         smart = findViewById(R.id.smart_shop);
-//        // 模糊处理背景
-//        Glide.with(this)
-//                .load(R.drawable.bg_shop)
-//                .apply(RequestOptions.bitmapTransform(new BlurTransformation(5, 4)))
-//                // .apply(RequestOptions.bitmapTransform( new BlurTransformation(context, 20)))
-//                .into(new ViewTarget<RelativeLayout, Drawable>(rlOut) {
-//                    @Override
-//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                        Drawable current = resource.getCurrent();
-//                        rlOut.setBackground(current);
-//                    }
-//                });
+        ivMessage = findViewById(R.id.iv_shopping_message);
+        ivExit = findViewById(R.id.iv_shopping_exit);
         smart.setRefreshHeader(new DeliveryHeader(this));
         smart.setRefreshFooter(new BallPulseFooter(this));
         int spanCount = 2; // 3 columns
@@ -369,6 +367,36 @@ public class ShoppingActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(this, CardBagActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.iv_shopping_exit:
+                finish();
+                break;
+            case R.id.iv_shopping_message:
+                // 显示商店说明
+                showMessageDialog();
+                break;
         }
+    }
+    public void showMessageDialog() {
+        //1、使用Dialog、设置style
+        Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        //2、设置布局
+        View view = View.inflate(this, R.layout.custom_dialog_shop_message, null);
+        dialog.setContentView(view);
+        dialog.setCancelable(true);
+        Window window = dialog.getWindow();
+        //设置弹出位置
+        window.setGravity(Gravity.CENTER);
+        //设置弹出动画
+        window.setWindowAnimations(R.style.shop_item_animStyle);
+        //设置对话框大小
+        window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextView tvKnow = dialog.findViewById(R.id.tv_shop_message_know);
+        tvKnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

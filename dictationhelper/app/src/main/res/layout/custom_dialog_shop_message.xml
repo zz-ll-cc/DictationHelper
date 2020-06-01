@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_bg_shop_message">
+
+    <TextView
+        android:id="@+id/tv_shop_message_title"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="商城说明"
+        android:textColor="#000"
+        android:textSize="17sp" />
+
+    <ScrollView
+        android:layout_width="250dp"
+        android:layout_height="240dp"
+        android:layout_below="@id/tv_shop_message_title"
+        android:id="@+id/sv_shop_message">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="1. 每天可兑换的奖品数量有限，请尽快兑换"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="2. 积分可通过每日签到、学习获取"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="3. 兑换奖品每天刷新时间为每日00:00"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="4. 奖品兑换后是有使用时效的，请及时使用"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="5. 卡券仅限在卡券包中使用，请注意对应项目是否已解锁"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="6. 所有积分将于每年12月31日清空，请注意消费"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="7. 此为促销活动，最终解释权在开发人员手中"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/sv_shop_message"
+        android:background="#E2E2E2"></View>
+    <TextView
+        android:id="@+id/tv_shop_message_know"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="1dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="我知道了"
+        android:textColor="#FFA000"
+        android:background="@drawable/btn_bg_shop_message"
+        android:layout_below="@id/sv_shop_message"/>
+</RelativeLayout>

@@ -140,7 +140,7 @@ public class Constant {
     public static final String URL_GET_MY_INVENTORY=BASE_URL+"inventory/getMyInventory";
     public static final String URL_USE_INVENTORY=BASE_URL+"inventory/useInventory";//使用库存
     public static final String URL_REDEEM_VERIFY=BASE_URL+"/redeem/verify";
-
+    public static final String URL_INVENTORY_TOTAL = BASE_URL + "inventory/getMyInventoryTotal";
     // 已学单词
     public static final String LEARN_DB_NAME = "LEARN.db";
 

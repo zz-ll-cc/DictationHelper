@@ -115,7 +115,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                                     inventories.add(inventoriesinit.get(i));
                                 }
                             }
-                            tvSum.setText(inventories.size() + "");
+
                             if (inventories.size() == 0) {
                                 llNoCard.setVisibility(View.VISIBLE);
                             } else {
@@ -165,7 +165,6 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                             } else {
                                 inventories.addAll(inventoriesinit2);
                             }
-                            tvSum.setText(inventories.size() + "");
                             if (inventories.size() == 0) {
                                 llNoCard.setVisibility(View.VISIBLE);
                             } else {
@@ -212,7 +211,6 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
                                     inventories.add(inventoriesinit.get(i));
                                 }
                             }
-                            tvSum.setText(inventories.size() + "");
                             if (inventories.size() == 0) {
                                 llNoCard.setVisibility(View.VISIBLE);
                             } else {
@@ -306,6 +304,7 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
         StatusBarUtil.statusBarLightMode(this);
         StatusBarUtil.setStatusBarColor(this, R.color.white);
+        initMyInventorySum();
     }
 
     @Override
@@ -360,6 +359,29 @@ public class CardBagActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    public void initMyInventorySum(){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        FormBody fb = new FormBody.Builder().add("userId", user.getUid() + "").build();
+        Request request = new Request.Builder().url(Constant.URL_INVENTORY_TOTAL).post(fb).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                EventBus.getDefault().post(json);
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setMyInventoryCount(String count){
+        tvSum.setText(count);
+    }
     //获取我的优惠卷
     private void getMyInventory(int userId, boolean isRefresh, int type) {
         if (isRefresh) {

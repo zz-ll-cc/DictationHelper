@@ -26,6 +26,14 @@
             android:textColor="#000"
             android:textSize="18sp" />
 
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:id="@+id/iv_shopping_message"
+            android:src="@drawable/shop_message"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_upd_my_pwd_title"
+            android:layout_marginLeft="5dp"/>
         <TextView
             android:id="@+id/tv_shopping_to_card"
             android:layout_width="wrap_content"

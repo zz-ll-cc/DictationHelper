@@ -259,9 +259,10 @@ public class ItemServiceImpl implements ItemService {
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR,-1);
         logger.warn("畅读券在：" + simpleDateFormat.format(calendar.getTime()) + ",卖出了：" + (10-sold) + "张");
+//        System.out.println("畅读券在：" + simpleDateFormat.format(calendar.getTime()) + ",卖出了：" + (10-sold) + "张");
 
-
-        redisUtil.set(redisUtil.createItemKey(1),10,60*60*24);
+        redisUtil.set(redisUtil.createItemKey(1),10,60*60*25);
+//        System.out.println("畅读券缓存更新成功");
         logger.warn("畅读券缓存更新成功");
 
         return true;

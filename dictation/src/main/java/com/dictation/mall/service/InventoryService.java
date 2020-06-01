@@ -27,6 +27,9 @@ public interface InventoryService {
 
     List<Inventory> findAllByUserId(Integer userId);
 
+    //查询某个用户的库存总数
+    Integer findAccountByUserId(Integer userId);
+
     //查询某个user的库存，按到期时间正序排序
     List<Inventory> findAllByUserIdOrderByExpiryTimeAsc(Integer userId,Integer pageSize,Integer pageNum);
 

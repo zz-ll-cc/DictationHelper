@@ -43,6 +43,14 @@ public class InventoryController {
     }
 
 
+
+
+    @RequestMapping("/getMyInventoryTotal")
+    public String getMyInventoryTotal(@RequestParam("userId") Integer userId){
+        return String.valueOf(inventoryService.findAccountByUserId(userId));
+    }
+
+
     //使用库存
     @RequestMapping("/useInventory")
     public String useInventory(@RequestParam("inventoryId") Integer inventoryId,@RequestParam("userId") Integer userId){

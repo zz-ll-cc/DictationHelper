@@ -87,6 +87,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public Integer findAccountByUserId(Integer userId) {
+        return inventoryMapper.selectCount(new QueryWrapper<Inventory>().eq("user_id",userId));
+    }
+
+    @Override
     public List<Inventory> findAllByUserIdOrderByExpiryTimeAsc(Integer userId, Integer pageSize, Integer pageNum) {
         QueryWrapper<Inventory> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id",userId).gt("expiry_time",new Date()).orderByAsc("expiry_time");
